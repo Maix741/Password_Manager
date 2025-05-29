@@ -50,6 +50,12 @@ def get_input(manager: ManagerCMD) -> bool:
             remove_password(manager.data_path, name)
             print(f"\"{name}\" has been removed")
 
+    elif selected_mode in ("import", "im"):
+        manager.import_passwords()
+
+    elif selected_mode in ("export", "ex"):
+        manager.export_passwords()
+
 
     elif selected_mode in ("quit", "exit", "q"):
         manager.reset_console()

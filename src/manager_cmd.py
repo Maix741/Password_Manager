@@ -20,6 +20,8 @@ from .read_password import PasswordReader
 from .create_master_pass import CreateMasterPassword
 from .validate_master_pass import ValidateMasterPasswort
 from .generate_password import gen_aes_key, gen_password, get_master_key_fragment
+from .import_passwords import ImportPasswords
+from .export_passwords import ExportPasswords
 
 
 class ManagerCMD:
@@ -182,3 +184,37 @@ class ManagerCMD:
         pyperclip.copy(password)
 
         return password
+
+    def import_passwords(self) -> None:
+        try:
+            correct, fernet_key, AES_key = self.load_keys("import_passwords")
+            if not correct: return
+
+            csv_file = input("File path for csv file: ")
+            if not csv_file or not os.path.isfile(csv_file):
+                print("Invalid file path entered!")
+                return
+
+            ImportPasswords(csv_file, self.passwords_path, (fernet_key, AES_key))
+            self.list_passwords()
+
+        except (IndexError, PermissionError, FileNotFoundError, ValueError, KeyError) as e:
+            logging.error(f"Error while importing password: {e}")
+            print("Saving unsuccessfull due to an Error")
+
+    def export_passwords(self) -> None:
+        try:
+            correct, fernet_key, AES_key = self.load_keys("export_passwords")
+            if not correct: return
+
+            save_directory = input("Folder for saving csv file(path): ")
+            if not save_directory or not os.path.isdir(save_directory):
+                print("Invalid folder path entered!")
+                return
+
+            csv_file = os.path.join(save_directory, "passwords.csv")
+            ExportPasswords(csv_file, self.passwords_path, (fernet_key, AES_key))
+
+        except (IndexError, PermissionError, FileNotFoundError, ValueError, KeyError) as e:
+            logging.error(f"Error while exporting password: {e}")
+            print("Exporting unsuccessfull due to an Error")
