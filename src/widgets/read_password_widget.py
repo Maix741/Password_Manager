@@ -59,6 +59,11 @@ class ReadPasswordWidget(QWidget):
             }
         """)
 
+        self.copy_icon: QIcon = QIcon(os.path.join(self.assets_path, "copy-icon.png"))
+        self.show_icon: QIcon = QIcon(os.path.join(self.assets_path, "show-icon.png"))
+        self.hide_icon: QIcon = QIcon(os.path.join(self.assets_path, "hide-icon.png"))
+        self.back_icon: QIcon = QIcon(os.path.join(self.assets_path, "back-arrow-icon.png"))
+
         self.init_ui()
 
         # timeout in the reading window
@@ -77,8 +82,7 @@ class ReadPasswordWidget(QWidget):
         # Row 0: password name and back button
         back_button: QPushButton = QPushButton(self)
         back_button.clicked.connect(self.return_to_list)
-        back_icon = QIcon(os.path.join(self.assets_path, "back-arrow-icon.png"))
-        back_button.setIcon(back_icon)
+        back_button.setIcon(self.back_icon)
         back_button.setIconSize(QSize(50, 50))  # Adjust the size here
         grid_layout.addWidget(back_button, 0, 0, alignment=Qt.AlignLeft)
 
@@ -105,7 +109,7 @@ class ReadPasswordWidget(QWidget):
         grid_layout.addWidget(self.username_edit, 2, 1)
 
         self.copy_username_button = QPushButton()
-        self.copy_username_button.setIcon(QIcon(os.path.join(self.assets_path, "copy-icon.png")))  # Replace with your icon path
+        self.copy_username_button.setIcon(self.copy_icon)
         self.copy_username_button.setToolTip("copy username")
         self.copy_username_button.clicked.connect(self.copy_username)
         grid_layout.addWidget(self.copy_username_button, 2, 2)
@@ -123,13 +127,13 @@ class ReadPasswordWidget(QWidget):
         grid_layout.addWidget(self.password_edit, 3, 1)
 
         self.show_password_button = QPushButton()
-        self.show_password_button.setIcon(QIcon(os.path.join(self.assets_path, "eye-icon.png")))  # Replace with your icon path
+        self.show_password_button.setIcon(self.show_icon)
         self.show_password_button.setToolTip("show/hide password")
         self.show_password_button.clicked.connect(self.hide_or_unhide_password)
         grid_layout.addWidget(self.show_password_button, 3, 2)
 
         self.copy_password_button = QPushButton()
-        self.copy_password_button.setIcon(QIcon(os.path.join(self.assets_path, "copy-icon.png")))  # Replace with your icon path
+        self.copy_password_button.setIcon(self.copy_icon)
         self.copy_password_button.setToolTip("copy password")
         self.copy_password_button.clicked.connect(self.copy_password)
         grid_layout.addWidget(self.copy_password_button, 3, 3)
@@ -151,7 +155,7 @@ class ReadPasswordWidget(QWidget):
         label_note = QLabel("Notes:")
         label_note.setFixedWidth(label_width)
         grid_layout.addWidget(label_note, 5, 0, alignment=Qt.AlignRight)
-        self.note_edit = QLineEdit("Dies ist ein Platz für Notizen")
+        self.note_edit = QLineEdit()
         self.note_edit.setPlaceholderText("Notes")
         self.note_edit.setText(self.password["notes"])
         self.note_edit.setDisabled(True)
@@ -177,9 +181,11 @@ class ReadPasswordWidget(QWidget):
         if self.password_edit.echoMode() != QLineEdit.Password:
             logging.debug("Hiding password")
             self.password_edit.setEchoMode(QLineEdit.Password)
+            self.show_password_button.setIcon(self.show_icon)
         elif self.password_edit.echoMode() == QLineEdit.Password:
             logging.debug("Showing password")
             self.password_edit.setEchoMode(QLineEdit.Normal)
+            self.show_password_button.setIcon(self.hide_icon)
 
     def copy_password(self) -> None:
         pyperclip.copy(self.password["password"])

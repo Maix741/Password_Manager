@@ -68,7 +68,7 @@ class SettingsWidget(QWidget):
 
         # row 0: data_path
         data_path_label: QLabel = QLabel("Data path")
-        data_path_label.setFixedWidth(label_width)
+        # data_path_label.setFixedWidth(label_width)
         grid_layout.addWidget(data_path_label, 0, 0, alignment=Qt.AlignRight)
 
         self.data_edit = QLineEdit()
@@ -80,7 +80,7 @@ class SettingsWidget(QWidget):
 
         # row 1: locale
         locale_label: QLabel = QLabel("Locale")
-        locale_label.setFixedWidth(label_width)
+        # locale_label.setFixedWidth(label_width)
         grid_layout.addWidget(locale_label, 1, 0, alignment=Qt.AlignRight)
 
         self.locale_edit = QLineEdit()
@@ -92,7 +92,7 @@ class SettingsWidget(QWidget):
 
         # row 2: use_website_as_name
         use_website_label: QLabel = QLabel("Use website as name")
-        use_website_label.setFixedWidth(label_width)
+        # use_website_label.setFixedWidth(label_width)
         grid_layout.addWidget(use_website_label, 2, 0, alignment=Qt.AlignRight)
 
         self.use_website_combo_box = QComboBox()
@@ -104,7 +104,7 @@ class SettingsWidget(QWidget):
 
         # row 3: design
         data_path_label: QLabel = QLabel("Design")
-        data_path_label.setFixedWidth(label_width)
+        # data_path_label.setFixedWidth(label_width)
         grid_layout.addWidget(data_path_label, 3, 0, alignment=Qt.AlignRight)
 
         self.data_edit = QLineEdit()

@@ -60,6 +60,10 @@ class AddPasswordWidget(QWidget):
             }
         """)
 
+        self.back_icon: QIcon = QIcon(os.path.join(self.assets_path, "back-arrow.png"))
+        self.show_icon: QIcon = QIcon(os.path.join(self.assets_path, "show-icon.png"))
+        self.hide_icon: QIcon = QIcon(os.path.join(self.assets_path, "hide-icon.png"))
+
         self.init_ui()
 
     def init_ui(self) -> None:
@@ -74,8 +78,7 @@ class AddPasswordWidget(QWidget):
         back_button: QPushButton = QPushButton("Name:", self)
         back_button.setObjectName("NameButton")
         back_button.clicked.connect(self.return_to_list)
-        back_icon = QIcon(os.path.join(self.assets_path, "back-arrow.png"))
-        back_button.setIcon(back_icon)
+        back_button.setIcon(self.back_icon)
         back_button.setIconSize(QSize(50, 50))  # Adjust the size here
         grid_layout.addWidget(back_button, 0, 0, alignment=Qt.AlignLeft)
 
@@ -110,7 +113,7 @@ class AddPasswordWidget(QWidget):
         grid_layout.addWidget(self.password_edit, 3, 1)
 
         self.show_password_button = QPushButton()
-        self.show_password_button.setIcon(QIcon(os.path.join(self.assets_path, "eye-icon.png")))  # Replace with your icon path
+        self.show_password_button.setIcon(self.show_icon)
         self.show_password_button.setToolTip("show/hide password")
         self.show_password_button.clicked.connect(self.hide_or_unhide_password)
         grid_layout.addWidget(self.show_password_button, 3, 2)
@@ -150,9 +153,11 @@ class AddPasswordWidget(QWidget):
         if self.password_edit.echoMode() != QLineEdit.Password:
             logging.debug("Hiding password")
             self.password_edit.setEchoMode(QLineEdit.Password)
+            self.show_password_button.setIcon(self.show_icon)
         elif self.password_edit.echoMode() == QLineEdit.Password:
             logging.debug("Showing password")
             self.password_edit.setEchoMode(QLineEdit.Normal)
+            self.show_password_button.setIcon(self.hide_icon)
 
     def save_password(self) -> None:
         logging.info(f"Saving password: {self.password_name}")

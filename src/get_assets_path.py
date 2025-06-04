@@ -17,10 +17,7 @@ def get_assets_path(data_path: str) -> str:
 
     if os.path.isdir(path2):
         icons: list[str] = os.listdir(path2)
-        print([icon.endswith("-icon.png") for icon in icons])
-        print(icons)
         if all([icon.endswith("-icon.png") for icon in icons]):
             return path2
 
-    print(path1, current_dir, path2)
     return ""
