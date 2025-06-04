@@ -192,7 +192,10 @@ class ManagerGUI(QMainWindow):
             decrypted_password: dict[str, str] = reader.read_password(
                 name=password_name, AES_key=AES_key[0], salt=AES_key[1], fernet_key=fernet_key, password_path=self.passwords_path
             )
-            password_card: ReadPasswordWidget = ReadPasswordWidget(password_name, decrypted_password, self.assets_path, self)
+            password_card: ReadPasswordWidget = ReadPasswordWidget(password_name, decrypted_password,
+                                                                   self.assets_path, self.passwords_path,
+                                                                   self
+                                                                   )
 
         except Exception as e:
             error = e

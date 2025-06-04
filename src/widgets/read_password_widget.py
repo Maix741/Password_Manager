@@ -15,11 +15,16 @@ from PySide6.QtGui import QIcon
 
 class ReadPasswordWidget(QWidget):
     returned: Signal = Signal(dict)
-    def __init__(self, password_name: str, password: dict[str, str], assets_path: str, parent: QWidget | None = None) -> None:
+    def __init__(self,
+                 password_name: str, password: dict[str, str],
+                 assets_path: str, passwords_path: str,
+                 parent: QWidget | None = None
+                 ) -> None:
         super().__init__(parent)
 
         logging.debug(f"Initializing: {self}")
 
+        self.passwords_path: str = passwords_path
         self.assets_path: str = assets_path
         self.password_name: str = password_name
         self.password: dict[str, str] = password
@@ -105,15 +110,16 @@ class ReadPasswordWidget(QWidget):
         self.username_edit = QLineEdit()
         self.username_edit.setPlaceholderText("Username")
         self.username_edit.setText(self.password["username"])
-        self.username_edit.setDisabled(True)
-        grid_layout.addWidget(self.username_edit, 2, 1)
+        self.username_edit.setReadOnly(True)
 
-        self.copy_username_button = QPushButton()
-        self.copy_username_button.setIcon(self.copy_icon)
-        self.copy_username_button.setToolTip("copy username")
-        self.copy_username_button.clicked.connect(self.copy_username)
-        grid_layout.addWidget(self.copy_username_button, 2, 2)
+        # Create an action with the copy icon
+        self.copy_username_action = self.username_edit.addAction(
+            self.copy_icon, QLineEdit.TrailingPosition
+        )
+        self.copy_username_action.setToolTip("copy username")
+        self.copy_username_action.triggered.connect(self.copy_username)
 
+        grid_layout.addWidget(self.username_edit, 2, 1, 1, 2)  # Span 2 columns to make space
 
         # Row 2: Password
         label_password = QLabel("Password:")
@@ -122,7 +128,7 @@ class ReadPasswordWidget(QWidget):
         self.password_edit = QLineEdit()
         self.password_edit.setPlaceholderText("Password")
         self.password_edit.setText(self.password["password"])
-        self.password_edit.setDisabled(True)
+        self.password_edit.setReadOnly(True)
         self.password_edit.setEchoMode(QLineEdit.Password)
         grid_layout.addWidget(self.password_edit, 3, 1)
 
@@ -146,7 +152,7 @@ class ReadPasswordWidget(QWidget):
         self.website_edit = QLineEdit()
         self.website_edit.setPlaceholderText("Website")
         self.website_edit.setText(self.password["website"])
-        self.website_edit.setDisabled(True)
+        self.website_edit.setReadOnly(True)
 
         grid_layout.addWidget(self.website_edit, 4, 1, 1, 2)
 
@@ -158,7 +164,7 @@ class ReadPasswordWidget(QWidget):
         self.note_edit = QLineEdit()
         self.note_edit.setPlaceholderText("Notes")
         self.note_edit.setText(self.password["notes"])
-        self.note_edit.setDisabled(True)
+        self.note_edit.setReadOnly(True)
 
         grid_layout.addWidget(self.note_edit, 5, 1, 1, 2)
 
@@ -194,8 +200,7 @@ class ReadPasswordWidget(QWidget):
         pyperclip.copy(self.password["username"])
 
     def delete_password(self) -> None:
-        data_path: str = Path(self.assets_path).parent
-        password_path: str = os.path.join(data_path, "passwords", f"{self.password_name}.json")
+        password_path: str = os.path.join(self.passwords_path, f"{self.password_name}.json")
         logging.info(f"Removing password: {self.password_name}")
         try:
             os.remove(password_path)
@@ -211,19 +216,19 @@ class ReadPasswordWidget(QWidget):
 
         self.password_edited = True
 
-        self.username_edit.setDisabled(False)
-        self.password_edit.setDisabled(False)
-        self.website_edit.setDisabled(False)
-        self.note_edit.setDisabled(False)
+        self.username_edit.setReadOnly(False)
+        self.password_edit.setReadOnly(False)
+        self.website_edit.setReadOnly(False)
+        self.note_edit.setReadOnly(False)
 
         self.edit_button.setText("Save")
 
     def save_password(self) -> None:
         logging.info(f"Saving password: {self.password_name}")
-        self.username_edit.setDisabled(True)
-        self.password_edit.setDisabled(True)
-        self.website_edit.setDisabled(True)
-        self.note_edit.setDisabled(True)
+        self.username_edit.setReadOnly(True)
+        self.password_edit.setReadOnly(True)
+        self.website_edit.setReadOnly(True)
+        self.note_edit.setReadOnly(True)
 
         self.edit_button.setText("Edit")
 
