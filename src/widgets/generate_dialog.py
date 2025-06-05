@@ -104,9 +104,9 @@ class PasswordGenerateDialog(QDialog):
 
     def generate_password(self) -> str:
         lenght: int = self.length_slider.value()
-        include_letters: bool = self.letters_checkbox
-        include_numbers: bool = self.numbers_checkbox
-        include_special: bool = self.special_checkbox
+        include_letters: bool = self.letters_checkbox.isChecked()
+        include_numbers: bool = self.numbers_checkbox.isChecked()
+        include_special: bool = self.special_checkbox.isChecked()
 
         password: str = self.generator(
             lenght,
