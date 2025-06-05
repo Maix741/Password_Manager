@@ -91,7 +91,7 @@ class ManagerGUI(QMainWindow):
         self.key_icon: QIcon = QIcon(os.path.join(self.assets_path, "key-icon.png"))
 
         self.delete_icon: QIcon = QIcon(os.path.join(self.assets_path, "delete-icon.png"))
-        self.rename_icon: QIcon = QIcon(os.path.join(self.assets_path, "rename-icon.png")) # TODO: Add Icon
+        self.rename_icon: QIcon = QIcon(os.path.join(self.assets_path, "rename-icon.png"))
 
         self.import_icon: QIcon = QIcon(os.path.join(self.assets_path, "import-icon.png"))
         self.export_icon: QIcon = QIcon(os.path.join(self.assets_path, "export-icon.png"))
