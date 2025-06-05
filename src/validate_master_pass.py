@@ -4,12 +4,10 @@ import json
 import os
 import ast
 
-from .get_data_path import get_data_path
-
 
 class ValidateMasterPasswort:
-    def __init__(self, validate_from: str) -> None:
-        self.data_path: str = get_data_path()
+    def __init__(self, data_path, validate_from: str) -> None:
+        self.data_path: str = data_path
         self.validate_from: str = validate_from
         self.hashing_method: str = "sha512"
 

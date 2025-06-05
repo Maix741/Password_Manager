@@ -2,13 +2,13 @@ import os
 
 from PySide6.QtCore import QTranslator, QCoreApplication
 
-from .get_paths import get_translations_folder
+from .get_paths import get_translations_path
 
 
 class TranslationHandler:
     def __init__(self, settings_handler) -> None:
         self.settings_handler = settings_handler
-        self.locales_folder = get_translations_folder()
+        self.locales_folder = get_translations_path()
 
         self.select_locale()
 

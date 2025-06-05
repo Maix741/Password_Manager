@@ -89,8 +89,9 @@ class SettingsWidget(QWidget):
 
         self.locale_combo_box = QComboBox()
         self.locale_combo_box.setPlaceholderText("Locale")
-        self.locale_combo_box.addItems(self.translations_handler.get_locales())
-        grid_layout.addWidget(self.locale_edit, 1, 1)
+        self.locale_combo_box.addItems(self.translations_handler.get_available_languages())
+        self.locale_combo_box.setCurrentText(self.settings_handler.get("system_locale"))
+        grid_layout.addWidget(self.locale_combo_box, 1, 1)
 
         # row 2: use_website_as_name
         use_website_label = QLabel("Use website as name")
@@ -128,7 +129,7 @@ class SettingsWidget(QWidget):
     def save_settings(self) -> None:
         logging.info("Saving settings")
         self.settings_handler.set("data_path", self.data_edit.text())
-        self.settings_handler.set("locale", self.locale_edit.text())
+        self.settings_handler.set("system_locale", self.locale_combo_box.currentText())
         self.settings_handler.set("use_website_as_name", self.use_website_combo_box.currentText() == "True")
         self.settings_handler.set("design", self.design_edit.text())
         self.settings_handler.save()

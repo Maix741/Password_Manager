@@ -22,7 +22,6 @@ from .get_website_for_password import get_website_for_password
 from .search_passwords import search_passwords
 from .setup_logging import setup_logging
 from .setup_folders import setup_folders
-from .get_data_path import get_data_path
 from .get_assets_path import get_assets_path
 from .check_setup import check_setup
 from .write_keys import write_keys
@@ -30,6 +29,7 @@ from .get_keys import get_keys
 from .add_password import AddPassword
 from .read_password import PasswordReader
 from .settings_handler import SettingsHandler
+from .translation_handler import TranslationHandler
 from .create_master_pass import CreateMasterPassword
 from .validate_master_pass import ValidateMasterPasswort
 from .import_passwords import ImportPasswords
@@ -45,11 +45,13 @@ class ManagerGUI(QMainWindow):
         self.setGeometry(100, 100, 1000, 600)
         self.setWindowTitle("Password Manager")
 
-        self.data_path: str = get_data_path()
+        self.settings_handler: SettingsHandler = SettingsHandler()
+        self.translation_handler: TranslationHandler = TranslationHandler(self.settings_handler)
+
+        self.data_path: str = self.settings_handler.get("data_path")
         self.passwords_path: str = os.path.join(self.data_path, "passwords")
         self.assets_path: str = get_assets_path(self.data_path)
         self.password_names: list[str] = []
-        self.settings_handler: SettingsHandler = SettingsHandler(self.data_path)
         self.wrong_attempts: int = 0
 
         setup_logging(os.path.join(self.data_path, "log", "password_manager.log"))
@@ -304,7 +306,7 @@ class ManagerGUI(QMainWindow):
             return self.change_to_normal_list()
 
         # create settings widget
-        settings_widget: SettingsWidget = SettingsWidget(self.settings_handler, self)
+        settings_widget: SettingsWidget = SettingsWidget(self.settings_handler, self.translation_handler, self)
 
         # Create a new layout for the settings widget
         read_card_layout = QVBoxLayout()
@@ -336,9 +338,9 @@ class ManagerGUI(QMainWindow):
         except (FileNotFoundError, PermissionError) as e:
             logging.error(f"Error while removing previous keys/passwords: {e}")
 
-        CreateMasterPassword(new_master).create()
-
         setup_folders(self.data_path)
+        CreateMasterPassword(self. data_path, new_master).create()
+
         _, _, aes_fragment = gen_aes_key(new_master)
         write_keys(self.data_path, aes_fragment)
         self.change_to_normal_list()
@@ -401,7 +403,7 @@ class ManagerGUI(QMainWindow):
             self.destroy()
 
     def validate_master_pass(self, password_to_check: str, validate_from: str) -> bool:
-        validator = ValidateMasterPasswort(validate_from)
+        validator = ValidateMasterPasswort(self.data_path, validate_from)
         return validator.validate(password_to_check)
 
     def check_setup(self) -> None:

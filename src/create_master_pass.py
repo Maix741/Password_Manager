@@ -3,13 +3,12 @@ import logging
 import json
 import os
 
-from .get_data_path import get_data_path
 from .validate_master_pass import ValidateMasterPasswort
 
 
 class CreateMasterPassword:
-    def __init__(self, entered_password: str) -> None:
-        self.data_path = get_data_path()
+    def __init__(self, data_path: str, entered_password: str) -> None:
+        self.data_path = data_path
         logging.info("Creating New Master password...")
 
         self.entered_password: str = entered_password
@@ -25,7 +24,7 @@ class CreateMasterPassword:
         return self.validate(self.entered_password)
 
     def validate(self, password_to_check: str) -> bool:
-        return ValidateMasterPasswort("test-created").validate(password_to_check)
+        return ValidateMasterPasswort(self.data_path, "test-created").validate(password_to_check)
 
     def save_master(self, master_pass: dict) -> None:
         config_file: str = os.path.join(self.data_path, "master", "master_pass.pem")
@@ -34,8 +33,7 @@ class CreateMasterPassword:
                 json.dump(master_pass, file)
 
         except (FileNotFoundError, PermissionError) as e:
-            logging.error(f"Error saving master password: {e}")
-            print(f"Error saving master password!")
+            logging.exception(f"Error saving master password: {e}")
 
     def hash_inputted(self, inputted: str, salt: str, iterations: int) -> str:
         return hashlib.pbkdf2_hmac(self.hashing_method, bytes(inputted, "utf-8"), salt, iterations)

@@ -25,7 +25,7 @@ class SettingsHandler:
         self.load()
 
     def get(self, key: str) -> str | int | bool:
-        return self.settings.get(key)
+        return self.settings.get(key, None)
 
     def set(self, key: str, value: str | int | bool) -> None:
         self.settings[key] = value
@@ -70,19 +70,15 @@ class SettingsTester:
 
     def test_all_settings(self, settings_to_test: dict[str, str | int | bool]) -> dict[str, str | int | bool]:
         try:
-            if list(settings_to_test.keys()).sort() == list(self.settings.keys()).sort():
+            if list(settings_to_test.keys()).sort() != list(self.settings.keys()).sort():
                 settings_to_test = self.settings
 
-            if not type(settings_to_test["initial_directory"]) == str:
-                settings_to_test["initial_directory"] = self.settings["initial_directory"]
+            if not type(settings_to_test["data_path"]) == str:
+                settings_to_test["data_path"] = self.settings["initial_directory"]
             if not type(settings_to_test["system_locale"]) == str:
                 settings_to_test["system_locale"] = self.settings["system_locale"]
-            if not type(settings_to_test["volume"]) == int:
-                settings_to_test["volume"] = self.settings["volume"]
-            if not type(settings_to_test["shuffle"]) == bool:
-                settings_to_test["shuffle"] = self.settings["shuffle"]
-            if not type(settings_to_test["load_saved_playlist"]) == bool:
-                settings_to_test["load_saved_playlist"] = self.settings["load_saved_playlist"]
+            if not type(settings_to_test["use_website_as_name"]) == bool:
+                settings_to_test["use_website_as_name"] = self.settings["use_website_as_name"]
             if not type(settings_to_test["design"]) == int:
                 settings_to_test["design"] = self.settings["design"]
 

@@ -110,7 +110,7 @@ class ManagerCMD:
         print("\n".join(self.password_names) + "\n")
 
     def validate_master_pass(self, password_to_check: str, validate_from: str) -> bool:
-        validator = ValidateMasterPasswort(validate_from)
+        validator = ValidateMasterPasswort(self.data_path, validate_from)
 
         return validator.validate(password_to_check)
 
@@ -156,7 +156,7 @@ class ManagerCMD:
             logging.error(f"Error while removing previous keys/passwords: {e}")
 
         new_master: str = getpass("New master Password: ").strip().replace(" ", "_")
-        CreateMasterPassword(new_master).create()
+        CreateMasterPassword(self.data_path, new_master).create()
 
         setup_folders(self.data_path)
         _, _, aes_fragment = gen_aes_key(new_master)
