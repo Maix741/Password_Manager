@@ -23,12 +23,14 @@ from .get_website_for_password import get_website_for_password
 from .search_passwords import search_passwords
 from .setup_logging import setup_logging
 from .setup_folders import setup_folders
-from .get_assets_path import get_assets_path
 from .remove_password import remove_password
 from .rename_password import rename_password
 from .check_setup import check_setup
 from .write_keys import write_keys
 from .get_keys import get_keys
+from .get_paths import (
+    get_parent_folder, get_assets_path, get_download_path
+)
 from .add_password import AddPassword
 from .read_password import PasswordReader
 from .settings_handler import SettingsHandler
@@ -481,7 +483,7 @@ class ManagerGUI(QMainWindow):
 
             csv_file, _ = QFileDialog.getOpenFileName(self,
                                                       self.tr("Select csv-file"),
-                                                      os.path.dirname(sys.argv[0]),
+                                                      get_parent_folder()[1],
                                                       "csv (*.csv);;All Files (*)"
                                                     )
             if not csv_file: return
@@ -497,11 +499,7 @@ class ManagerGUI(QMainWindow):
             correct, fernet_key, AES_key = self.load_keys("export_passwords")
             if not correct: return
 
-            if platform.system() == "Windows":
-                save_directory: str = os.path.join(os.environ.get("USERPROFILE", ""), "Download")
-            else:
-                save_directory: str = os.path.expanduser("~/Download")
-
+            save_directory = get_download_path()
             csv_file, _ = QFileDialog.getSaveFileName(self,
                                                       self.tr("Save csv-file"),
                                                       os.path.join(save_directory, "passwords.csv"),

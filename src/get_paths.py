@@ -20,3 +20,4 @@ def get_parent_folder() -> tuple[str, str]:
 from .get_translations_path import get_translations_path
 from .get_assets_path import get_assets_path
 from .get_data_path import get_data_path
+from .get_download_path import get_download_path
