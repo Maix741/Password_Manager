@@ -3,10 +3,8 @@
 # ======================================================== #
 
 from functools import partial
-import platform
 import logging
 import shutil
-import sys
 import os
 
 # Import GUI elements from PySide6
