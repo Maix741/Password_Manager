@@ -81,7 +81,7 @@ def get_password_lenght(minimum: int = 0) -> int:
     return int(number)
 
 
-def gen_password() -> str:
+def gen_password_cmd() -> str:
     logging.info("Generating new passwrd")
     min_lenght: int = get_password_lenght()
     include_letters: bool = input("Soll das Passwort Buchstaben beinhalten (y/n): ").lower().replace(" ", "") == "y"

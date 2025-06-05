@@ -19,7 +19,7 @@ from .get_data_path import get_data_path
 from .read_password import PasswordReader
 from .create_master_pass import CreateMasterPassword
 from .validate_master_pass import ValidateMasterPasswort
-from .generate_password import gen_aes_key, gen_password, get_master_key_fragment
+from .generate_password import gen_aes_key, gen_password_cmd, get_master_key_fragment
 from .import_passwords import ImportPasswords
 from .export_passwords import ExportPasswords
 
@@ -45,7 +45,7 @@ class ManagerCMD:
             username: str = input("Username: ") or "n/a"
             password: str = getpass("Password: ")
             if not password:
-                password: str = gen_password()
+                password: str = gen_password_cmd()
                 pyperclip.copy(password)
 
             website: str = input("Website: ") or "n/a"
@@ -177,7 +177,7 @@ class ManagerCMD:
         if not setup_correct: self.__init__()
 
     def gen_password(self) -> str:
-        password: str = gen_password()
+        password: str = gen_password_cmd()
         self.reset_console()
         print(f"Generated password: {password}")
         print("The password was copied to the clipboard!")
