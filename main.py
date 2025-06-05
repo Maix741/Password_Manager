@@ -1,4 +1,7 @@
-from src import *
+from src import (
+    ManagerCMD,
+    remove_password, search_passwords
+    )
 
 
 def get_input(manager: ManagerCMD) -> bool:
