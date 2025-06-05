@@ -1,7 +1,8 @@
-from pathlib import Path
-import os, sys
 import locale
 import json
+import os
+
+from .get_data_path import get_data_path
 
 
 class SettingsHandler:
@@ -11,15 +12,9 @@ class SettingsHandler:
 
         self.tester: SettingsTester = SettingsTester()
         if not data_path:
-            # Get the settings file path
-            current_dir: str = os.path.dirname(sys.argv[0])
-            if current_dir.endswith(("src", "bin")):
-                self.settings_file: str = os.path.join(Path(current_dir).parent, "config", "settings.json")
-            else: # Running from root directory
-                self.settings_file: str = os.path.join(current_dir, "config", "settings.json")
+            data_path = get_data_path()
 
-        else:
-            self.settings_file: str = os.path.join(data_path, "config", "settings.json")
+        self.settings_file: str = os.path.join(data_path, "config", "settings.json")
 
         # Default settings
         self.data_path: str = data_path
