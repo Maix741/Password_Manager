@@ -53,6 +53,9 @@ class ReadPasswordWidget(QWidget):
                 font-size: 12pt;
                 color: #333333;
             }
+            QLineEdit#websiteEdit {
+            text-decoration: underline;
+            }
             QPushButton {
                 border: none;
                 background: transparent;
@@ -83,6 +86,7 @@ class ReadPasswordWidget(QWidget):
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()
         label_width = 80
+
 
         # Row 0: password name and back button
         back_button: QPushButton = QPushButton(self)
@@ -119,12 +123,14 @@ class ReadPasswordWidget(QWidget):
         self.copy_username_action.setToolTip("copy username")
         self.copy_username_action.triggered.connect(self.copy_username)
 
-        grid_layout.addWidget(self.username_edit, 2, 1, 1, 2)  # Span 2 columns to make space
+        grid_layout.addWidget(self.username_edit, 2, 1)
+
 
         # Row 2: Password
         label_password = QLabel("Password:")
         label_password.setFixedWidth(label_width)
         grid_layout.addWidget(label_password, 3, 0, alignment=Qt.AlignRight)
+
         self.password_edit = QLineEdit()
         self.password_edit.setPlaceholderText("Password")
         self.password_edit.setText(self.password["password"])
@@ -132,17 +138,19 @@ class ReadPasswordWidget(QWidget):
         self.password_edit.setEchoMode(QLineEdit.Password)
         grid_layout.addWidget(self.password_edit, 3, 1)
 
-        self.show_password_button = QPushButton()
-        self.show_password_button.setIcon(self.show_icon)
-        self.show_password_button.setToolTip("show/hide password")
-        self.show_password_button.clicked.connect(self.hide_or_unhide_password)
-        grid_layout.addWidget(self.show_password_button, 3, 2)
+        # Create an action with the copy icon
+        self.copy_password_action = self.password_edit.addAction(
+            self.copy_icon, QLineEdit.TrailingPosition
+        )
+        self.copy_password_action.setToolTip("copy password")
+        self.copy_password_action.triggered.connect(self.copy_password)
 
-        self.copy_password_button = QPushButton()
-        self.copy_password_button.setIcon(self.copy_icon)
-        self.copy_password_button.setToolTip("copy password")
-        self.copy_password_button.clicked.connect(self.copy_password)
-        grid_layout.addWidget(self.copy_password_button, 3, 3)
+        # Create an action with the show icon
+        self.show_password_action = self.password_edit.addAction(
+            self.show_icon, QLineEdit.TrailingPosition
+        )
+        self.show_password_action.setToolTip("show/hide password")
+        self.show_password_action.triggered.connect(self.hide_or_unhide_password)
 
 
         # Row 3: Websites
@@ -153,8 +161,8 @@ class ReadPasswordWidget(QWidget):
         self.website_edit.setPlaceholderText("Website")
         self.website_edit.setText(self.password["website"])
         self.website_edit.setReadOnly(True)
-
-        grid_layout.addWidget(self.website_edit, 4, 1, 1, 2)
+        self.website_edit.setObjectName("websiteEdit")
+        grid_layout.addWidget(self.website_edit, 4, 1)
 
 
         # Row 4: Notes
@@ -166,7 +174,7 @@ class ReadPasswordWidget(QWidget):
         self.note_edit.setText(self.password["notes"])
         self.note_edit.setReadOnly(True)
 
-        grid_layout.addWidget(self.note_edit, 5, 1, 1, 2)
+        grid_layout.addWidget(self.note_edit, 5, 1)
 
         main_layout.addLayout(grid_layout)
 
@@ -187,11 +195,11 @@ class ReadPasswordWidget(QWidget):
         if self.password_edit.echoMode() != QLineEdit.Password:
             logging.debug("Hiding password")
             self.password_edit.setEchoMode(QLineEdit.Password)
-            self.show_password_button.setIcon(self.show_icon)
+            self.show_password_action.setIcon(self.show_icon)
         elif self.password_edit.echoMode() == QLineEdit.Password:
             logging.debug("Showing password")
             self.password_edit.setEchoMode(QLineEdit.Normal)
-            self.show_password_button.setIcon(self.hide_icon)
+            self.show_password_action.setIcon(self.hide_icon)
 
     def copy_password(self) -> None:
         pyperclip.copy(self.password["password"])
