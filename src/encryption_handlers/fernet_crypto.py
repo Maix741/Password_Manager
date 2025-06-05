@@ -33,6 +33,7 @@ class FernetCrypto:
 
 
 if __name__ == "__main__":
+    # test case | example use case #
     test_crypt: FernetCrypto = FernetCrypto()
     test_text: str = "Lorem ipsum dolor sit amet"
     test_key: bytes = Fernet.generate_key()
@@ -40,4 +41,4 @@ if __name__ == "__main__":
     test_enc_text: str = test_crypt.encrypt(test_text, test_key)
     test_dec_text: str = test_crypt.decrypt(test_enc_text, test_key)
 
-    print(f"Encrypted:{test_enc_text}  Decrypted:{test_dec_text}")
+    print(f"Encrypted: {test_enc_text}  Decrypted: {test_dec_text}")
