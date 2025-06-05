@@ -60,9 +60,10 @@ class AddPasswordWidget(QWidget):
             }
         """)
 
-        self.back_icon: QIcon = QIcon(os.path.join(self.assets_path, "back-arrow.png"))
+        self.back_icon: QIcon = QIcon(os.path.join(self.assets_path, "back-arrow-icon.png"))
         self.show_icon: QIcon = QIcon(os.path.join(self.assets_path, "show-icon.png"))
         self.hide_icon: QIcon = QIcon(os.path.join(self.assets_path, "hide-icon.png"))
+        self.back_icon_size: QSize = QSize(50, 50)
 
         self.init_ui()
 
@@ -79,7 +80,7 @@ class AddPasswordWidget(QWidget):
         back_button.setObjectName("NameButton")
         back_button.clicked.connect(self.return_to_list)
         back_button.setIcon(self.back_icon)
-        back_button.setIconSize(QSize(50, 50))  # Adjust the size here
+        back_button.setIconSize(self.back_icon_size)
         grid_layout.addWidget(back_button, 0, 0, alignment=Qt.AlignLeft)
 
 
@@ -137,6 +138,10 @@ class AddPasswordWidget(QWidget):
         self.note_edit.setPlaceholderText("Notes")
 
         grid_layout.addWidget(self.note_edit, 5, 1)
+
+        # Add vertical spacing after this row
+        spacer = QSpacerItem(0, 15, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        grid_layout.addItem(spacer, 6, 0)
 
         main_layout.addLayout(grid_layout)
 
