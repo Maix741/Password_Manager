@@ -43,7 +43,7 @@ class ManagerGUI(QMainWindow):
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self.setGeometry(100, 100, 1000, 600)
-        self.setWindowTitle("Password Manager")
+        self.setWindowTitle(self.tr("Password Manager"))
 
         self.settings_handler: SettingsHandler = SettingsHandler()
         self.translation_handler: TranslationHandler = TranslationHandler(self.settings_handler)
@@ -69,18 +69,23 @@ class ManagerGUI(QMainWindow):
         self.central_layout = QVBoxLayout(self.central_widget)
 
         self.search_edit: QLineEdit = QLineEdit(self)
-        self.search_edit.setPlaceholderText("Search passwords")
+        self.search_edit.setPlaceholderText(self.tr("Search passwords"))
         self.search_edit.textChanged.connect(self.on_search_text_changed)
-        self.search_edit.setPlaceholderText("Search passwords")
 
         self.central_layout.addWidget(self.search_edit)
 
         self.create_passwords_list()
-
+        self.init_icons()
 
         if create_dock:
             self.create_controls_dock()
             self.create_menubar()
+
+    def init_icons(self) -> None:
+        self.icon_size: QSize = QSize(25, 25)
+        self.settings_icon: QIcon = QIcon(os.path.join(self.assets_path, "settings-icon.png"))
+        self.add_icon: QIcon = QIcon(os.path.join(self.assets_path, "add-icon.png"))
+        self.key_icon: QIcon = QIcon(os.path.join(self.assets_path, "key-icon.png"))
 
     def on_search_text_changed(self, query: str) -> None:
         if not query:
@@ -103,28 +108,28 @@ class ManagerGUI(QMainWindow):
         menubar = self.menuBar()
 
         # Create "File" menu
-        file_menu = QMenu("File", self)
+        file_menu = QMenu(self.tr("File"), self)
         menubar.addMenu(file_menu)
 
         # Add actions to the "File" menu
-        import_action = QAction("Import", self)
+        import_action = QAction(self.tr("Import"), self)
         import_action.triggered.connect(self.import_passwords)
         file_menu.addAction(import_action)
 
-        export_action = QAction("Export", self)
+        export_action = QAction(self.tr("Export"), self)
         export_action.triggered.connect(self.export_passwords)
         file_menu.addAction(export_action)
 
-        exit_action = QAction("Exit", self)
+        exit_action = QAction(self.tr("Exit"), self)
         exit_action.triggered.connect(self.close)
         file_menu.addAction(exit_action)
 
         # Create "Prefrences" menu
-        preferences_menu = QMenu("Preferences", self)
+        preferences_menu = QMenu(self.tr("Edit"), self)
         menubar.addMenu(preferences_menu)
 
         # Add actions to the "Settings" menu
-        settings_action = QAction("Settings", self)
+        settings_action = QAction(self.tr("Settings"), self)
         settings_action.triggered.connect(self.change_to_settings)
 
 
@@ -161,19 +166,24 @@ class ManagerGUI(QMainWindow):
         dock_layout.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         add_password_button: QPushButton = QPushButton(self)
+        add_password_button.setToolTip(self.tr("Add Password"))
         add_password_button.clicked.connect(self.add_password)
-        add_password_button.setIcon(QIcon(os.path.join(self.assets_path, "add-icon.png")))
-        add_password_button.setIconSize(QSize(20, 20))
+        add_password_button.setIcon(self.add_icon)
+        add_password_button.setIconSize(self.icon_size)
         dock_layout.addWidget(add_password_button)
 
-        renew_keys_button: QPushButton = QPushButton("Renew", self)
+        renew_keys_button: QPushButton = QPushButton(self)
+        renew_keys_button.setToolTip(self.tr("Renew Keys"))
+        renew_keys_button.setIcon(self.key_icon)
+        renew_keys_button.setIconSize(self.icon_size)
         renew_keys_button.clicked.connect(self.renew_keys)
         dock_layout.addWidget(renew_keys_button)
 
         settings_button: QPushButton = QPushButton(self)
+        settings_button.setToolTip(self.tr("Settings"))
         settings_button.clicked.connect(self.change_to_settings)
-        settings_button.setIcon(QIcon(os.path.join(self.assets_path, "settings-icon.png")))
-        settings_button.setIconSize(QSize(20, 20))
+        settings_button.setIcon(self.settings_icon)
+        settings_button.setIconSize(self.icon_size)
         dock_layout.addWidget(settings_button)
 
         self.dock_widget.setWidget(dock_content)
@@ -368,8 +378,8 @@ class ManagerGUI(QMainWindow):
     def ask_master_pass(self, ask_from: str) -> str:
         master_pass, ok = QInputDialog.getText(
             self, 
-            "Enter Master Password", 
-            "Enter the master password:", 
+            self.tr("Enter Master Password"), 
+            self.tr("Enter the master password:"), 
             QLineEdit.Password
         )
         if ok and master_pass:
@@ -385,8 +395,8 @@ class ManagerGUI(QMainWindow):
     def ask_new_master(self) -> str:
         new_master, ok = QInputDialog.getText(
             self, 
-            "Set New Master Password", 
-            "Enter a new master password:", 
+            self.tr("Set New Master Password"), 
+            self.tr("Enter a new master password:"), 
             QLineEdit.Password
         )
         if ok and new_master:
@@ -418,7 +428,7 @@ class ManagerGUI(QMainWindow):
             if not correct: return
 
             csv_file, _ = QFileDialog.getOpenFileName(self,
-                                                      "Select csv-file",
+                                                      self.tr("Select csv-file"),
                                                       os.path.dirname(sys.argv[0]),
                                                       "csv (*.csv);;All Files (*)"
                                                     )
@@ -441,7 +451,7 @@ class ManagerGUI(QMainWindow):
                 save_directory: str = os.path.expanduser("~/Download")
 
             csv_file, _ = QFileDialog.getSaveFileName(self,
-                                                      "Save csv-file",
+                                                      self.tr("Save csv-file"),
                                                       os.path.join(save_directory, "passwords.csv"),
                                                       "csv (*.csv);;All Files (*)"
                                                     )
