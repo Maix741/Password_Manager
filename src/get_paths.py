@@ -14,7 +14,6 @@ def get_parent_folder() -> tuple[str, str]:
     if not (current_dir or os.path.isdir(current_dir)):
         current_dir = os.path.dirname(os.path.abspath(__file__))
 
-    print(appdata_path, current_dir)
     return (appdata_path, current_dir)
 
 
