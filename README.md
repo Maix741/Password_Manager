@@ -1,2 +1,69 @@
 # Passwort_Manager
- 
+
+A secure, cross-platform password manager with both command-line and graphical user interfaces. Store, manage, and organize your passwords securely using strong encryption.
+
+## Features
+
+- **Secure Storage**: Passwords are encrypted using AES and Fernet cryptography.
+- **Master Password**: Protects access to all stored passwords.
+- **Command-Line Interface**: Manage passwords directly from the terminal ([main.py](main.py)).
+- **Graphical User Interface**: User-friendly GUI built with PySide6 ([main.pyw](main.pyw)).
+- **Password Generation**: Generate strong, customizable passwords.
+- **Import/Export**: Import and export passwords in CSV format.
+- **Search & Organize**: Quickly search and manage your passwords.
+- **Settings**: Customize data path, language, and appearance.
+
+## Installation
+
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/yourusername/Passwort_Manager.git
+   cd Passwort_Manager
+   ```
+
+2. **Install dependencies:**
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+## Usage
+
+### Command-Line
+
+Run the password manager in the terminal:
+```sh
+python main.py
+```
+
+### Graphical User Interface
+
+Launch the GUI version:
+```sh
+pythonw main.pyw
+```
+or
+```sh
+python main.pyw
+```
+
+## Directory Structure
+
+- `main.py` – Command-line entry point
+- `main.pyw` – GUI entry point
+- `src/` – Core logic and modules
+- `assets/` – Icons and images
+- `requirements.txt` – Python dependencies
+
+## Security
+
+- Passwords are encrypted using both AES and Fernet algorithms.
+- Master password is hashed and salted using PBKDF2-HMAC-SHA512.
+- All sensitive data is stored locally.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+**Note:** Always remember your master password. If you lose it, your stored passwords cannot be recovered.
