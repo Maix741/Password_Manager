@@ -25,6 +25,7 @@ from .setup_logging import setup_logging
 from .setup_folders import setup_folders
 from .get_assets_path import get_assets_path
 from .remove_password import remove_password
+from .rename_password import rename_password
 from .check_setup import check_setup
 from .write_keys import write_keys
 from .get_keys import get_keys
@@ -90,7 +91,7 @@ class ManagerGUI(QMainWindow):
         self.key_icon: QIcon = QIcon(os.path.join(self.assets_path, "key-icon.png"))
 
         self.delete_icon: QIcon = QIcon(os.path.join(self.assets_path, "delete-icon.png"))
-
+        self.rename_icon: QIcon = QIcon()
         self.import_icon: QIcon = QIcon(os.path.join(self.assets_path, "import-icon.png"))
         self.export_icon: QIcon = QIcon(os.path.join(self.assets_path, "export-icon.png"))
 
@@ -154,6 +155,13 @@ class ManagerGUI(QMainWindow):
         delete_action.setIcon(self.delete_icon)
 
         context_menu.addAction(delete_action)
+
+        rename_action = QAction(self.tr("Rename"), self)
+        rename_action.triggered.connect(partial(self.rename_password, password_name))
+        rename_action.setIcon(self.rename_icon)
+
+        context_menu.addAction(rename_action)
+
         global_position = password_list_widget.mapToGlobal(position)
         context_menu.exec(global_position)
 
@@ -220,6 +228,16 @@ class ManagerGUI(QMainWindow):
     def delete_password(self, password_name: str) -> None:
         remove_password(self.data_path, password_name)
         self.fill_passwords_list()
+
+    def rename_password(self, old_password_name) -> None:
+        new_password_name, ok = QInputDialog.getText(
+            self,
+            self.tr("Enter New Password Name"),
+            self.tr("Enter the password Name:")
+        )
+        if ok and new_password_name:
+            rename_password(self.passwords_path, old_password_name, new_password_name)
+            self.fill_passwords_list()
 
     def read_selected(self) -> None:
         current_item = self.passwords_list.currentItem()

@@ -120,7 +120,6 @@ class SettingsWidget(QWidget):
         # Horizontal layout for action buttons.
         button_layout = QHBoxLayout()
         button_layout.setSpacing(20)
-        button_layout.addStretch()
         self.save_button = QPushButton("Save")
         button_layout.addWidget(self.save_button)
         self.save_button.clicked.connect(self.save_settings)
