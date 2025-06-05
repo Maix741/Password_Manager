@@ -12,10 +12,12 @@ from PySide6.QtCore import Signal, Qt, QSize
 
 class AddPasswordWidget(QWidget):
     returned: Signal = Signal(dict)
-    def __init__(self, assets_path: str, parent: QWidget | None = None) -> None:
+    def __init__(self, assets_path: str, show_generating_dialog, parent: QWidget | None = None) -> None:
         super().__init__(parent)
 
         logging.debug(f"Initializing: {self}")
+
+        self.show_generating_dialog = show_generating_dialog
 
         self.assets_path: str = assets_path
         self.password_name: str = ""
@@ -173,7 +175,9 @@ class AddPasswordWidget(QWidget):
 
         self.password["name"] = self.name_edit.text()
         self.password["username"] = self.username_edit.text() or "n/a"
-        self.password["password"] = self.password_edit.text() or "n/a"
+        if self.password_edit.text():
+            self.password["password"] = self.password_edit.text()
+        else: self.password["password"] = self.show_generating_dialog()
         self.password["website"] = self.website_edit.text() or "n/a"
         self.password["notes"] = self.note_edit.text() or "n/a"
 

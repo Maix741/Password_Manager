@@ -16,7 +16,9 @@ from PySide6.QtGui import QIcon, QAction
 from PySide6.QtCore import Qt, QSize
 
 # import nessesary utils
-from .generate_password import gen_aes_key, get_master_key_fragment
+from .generate_password import (
+    gen_aes_key, get_master_key_fragment, generate_password
+    )
 from .get_website_for_password import get_website_for_password
 from .search_passwords import search_passwords
 from .setup_logging import setup_logging
@@ -56,6 +58,7 @@ class ManagerGUI(QMainWindow):
         self.assets_path: str = get_assets_path(self.data_path)
         self.password_names: list[str] = []
         self.wrong_attempts: int = 0
+        self.generated_password: str = ""
 
         setup_logging(os.path.join(self.data_path, "log", "password_manager.log"))
         self.init_ui()
@@ -135,17 +138,26 @@ class ManagerGUI(QMainWindow):
         exit_action.triggered.connect(self.close)
         file_menu.addAction(exit_action)
 
-        # Create "Prefrences" menu
-        preferences_menu = QMenu(self.tr("Edit"), self)
-        menubar.addMenu(preferences_menu)
+        # Create "Edit" menu
+        edit_menu = QMenu(self.tr("Edit"), self)
+        menubar.addMenu(edit_menu)
 
-        # Add actions to the "Settings" menu
+        # Add actions to the "Edit" menu
         settings_action = QAction(self.tr("Settings"), self)
         settings_action.setIcon(self.settings_icon)
         settings_action.triggered.connect(self.change_to_settings)
 
+        edit_menu.addAction(settings_action)
 
-        preferences_menu.addAction(settings_action)
+        # Create "tools" menu
+        utils_menu = QMenu(self.tr("Tools"), self)
+        menubar.addMenu(utils_menu)
+
+        # Add actions to the "tools" menu
+        generating_action = QAction(self.tr("Generate Password"), self)
+        generating_action.triggered.connect(self.show_generating_dialog)
+
+        utils_menu.addAction(generating_action)
 
     def show_password_context_menu(self, password_name: str, password_list_widget: PasswordWidget, position) -> None:
         """Show context menu for the saved playlists."""
@@ -165,6 +177,16 @@ class ManagerGUI(QMainWindow):
 
         global_position = password_list_widget.mapToGlobal(position)
         context_menu.exec(global_position)
+
+    def show_generating_dialog(self) -> str:
+        dialog: PasswordGenerateDialog = PasswordGenerateDialog(
+            self.settings_handler, self.translation_handler,
+            generate_password,
+            self
+            )
+        dialog.setModal(True)
+        dialog.exec()
+        return dialog.password_return
 
     def fill_passwords_list(self, passwords: list[str] | None = None) -> None:
         self.passwords_list.clear()
@@ -290,7 +312,7 @@ class ManagerGUI(QMainWindow):
             correct, fernet_key, AES_key = self.load_keys("add_password")
             if not correct: return
 
-            password_card: AddPasswordWidget = AddPasswordWidget(self.assets_path, self)
+            password_card: AddPasswordWidget = AddPasswordWidget(self.assets_path, self.show_generating_dialog, self)
             password_card.returned.connect(add_password)
             self.change_to_add_card(password_card)
 
