@@ -75,7 +75,7 @@ class SettingsWidget(QWidget):
         self.data_edit.setPlaceholderText("Data path")
         self.data_edit.setText(self.settings_handler.get("data_path"))
 
-        grid_layout.addWidget(self.data_edit, 0, 1, 1, 2)
+        grid_layout.addWidget(self.data_edit, 0, 1)
 
 
         # row 1: locale
@@ -87,7 +87,7 @@ class SettingsWidget(QWidget):
         self.locale_edit.setPlaceholderText("Locale")
         self.locale_edit.setText(self.settings_handler.get("locale"))
 
-        grid_layout.addWidget(self.locale_edit, 1, 1, 1, 2)
+        grid_layout.addWidget(self.locale_edit, 1, 1)
 
 
         # row 2: use_website_as_name
@@ -99,7 +99,7 @@ class SettingsWidget(QWidget):
         self.use_website_combo_box.addItems(["True", "False"])
         self.use_website_combo_box.setCurrentText("True" if self.settings_handler.get("use_website_as_name") else "False")
 
-        grid_layout.addWidget(self.use_website_combo_box, 2, 1, 1, 2)
+        grid_layout.addWidget(self.use_website_combo_box, 2, 1)
 
 
         # row 3: design
@@ -111,7 +111,7 @@ class SettingsWidget(QWidget):
         self.data_edit.setPlaceholderText("design")
         # self.data_edit.setText(self.settings_handler.get("design"))
 
-        grid_layout.addWidget(self.data_edit, 3, 1, 1, 2)
+        grid_layout.addWidget(self.data_edit, 3, 1)
 
 
         main_layout.addLayout(grid_layout)

@@ -1,5 +1,6 @@
 import json
 import os
+import re
 
 from .encryption_handlers.fernet_crypto import FernetCrypto
 from .encryption_handlers.aes_crypto import AESCrypto
@@ -15,6 +16,7 @@ class AddPassword:
         if not name:
             name: str = ".".join(website.split(".")[1:2]) or "n/a"
 
+        name = re.sub(r'[\\/*?:"<>|]', "", name)
         password_path: str = os.path.join(passwords_path, f"{name}.json")
         password_to_add: dict[str, str] = {
                                 "username": self.encrypt_string(username, AES_key, salt, fernet_key),
