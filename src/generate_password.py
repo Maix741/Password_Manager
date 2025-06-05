@@ -64,10 +64,11 @@ def generate_password(min_lenght: int, include_letters: bool, include_numbers: b
 
 
 def get_master_key_fragment(master_pass: str) -> str:
-    if len(master_pass) <= 20:
+    master_key_fragment_lenght: int = 15
+    if len(master_pass) <= master_key_fragment_lenght:
         master_key_fragment: str = master_pass
-    elif len(master_pass) >= 20:
-        master_key_fragment: str = master_pass[:20]
+    elif len(master_pass) >= master_key_fragment_lenght:
+        master_key_fragment: str = master_pass[:master_key_fragment_lenght]
 
     return master_key_fragment
 
