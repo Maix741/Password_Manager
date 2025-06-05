@@ -2,6 +2,7 @@
 # The Password Manager as a graphical user interface (GUI) #
 # ======================================================== #
 
+from functools import partial
 import platform
 import logging
 import shutil
@@ -23,6 +24,7 @@ from .search_passwords import search_passwords
 from .setup_logging import setup_logging
 from .setup_folders import setup_folders
 from .get_assets_path import get_assets_path
+from .remove_password import remove_password
 from .check_setup import check_setup
 from .write_keys import write_keys
 from .get_keys import get_keys
@@ -87,6 +89,11 @@ class ManagerGUI(QMainWindow):
         self.add_icon: QIcon = QIcon(os.path.join(self.assets_path, "add-icon.png"))
         self.key_icon: QIcon = QIcon(os.path.join(self.assets_path, "key-icon.png"))
 
+        self.delete_icon: QIcon = QIcon(os.path.join(self.assets_path, "delete-icon.png"))
+
+        self.import_icon: QIcon = QIcon(os.path.join(self.assets_path, "import-icon.png"))
+        self.export_icon: QIcon = QIcon(os.path.join(self.assets_path, "export-icon.png"))
+
     def on_search_text_changed(self, query: str) -> None:
         if not query:
             self.fill_passwords_list()
@@ -113,10 +120,12 @@ class ManagerGUI(QMainWindow):
 
         # Add actions to the "File" menu
         import_action = QAction(self.tr("Import"), self)
+        import_action.setIcon(self.import_icon)
         import_action.triggered.connect(self.import_passwords)
         file_menu.addAction(import_action)
 
         export_action = QAction(self.tr("Export"), self)
+        export_action.setIcon(self.export_icon)
         export_action.triggered.connect(self.export_passwords)
         file_menu.addAction(export_action)
 
@@ -130,10 +139,23 @@ class ManagerGUI(QMainWindow):
 
         # Add actions to the "Settings" menu
         settings_action = QAction(self.tr("Settings"), self)
+        settings_action.setIcon(self.settings_icon)
         settings_action.triggered.connect(self.change_to_settings)
 
 
         preferences_menu.addAction(settings_action)
+
+    def show_password_context_menu(self, password_name: str, password_list_widget: PasswordWidget, position) -> None:
+        """Show context menu for the saved playlists."""
+        context_menu = QMenu(self)
+
+        delete_action = QAction(self.tr("Delete"), self)
+        delete_action.triggered.connect(partial(self.delete_password, password_name))
+        delete_action.setIcon(self.delete_icon)
+
+        context_menu.addAction(delete_action)
+        global_position = password_list_widget.mapToGlobal(position)
+        context_menu.exec(global_position)
 
     def fill_passwords_list(self, passwords: list[str] | None = None) -> None:
         self.passwords_list.clear()
@@ -149,6 +171,12 @@ class ManagerGUI(QMainWindow):
             item.setSizeHint(widget.sizeHint())
             self.passwords_list.addItem(item)
             self.passwords_list.setItemWidget(item, widget)
+
+            # Set custom context menu
+            widget.setContextMenuPolicy(Qt.CustomContextMenu)
+            widget.customContextMenuRequested.connect(
+                lambda pos, n=name, w=widget: self.show_password_context_menu(n, w, pos)
+            )
 
     def create_controls_dock(self) -> None:
         """Create the dock widget with control buttons."""
@@ -188,6 +216,10 @@ class ManagerGUI(QMainWindow):
 
         self.dock_widget.setWidget(dock_content)
         self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_widget)
+
+    def delete_password(self, password_name: str) -> None:
+        remove_password(self.data_path, password_name)
+        self.fill_passwords_list()
 
     def read_selected(self) -> None:
         current_item = self.passwords_list.currentItem()
