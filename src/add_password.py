@@ -14,7 +14,10 @@ class AddPassword:
                  ) -> None:
 
         if not name:
-            name: str = ".".join(website.split(".")[1:2]) or "n/a"
+            if "www." in website:
+                name: str = ".".join(website.split(".")[1:2].split("/")[0])
+            else:
+                name: str = ".".join(website.split(".")[0:1].split("/")[0])
 
         name = re.sub(r'[\\/*?:"<>|]', "", name)
         password_path: str = os.path.join(passwords_path, f"{name}.json")

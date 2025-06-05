@@ -51,8 +51,9 @@ class ManagerCMD:
             website: str = input("Website: ") or "n/a"
             notes: str = input("notes: ") or "n/a"
 
-            if not name and website:
-                name: str = website.split("www.")[1].split(".")[0] or "n/a"
+            if not (name and website):
+                print("Password must have a name or website to save!")
+                return
 
             logging.info(f"Adding Password: {name}")
             AddPassword(

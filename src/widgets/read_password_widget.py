@@ -176,6 +176,10 @@ class ReadPasswordWidget(QWidget):
 
         grid_layout.addWidget(self.note_edit, 5, 1)
 
+        # Add vertical spacing after this row
+        spacer = QSpacerItem(0, 20, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        grid_layout.addItem(spacer, 6, 0)
+
         main_layout.addLayout(grid_layout)
 
 
