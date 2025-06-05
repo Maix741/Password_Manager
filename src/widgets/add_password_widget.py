@@ -84,7 +84,6 @@ class AddPasswordWidget(QWidget):
 
 
         self.name_edit = QLineEdit(self)
-        # label_name.setObjectName("NameLabel")
         grid_layout.addWidget(self.name_edit, 0, 1)
 
 
@@ -112,11 +111,12 @@ class AddPasswordWidget(QWidget):
         self.password_edit.setEchoMode(QLineEdit.Password)
         grid_layout.addWidget(self.password_edit, 3, 1)
 
-        self.show_password_button = QPushButton()
-        self.show_password_button.setIcon(self.show_icon)
-        self.show_password_button.setToolTip("show/hide password")
-        self.show_password_button.clicked.connect(self.hide_or_unhide_password)
-        grid_layout.addWidget(self.show_password_button, 3, 2)
+        # Create an action with the show icon
+        self.show_password_action = self.password_edit.addAction(
+            self.show_icon, QLineEdit.TrailingPosition
+        )
+        self.show_password_action.setToolTip("show/hide password")
+        self.show_password_action.triggered.connect(self.hide_or_unhide_password)
 
 
         # Row 3: Websites
@@ -126,7 +126,7 @@ class AddPasswordWidget(QWidget):
         self.website_edit = QLineEdit()
         self.website_edit.setPlaceholderText("Website")
 
-        grid_layout.addWidget(self.website_edit, 4, 1, 1, 2)
+        grid_layout.addWidget(self.website_edit, 4, 1)
 
 
         # Row 4: Notes
@@ -136,7 +136,7 @@ class AddPasswordWidget(QWidget):
         self.note_edit = QLineEdit()
         self.note_edit.setPlaceholderText("Notes")
 
-        grid_layout.addWidget(self.note_edit, 5, 1, 1, 2)
+        grid_layout.addWidget(self.note_edit, 5, 1)
 
         main_layout.addLayout(grid_layout)
 
@@ -153,11 +153,11 @@ class AddPasswordWidget(QWidget):
         if self.password_edit.echoMode() != QLineEdit.Password:
             logging.debug("Hiding password")
             self.password_edit.setEchoMode(QLineEdit.Password)
-            self.show_password_button.setIcon(self.show_icon)
+            self.show_password_action.setIcon(self.show_icon)
         elif self.password_edit.echoMode() == QLineEdit.Password:
             logging.debug("Showing password")
             self.password_edit.setEchoMode(QLineEdit.Normal)
-            self.show_password_button.setIcon(self.hide_icon)
+            self.show_password_action.setIcon(self.hide_icon)
 
     def save_password(self) -> None:
         logging.info(f"Saving password: {self.password_name}")
