@@ -98,6 +98,7 @@ class ManagerGUI(QMainWindow):
 
         self.import_icon: QIcon = QIcon(os.path.join(self.assets_path, "import-icon.png"))
         self.export_icon: QIcon = QIcon(os.path.join(self.assets_path, "export-icon.png"))
+        self.exit_icon: QIcon = QIcon(os.path.join(self.assets_path, "exit-icon.png"))
 
     def on_search_text_changed(self, query: str) -> None:
         if not query:
@@ -135,6 +136,7 @@ class ManagerGUI(QMainWindow):
         file_menu.addAction(export_action)
 
         exit_action = QAction(self.tr("Exit"), self)
+        exit_action.setIcon(self.exit_icon)
         exit_action.triggered.connect(self.close)
         file_menu.addAction(exit_action)
 
