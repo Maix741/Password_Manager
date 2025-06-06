@@ -48,8 +48,7 @@ class PasswordGenerator:
 def gen_aes_key(master_pass: str) -> str:
     master_key_fragment: str = get_master_key_fragment(master_pass)
 
-    generator: PasswordGenerator = PasswordGenerator()
-    aes_key_fragment: str = generator.new_password(32, True, True, True)
+    aes_key_fragment: str = generate_password(32, True, True, True)
     aes_key: str = (master_key_fragment + aes_key_fragment)[:32]
 
     return aes_key, master_key_fragment, aes_key.removeprefix(master_key_fragment)
