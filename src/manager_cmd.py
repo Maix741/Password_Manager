@@ -155,11 +155,11 @@ class ManagerCMD:
 
         except (FileNotFoundError, PermissionError) as e:
             logging.error(f"Error while removing previous keys/passwords: {e}")
+        setup_folders(self.data_path)
 
         new_master: str = getpass("New master Password: ").strip().replace(" ", "_")
         CreateMasterPassword(self.data_path, new_master).create()
 
-        setup_folders(self.data_path)
         _, _, aes_fragment = gen_aes_key(new_master)
         write_keys(self.data_path, aes_fragment)
         self.reset_console()
