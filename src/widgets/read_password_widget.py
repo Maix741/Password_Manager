@@ -222,6 +222,7 @@ class ReadPasswordWidget(QWidget):
     def enable_editing(self) -> None:
         logging.info(f"Editing password: {self.password_name}")
         if self.password_edited:
+            self.password_edited = False
             self.save_password()
             return
 

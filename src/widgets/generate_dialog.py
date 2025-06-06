@@ -5,6 +5,7 @@ from PySide6.QtWidgets import (
     QSlider, QSpinBox, QCheckBox, QLineEdit, QSizePolicy, QGroupBox, QDialog
 )
 from PySide6.QtCore import Qt, QCoreApplication
+import pyperclip
 
 
 class PasswordGenerateDialog(QDialog):
@@ -124,5 +125,6 @@ class PasswordGenerateDialog(QDialog):
     def closeEvent(self, event) -> None:
         if not self.cancelled and self.password:
             self.password_return = self.password
+            pyperclip.copy(self.password_return)
 
         event.accept()
