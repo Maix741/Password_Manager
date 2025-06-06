@@ -48,9 +48,8 @@ class PasswordGenerator:
 def gen_aes_key(master_pass: str) -> str:
     master_key_fragment: str = get_master_key_fragment(master_pass)
 
-    filler_lenght: int = 32 - len(master_key_fragment)
     generator: PasswordGenerator = PasswordGenerator()
-    aes_key_fragment: str = generator.new_password(filler_lenght)
+    aes_key_fragment: str = generator.new_password(32, True, True, True)
     aes_key: str = (master_key_fragment + aes_key_fragment)[:32]
 
     return aes_key, master_key_fragment, aes_key.removeprefix(master_key_fragment)
@@ -74,9 +73,9 @@ def get_master_key_fragment(master_pass: str) -> str:
 
 
 def get_password_lenght(minimum: int = 0) -> int:
-    number: str = input("Minimale Länge des Passworts: ")
+    number: str = input("Minimal lenght of the passowrd: ")
     while not number.isdigit() or int(number) < minimum:
-        number: str = input(f"Bitte gib eine Zahl über {minimum} ein!: ")
+        number: str = input(f"Please enter a number above \"{minimum}\"!: ")
 
     return int(number)
 
