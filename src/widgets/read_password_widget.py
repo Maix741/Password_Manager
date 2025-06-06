@@ -242,6 +242,7 @@ class ReadPasswordWidget(QWidget):
         self.website_edit.setReadOnly(True)
         self.note_edit.setReadOnly(True)
 
+        self.show_password_action.setIcon(self.show_icon)
         self.edit_button.setText("Edit")
 
         self.password["name"] = self.password_name
