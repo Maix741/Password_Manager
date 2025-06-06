@@ -17,7 +17,7 @@ A secure, cross-platform password manager with both command-line and graphical u
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/Passwort_Manager.git
+   git clone https://github.com/Maix741/Passwort_Manager.git
    cd Passwort_Manager
    ```
 
