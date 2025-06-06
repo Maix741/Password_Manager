@@ -117,6 +117,7 @@ class PasswordGenerateDialog(QDialog):
         )
         self.password = password
         self.password_display.setText(password)
+        logging.debug("Generated password")
 
     def cancel(self) -> None:
         self.cancelled = True
