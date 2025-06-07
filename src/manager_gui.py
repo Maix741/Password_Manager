@@ -486,7 +486,7 @@ class ManagerGUI(QMainWindow):
         self.wrong_attempts += 1
         if self.wrong_attempts >= 10:
             logging.error("Incorrect master entered ten times!")
-            self.destroy()
+            self.close()
 
     def validate_master_pass(self, password_to_check: str, validate_from: str) -> bool:
         validator = ValidateMasterPasswort(self.data_path, validate_from)
