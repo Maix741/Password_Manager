@@ -41,4 +41,4 @@ if __name__ == "__main__":
     test_enc_text: str = test_crypt.encrypt(test_text, test_key)
     test_dec_text: str = test_crypt.decrypt(test_enc_text, test_key)
 
-    print(f"Encrypted: {test_enc_text}  Decrypted: {test_dec_text}")
+    print(f"Encrypted: {test_enc_text} | Decrypted: {test_dec_text}")
