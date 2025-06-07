@@ -314,7 +314,11 @@ class ManagerGUI(QMainWindow):
             correct, fernet_key, AES_key = self.load_keys("add_password")
             if not correct: return
 
-            password_card: AddPasswordWidget = AddPasswordWidget(self.assets_path, self.show_generating_dialog, self)
+            password_card: AddPasswordWidget = AddPasswordWidget(self.assets_path,
+                                                                 self.show_generating_dialog,
+                                                                 self.translation_handler,
+                                                                 self
+                                                                 )
             password_card.returned.connect(add_password)
             self.change_to_add_card(password_card)
 

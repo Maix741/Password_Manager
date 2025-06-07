@@ -8,7 +8,7 @@ from PySide6.QtWidgets import (
     QPushButton, QVBoxLayout, QLabel, QWidget, QGridLayout,
     QSpacerItem, QSizePolicy, QHBoxLayout, QLineEdit
 )
-from PySide6.QtCore import Signal, Qt, QTimer, QSize
+from PySide6.QtCore import Signal, Qt, QTimer, QSize, QCoreApplication
 from PySide6.QtGui import QIcon
 
 
@@ -17,11 +17,14 @@ class ReadPasswordWidget(QWidget):
     def __init__(self,
                  password_name: str, password: dict[str, str],
                  assets_path: str, passwords_path: str,
+                 translations_handler,
                  parent: QWidget | None = None
                  ) -> None:
         super().__init__(parent)
 
         logging.debug(f"Initializing: {self}")
+
+        QCoreApplication.installTranslator(translations_handler.get_translator())
 
         self.passwords_path: str = passwords_path
         self.assets_path: str = assets_path
@@ -94,7 +97,7 @@ class ReadPasswordWidget(QWidget):
         back_button.setIconSize(QSize(50, 50))  # Adjust the size here
         grid_layout.addWidget(back_button, 0, 0, alignment=Qt.AlignLeft)
 
-        label_name = QLabel(f"Name: {self.password_name}")
+        label_name = QLabel(self.tr("Name: ") + self.password_name)
         # label_name.setFixedWidth(label_width)
         label_name.setObjectName("NameLabel")
         grid_layout.addWidget(label_name, 0, 1, alignment=Qt.AlignLeft)
@@ -106,12 +109,12 @@ class ReadPasswordWidget(QWidget):
 
 
         # Row 1: Username
-        label_username = QLabel("Username:")
+        label_username = QLabel(self.tr("Username:"))
         label_username.setFixedWidth(label_width)
         grid_layout.addWidget(label_username, 2, 0, alignment=Qt.AlignRight)
 
         self.username_edit = QLineEdit()
-        self.username_edit.setPlaceholderText("Username")
+        self.username_edit.setPlaceholderText(self.tr("Username"))
         self.username_edit.setText(self.password["username"])
         self.username_edit.setReadOnly(True)
 
@@ -119,19 +122,19 @@ class ReadPasswordWidget(QWidget):
         self.copy_username_action = self.username_edit.addAction(
             self.copy_icon, QLineEdit.TrailingPosition
         )
-        self.copy_username_action.setToolTip("copy username")
+        self.copy_username_action.setToolTip(self.tr("copy username"))
         self.copy_username_action.triggered.connect(self.copy_username)
 
         grid_layout.addWidget(self.username_edit, 2, 1)
 
 
         # Row 2: Password
-        label_password = QLabel("Password:")
+        label_password = QLabel(self.tr("Password:"))
         label_password.setFixedWidth(label_width)
         grid_layout.addWidget(label_password, 3, 0, alignment=Qt.AlignRight)
 
         self.password_edit = QLineEdit()
-        self.password_edit.setPlaceholderText("Password")
+        self.password_edit.setPlaceholderText(self.tr("Password"))
         self.password_edit.setText(self.password["password"])
         self.password_edit.setReadOnly(True)
         self.password_edit.setEchoMode(QLineEdit.Password)
@@ -141,23 +144,23 @@ class ReadPasswordWidget(QWidget):
         self.copy_password_action = self.password_edit.addAction(
             self.copy_icon, QLineEdit.TrailingPosition
         )
-        self.copy_password_action.setToolTip("copy password")
+        self.copy_password_action.setToolTip(self.tr("copy password"))
         self.copy_password_action.triggered.connect(self.copy_password)
 
         # Create an action with the show icon
         self.show_password_action = self.password_edit.addAction(
             self.show_icon, QLineEdit.TrailingPosition
         )
-        self.show_password_action.setToolTip("show/hide password")
+        self.show_password_action.setToolTip(self.tr("show/hide password"))
         self.show_password_action.triggered.connect(self.hide_or_unhide_password)
 
 
         # Row 3: Websites
-        label_websites = QLabel("Websites:")
+        label_websites = QLabel(self.tr("Websites:"))
         label_websites.setFixedWidth(label_width)
         grid_layout.addWidget(label_websites, 4, 0, alignment=Qt.AlignRight)
         self.website_edit = QLineEdit()
-        self.website_edit.setPlaceholderText("Website")
+        self.website_edit.setPlaceholderText(self.tr("Website"))
         self.website_edit.setText(self.password["website"])
         self.website_edit.setReadOnly(True)
         self.website_edit.setObjectName("websiteEdit")
@@ -165,11 +168,11 @@ class ReadPasswordWidget(QWidget):
 
 
         # Row 4: Notes
-        label_note = QLabel("Notes:")
+        label_note = QLabel(self.tr("Notes:"))
         label_note.setFixedWidth(label_width)
         grid_layout.addWidget(label_note, 5, 0, alignment=Qt.AlignRight)
         self.note_edit = QLineEdit()
-        self.note_edit.setPlaceholderText("Notes")
+        self.note_edit.setPlaceholderText(self.tr("Notes"))
         self.note_edit.setText(self.password["notes"])
         self.note_edit.setReadOnly(True)
 
@@ -185,10 +188,10 @@ class ReadPasswordWidget(QWidget):
         # Horizontal layout for action buttons.
         button_layout = QHBoxLayout()
         button_layout.setSpacing(20)
-        self.edit_button = QPushButton("Edit")
+        self.edit_button = QPushButton(self.tr("Edit"))
         button_layout.addWidget(self.edit_button)
         self.edit_button.clicked.connect(self.enable_editing)
-        self.delete_button = QPushButton("Delete")
+        self.delete_button = QPushButton(self.tr("Delete"))
         self.delete_button.clicked.connect(self.delete_password)
         button_layout.addWidget(self.delete_button)
 

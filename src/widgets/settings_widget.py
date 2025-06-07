@@ -73,28 +73,28 @@ class SettingsWidget(QWidget):
         label_width = 150  # Fixed width for labels
 
         # row 0: data_path
-        data_path_label = QLabel("Data path")
+        data_path_label = QLabel(self.tr("Data path"))
         data_path_label.setFixedWidth(label_width)
         grid_layout.addWidget(data_path_label, 0, 0, alignment=Qt.AlignRight)
 
         self.data_edit = QLineEdit()
-        self.data_edit.setPlaceholderText("Data path")
+        self.data_edit.setPlaceholderText(self.tr("Data path"))
         self.data_edit.setText(self.settings_handler.get("data_path"))
         grid_layout.addWidget(self.data_edit, 0, 1)
 
         # row 1: locale
-        locale_label = QLabel("Locale")
+        locale_label = QLabel(self.tr("Locale"))
         locale_label.setFixedWidth(label_width)
         grid_layout.addWidget(locale_label, 1, 0, alignment=Qt.AlignRight)
 
         self.locale_combo_box = QComboBox()
-        self.locale_combo_box.setPlaceholderText("Locale")
+        self.locale_combo_box.setPlaceholderText(self.tr("Locale"))
         self.locale_combo_box.addItems(self.translations_handler.get_available_languages())
         self.locale_combo_box.setCurrentText(self.settings_handler.get("system_locale"))
         grid_layout.addWidget(self.locale_combo_box, 1, 1)
 
         # row 2: use_website_as_name
-        use_website_label = QLabel("Use website as name")
+        use_website_label = QLabel(self.tr("Use website as name"))
         use_website_label.setFixedWidth(label_width)
         grid_layout.addWidget(use_website_label, 2, 0, alignment=Qt.AlignRight)
 
@@ -106,12 +106,12 @@ class SettingsWidget(QWidget):
         grid_layout.addWidget(self.use_website_combo_box, 2, 1)
 
         # row 3: design
-        design_label = QLabel("Design")
+        design_label = QLabel(self.tr("Design"))
         design_label.setFixedWidth(label_width)
         grid_layout.addWidget(design_label, 3, 0, alignment=Qt.AlignRight)
 
         self.design_edit = QLineEdit()
-        self.design_edit.setPlaceholderText("Design")
+        self.design_edit.setPlaceholderText(self.tr("Design"))
         self.design_edit.setText(str(self.settings_handler.get("design")))
         grid_layout.addWidget(self.design_edit, 3, 1)
 
@@ -120,7 +120,7 @@ class SettingsWidget(QWidget):
         # Horizontal layout for action buttons.
         button_layout = QHBoxLayout()
         button_layout.setSpacing(20)
-        self.save_button = QPushButton("Save")
+        self.save_button = QPushButton(self.tr("Save"))
         button_layout.addWidget(self.save_button)
         self.save_button.clicked.connect(self.save_settings)
         main_layout.addLayout(button_layout)

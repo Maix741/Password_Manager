@@ -7,12 +7,12 @@ from PySide6.QtWidgets import (
     QSpacerItem, QSizePolicy, QHBoxLayout, QLineEdit, QGridLayout
 )
 from PySide6.QtGui import QIcon
-from PySide6.QtCore import Signal, Qt, QSize
+from PySide6.QtCore import Signal, Qt, QSize, QCoreApplication
 
 
 class AddPasswordWidget(QWidget):
     returned: Signal = Signal(dict)
-    def __init__(self, assets_path: str, show_generating_dialog, parent: QWidget | None = None) -> None:
+    def __init__(self, assets_path: str, show_generating_dialog, translation_handler, parent: QWidget | None = None) -> None:
         super().__init__(parent)
 
         logging.debug(f"Initializing: {self}")
@@ -62,6 +62,8 @@ class AddPasswordWidget(QWidget):
             }
         """)
 
+        QCoreApplication.installTranslator(translation_handler.get_translator())
+
         self.back_icon: QIcon = QIcon(os.path.join(self.assets_path, "back-arrow-icon.png"))
         self.show_icon: QIcon = QIcon(os.path.join(self.assets_path, "show-icon.png"))
         self.hide_icon: QIcon = QIcon(os.path.join(self.assets_path, "hide-icon.png"))
@@ -78,7 +80,7 @@ class AddPasswordWidget(QWidget):
         label_width = 80
 
         # Row 0: password name and back button
-        back_button: QPushButton = QPushButton("Name:", self)
+        back_button: QPushButton = QPushButton(self.tr("Name:"), self)
         back_button.setObjectName("NameButton")
         back_button.clicked.connect(self.return_to_list)
         back_button.setIcon(self.back_icon)
@@ -96,21 +98,21 @@ class AddPasswordWidget(QWidget):
 
 
         # Row 1: Username
-        label_username = QLabel("Username:")
+        label_username = QLabel(self.tr("Username:"))
         label_username.setFixedWidth(label_width)
         grid_layout.addWidget(label_username, 2, 0, alignment=Qt.AlignRight)
 
         self.username_edit = QLineEdit()
-        self.username_edit.setPlaceholderText("Username")
+        self.username_edit.setPlaceholderText(self.tr("Username"))
         grid_layout.addWidget(self.username_edit, 2, 1)
 
 
         # Row 2: Password
-        label_password = QLabel("Password:")
+        label_password = QLabel(self.tr("Password:"))
         label_password.setFixedWidth(label_width)
         grid_layout.addWidget(label_password, 3, 0, alignment=Qt.AlignRight)
         self.password_edit = QLineEdit()
-        self.password_edit.setPlaceholderText("Password")
+        self.password_edit.setPlaceholderText(self.tr("Password"))
         self.password_edit.setEchoMode(QLineEdit.Password)
         grid_layout.addWidget(self.password_edit, 3, 1)
 
@@ -118,26 +120,26 @@ class AddPasswordWidget(QWidget):
         self.show_password_action = self.password_edit.addAction(
             self.show_icon, QLineEdit.TrailingPosition
         )
-        self.show_password_action.setToolTip("show/hide password")
+        self.show_password_action.setToolTip(self.tr("show/hide password"))
         self.show_password_action.triggered.connect(self.hide_or_unhide_password)
 
 
         # Row 3: Websites
-        label_websites = QLabel("Websites:")
+        label_websites = QLabel(self.tr("Websites:"))
         label_websites.setFixedWidth(label_width)
         grid_layout.addWidget(label_websites, 4, 0, alignment=Qt.AlignRight)
         self.website_edit = QLineEdit()
-        self.website_edit.setPlaceholderText("Website")
+        self.website_edit.setPlaceholderText(self.tr("Website"))
 
         grid_layout.addWidget(self.website_edit, 4, 1)
 
 
         # Row 4: Notes
-        label_note = QLabel("Notes:")
+        label_note = QLabel(self.tr("Notes:"))
         label_note.setFixedWidth(label_width)
         grid_layout.addWidget(label_note, 5, 0, alignment=Qt.AlignRight)
         self.note_edit = QLineEdit()
-        self.note_edit.setPlaceholderText("Notes")
+        self.note_edit.setPlaceholderText(self.tr("Notes"))
 
         grid_layout.addWidget(self.note_edit, 5, 1)
 
@@ -150,7 +152,7 @@ class AddPasswordWidget(QWidget):
         # Horizontal layout for action buttons.
         button_layout = QHBoxLayout()
         button_layout.setSpacing(40)
-        self.save_button = QPushButton("Save")
+        self.save_button = QPushButton(self.tr("Save"))
         button_layout.addWidget(self.save_button)
         self.save_button.clicked.connect(self.save_password)
 
@@ -198,10 +200,10 @@ class AddPasswordWidget(QWidget):
     def show_warning(self) -> None:
         msg_box = QMessageBox()
         msg_box.setIcon(QMessageBox.Warning)  # Options: Information, Warning, Critical, Question
-        msg_box.setWindowTitle("No name entered")
-        msg_box.setText("The password needs a name to be saved!\nIf you continue it will be lost")
-        yes_button = msg_box.addButton("Yes, proceed", QMessageBox.AcceptRole)
-        no_button = msg_box.addButton("No, cancel", QMessageBox.RejectRole)
+        msg_box.setWindowTitle(self.tr("No name entered"))
+        msg_box.setText(self.tr("The password needs a name to be saved!\nIf you continue it will be lost"))
+        yes_button = msg_box.addButton(self.tr("Yes, proceed"), QMessageBox.AcceptRole)
+        no_button = msg_box.addButton(self.tr("No, cancel"), QMessageBox.RejectRole)
         msg_box.exec()
 
         if msg_box.clickedButton() == yes_button:
