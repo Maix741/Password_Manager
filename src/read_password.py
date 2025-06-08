@@ -1,8 +1,7 @@
 import json
 import os
 
-from .encryption_handlers.fernet_crypto import FernetCrypto
-from .encryption_handlers.aes_crypto import AESCrypto
+from .encryption_handlers import FernetCrypto, AESCrypto
 
 
 class PasswordReader:

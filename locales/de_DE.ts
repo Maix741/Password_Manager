@@ -230,7 +230,7 @@ Wenn sie weitermachen wird es verloren gehen</translation>
     <message>
         <location filename="../src/widgets/generate_dialog.py" line="76"/>
         <source>Include Special Characters</source>
-        <translation>Spezial Charactere</translation>
+        <translation>Spezielle Charactere</translation>
     </message>
     <message>
         <location filename="../src/widgets/generate_dialog.py" line="88"/>

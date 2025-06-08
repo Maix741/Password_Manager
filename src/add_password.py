@@ -2,8 +2,7 @@ import json
 import os
 import re
 
-from .encryption_handlers.fernet_crypto import FernetCrypto
-from .encryption_handlers.aes_crypto import AESCrypto
+from .encryption_handlers import AESCrypto, FernetCrypto
 
 
 class AddPassword:
