@@ -259,6 +259,7 @@ class ManagerGUI(QMainWindow):
             )
             password_card: ReadPasswordWidget = ReadPasswordWidget(password_name, decrypted_password,
                                                                    self.assets_path, self.passwords_path,
+                                                                   self.translation_handler,
                                                                    self
                                                                    )
 
