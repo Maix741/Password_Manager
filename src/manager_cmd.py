@@ -9,19 +9,8 @@ import os
 
 import pyperclip
 
-from .get_keys import get_keys
-from .write_keys import write_keys
-from .check_setup import check_setup
-from .add_password import AddPassword
-from .setup_logging import setup_logging
-from .setup_folders import setup_folders
-from .get_data_path import get_data_path
-from .read_password import PasswordReader
-from .create_master_pass import CreateMasterPassword
-from .validate_master_pass import ValidateMasterPasswort
-from .generate_password import gen_aes_key, gen_password_cmd, get_master_key_fragment
-from .import_passwords import ImportPasswords
-from .export_passwords import ExportPasswords
+# import nessesary utils
+from .utils import *
 
 
 class ManagerCMD:
