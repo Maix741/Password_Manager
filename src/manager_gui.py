@@ -16,29 +16,7 @@ from PySide6.QtGui import QIcon, QAction
 from PySide6.QtCore import Qt, QSize
 
 # import nessesary utils
-from .generate_password import (
-    gen_aes_key, get_master_key_fragment, generate_password
-    )
-from .get_website_for_password import get_website_for_password
-from .search_passwords import search_passwords
-from .setup_logging import setup_logging
-from .setup_folders import setup_folders
-from .remove_password import remove_password
-from .rename_password import rename_password
-from .check_setup import check_setup
-from .write_keys import write_keys
-from .get_keys import get_keys
-from .get_paths import (
-    get_parent_folder, get_assets_path, get_download_path
-)
-from .add_password import AddPassword
-from .read_password import PasswordReader
-from .settings_handler import SettingsHandler
-from .translation_handler import TranslationHandler
-from .create_master_pass import CreateMasterPassword
-from .validate_master_pass import ValidateMasterPasswort
-from .import_passwords import ImportPasswords
-from .export_passwords import ExportPasswords
+from .utils import *
 
 # import widgets
 from .widgets import *
