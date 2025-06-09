@@ -13,7 +13,7 @@ class PasswordGenerateDialog(QDialog):
     def __init__(self, styles_path: str, settings_handler, translator, generator, parent=None):
         super(PasswordGenerateDialog, self).__init__(parent)
 
-        logging.debug("Password generator (GUI) initialized")
+        logging.debug(f"Initializing password generator (GUI): {self}")
 
         self.generator = generator
         self.settings_handler = settings_handler

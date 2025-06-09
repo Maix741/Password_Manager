@@ -64,9 +64,9 @@ class ManagerGUI(QMainWindow):
         self.central_layout.addWidget(self.search_edit)
 
         self.create_passwords_list()
-        self.init_icons()
 
         if create_dock:
+            self.init_icons()
             self.create_controls_dock()
             self.create_menubar()
 
@@ -257,17 +257,21 @@ class ManagerGUI(QMainWindow):
         error = None
         try:
             correct, fernet_key, AES_key = self.load_keys("read_password")
-            if not correct: raise Exception
+            if not correct: raise Exception("Incorrect Master entered")
             logging.info(f"Reading password: {password_name}")
             reader = PasswordReader()
             decrypted_password: dict[str, str] = reader.read_password(
                 name=password_name, AES_key=AES_key[0], salt=AES_key[1], fernet_key=fernet_key, password_path=self.passwords_path
             )
-            password_card: ReadPasswordWidget = ReadPasswordWidget(self.styles_path, password_name, decrypted_password,
-                                                                   self.assets_path, self.passwords_path,
-                                                                   self.translation_handler,
-                                                                   self
-                                                                   )
+            password_card: ReadPasswordWidget = ReadPasswordWidget(
+                styles_path=self.styles_path,
+                assets_path=self.assets_path,
+                passwords_path=self.passwords_path,
+                password_name=password_name,
+                password=decrypted_password,
+                translations_handler=self.translation_handler,
+                parent=self
+                )
 
         except Exception as e:
             error = e
@@ -338,22 +342,22 @@ class ManagerGUI(QMainWindow):
             self.change_to_normal_list()
 
         # Clear the central layout
-        self.clear_central_widget()
+        self.clear_central_layout()
 
         # Create a new layout for the password card
         read_card_layout = QVBoxLayout()
-        read_card_layout.setAlignment(Qt.AlignTop)  # Align the widget to the top
+        read_card_layout.setAlignment(Qt.AlignTop)
         read_card_layout.addWidget(password_card)
 
         # Create a container widget for the layout
-        self.read_card_container = QWidget(self)
+        self.read_card_container = QWidget(self.central_widget)
         self.read_card_container.setLayout(read_card_layout)
 
         # Add the container to the central layout
         self.central_layout.addWidget(self.read_card_container)
         password_card.returned.connect(modify_password)
 
-    def clear_central_widget(self) -> None:
+    def clear_central_layout(self) -> None:
         # Remove all widgets from self.central_layout
         for i in reversed(range(self.central_layout.count())):
             item = self.central_layout.itemAt(i)
@@ -365,43 +369,47 @@ class ManagerGUI(QMainWindow):
                 # If it's a layout or spacer, remove it accordingly
                 self.central_layout.removeItem(item)
 
-    def change_to_add_card(self, password_card: AddPasswordWidget) -> None:
+    def change_to_add_card(self, add_password_card: AddPasswordWidget) -> None:
         # Clear the central layout
-        self.clear_central_widget()
+        self.clear_central_layout()
 
         # Create a new layout for the password card
-        read_card_layout = QVBoxLayout()
-        read_card_layout.setAlignment(Qt.AlignTop)  # Align the widget to the top
-        read_card_layout.addWidget(password_card)
+        add_card_layout = QVBoxLayout()
+        add_card_layout.setAlignment(Qt.AlignTop)  # Align the widget to the top
+        add_card_layout.addWidget(add_password_card)
 
         # Create a container widget for the layout
-        self.read_card_container = QWidget(self)
-        self.read_card_container.setLayout(read_card_layout)
+        self.add_card_container = QWidget(self)
+        self.add_card_container.setLayout(add_card_layout)
 
         # Add the container to the central layout
-        self.central_layout.addWidget(self.read_card_container)
-        password_card.name_edit.setFocus()
-        password_card.returned.connect(self.change_to_normal_list)
+        self.central_layout.addWidget(self.add_card_container)
+        add_password_card.name_edit.setFocus()
+        add_password_card.returned.connect(self.change_to_normal_list)
 
     def change_to_settings(self) -> None:
+        if hasattr(self, "settings_widget") and self.settings_widget:
+            self.change_to_normal_list()
+            del self.settings_widget
+            return
         # Clear the central layout
-        self.clear_central_widget()
+        self.clear_central_layout()
 
         # create settings widget
-        settings_widget: SettingsWidget = SettingsWidget(self.styles_path, self.settings_handler, self.translation_handler, self)
+        self.settings_widget: SettingsWidget = SettingsWidget(self.styles_path, self.settings_handler, self.translation_handler, self)
 
         # Create a new layout for the settings widget
-        read_card_layout = QVBoxLayout()
-        read_card_layout.setAlignment(Qt.AlignTop)  # Align the widget to the top
-        read_card_layout.addWidget(settings_widget)
+        settings_layout = QVBoxLayout()
+        settings_layout.setAlignment(Qt.AlignTop)  # Align the widget to the top
+        settings_layout.addWidget(self.settings_widget)
 
         # Create a container widget for the layout
-        self.read_card_container = QWidget(self)
-        self.read_card_container.setLayout(read_card_layout)
+        self.settings_container = QWidget(self)
+        self.settings_container.setLayout(settings_layout)
 
         # Add the container to the central layout
-        self.central_layout.addWidget(self.read_card_container)
-        settings_widget.returned.connect(self.change_to_normal_list)
+        self.central_layout.addWidget(self.settings_container)
+        self.settings_widget.returned.connect(self.change_to_normal_list)
 
     def change_to_normal_list(self) -> None:
         self.init_ui(False)

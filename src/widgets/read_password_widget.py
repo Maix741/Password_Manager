@@ -50,12 +50,14 @@ class ReadPasswordWidget(QWidget):
         self.timer.timeout.connect(self.return_to_list)
         self.timer.start(120000)
 
+    def get_spacer(self) -> QSpacerItem:
+        # This spacer is used to align the labels and fields in the grid layout.
+        return QSpacerItem(5, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
+
     def init_ui(self) -> None:
         # Main layout for the card with some margins.
         main_layout = QVBoxLayout(self)
         main_layout.setContentsMargins(32, 32, 32, 32)
-
-        spacer: QSpacerItem = QSpacerItem(5, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()
@@ -75,15 +77,15 @@ class ReadPasswordWidget(QWidget):
 
 
         # Add vertical spacing after this row
-        spacer = QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Fixed)
-        grid_layout.addItem(spacer, 1, 0, 1, 3)
+        spacer_v1 = QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        grid_layout.addItem(spacer_v1, 1, 0, 1, 3)
 
 
         # Row 1: Username
         label_username = QLabel(self.tr("Username:"))
         grid_layout.addWidget(label_username, 2, 0, alignment=Qt.AlignRight)
 
-        grid_layout.addItem(spacer, 1, 1)
+        grid_layout.addItem(self.get_spacer(), 1, 1)
 
         self.username_edit = QLineEdit()
         self.username_edit.setPlaceholderText(self.tr("Username"))
@@ -104,7 +106,7 @@ class ReadPasswordWidget(QWidget):
         label_password = QLabel(self.tr("Password:"))
         grid_layout.addWidget(label_password, 3, 0, alignment=Qt.AlignRight)
 
-        grid_layout.addItem(spacer, 3, 1)
+        grid_layout.addItem(self.get_spacer(), 3, 1)
 
         self.password_edit = QLineEdit()
         self.password_edit.setPlaceholderText(self.tr("Password"))
@@ -132,7 +134,7 @@ class ReadPasswordWidget(QWidget):
         label_websites = QLabel(self.tr("Websites:"))
         grid_layout.addWidget(label_websites, 4, 0, alignment=Qt.AlignRight)
 
-        grid_layout.addItem(spacer, 4, 1)
+        grid_layout.addItem(self.get_spacer(), 4, 1)
 
         self.website_edit = QLineEdit()
         self.website_edit.setPlaceholderText(self.tr("Website"))
@@ -146,7 +148,7 @@ class ReadPasswordWidget(QWidget):
         label_note = QLabel(self.tr("Notes:"))
         grid_layout.addWidget(label_note, 5, 0, alignment=Qt.AlignRight)
 
-        grid_layout.addItem(spacer, 5, 1)
+        grid_layout.addItem(self.get_spacer(), 5, 1)
 
         self.note_edit = QLineEdit()
         self.note_edit.setPlaceholderText(self.tr("Notes"))
@@ -156,8 +158,8 @@ class ReadPasswordWidget(QWidget):
         grid_layout.addWidget(self.note_edit, 5, 2)
 
         # Add vertical spacing after this row
-        spacer = QSpacerItem(0, 20, QSizePolicy.Minimum, QSizePolicy.Fixed)
-        grid_layout.addItem(spacer, 6, 0)
+        spacer_v2 = QSpacerItem(0, 20, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        grid_layout.addItem(spacer_v2, 6, 0)
 
         main_layout.addLayout(grid_layout)
 
