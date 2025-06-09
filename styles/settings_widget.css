@@ -40,6 +40,7 @@ QPushButton#saveButton {
     background-color: #005fa3;
     font-weight: bold;
 }
+
 QPushButton#cancelButton {
     background-color: #444;
     color: white;

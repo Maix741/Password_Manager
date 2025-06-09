@@ -162,6 +162,7 @@ class ManagerGUI(QMainWindow):
 
     def show_generating_dialog(self) -> str:
         dialog: PasswordGenerateDialog = PasswordGenerateDialog(
+            self.styles_path,
             self.settings_handler, self.translation_handler,
             generate_password,
             self

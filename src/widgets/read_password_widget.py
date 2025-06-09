@@ -63,14 +63,15 @@ class ReadPasswordWidget(QWidget):
 
         # Row 0: password name and back button
         back_button: QPushButton = QPushButton(self)
+        back_button.setObjectName("backButton")
         back_button.clicked.connect(self.return_to_list)
         back_button.setIcon(self.back_icon)
         back_button.setIconSize(QSize(50, 50))  # Adjust the size here
         grid_layout.addWidget(back_button, 0, 0, alignment=Qt.AlignLeft)
 
-        label_name = QLabel(self.tr("Name: ") + self.password_name)
+        label_name = QLabel(self.password_name)
         # label_name.setFixedWidth(label_width)
-        label_name.setObjectName("NameLabel")
+        label_name.setObjectName("nameLabel")
         grid_layout.addWidget(label_name, 0, 1, alignment=Qt.AlignLeft)
 
 
@@ -159,12 +160,20 @@ class ReadPasswordWidget(QWidget):
         # Horizontal layout for action buttons.
         button_layout = QHBoxLayout()
         button_layout.setSpacing(20)
+        button_layout.addStretch()
+
         self.edit_button = QPushButton(self.tr("Edit"))
-        button_layout.addWidget(self.edit_button)
+        self.edit_button.setObjectName("editButton")
         self.edit_button.clicked.connect(self.enable_editing)
+        button_layout.addWidget(self.edit_button)
+
+        button_layout.addStretch()
+
         self.delete_button = QPushButton(self.tr("Delete"))
+        self.delete_button.setObjectName("deleteButton")
         self.delete_button.clicked.connect(self.delete_password)
         button_layout.addWidget(self.delete_button)
+        button_layout.addStretch()
 
         main_layout.addLayout(button_layout)
 
