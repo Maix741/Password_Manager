@@ -338,10 +338,7 @@ class ManagerGUI(QMainWindow):
             self.change_to_normal_list()
 
         # Clear the central layout
-        self.central_layout.removeWidget(self.search_edit)
-        self.central_layout.removeWidget(self.passwords_list)
-        self.search_edit.deleteLater()
-        self.passwords_list.deleteLater()
+        self.clear_central_widget()
 
         # Create a new layout for the password card
         read_card_layout = QVBoxLayout()
@@ -356,12 +353,21 @@ class ManagerGUI(QMainWindow):
         self.central_layout.addWidget(self.read_card_container)
         password_card.returned.connect(modify_password)
 
+    def clear_central_widget(self) -> None:
+        # Remove all widgets from self.central_layout
+        for i in reversed(range(self.central_layout.count())):
+            item = self.central_layout.itemAt(i)
+            widget = item.widget()
+            if widget is not None:
+                self.central_layout.removeWidget(widget)
+                widget.deleteLater()
+            else:
+                # If it's a layout or spacer, remove it accordingly
+                self.central_layout.removeItem(item)
+
     def change_to_add_card(self, password_card: AddPasswordWidget) -> None:
         # Clear the central layout
-        self.central_layout.removeWidget(self.search_edit)
-        self.central_layout.removeWidget(self.passwords_list)
-        self.search_edit.deleteLater()
-        self.passwords_list.deleteLater()
+        self.clear_central_widget()
 
         # Create a new layout for the password card
         read_card_layout = QVBoxLayout()
@@ -378,16 +384,8 @@ class ManagerGUI(QMainWindow):
         password_card.returned.connect(self.change_to_normal_list)
 
     def change_to_settings(self) -> None:
-        try:
-            # Clear the central layout
-            self.central_layout.removeWidget(self.search_edit)
-            self.central_layout.removeWidget(self.passwords_list)
-            self.search_edit.deleteLater()
-            self.passwords_list.deleteLater()
-
-        except (RuntimeError) as e:
-            logging.error(f"RuntimeError occurred while changing to settings: {e}")
-            return self.change_to_normal_list()
+        # Clear the central layout
+        self.clear_central_widget()
 
         # create settings widget
         settings_widget: SettingsWidget = SettingsWidget(self.styles_path, self.settings_handler, self.translation_handler, self)
