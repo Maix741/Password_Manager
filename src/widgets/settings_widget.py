@@ -2,10 +2,10 @@ import logging
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
-    QPushButton, QVBoxLayout, QLabel, QWidget, 
-    QComboBox, QHBoxLayout, QLineEdit, QGridLayout
+    QPushButton, QVBoxLayout, QLabel, QWidget, QSpacerItem,
+    QComboBox, QHBoxLayout, QLineEdit, QGridLayout, QSizePolicy
 )
-from PySide6.QtCore import Signal, Qt, QTimer, QCoreApplication
+from PySide6.QtCore import Signal, Qt, QCoreApplication
 
 
 class SettingsWidget(QWidget):
@@ -20,34 +20,71 @@ class SettingsWidget(QWidget):
 
         QCoreApplication.installTranslator(self.translations_handler.get_translator())
 
-        self.setObjectName("PasswordCard")
+        self.design_options: list[str] = [self.tr("system"), self.tr("dark"), self.tr("light")]
+
+        self.setObjectName("settingsWidget")
         self.setStyleSheet("""
-            QWidget#PasswordCard {
-                background-color: #222233;
-                border: 1px solid #000000;
-                border-radius: 10px;
-            }
             QLabel {
                 font-size: 12pt;
                 color: #BDBDBD;
             }
-            QLabel#NameLabel {
-                font-size: 20pt;
+            QLabel#titleLabel {
+                font-size: 25pt;
                 color: #BDBDBD;
             }
             QLineEdit {
                 border: none;
                 background-color: #F9F9F9;
                 padding: 5px;
-                font-size: 12pt;
+                font-size: 10pt;
                 color: #333333;
+                border-radius: 9px;
             }
-            QPushButton {
+
+            QComboBox {
+                background-color: #f0f4fa;
+                color: #222233;
+                border: 2px solid #b0b8c1;
+                border-radius: 8px;
+                padding: 6px 12px;
+                font-size: 12pt;
+                selection-background-color: #dbeafe;
+            }
+            QComboBox::down-arrow, QComboBox::drop-down {
                 border: none;
                 background: transparent;
-                font-size: 10pt;
-                color: #0078D7;
+                width: 0;
+                height: 0;
             }
+
+            QPushButton#saveButton {
+                background-color: #0078D7;
+                color: white;
+                border-radius: 6px;
+                padding: 8px 24px;
+                background-color: #005fa3;
+                font-weight: bold;
+            }
+            QPushButton#cancelButton {
+                background-color: #444;
+                color: white;
+                border-radius: 6px;
+                padding: 8px 24px;
+            }
+            QPushButton#cancelButton:hover {
+                background-color: #222;
+            }
+
+            QPushButton#browseButton {
+                background-color: #444;
+                color: white;
+                border-radius: 6px;
+                padding: 8px 24px;
+            }
+            QPushButton#browseButton:hover {
+                background-color: #222;
+            }
+
             QPushButton:hover {
                 text-decoration: underline;
             }
@@ -55,47 +92,62 @@ class SettingsWidget(QWidget):
 
         self.init_ui()
 
-        # timeout in the reading window
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.return_to_list)
-        self.timer.start(120000)
-
     def init_ui(self) -> None:
-        # Main layout for the card with some margins.
         main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(24, 24, 24, 24)
-        main_layout.setSpacing(20)
+        main_layout.setObjectName("mainLayout")
+        main_layout.setContentsMargins(32, 32, 32, 32)
+        main_layout.setSpacing(28)
+
+        # Section title
+        title_label = QLabel(self.tr("Settings"))
+        title_label.setObjectName("titleLabel")
+        title_label.setAlignment(Qt.AlignCenter)
+        main_layout.addWidget(title_label)
 
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()
-        grid_layout.setHorizontalSpacing(16)
-        grid_layout.setVerticalSpacing(12)
-        label_width = 150  # Fixed width for labels
+        grid_layout.setHorizontalSpacing(20)
+        grid_layout.setVerticalSpacing(18)
+        label_width = 170
 
         # row 0: data_path
         data_path_label = QLabel(self.tr("Data path"))
         data_path_label.setFixedWidth(label_width)
+        data_path_label.setToolTip(self.tr("Location where your data is stored."))
         grid_layout.addWidget(data_path_label, 0, 0, alignment=Qt.AlignRight)
 
+        data_path_layout = QHBoxLayout()
         self.data_edit = QLineEdit()
         self.data_edit.setPlaceholderText(self.tr("Data path"))
+        self.data_edit.setReadOnly(True)
         self.data_edit.setText(self.settings_handler.get("data_path"))
-        grid_layout.addWidget(self.data_edit, 0, 1)
+        self.data_edit.setToolTip(self.tr("Location where your data is stored."))
+        data_path_layout.addWidget(self.data_edit)
+
+        browse_button = QPushButton(self.tr("Browse"))
+        browse_button.setObjectName("browseButton")
+        browse_button.setToolTip(self.tr("Browse for data path"))
+        browse_button.clicked.connect(self.browse_data_path)
+        data_path_layout.addWidget(browse_button)
+        grid_layout.addLayout(data_path_layout, 0, 1)
 
         # row 1: locale
         locale_label = QLabel(self.tr("Locale"))
         locale_label.setFixedWidth(label_width)
+        locale_label.setToolTip(self.tr("Language for the application interface."))
         grid_layout.addWidget(locale_label, 1, 0, alignment=Qt.AlignRight)
 
         self.locale_combo_box = QComboBox()
         self.locale_combo_box.setPlaceholderText(self.tr("Locale"))
         self.locale_combo_box.addItems(self.translations_handler.get_available_languages())
         self.locale_combo_box.setCurrentText(self.settings_handler.get("system_locale"))
+        self.locale_combo_box.setToolTip(self.tr("Language for the application interface."))
         grid_layout.addWidget(self.locale_combo_box, 1, 1)
 
         # row 2: use_website_as_name
         use_website_label = QLabel(self.tr("Use website as name"))
         use_website_label.setFixedWidth(label_width)
+        use_website_label.setToolTip(self.tr("Use the website as the entry name by default."))
         grid_layout.addWidget(use_website_label, 2, 0, alignment=Qt.AlignRight)
 
         self.use_website_combo_box = QComboBox()
@@ -103,35 +155,68 @@ class SettingsWidget(QWidget):
         self.use_website_combo_box.setCurrentText(
             "True" if self.settings_handler.get("use_website_as_name") else "False"
         )
+        self.use_website_combo_box.setToolTip(self.tr("Use the website as the entry name by default."))
         grid_layout.addWidget(self.use_website_combo_box, 2, 1)
 
         # row 3: design
         design_label = QLabel(self.tr("Design"))
         design_label.setFixedWidth(label_width)
+        design_label.setToolTip(self.tr("Theme for the application."))
         grid_layout.addWidget(design_label, 3, 0, alignment=Qt.AlignRight)
 
-        self.design_edit = QLineEdit()
-        self.design_edit.setPlaceholderText(self.tr("Design"))
-        self.design_edit.setText(str(self.settings_handler.get("design")))
-        grid_layout.addWidget(self.design_edit, 3, 1)
+        self.design_combo = QComboBox()
+        self.design_combo.setPlaceholderText(self.tr("Design"))
+        self.design_combo.addItems(self.design_options)
+        self.design_combo.setCurrentIndex(self.settings_handler.get("design"))
+        self.design_combo.setToolTip(self.tr("Theme for the application."))
+        grid_layout.addWidget(self.design_combo, 3, 1)
 
         main_layout.addLayout(grid_layout)
 
         # Horizontal layout for action buttons.
         button_layout = QHBoxLayout()
-        button_layout.setSpacing(20)
+        button_layout.setSpacing(30)
+        button_layout.addStretch()
+
         self.save_button = QPushButton(self.tr("Save"))
+        self.save_button.setObjectName("saveButton")
+        self.save_button.setToolTip(self.tr("Save your changes"))
         button_layout.addWidget(self.save_button)
         self.save_button.clicked.connect(self.save_settings)
+
+        self.cancel_button = QPushButton(self.tr("Cancel"))
+        self.cancel_button.setObjectName("cancelButton")
+        self.cancel_button.setToolTip(self.tr("Discard changes and return"))
+        self.cancel_button.clicked.connect(self.return_to_list)
+        button_layout.addWidget(self.cancel_button)
+
+        button_layout.addStretch()
+
         main_layout.addLayout(button_layout)
+        main_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+    def browse_data_path(self):
+        from PySide6.QtWidgets import QFileDialog
+        path = QFileDialog.getExistingDirectory(self, self.tr("Select Data Directory"), self.data_edit.text())
+        if path:
+            self.data_edit.setText(path)
 
     def save_settings(self) -> None:
         logging.info("Saving settings")
         self.settings_handler.set("data_path", self.data_edit.text())
         self.settings_handler.set("system_locale", self.locale_combo_box.currentText())
-        self.settings_handler.set("use_website_as_name", self.use_website_combo_box.currentText() == "True")
-        self.settings_handler.set("design", self.design_edit.text())
+        self.settings_handler.set("use_website_as_name", self.use_website_combo_box.currentIndex() == 0)
+        self.settings_handler.set("design", self.design_combo.currentIndex())
         self.settings_handler.save()
 
     def return_to_list(self) -> None:
         self.returned.emit()
+
+    def paintEvent(self, event):
+        from PySide6.QtGui import QPainter, QBrush, QColor
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setBrush(QBrush(QColor("#2d2d2d")))
+        painter.setPen(QColor("#000000"))
+        painter.drawRoundedRect(self.rect(), 10, 10)
+        super().paintEvent(event)

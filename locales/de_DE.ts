@@ -329,32 +329,106 @@ Wenn sie weitermachen wird es verloren gehen</translation>
 <context>
     <name>SettingsWidget</name>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="76"/>
-        <location filename="../src/widgets/settings_widget.py" line="81"/>
+        <location filename="../src/widgets/settings_widget.py" line="23"/>
+        <source>system</source>
+        <translation>System</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="23"/>
+        <source>dark</source>
+        <translation>Dunkel</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="25"/>
+        <source>light</source>
+        <translation>Hell</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="102"/>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="114"/>
+        <location filename="../src/widgets/settings_widget.py" line="121"/>
         <source>Data path</source>
         <translation>Daten Pfad</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="86"/>
-        <location filename="../src/widgets/settings_widget.py" line="91"/>
+        <location filename="../src/widgets/settings_widget.py" line="116"/>
+        <location filename="../src/widgets/settings_widget.py" line="124"/>
+        <source>Location where your data is stored.</source>
+        <translation>Ordner wo ihre Daten gespeichert werden.</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="127"/>
+        <source>Browse</source>
+        <translation>Auswählen</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="129"/>
+        <source>Browse for data path</source>
+        <translation>Den Daten Pfad auswählen</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="135"/>
+        <location filename="../src/widgets/settings_widget.py" line="141"/>
         <source>Locale</source>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="97"/>
+        <location filename="../src/widgets/settings_widget.py" line="137"/>
+        <location filename="../src/widgets/settings_widget.py" line="144"/>
+        <source>Language for the application interface.</source>
+        <translation>Sprache für die App.</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="148"/>
         <source>Use website as name</source>
         <translation>Website als Namen verwenden</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="109"/>
-        <location filename="../src/widgets/settings_widget.py" line="114"/>
+        <location filename="../src/widgets/settings_widget.py" line="150"/>
+        <location filename="../src/widgets/settings_widget.py" line="158"/>
+        <source>Use the website as the entry name by default.</source>
+        <translation>Nutze standartmäßig die Website als Namen.</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="162"/>
+        <location filename="../src/widgets/settings_widget.py" line="168"/>
         <source>Design</source>
         <translation>Design</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="123"/>
+        <location filename="../src/widgets/settings_widget.py" line="164"/>
+        <location filename="../src/widgets/settings_widget.py" line="171"/>
+        <source>Theme for the application.</source>
+        <translation>Thema der Anwendung.</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="181"/>
         <source>Save</source>
         <translation>Speichern</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="183"/>
+        <source>Save your changes</source>
+        <translation>Speichere ihre Änderungen</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="187"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="189"/>
+        <source>Discard changes and return</source>
+        <translation>Änderungen verwerfen und zurückkehren</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="200"/>
+        <source>Select Data Directory</source>
+        <translation>Daten Ordner auswählen</translation>
     </message>
 </context>
 </TS>

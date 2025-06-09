@@ -329,32 +329,106 @@ If you continue it will be lost</translation>
 <context>
     <name>SettingsWidget</name>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="76"/>
-        <location filename="../src/widgets/settings_widget.py" line="81"/>
+        <location filename="../src/widgets/settings_widget.py" line="23"/>
+        <source>system</source>
+        <translation>system</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="23"/>
+        <source>dark</source>
+        <translation>dark</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="25"/>
+        <source>light</source>
+        <translation>light</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="102"/>
+        <source>Settings</source>
+        <translation>Settings</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="114"/>
+        <location filename="../src/widgets/settings_widget.py" line="121"/>
         <source>Data path</source>
         <translation>Data path</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="86"/>
-        <location filename="../src/widgets/settings_widget.py" line="91"/>
+        <location filename="../src/widgets/settings_widget.py" line="116"/>
+        <location filename="../src/widgets/settings_widget.py" line="124"/>
+        <source>Location where your data is stored.</source>
+        <translation>Location where your data is stored.</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="127"/>
+        <source>Browse</source>
+        <translation>Browse</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="129"/>
+        <source>Browse for data path</source>
+        <translation>Browse for data path</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="135"/>
+        <location filename="../src/widgets/settings_widget.py" line="141"/>
         <source>Locale</source>
         <translation>Language</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="97"/>
+        <location filename="../src/widgets/settings_widget.py" line="137"/>
+        <location filename="../src/widgets/settings_widget.py" line="144"/>
+        <source>Language for the application interface.</source>
+        <translation>Language for the application interface.</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="148"/>
         <source>Use website as name</source>
         <translation>Use website as name</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="109"/>
-        <location filename="../src/widgets/settings_widget.py" line="114"/>
+        <location filename="../src/widgets/settings_widget.py" line="150"/>
+        <location filename="../src/widgets/settings_widget.py" line="158"/>
+        <source>Use the website as the entry name by default.</source>
+        <translation>Use the website as the entry name by default.</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="162"/>
+        <location filename="../src/widgets/settings_widget.py" line="168"/>
         <source>Design</source>
         <translation>Design</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="123"/>
+        <location filename="../src/widgets/settings_widget.py" line="164"/>
+        <location filename="../src/widgets/settings_widget.py" line="171"/>
+        <source>Theme for the application.</source>
+        <translation>Theme for the application.</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="181"/>
         <source>Save</source>
         <translation>Save</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="183"/>
+        <source>Save your changes</source>
+        <translation>Save your changes</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="187"/>
+        <source>Cancel</source>
+        <translation>Cancel</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="189"/>
+        <source>Discard changes and return</source>
+        <translation>Discard changes and return</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="200"/>
+        <source>Select Data Directory</source>
+        <translation>Select Data Directory</translation>
     </message>
 </context>
 </TS>
