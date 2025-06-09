@@ -7,6 +7,7 @@ from PySide6.QtWidgets import (
     QComboBox, QHBoxLayout, QLineEdit, QGridLayout, QSizePolicy
 )
 from PySide6.QtCore import Signal, Qt, QCoreApplication
+from PySide6.QtGui import QPainter, QBrush, QColor
 
 
 class SettingsWidget(QWidget):
@@ -156,7 +157,6 @@ class SettingsWidget(QWidget):
         self.returned.emit()
 
     def paintEvent(self, event):
-        from PySide6.QtGui import QPainter, QBrush, QColor
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setBrush(QBrush(QColor("#2d2d2d")))
