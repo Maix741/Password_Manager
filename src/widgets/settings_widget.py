@@ -1,4 +1,5 @@
 import logging
+import os
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
@@ -6,12 +7,16 @@ from PySide6.QtWidgets import (
     QComboBox, QHBoxLayout, QLineEdit, QGridLayout, QSizePolicy
 )
 from PySide6.QtCore import Signal, Qt, QCoreApplication
+from PySide6.QtGui import QPainter, QBrush, QColor
 
 
 class SettingsWidget(QWidget):
     returned: Signal = Signal()
-    def __init__(self, settings_handler, translations_handler, parent: QWidget | None = None) -> None:
-        super().__init__(parent)
+    def __init__(self, styles_path: str,
+                 settings_handler, translations_handler,
+                 parent: QWidget | None = None
+                 ) -> None:
+        super(SettingsWidget, self).__init__(parent)
 
         logging.debug(f"Initializing: {self}")
 
@@ -23,72 +28,11 @@ class SettingsWidget(QWidget):
         self.design_options: list[str] = [self.tr("system"), self.tr("dark"), self.tr("light")]
 
         self.setObjectName("settingsWidget")
-        self.setStyleSheet("""
-            QLabel {
-                font-size: 12pt;
-                color: #BDBDBD;
-            }
-            QLabel#titleLabel {
-                font-size: 25pt;
-                color: #BDBDBD;
-            }
-            QLineEdit {
-                border: none;
-                background-color: #F9F9F9;
-                padding: 5px;
-                font-size: 10pt;
-                color: #333333;
-                border-radius: 9px;
-            }
-
-            QComboBox {
-                background-color: #f0f4fa;
-                color: #222233;
-                border: 2px solid #b0b8c1;
-                border-radius: 8px;
-                padding: 6px 12px;
-                font-size: 12pt;
-                selection-background-color: #dbeafe;
-            }
-            QComboBox::down-arrow, QComboBox::drop-down {
-                border: none;
-                background: transparent;
-                width: 0;
-                height: 0;
-            }
-
-            QPushButton#saveButton {
-                background-color: #0078D7;
-                color: white;
-                border-radius: 6px;
-                padding: 8px 24px;
-                background-color: #005fa3;
-                font-weight: bold;
-            }
-            QPushButton#cancelButton {
-                background-color: #444;
-                color: white;
-                border-radius: 6px;
-                padding: 8px 24px;
-            }
-            QPushButton#cancelButton:hover {
-                background-color: #222;
-            }
-
-            QPushButton#browseButton {
-                background-color: #444;
-                color: white;
-                border-radius: 6px;
-                padding: 8px 24px;
-            }
-            QPushButton#browseButton:hover {
-                background-color: #222;
-            }
-
-            QPushButton:hover {
-                text-decoration: underline;
-            }
-        """)
+        try:
+            with open(os.path.join(styles_path, "settings_widget.css"), "r") as s_f:
+                self.setStyleSheet(s_f.read())
+        except (FileNotFoundError, PermissionError) as e:
+            logging.exception(f"Error getting style for the settings_widget: {e}")
 
         self.init_ui()
 
@@ -108,7 +52,7 @@ class SettingsWidget(QWidget):
         grid_layout = QGridLayout()
         grid_layout.setHorizontalSpacing(20)
         grid_layout.setVerticalSpacing(18)
-        label_width = 170
+        label_width = 160
 
         # row 0: data_path
         data_path_label = QLabel(self.tr("Data path"))
@@ -213,7 +157,6 @@ class SettingsWidget(QWidget):
         self.returned.emit()
 
     def paintEvent(self, event):
-        from PySide6.QtGui import QPainter, QBrush, QColor
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setBrush(QBrush(QColor("#2d2d2d")))

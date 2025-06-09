@@ -6,14 +6,17 @@ from PySide6.QtWidgets import (
     QPushButton, QVBoxLayout, QLabel, QWidget, QMessageBox,
     QSpacerItem, QSizePolicy, QHBoxLayout, QLineEdit, QGridLayout
 )
-from PySide6.QtGui import QIcon
 from PySide6.QtCore import Signal, Qt, QSize, QCoreApplication
+from PySide6.QtGui import QPainter, QBrush, QColor, QIcon
 
 
 class AddPasswordWidget(QWidget):
     returned: Signal = Signal(dict)
-    def __init__(self, assets_path: str, show_generating_dialog, translation_handler, parent: QWidget | None = None) -> None:
-        super().__init__(parent)
+    def __init__(self, styles_path: str, assets_path: str,
+                 show_generating_dialog, translation_handler,
+                 parent: QWidget | None = None
+                 ) -> None:
+        super(AddPasswordWidget, self).__init__(parent)
 
         logging.debug(f"Initializing: {self}")
 
@@ -24,43 +27,11 @@ class AddPasswordWidget(QWidget):
         self.password: dict[str, str] = {}
 
         self.setObjectName("PasswordCard")
-        self.setStyleSheet("""
-            QWidget#PasswordCard {
-                background-color: #222233;
-                border: 1px solid #000000;
-                border-radius: 10px;
-            }
-            QLabel {
-                font-size: 12pt;
-                color: #BDBDBD;
-            }
-            QLabel#NameLabel {
-                font-size: 20pt;
-                color: #BDBDBD;
-            }
-            QLineEdit {
-                border: none;
-                background-color: #F9F9F9;
-                padding: 5px;
-                font-size: 12pt;
-                color: #333333;
-            }
-            QPushButton {
-                border: none;
-                background: transparent;
-                font-size: 10pt;
-                color: #0078D7;
-            }
-            QPushButton#NameButton {
-                border: none;
-                background: transparent;
-                font-size: 20pt;
-                color: #BDBDBD;
-            }
-            QPushButton:hover {
-                text-decoration: underline;
-            }
-        """)
+        try:
+            with open(os.path.join(styles_path, "add_password_widget.css"), "r") as s_f:
+                self.setStyleSheet(s_f.read())
+        except (FileNotFoundError, PermissionError) as e:
+            logging.exception(f"Error getting style for the add_password_widget: {e}")
 
         QCoreApplication.installTranslator(translation_handler.get_translator())
 
@@ -74,6 +45,7 @@ class AddPasswordWidget(QWidget):
     def init_ui(self) -> None:
         # Main layout for the card with some margins.
         main_layout = QVBoxLayout(self)
+        main_layout.setContentsMargins(32, 32, 32, 32)
 
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()
@@ -81,7 +53,7 @@ class AddPasswordWidget(QWidget):
 
         # Row 0: password name and back button
         back_button: QPushButton = QPushButton(self.tr("Name:"), self)
-        back_button.setObjectName("NameButton")
+        back_button.setObjectName("nameButton")
         back_button.clicked.connect(self.return_to_list)
         back_button.setIcon(self.back_icon)
         back_button.setIconSize(self.back_icon_size)
@@ -151,12 +123,16 @@ class AddPasswordWidget(QWidget):
 
         # Horizontal layout for action buttons.
         button_layout = QHBoxLayout()
-        button_layout.setSpacing(40)
+        button_layout.addStretch()
         self.save_button = QPushButton(self.tr("Save"))
+        self.save_button.setObjectName("saveButton")
         button_layout.addWidget(self.save_button)
         self.save_button.clicked.connect(self.save_password)
 
+        button_layout.addStretch()
         main_layout.addLayout(button_layout)
+
+        main_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
     def hide_or_unhide_password(self) -> None:
         if self.password_edit.echoMode() != QLineEdit.Password:
@@ -210,3 +186,11 @@ class AddPasswordWidget(QWidget):
             self.return_to_list()
         elif msg_box.clickedButton() == no_button:
             return
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setBrush(QBrush(QColor("#2d2d2d")))
+        painter.setPen(QColor("#000000"))
+        painter.drawRoundedRect(self.rect(), 10, 10)
+        super().paintEvent(event)

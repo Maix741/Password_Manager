@@ -1,4 +1,5 @@
 import logging
+import os
 
 from PySide6.QtWidgets import (
     QLabel, QPushButton, QVBoxLayout, QHBoxLayout,
@@ -9,7 +10,7 @@ import pyperclip
 
 
 class PasswordGenerateDialog(QDialog):
-    def __init__(self, settings_handler, translator, generator, parent=None):
+    def __init__(self, styles_path: str, settings_handler, translator, generator, parent=None):
         super(PasswordGenerateDialog, self).__init__(parent)
 
         logging.debug("Password generator (GUI) initialized")
@@ -27,6 +28,12 @@ class PasswordGenerateDialog(QDialog):
         self.lenght_start_value: int = 12
 
         QCoreApplication.installTranslator(self.translator.get_translator())
+
+        try:
+            with open(os.path.join(styles_path, "generate_dialog.css"), "r") as s_f:
+                self.setStyleSheet(s_f.read())
+        except (FileNotFoundError, PermissionError) as e:
+            logging.exception(f"Error getting style for the generate_dialog: {e}")
 
         self.init_ui()
 

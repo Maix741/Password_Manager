@@ -9,65 +9,34 @@ from PySide6.QtWidgets import (
     QSpacerItem, QSizePolicy, QHBoxLayout, QLineEdit
 )
 from PySide6.QtCore import Signal, Qt, QTimer, QSize, QCoreApplication
-from PySide6.QtGui import QIcon
+from PySide6.QtGui import QPainter, QBrush, QColor, QIcon
 
 
 class ReadPasswordWidget(QWidget):
     returned: Signal = Signal(dict)
-    def __init__(self,
+    def __init__(self, styles_path,
                  password_name: str, password: dict[str, str],
                  assets_path: str, passwords_path: str,
                  translations_handler,
                  parent: QWidget | None = None
                  ) -> None:
-        super().__init__(parent)
+        super(ReadPasswordWidget, self).__init__(parent)
 
         logging.debug(f"Initializing: {self}")
 
         QCoreApplication.installTranslator(translations_handler.get_translator())
 
+        self.styles_path: str = styles_path
         self.passwords_path: str = passwords_path
         self.assets_path: str = assets_path
+
         self.password_name: str = password_name
         self.password: dict[str, str] = password
         self.password_new: dict[str, str] = {}
         self.password_edited: bool = False
 
         self.setObjectName("PasswordCard")
-        self.setStyleSheet("""
-            QWidget#PasswordCard {
-                background-color: #222233;
-                border: 1px solid #000000;
-                border-radius: 10px;
-            }
-            QLabel {
-                font-size: 12pt;
-                color: #BDBDBD;
-            }
-            QLabel#NameLabel {
-                font-size: 20pt;
-                color: #BDBDBD;
-            }
-            QLineEdit {
-                border: none;
-                background-color: #F9F9F9;
-                padding: 5px;
-                font-size: 12pt;
-                color: #333333;
-            }
-            QLineEdit#websiteEdit {
-            text-decoration: underline;
-            }
-            QPushButton {
-                border: none;
-                background: transparent;
-                font-size: 10pt;
-                color: #0078D7;
-            }
-            QPushButton:hover {
-                text-decoration: underline;
-            }
-        """)
+        self.set_style_sheet()
 
         self.copy_icon: QIcon = QIcon(os.path.join(self.assets_path, "copy-icon.png"))
         self.show_icon: QIcon = QIcon(os.path.join(self.assets_path, "show-icon.png"))
@@ -84,6 +53,7 @@ class ReadPasswordWidget(QWidget):
     def init_ui(self) -> None:
         # Main layout for the card with some margins.
         main_layout = QVBoxLayout(self)
+        main_layout.setContentsMargins(32, 32, 32, 32)
 
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()
@@ -92,14 +62,15 @@ class ReadPasswordWidget(QWidget):
 
         # Row 0: password name and back button
         back_button: QPushButton = QPushButton(self)
+        back_button.setObjectName("backButton")
         back_button.clicked.connect(self.return_to_list)
         back_button.setIcon(self.back_icon)
         back_button.setIconSize(QSize(50, 50))  # Adjust the size here
         grid_layout.addWidget(back_button, 0, 0, alignment=Qt.AlignLeft)
 
-        label_name = QLabel(self.tr("Name: ") + self.password_name)
+        label_name = QLabel(self.password_name)
         # label_name.setFixedWidth(label_width)
-        label_name.setObjectName("NameLabel")
+        label_name.setObjectName("nameLabel")
         grid_layout.addWidget(label_name, 0, 1, alignment=Qt.AlignLeft)
 
 
@@ -188,14 +159,31 @@ class ReadPasswordWidget(QWidget):
         # Horizontal layout for action buttons.
         button_layout = QHBoxLayout()
         button_layout.setSpacing(20)
+        button_layout.addStretch()
+
         self.edit_button = QPushButton(self.tr("Edit"))
-        button_layout.addWidget(self.edit_button)
+        self.edit_button.setObjectName("editButton")
         self.edit_button.clicked.connect(self.enable_editing)
+        button_layout.addWidget(self.edit_button)
+
+        button_layout.addStretch()
+
         self.delete_button = QPushButton(self.tr("Delete"))
+        self.delete_button.setObjectName("deleteButton")
         self.delete_button.clicked.connect(self.delete_password)
         button_layout.addWidget(self.delete_button)
+        button_layout.addStretch()
 
         main_layout.addLayout(button_layout)
+
+        main_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+    def set_style_sheet(self) -> None:
+        try:
+            with open(os.path.join(self.styles_path, "read_password_widget.css"), "r") as s_f:
+                self.setStyleSheet(s_f.read())
+        except (FileNotFoundError, PermissionError) as e:
+            logging.exception(f"Error getting style for the read_password_widget: {e}")
 
     def hide_or_unhide_password(self) -> None:
         if self.password_edit.echoMode() != QLineEdit.Password:
@@ -236,6 +224,8 @@ class ReadPasswordWidget(QWidget):
         self.website_edit.setReadOnly(False)
         self.note_edit.setReadOnly(False)
 
+        self.edit_button.setObjectName("saveButton")
+        self.set_style_sheet()
         self.edit_button.setText("Save")
 
     def save_password(self) -> None:
@@ -246,6 +236,8 @@ class ReadPasswordWidget(QWidget):
         self.note_edit.setReadOnly(True)
 
         self.show_password_action.setIcon(self.show_icon)
+        self.edit_button.setObjectName("editButton")
+        self.set_style_sheet()
         self.edit_button.setText("Edit")
 
         self.password["name"] = self.password_name
@@ -264,3 +256,11 @@ class ReadPasswordWidget(QWidget):
             self.returned.emit(self.password_new)
         else:
             self.returned.emit({})
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setBrush(QBrush(QColor("#2d2d2d")))
+        painter.setPen(QColor("#000000"))
+        painter.drawRoundedRect(self.rect(), 10, 10)
+        super().paintEvent(event)

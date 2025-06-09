@@ -1,0 +1,66 @@
+QLabel {
+    font-size: 12pt;
+    color: #BDBDBD;
+}
+QLabel#titleLabel {
+    font-size: 25pt;
+    color: #BDBDBD;
+}
+
+QLineEdit {
+    border: none;
+    background-color: #F9F9F9;
+    padding: 5px;
+    font-size: 12pt;
+    color: #333333;
+    border-radius: 9px;
+}
+
+QComboBox {
+    background-color: #f0f4fa;
+    color: #222233;
+    border: 2px solid #b0b8c1;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 12pt;
+    selection-background-color: #dbeafe;
+}
+QComboBox::down-arrow, QComboBox::drop-down {
+    border: none;
+    background: transparent;
+    width: 0;
+    height: 0;
+}
+
+QPushButton#saveButton {
+    background-color: #0078D7;
+    color: white;
+    border-radius: 6px;
+    padding: 8px 24px;
+    background-color: #005fa3;
+    font-weight: bold;
+}
+
+QPushButton#cancelButton {
+    background-color: #444;
+    color: white;
+    border-radius: 6px;
+    padding: 8px 24px;
+}
+QPushButton#cancelButton:hover {
+    background-color: #222;
+}
+
+QPushButton#browseButton {
+    background-color: #444;
+    color: white;
+    border-radius: 6px;
+    padding: 8px 24px;
+}
+QPushButton#browseButton:hover {
+    background-color: #222;
+}
+
+QPushButton:hover {
+    text-decoration: underline;
+}

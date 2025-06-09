@@ -24,6 +24,7 @@ from .search_passwords import search_passwords
 
 from .get_paths import (get_assets_path, get_translations_path,
                         get_data_path, get_download_path,
+                        get_styles_path,
                         get_parent_folder
                         )
 from .get_keys import get_keys
