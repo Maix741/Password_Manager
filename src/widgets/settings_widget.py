@@ -52,7 +52,7 @@ class SettingsWidget(QWidget):
         grid_layout = QGridLayout()
         grid_layout.setHorizontalSpacing(20)
         grid_layout.setVerticalSpacing(18)
-        label_width = 170
+        label_width = 160
 
         # row 0: data_path
         data_path_label = QLabel(self.tr("Data path"))

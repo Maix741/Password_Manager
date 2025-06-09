@@ -4,79 +4,79 @@
 <context>
     <name>AddPasswordWidget</name>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="54"/>
+        <location filename="../src/widgets/add_password_widget.py" line="55"/>
         <source>Name:</source>
         <translation>Name:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="72"/>
+        <location filename="../src/widgets/add_password_widget.py" line="73"/>
         <source>Username:</source>
         <translation>Nutzername:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="77"/>
+        <location filename="../src/widgets/add_password_widget.py" line="78"/>
         <source>Username</source>
         <translation>Nutzername</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="82"/>
+        <location filename="../src/widgets/add_password_widget.py" line="83"/>
         <source>Password:</source>
         <translation>Passwort:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="86"/>
+        <location filename="../src/widgets/add_password_widget.py" line="87"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="94"/>
+        <location filename="../src/widgets/add_password_widget.py" line="95"/>
         <source>show/hide password</source>
         <translation>Passwort zeigen/verstecken</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="99"/>
+        <location filename="../src/widgets/add_password_widget.py" line="100"/>
         <source>Websites:</source>
         <translation>Websites:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="103"/>
+        <location filename="../src/widgets/add_password_widget.py" line="104"/>
         <source>Website</source>
         <translation>Website</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="109"/>
+        <location filename="../src/widgets/add_password_widget.py" line="110"/>
         <source>Notes:</source>
         <translation>Notizen:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="113"/>
+        <location filename="../src/widgets/add_password_widget.py" line="114"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="126"/>
+        <location filename="../src/widgets/add_password_widget.py" line="127"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="178"/>
+        <location filename="../src/widgets/add_password_widget.py" line="179"/>
         <source>No name entered</source>
         <translation>Keinen Namen eingegeben</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="179"/>
+        <location filename="../src/widgets/add_password_widget.py" line="180"/>
         <source>The password needs a name to be saved!
 If you continue it will be lost</source>
         <translation>Das Passwort braucht einen Name um gespeichrt zu werden
 Wenn sie weitermachen wird es verloren gehen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="180"/>
+        <location filename="../src/widgets/add_password_widget.py" line="181"/>
         <source>Yes, proceed</source>
         <translation>Ja, weiter</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="181"/>
+        <location filename="../src/widgets/add_password_widget.py" line="182"/>
         <source>No, cancel</source>
         <translation>Nein, zurück</translation>
     </message>
@@ -260,67 +260,67 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation type="vanished">Name: </translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="84"/>
+        <location filename="../src/widgets/read_password_widget.py" line="83"/>
         <source>Username:</source>
         <translation>Nutzername:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="89"/>
+        <location filename="../src/widgets/read_password_widget.py" line="88"/>
         <source>Username</source>
         <translation>Nutzername</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="97"/>
+        <location filename="../src/widgets/read_password_widget.py" line="96"/>
         <source>copy username</source>
         <translation>Nutzernamen kopieren</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="104"/>
+        <location filename="../src/widgets/read_password_widget.py" line="103"/>
         <source>Password:</source>
         <translation>Passwort:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="109"/>
+        <location filename="../src/widgets/read_password_widget.py" line="108"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="119"/>
+        <location filename="../src/widgets/read_password_widget.py" line="118"/>
         <source>copy password</source>
         <translation>Passwort kopieren</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="126"/>
+        <location filename="../src/widgets/read_password_widget.py" line="125"/>
         <source>show/hide password</source>
         <translation>Passwort zeigen/verstecken</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="131"/>
+        <location filename="../src/widgets/read_password_widget.py" line="130"/>
         <source>Websites:</source>
         <translation>Websites:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="135"/>
+        <location filename="../src/widgets/read_password_widget.py" line="134"/>
         <source>Website</source>
         <translation>Website</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="143"/>
+        <location filename="../src/widgets/read_password_widget.py" line="142"/>
         <source>Notes:</source>
         <translation>Notizen:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="147"/>
+        <location filename="../src/widgets/read_password_widget.py" line="146"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="165"/>
+        <location filename="../src/widgets/read_password_widget.py" line="164"/>
         <source>Edit</source>
         <translation>Ändern</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="172"/>
+        <location filename="../src/widgets/read_password_widget.py" line="171"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>

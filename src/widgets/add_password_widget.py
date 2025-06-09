@@ -45,6 +45,7 @@ class AddPasswordWidget(QWidget):
     def init_ui(self) -> None:
         # Main layout for the card with some margins.
         main_layout = QVBoxLayout(self)
+        main_layout.setContentsMargins(32, 32, 32, 32)
 
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()

@@ -26,19 +26,17 @@ class ReadPasswordWidget(QWidget):
 
         QCoreApplication.installTranslator(translations_handler.get_translator())
 
+        self.styles_path: str = styles_path
         self.passwords_path: str = passwords_path
         self.assets_path: str = assets_path
+
         self.password_name: str = password_name
         self.password: dict[str, str] = password
         self.password_new: dict[str, str] = {}
         self.password_edited: bool = False
 
         self.setObjectName("PasswordCard")
-        try:
-            with open(os.path.join(styles_path, "read_password_widget.css"), "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the read_password_widget: {e}")
+        self.set_style_sheet()
 
         self.copy_icon: QIcon = QIcon(os.path.join(self.assets_path, "copy-icon.png"))
         self.show_icon: QIcon = QIcon(os.path.join(self.assets_path, "show-icon.png"))
@@ -55,6 +53,7 @@ class ReadPasswordWidget(QWidget):
     def init_ui(self) -> None:
         # Main layout for the card with some margins.
         main_layout = QVBoxLayout(self)
+        main_layout.setContentsMargins(32, 32, 32, 32)
 
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()
@@ -179,6 +178,13 @@ class ReadPasswordWidget(QWidget):
 
         main_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
+    def set_style_sheet(self) -> None:
+        try:
+            with open(os.path.join(self.styles_path, "read_password_widget.css"), "r") as s_f:
+                self.setStyleSheet(s_f.read())
+        except (FileNotFoundError, PermissionError) as e:
+            logging.exception(f"Error getting style for the read_password_widget: {e}")
+
     def hide_or_unhide_password(self) -> None:
         if self.password_edit.echoMode() != QLineEdit.Password:
             logging.debug("Hiding password")
@@ -218,6 +224,8 @@ class ReadPasswordWidget(QWidget):
         self.website_edit.setReadOnly(False)
         self.note_edit.setReadOnly(False)
 
+        self.edit_button.setObjectName("saveButton")
+        self.set_style_sheet()
         self.edit_button.setText("Save")
 
     def save_password(self) -> None:
@@ -228,6 +236,8 @@ class ReadPasswordWidget(QWidget):
         self.note_edit.setReadOnly(True)
 
         self.show_password_action.setIcon(self.show_icon)
+        self.edit_button.setObjectName("editButton")
+        self.set_style_sheet()
         self.edit_button.setText("Edit")
 
         self.password["name"] = self.password_name
