@@ -6,8 +6,8 @@ from PySide6.QtWidgets import (
     QPushButton, QVBoxLayout, QLabel, QWidget, QMessageBox,
     QSpacerItem, QSizePolicy, QHBoxLayout, QLineEdit, QGridLayout
 )
-from PySide6.QtGui import QIcon
 from PySide6.QtCore import Signal, Qt, QSize, QCoreApplication
+from PySide6.QtGui import QPainter, QBrush, QColor, QIcon
 
 
 class AddPasswordWidget(QWidget):
@@ -131,6 +131,8 @@ class AddPasswordWidget(QWidget):
         button_layout.addStretch()
         main_layout.addLayout(button_layout)
 
+        main_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
     def hide_or_unhide_password(self) -> None:
         if self.password_edit.echoMode() != QLineEdit.Password:
             logging.debug("Hiding password")
@@ -183,3 +185,11 @@ class AddPasswordWidget(QWidget):
             self.return_to_list()
         elif msg_box.clickedButton() == no_button:
             return
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setBrush(QBrush(QColor("#2d2d2d")))
+        painter.setPen(QColor("#000000"))
+        painter.drawRoundedRect(self.rect(), 10, 10)
+        super().paintEvent(event)
