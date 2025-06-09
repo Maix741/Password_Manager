@@ -3,7 +3,7 @@ import logging
 import json
 import os
 
-from .validate_master_pass import ValidateMasterPasswort
+from .validate_master_pass import ValidateMasterPassword
 
 
 class CreateMasterPassword:
@@ -24,7 +24,7 @@ class CreateMasterPassword:
         return self.validate(self.entered_password)
 
     def validate(self, password_to_check: str) -> bool:
-        return ValidateMasterPasswort(self.data_path, "test-created").validate(password_to_check)
+        return ValidateMasterPassword(self.data_path, "test-created").validate(password_to_check)
 
     def save_master(self, master_pass: dict) -> None:
         config_file: str = os.path.join(self.data_path, "master", "master_pass.pem")

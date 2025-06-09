@@ -5,7 +5,7 @@ import os
 import ast
 
 
-class ValidateMasterPasswort:
+class ValidateMasterPassword:
     def __init__(self, data_path, validate_from: str) -> None:
         self.data_path: str = data_path
         self.validate_from: str = validate_from

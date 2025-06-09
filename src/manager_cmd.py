@@ -100,7 +100,7 @@ class ManagerCMD:
         print("\n".join(self.password_names) + "\n")
 
     def validate_master_pass(self, password_to_check: str, validate_from: str) -> bool:
-        validator = ValidateMasterPasswort(self.data_path, validate_from)
+        validator = ValidateMasterPassword(self.data_path, validate_from)
 
         return validator.validate(password_to_check)
 

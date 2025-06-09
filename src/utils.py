@@ -7,7 +7,7 @@ from .import_passwords import ImportPasswords
 from .settings_handler import SettingsHandler
 from .translation_handler import TranslationHandler
 
-from .validate_master_pass import ValidateMasterPasswort
+from .validate_master_pass import ValidateMasterPassword
 from .create_master_pass import CreateMasterPassword
 
 from .generate_password import (get_master_key_fragment,

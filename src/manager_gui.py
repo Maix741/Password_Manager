@@ -40,6 +40,9 @@ class ManagerGUI(QMainWindow):
         self.wrong_attempts: int = 0
         self.generated_password: str = ""
 
+        self.retry_count: int = 0
+        self.max_wrong_attempts: int = 10
+
         setup_logging(os.path.join(self.data_path, "log", "password_manager.log"))
         self.init_ui()
         if not os.path.isfile(os.path.join(self.data_path, "master", "master_pass.pem")):
@@ -173,7 +176,7 @@ class ManagerGUI(QMainWindow):
 
     def fill_passwords_list(self, passwords: list[str] | None = None) -> None:
         self.passwords_list.clear()
-        if not type(passwords) == list:
+        if not isinstance(passwords, list):
             password_names: list[str] = os.listdir(self.passwords_path)
             self.password_names: list[str] = [os.path.splitext(password)[0] for password in password_names]
         elif type(passwords) == list:
@@ -306,7 +309,15 @@ class ManagerGUI(QMainWindow):
 
         except (IndexError, PermissionError, FileNotFoundError, ValueError, KeyError) as e:
             logging.error(f"Error while adding password: {e}")
-            return self.add_password()
+            self.retry_count += 1
+            if self.retry_count <= 3:  # Retry up to 3 times
+                logging.info(f"Retrying to add password (Attempt {self.retry_count}/3)...")
+                self.add_password()
+            else:
+                logging.error("Maximum retry attempts reached. Exiting add_password process.")
+                self.retry_count = 0  # Reset retry count
+        finally:
+            self.retry_count = 0  # Reset retry count
 
     def change_to_read_card(self, password_card: ReadPasswordWidget, fernet_key: bytes, AES_key: tuple[bytes]) -> None:
         def modify_password(password: dict[str, str]) -> None:
@@ -374,7 +385,8 @@ class ManagerGUI(QMainWindow):
             self.search_edit.deleteLater()
             self.passwords_list.deleteLater()
 
-        except RuntimeError:
+        except (RuntimeError) as e:
+            logging.error(f"RuntimeError occurred while changing to settings: {e}")
             return self.change_to_normal_list()
 
         # create settings widget
@@ -411,13 +423,13 @@ class ManagerGUI(QMainWindow):
             logging.error(f"Error while removing previous keys/passwords: {e}")
 
         setup_folders(self.data_path)
-        CreateMasterPassword(self. data_path, new_master).create()
+        CreateMasterPassword(self.data_path, new_master).create()
 
         _, _, aes_fragment = gen_aes_key(new_master)
         write_keys(self.data_path, aes_fragment)
         self.change_to_normal_list()
 
-    def load_keys(self, load_from: str) -> tuple[str, bytes, list[str, bytes]]:
+    def load_keys(self, load_from: str) -> tuple[str, bytes, list[str, bytes]] | tuple[None]:
         correct_master: str = self.ask_master_pass(load_from)
         if not correct_master:
             self.wrong_master_entered()
@@ -432,7 +444,7 @@ class ManagerGUI(QMainWindow):
             self.renew_keys()
             return self.load_keys(load_from)
 
-        AES_key, salt = master_key_fragment + AES_key_fragment[0], AES_key_fragment[1]
+        AES_key, salt = master_key_fragment + str(AES_key_fragment[0]), AES_key_fragment[1]
         fernet_key: bytes = fernet_key
 
         return (correct_master, fernet_key, [AES_key, salt])
@@ -470,12 +482,12 @@ class ManagerGUI(QMainWindow):
     def wrong_master_entered(self) -> None:
         logging.warning("Wrong master password entered")
         self.wrong_attempts += 1
-        if self.wrong_attempts >= 10:
+        if self.wrong_attempts >= self.max_wrong_attempts:
             logging.error("Incorrect master entered ten times!")
             self.close()
 
     def validate_master_pass(self, password_to_check: str, validate_from: str) -> bool:
-        validator = ValidateMasterPasswort(self.data_path, validate_from)
+        validator = ValidateMasterPassword(self.data_path, validate_from)
         return validator.validate(password_to_check)
 
     def check_setup(self) -> None:
