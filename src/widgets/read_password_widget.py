@@ -55,9 +55,10 @@ class ReadPasswordWidget(QWidget):
         main_layout = QVBoxLayout(self)
         main_layout.setContentsMargins(32, 32, 32, 32)
 
+        spacer: QSpacerItem = QSpacerItem(5, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
+
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()
-        label_width = 80
 
 
         # Row 0: password name and back button
@@ -65,13 +66,12 @@ class ReadPasswordWidget(QWidget):
         back_button.setObjectName("backButton")
         back_button.clicked.connect(self.return_to_list)
         back_button.setIcon(self.back_icon)
-        back_button.setIconSize(QSize(50, 50))  # Adjust the size here
+        back_button.setIconSize(QSize(50, 50))
         grid_layout.addWidget(back_button, 0, 0, alignment=Qt.AlignLeft)
 
         label_name = QLabel(self.password_name)
-        # label_name.setFixedWidth(label_width)
         label_name.setObjectName("nameLabel")
-        grid_layout.addWidget(label_name, 0, 1, alignment=Qt.AlignLeft)
+        grid_layout.addWidget(label_name, 0, 2, alignment=Qt.AlignLeft)
 
 
         # Add vertical spacing after this row
@@ -81,8 +81,9 @@ class ReadPasswordWidget(QWidget):
 
         # Row 1: Username
         label_username = QLabel(self.tr("Username:"))
-        label_username.setFixedWidth(label_width)
         grid_layout.addWidget(label_username, 2, 0, alignment=Qt.AlignRight)
+
+        grid_layout.addItem(spacer, 1, 1)
 
         self.username_edit = QLineEdit()
         self.username_edit.setPlaceholderText(self.tr("Username"))
@@ -96,20 +97,21 @@ class ReadPasswordWidget(QWidget):
         self.copy_username_action.setToolTip(self.tr("copy username"))
         self.copy_username_action.triggered.connect(self.copy_username)
 
-        grid_layout.addWidget(self.username_edit, 2, 1)
+        grid_layout.addWidget(self.username_edit, 2, 2)
 
 
         # Row 2: Password
         label_password = QLabel(self.tr("Password:"))
-        label_password.setFixedWidth(label_width)
         grid_layout.addWidget(label_password, 3, 0, alignment=Qt.AlignRight)
+
+        grid_layout.addItem(spacer, 3, 1)
 
         self.password_edit = QLineEdit()
         self.password_edit.setPlaceholderText(self.tr("Password"))
         self.password_edit.setText(self.password["password"])
         self.password_edit.setReadOnly(True)
         self.password_edit.setEchoMode(QLineEdit.Password)
-        grid_layout.addWidget(self.password_edit, 3, 1)
+        grid_layout.addWidget(self.password_edit, 3, 2)
 
         # Create an action with the copy icon
         self.copy_password_action = self.password_edit.addAction(
@@ -128,26 +130,30 @@ class ReadPasswordWidget(QWidget):
 
         # Row 3: Websites
         label_websites = QLabel(self.tr("Websites:"))
-        label_websites.setFixedWidth(label_width)
         grid_layout.addWidget(label_websites, 4, 0, alignment=Qt.AlignRight)
+
+        grid_layout.addItem(spacer, 4, 1)
+
         self.website_edit = QLineEdit()
         self.website_edit.setPlaceholderText(self.tr("Website"))
         self.website_edit.setText(self.password["website"])
         self.website_edit.setReadOnly(True)
         self.website_edit.setObjectName("websiteEdit")
-        grid_layout.addWidget(self.website_edit, 4, 1)
+        grid_layout.addWidget(self.website_edit, 4, 2)
 
 
         # Row 4: Notes
         label_note = QLabel(self.tr("Notes:"))
-        label_note.setFixedWidth(label_width)
         grid_layout.addWidget(label_note, 5, 0, alignment=Qt.AlignRight)
+
+        grid_layout.addItem(spacer, 5, 1)
+
         self.note_edit = QLineEdit()
         self.note_edit.setPlaceholderText(self.tr("Notes"))
         self.note_edit.setText(self.password["notes"])
         self.note_edit.setReadOnly(True)
 
-        grid_layout.addWidget(self.note_edit, 5, 1)
+        grid_layout.addWidget(self.note_edit, 5, 2)
 
         # Add vertical spacing after this row
         spacer = QSpacerItem(0, 20, QSizePolicy.Minimum, QSizePolicy.Fixed)
