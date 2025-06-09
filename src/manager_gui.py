@@ -34,6 +34,8 @@ class ManagerGUI(QMainWindow):
         self.data_path: str = self.settings_handler.get("data_path")
         self.passwords_path: str = os.path.join(self.data_path, "passwords")
         self.assets_path: str = get_assets_path(self.data_path)
+        self.styles_path: str = get_styles_path(self.data_path)
+
         self.password_names: list[str] = []
         self.wrong_attempts: int = 0
         self.generated_password: str = ""
@@ -178,7 +180,7 @@ class ManagerGUI(QMainWindow):
 
         for name in self.password_names:
             item = QListWidgetItem(self.passwords_list)
-            widget = PasswordWidget(name, get_website_for_password(self.passwords_path, name))
+            widget = PasswordWidget(self.styles_path, name, get_website_for_password(self.passwords_path, name))
             item.setSizeHint(widget.sizeHint())
             self.passwords_list.addItem(item)
             self.passwords_list.setItemWidget(item, widget)
@@ -257,7 +259,7 @@ class ManagerGUI(QMainWindow):
             decrypted_password: dict[str, str] = reader.read_password(
                 name=password_name, AES_key=AES_key[0], salt=AES_key[1], fernet_key=fernet_key, password_path=self.passwords_path
             )
-            password_card: ReadPasswordWidget = ReadPasswordWidget(password_name, decrypted_password,
+            password_card: ReadPasswordWidget = ReadPasswordWidget(self.styles_path, password_name, decrypted_password,
                                                                    self.assets_path, self.passwords_path,
                                                                    self.translation_handler,
                                                                    self
@@ -293,7 +295,7 @@ class ManagerGUI(QMainWindow):
             correct, fernet_key, AES_key = self.load_keys("add_password")
             if not correct: return
 
-            password_card: AddPasswordWidget = AddPasswordWidget(self.assets_path,
+            password_card: AddPasswordWidget = AddPasswordWidget(self.styles_path, self.assets_path,
                                                                  self.show_generating_dialog,
                                                                  self.translation_handler,
                                                                  self
@@ -375,7 +377,7 @@ class ManagerGUI(QMainWindow):
             return self.change_to_normal_list()
 
         # create settings widget
-        settings_widget: SettingsWidget = SettingsWidget(self.settings_handler, self.translation_handler, self)
+        settings_widget: SettingsWidget = SettingsWidget(self.styles_path, self.settings_handler, self.translation_handler, self)
 
         # Create a new layout for the settings widget
         read_card_layout = QVBoxLayout()

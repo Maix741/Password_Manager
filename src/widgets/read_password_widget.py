@@ -14,7 +14,7 @@ from PySide6.QtGui import QIcon
 
 class ReadPasswordWidget(QWidget):
     returned: Signal = Signal(dict)
-    def __init__(self,
+    def __init__(self, styles_path,
                  password_name: str, password: dict[str, str],
                  assets_path: str, passwords_path: str,
                  translations_handler,
@@ -34,40 +34,11 @@ class ReadPasswordWidget(QWidget):
         self.password_edited: bool = False
 
         self.setObjectName("PasswordCard")
-        self.setStyleSheet("""
-            QWidget#PasswordCard {
-                background-color: #222233;
-                border: 1px solid #000000;
-                border-radius: 10px;
-            }
-            QLabel {
-                font-size: 12pt;
-                color: #BDBDBD;
-            }
-            QLabel#NameLabel {
-                font-size: 20pt;
-                color: #BDBDBD;
-            }
-            QLineEdit {
-                border: none;
-                background-color: #F9F9F9;
-                padding: 5px;
-                font-size: 12pt;
-                color: #333333;
-            }
-            QLineEdit#websiteEdit {
-            text-decoration: underline;
-            }
-            QPushButton {
-                border: none;
-                background: transparent;
-                font-size: 10pt;
-                color: #0078D7;
-            }
-            QPushButton:hover {
-                text-decoration: underline;
-            }
-        """)
+        try:
+            with open(os.path.join(styles_path, "read_password_widget.css"), "r") as s_f:
+                self.setStyleSheet(s_f.read())
+        except (FileNotFoundError, PermissionError) as e:
+            logging.exception(f"Error getting style for the read_password_widget: {e}")
 
         self.copy_icon: QIcon = QIcon(os.path.join(self.assets_path, "copy-icon.png"))
         self.show_icon: QIcon = QIcon(os.path.join(self.assets_path, "show-icon.png"))

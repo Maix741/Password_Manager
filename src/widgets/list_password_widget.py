@@ -1,4 +1,5 @@
 import logging
+import os
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
@@ -9,7 +10,7 @@ from PySide6.QtCore import Qt
 
 
 class PasswordWidget(QWidget):
-    def __init__(self, password_name: str, website: str, parent: QWidget | None = None):
+    def __init__(self, styles_path: str, password_name: str, website: str, parent: QWidget | None = None):
         super().__init__(parent)
         logging.debug(f"Initializing: {self}")
 
@@ -17,26 +18,11 @@ class PasswordWidget(QWidget):
         self.website: str = website
     
         self.setObjectName("PasswordCardInList")
-        self.setStyleSheet("""
-            QWidget#PasswordCardInList {
-                background-color: #222233;
-                border: 1px solid #000000;
-                border-radius: 10px;
-            }
-            QLabel {
-                font-size: 12pt;
-                color: #BDBDBD;
-            }
-            QPushButton {
-                border: none;
-                background: transparent;
-                font-size: 10pt;
-                color: #0078D7;
-            }
-            QPushButton:hover {
-                text-decoration: underline;
-            }
-        """)
+        try:
+            with open(os.path.join(styles_path, "list_password_widget.css"), "r") as s_f:
+                self.setStyleSheet(s_f.read())
+        except (FileNotFoundError, PermissionError) as e:
+            logging.exception(f"Error getting style for the list_password_widget: {e}")
 
         self.init_ui()
 

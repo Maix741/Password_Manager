@@ -12,7 +12,10 @@ from PySide6.QtCore import Signal, Qt, QSize, QCoreApplication
 
 class AddPasswordWidget(QWidget):
     returned: Signal = Signal(dict)
-    def __init__(self, assets_path: str, show_generating_dialog, translation_handler, parent: QWidget | None = None) -> None:
+    def __init__(self, styles_path: str, assets_path: str,
+                 show_generating_dialog, translation_handler,
+                 parent: QWidget | None = None
+                 ) -> None:
         super().__init__(parent)
 
         logging.debug(f"Initializing: {self}")
@@ -24,43 +27,11 @@ class AddPasswordWidget(QWidget):
         self.password: dict[str, str] = {}
 
         self.setObjectName("PasswordCard")
-        self.setStyleSheet("""
-            QWidget#PasswordCard {
-                background-color: #222233;
-                border: 1px solid #000000;
-                border-radius: 10px;
-            }
-            QLabel {
-                font-size: 12pt;
-                color: #BDBDBD;
-            }
-            QLabel#NameLabel {
-                font-size: 20pt;
-                color: #BDBDBD;
-            }
-            QLineEdit {
-                border: none;
-                background-color: #F9F9F9;
-                padding: 5px;
-                font-size: 12pt;
-                color: #333333;
-            }
-            QPushButton {
-                border: none;
-                background: transparent;
-                font-size: 10pt;
-                color: #0078D7;
-            }
-            QPushButton#NameButton {
-                border: none;
-                background: transparent;
-                font-size: 20pt;
-                color: #BDBDBD;
-            }
-            QPushButton:hover {
-                text-decoration: underline;
-            }
-        """)
+        try:
+            with open(os.path.join(styles_path, "add_password_widget.css"), "r") as s_f:
+                self.setStyleSheet(s_f.read())
+        except (FileNotFoundError, PermissionError) as e:
+            logging.exception(f"Error getting style for the add_password_widget: {e}")
 
         QCoreApplication.installTranslator(translation_handler.get_translator())
 
