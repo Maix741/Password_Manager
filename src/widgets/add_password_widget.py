@@ -16,7 +16,7 @@ class AddPasswordWidget(QWidget):
                  show_generating_dialog, translation_handler,
                  parent: QWidget | None = None
                  ) -> None:
-        super().__init__(parent)
+        super(AddPasswordWidget, self).__init__(parent)
 
         logging.debug(f"Initializing: {self}")
 

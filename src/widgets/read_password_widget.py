@@ -20,7 +20,7 @@ class ReadPasswordWidget(QWidget):
                  translations_handler,
                  parent: QWidget | None = None
                  ) -> None:
-        super().__init__(parent)
+        super(ReadPasswordWidget, self).__init__(parent)
 
         logging.debug(f"Initializing: {self}")
 

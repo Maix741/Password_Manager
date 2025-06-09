@@ -15,7 +15,7 @@ class SettingsWidget(QWidget):
                  settings_handler, translations_handler,
                  parent: QWidget | None = None
                  ) -> None:
-        super().__init__(parent)
+        super(SettingsWidget, self).__init__(parent)
 
         logging.debug(f"Initializing: {self}")
 

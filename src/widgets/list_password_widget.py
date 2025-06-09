@@ -11,7 +11,7 @@ from PySide6.QtCore import Qt
 
 class PasswordWidget(QWidget):
     def __init__(self, styles_path: str, password_name: str, website: str, parent: QWidget | None = None):
-        super().__init__(parent)
+        super(PasswordWidget, self).__init__(parent)
         logging.debug(f"Initializing: {self}")
 
         self.password_name: str = password_name
