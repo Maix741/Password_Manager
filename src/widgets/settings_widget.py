@@ -24,6 +24,8 @@ class SettingsWidget(QWidget):
         self.settings_handler = settings_handler
         self.translations_handler = translations_handler
 
+        self.styles_path: str = styles_path
+
         QCoreApplication.installTranslator(self.translations_handler.get_translator())
 
         self.design_options: list[str] = [self.tr("system"), self.tr("dark"), self.tr("light")]
@@ -139,15 +141,15 @@ class SettingsWidget(QWidget):
     def set_style_sheet(self) -> None:
         # Determine the correct path for PyInstaller or normal run
         if hasattr(sys, "_MEIPASS"):
-            css_path = os.path.join(sys._MEIPASS, "styles", "read_password_widget.css")
+            css_path = os.path.join(sys._MEIPASS, "styles", "settings_widget.css")
         else:
-            css_path = os.path.join(self.styles_path, "read_password_widget.css")
+            css_path = os.path.join(self.styles_path, "settings_widget.css")
 
         try:
             with open(css_path, "r") as s_f:
                 self.setStyleSheet(s_f.read())
         except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the read_password_widget: {e}")
+            logging.exception(f"Error getting style for the settings_widget: {e}")
 
     def browse_data_path(self):
         from PySide6.QtWidgets import QFileDialog

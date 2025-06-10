@@ -4,79 +4,79 @@
 <context>
     <name>AddPasswordWidget</name>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="52"/>
+        <location filename="../src/widgets/add_password_widget.py" line="53"/>
         <source>Name:</source>
         <translation>Name:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="71"/>
+        <location filename="../src/widgets/add_password_widget.py" line="72"/>
         <source>Username:</source>
         <translation>Username:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="77"/>
+        <location filename="../src/widgets/add_password_widget.py" line="78"/>
         <source>Username</source>
         <translation>Username</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="82"/>
+        <location filename="../src/widgets/add_password_widget.py" line="83"/>
         <source>Password:</source>
         <translation>Password:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="88"/>
+        <location filename="../src/widgets/add_password_widget.py" line="89"/>
         <source>Password</source>
         <translation>Password</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="96"/>
+        <location filename="../src/widgets/add_password_widget.py" line="97"/>
         <source>show/hide password</source>
         <translation>show/hide password</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="101"/>
+        <location filename="../src/widgets/add_password_widget.py" line="102"/>
         <source>Websites:</source>
         <translation>Websites:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="107"/>
+        <location filename="../src/widgets/add_password_widget.py" line="108"/>
         <source>Website</source>
         <translation>Website</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="113"/>
+        <location filename="../src/widgets/add_password_widget.py" line="114"/>
         <source>Notes:</source>
         <translation>Notes:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="119"/>
+        <location filename="../src/widgets/add_password_widget.py" line="120"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="134"/>
+        <location filename="../src/widgets/add_password_widget.py" line="135"/>
         <source>Save</source>
         <translation>Save</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="203"/>
+        <location filename="../src/widgets/add_password_widget.py" line="204"/>
         <source>No name entered</source>
         <translation>No name entered</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="204"/>
+        <location filename="../src/widgets/add_password_widget.py" line="205"/>
         <source>The password needs a name to be saved!
 If you continue it will be lost</source>
         <translation>The password needs a name to be saved!
 If you continue it will be lost</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="205"/>
+        <location filename="../src/widgets/add_password_widget.py" line="206"/>
         <source>Yes, proceed</source>
         <translation>Yes, proceed</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="206"/>
+        <location filename="../src/widgets/add_password_widget.py" line="207"/>
         <source>No, cancel</source>
         <translation>No, cancel</translation>
     </message>
@@ -198,57 +198,57 @@ If you continue it will be lost</translation>
 <context>
     <name>PasswordGenerateDialog</name>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="39"/>
+        <location filename="../src/widgets/generate_dialog.py" line="41"/>
         <source>Password Generator</source>
         <translation>Password generator</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="44"/>
+        <location filename="../src/widgets/generate_dialog.py" line="46"/>
         <source>Password Length</source>
         <translation>Password lenght</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="66"/>
+        <location filename="../src/widgets/generate_dialog.py" line="68"/>
         <source>Length:</source>
         <translation>Lenght:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="73"/>
+        <location filename="../src/widgets/generate_dialog.py" line="75"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="77"/>
+        <location filename="../src/widgets/generate_dialog.py" line="79"/>
         <source>Include Letters</source>
         <translation>Include letters</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="79"/>
+        <location filename="../src/widgets/generate_dialog.py" line="81"/>
         <source>Include Numbers</source>
         <translation>Include numbers</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="81"/>
+        <location filename="../src/widgets/generate_dialog.py" line="83"/>
         <source>Include Special Characters</source>
         <translation>Include special characters</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="93"/>
+        <location filename="../src/widgets/generate_dialog.py" line="95"/>
         <source>Generated Password:</source>
         <translation>Generated password:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="98"/>
+        <location filename="../src/widgets/generate_dialog.py" line="100"/>
         <source>Generate</source>
         <translation>Generate</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="100"/>
+        <location filename="../src/widgets/generate_dialog.py" line="102"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="102"/>
+        <location filename="../src/widgets/generate_dialog.py" line="104"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
@@ -334,104 +334,104 @@ If you continue it will be lost</translation>
 <context>
     <name>SettingsWidget</name>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="29"/>
+        <location filename="../src/widgets/settings_widget.py" line="31"/>
         <source>system</source>
         <translation>system</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="29"/>
+        <location filename="../src/widgets/settings_widget.py" line="31"/>
         <source>dark</source>
         <translation>dark</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="31"/>
+        <location filename="../src/widgets/settings_widget.py" line="33"/>
         <source>light</source>
         <translation>light</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="43"/>
+        <location filename="../src/widgets/settings_widget.py" line="45"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="55"/>
-        <location filename="../src/widgets/settings_widget.py" line="62"/>
+        <location filename="../src/widgets/settings_widget.py" line="57"/>
+        <location filename="../src/widgets/settings_widget.py" line="64"/>
         <source>Data path</source>
         <translation>Data path</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="57"/>
-        <location filename="../src/widgets/settings_widget.py" line="65"/>
+        <location filename="../src/widgets/settings_widget.py" line="59"/>
+        <location filename="../src/widgets/settings_widget.py" line="67"/>
         <source>Location where your data is stored.</source>
         <translation>Location where your data is stored.</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="68"/>
+        <location filename="../src/widgets/settings_widget.py" line="70"/>
         <source>Browse</source>
         <translation>Browse</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="70"/>
+        <location filename="../src/widgets/settings_widget.py" line="72"/>
         <source>Browse for data path</source>
         <translation>Browse for data path</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="76"/>
-        <location filename="../src/widgets/settings_widget.py" line="82"/>
+        <location filename="../src/widgets/settings_widget.py" line="78"/>
+        <location filename="../src/widgets/settings_widget.py" line="84"/>
         <source>Locale</source>
         <translation>Language</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="78"/>
-        <location filename="../src/widgets/settings_widget.py" line="85"/>
+        <location filename="../src/widgets/settings_widget.py" line="80"/>
+        <location filename="../src/widgets/settings_widget.py" line="87"/>
         <source>Language for the application interface.</source>
         <translation>Language for the application interface.</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="89"/>
+        <location filename="../src/widgets/settings_widget.py" line="91"/>
         <source>Use website as name</source>
         <translation>Use website as name</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="91"/>
-        <location filename="../src/widgets/settings_widget.py" line="99"/>
+        <location filename="../src/widgets/settings_widget.py" line="93"/>
+        <location filename="../src/widgets/settings_widget.py" line="101"/>
         <source>Use the website as the entry name by default.</source>
         <translation>Use the website as the entry name by default.</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="103"/>
-        <location filename="../src/widgets/settings_widget.py" line="109"/>
+        <location filename="../src/widgets/settings_widget.py" line="105"/>
+        <location filename="../src/widgets/settings_widget.py" line="111"/>
         <source>Design</source>
         <translation>Design</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="105"/>
-        <location filename="../src/widgets/settings_widget.py" line="112"/>
+        <location filename="../src/widgets/settings_widget.py" line="107"/>
+        <location filename="../src/widgets/settings_widget.py" line="114"/>
         <source>Theme for the application.</source>
         <translation>Theme for the application.</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="122"/>
+        <location filename="../src/widgets/settings_widget.py" line="124"/>
         <source>Save</source>
         <translation>Save</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="124"/>
+        <location filename="../src/widgets/settings_widget.py" line="126"/>
         <source>Save your changes</source>
         <translation>Save your changes</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="128"/>
+        <location filename="../src/widgets/settings_widget.py" line="130"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="130"/>
+        <location filename="../src/widgets/settings_widget.py" line="132"/>
         <source>Discard changes and return</source>
         <translation>Discard changes and return</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="154"/>
+        <location filename="../src/widgets/settings_widget.py" line="156"/>
         <source>Select Data Directory</source>
         <translation>Select Data Directory</translation>
     </message>

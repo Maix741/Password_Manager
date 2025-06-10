@@ -17,7 +17,8 @@ class PasswordWidget(QWidget):
 
         self.password_name: str = password_name
         self.website: str = website
-    
+        self.styles_path: str = styles_path
+
         self.setObjectName("PasswordCardInList")
         self.set_style_sheet()
 
@@ -49,12 +50,12 @@ class PasswordWidget(QWidget):
     def set_style_sheet(self) -> None:
         # Determine the correct path for PyInstaller or normal run
         if hasattr(sys, "_MEIPASS"):
-            css_path = os.path.join(sys._MEIPASS, "styles", "read_password_widget.css")
+            css_path = os.path.join(sys._MEIPASS, "styles", "list_password_widget.css")
         else:
-            css_path = os.path.join(self.styles_path, "read_password_widget.css")
+            css_path = os.path.join(self.styles_path, "list_password_widget.css")
 
         try:
             with open(css_path, "r") as s_f:
                 self.setStyleSheet(s_f.read())
         except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the read_password_widget: {e}")
+            logging.exception(f"Error getting style for the list_password_widget: {e}")

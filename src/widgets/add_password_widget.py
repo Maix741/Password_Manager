@@ -24,6 +24,7 @@ class AddPasswordWidget(QWidget):
         self.show_generating_dialog = show_generating_dialog
 
         self.assets_path: str = assets_path
+        self.styles_path: str = styles_path
         self.password_name: str = ""
         self.password: dict[str, str] = {}
 
@@ -144,15 +145,15 @@ class AddPasswordWidget(QWidget):
     def set_style_sheet(self) -> None:
         # Determine the correct path for PyInstaller or normal run
         if hasattr(sys, "_MEIPASS"):
-            css_path = os.path.join(sys._MEIPASS, "styles", "read_password_widget.css")
+            css_path = os.path.join(sys._MEIPASS, "styles", "add_password_widget.css")
         else:
-            css_path = os.path.join(self.styles_path, "read_password_widget.css")
+            css_path = os.path.join(self.styles_path, "add_password_widget.css")
 
         try:
             with open(css_path, "r") as s_f:
                 self.setStyleSheet(s_f.read())
         except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the read_password_widget: {e}")
+            logging.exception(f"Error getting style for the add_password_widget: {e}")
 
     def get_spacer(self) -> QSpacerItem:
         # This spacer is used to align the labels and fields in the grid layout.

@@ -20,6 +20,8 @@ class PasswordGenerateDialog(QDialog):
         self.settings_handler = settings_handler
         self.translator = translator
 
+        self.styles_path: str = styles_path
+
         self.password: str = ""
         self.password_return: str = ""
         self.cancelled: bool = False
@@ -111,15 +113,15 @@ class PasswordGenerateDialog(QDialog):
     def set_style_sheet(self) -> None:
         # Determine the correct path for PyInstaller or normal run
         if hasattr(sys, "_MEIPASS"):
-            css_path = os.path.join(sys._MEIPASS, "styles", "read_password_widget.css")
+            css_path = os.path.join(sys._MEIPASS, "styles", "generate_dialog.css")
         else:
-            css_path = os.path.join(self.styles_path, "read_password_widget.css")
+            css_path = os.path.join(self.styles_path, "generate_dialog.css")
 
         try:
             with open(css_path, "r") as s_f:
                 self.setStyleSheet(s_f.read())
         except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the read_password_widget: {e}")
+            logging.exception(f"Error getting style for the generate_dialog: {e}")
 
     def set_lenght_slider(self, value: int) -> None:
         if value < self.lenght_maximum:
