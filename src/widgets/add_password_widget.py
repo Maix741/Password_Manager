@@ -49,7 +49,7 @@ class AddPasswordWidget(QWidget):
 
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()
-        label_width = 80
+
 
         # Row 0: password name and back button
         back_button: QPushButton = QPushButton(self.tr("Name:"), self)
@@ -59,9 +59,10 @@ class AddPasswordWidget(QWidget):
         back_button.setIconSize(self.back_icon_size)
         grid_layout.addWidget(back_button, 0, 0, alignment=Qt.AlignLeft)
 
+        grid_layout.addItem(self.get_spacer(), 0, 1)
 
         self.name_edit = QLineEdit(self)
-        grid_layout.addWidget(self.name_edit, 0, 1)
+        grid_layout.addWidget(self.name_edit, 0, 2)
 
 
         # Add vertical spacing after this row
@@ -71,22 +72,25 @@ class AddPasswordWidget(QWidget):
 
         # Row 1: Username
         label_username = QLabel(self.tr("Username:"))
-        label_username.setFixedWidth(label_width)
         grid_layout.addWidget(label_username, 2, 0, alignment=Qt.AlignRight)
+
+        grid_layout.addItem(self.get_spacer(), 2, 1)
 
         self.username_edit = QLineEdit()
         self.username_edit.setPlaceholderText(self.tr("Username"))
-        grid_layout.addWidget(self.username_edit, 2, 1)
+        grid_layout.addWidget(self.username_edit, 2, 2)
 
 
         # Row 2: Password
         label_password = QLabel(self.tr("Password:"))
-        label_password.setFixedWidth(label_width)
         grid_layout.addWidget(label_password, 3, 0, alignment=Qt.AlignRight)
+
+        grid_layout.addItem(self.get_spacer(), 3, 1)
+
         self.password_edit = QLineEdit()
         self.password_edit.setPlaceholderText(self.tr("Password"))
         self.password_edit.setEchoMode(QLineEdit.Password)
-        grid_layout.addWidget(self.password_edit, 3, 1)
+        grid_layout.addWidget(self.password_edit, 3, 2)
 
         # Create an action with the show icon
         self.show_password_action = self.password_edit.addAction(
@@ -98,28 +102,34 @@ class AddPasswordWidget(QWidget):
 
         # Row 3: Websites
         label_websites = QLabel(self.tr("Websites:"))
-        label_websites.setFixedWidth(label_width)
         grid_layout.addWidget(label_websites, 4, 0, alignment=Qt.AlignRight)
+
+        grid_layout.addItem(self.get_spacer(), 4, 1)
+
         self.website_edit = QLineEdit()
         self.website_edit.setPlaceholderText(self.tr("Website"))
 
-        grid_layout.addWidget(self.website_edit, 4, 1)
+        grid_layout.addWidget(self.website_edit, 4, 2)
 
 
         # Row 4: Notes
         label_note = QLabel(self.tr("Notes:"))
-        label_note.setFixedWidth(label_width)
         grid_layout.addWidget(label_note, 5, 0, alignment=Qt.AlignRight)
+
+        grid_layout.addItem(self.get_spacer(), 5, 1)
+
         self.note_edit = QLineEdit()
         self.note_edit.setPlaceholderText(self.tr("Notes"))
 
-        grid_layout.addWidget(self.note_edit, 5, 1)
+        grid_layout.addWidget(self.note_edit, 5, 2)
+
 
         # Add vertical spacing after this row
         spacer = QSpacerItem(0, 15, QSizePolicy.Minimum, QSizePolicy.Fixed)
         grid_layout.addItem(spacer, 6, 0)
 
         main_layout.addLayout(grid_layout)
+
 
         # Horizontal layout for action buttons.
         button_layout = QHBoxLayout()
@@ -133,6 +143,10 @@ class AddPasswordWidget(QWidget):
         main_layout.addLayout(button_layout)
 
         main_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+    def get_spacer(self) -> QSpacerItem:
+        # This spacer is used to align the labels and fields in the grid layout.
+        return QSpacerItem(5, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
     def hide_or_unhide_password(self) -> None:
         if self.password_edit.echoMode() != QLineEdit.Password:

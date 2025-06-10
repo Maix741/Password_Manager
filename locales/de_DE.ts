@@ -9,74 +9,74 @@
         <translation>Name:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="73"/>
+        <location filename="../src/widgets/add_password_widget.py" line="74"/>
         <source>Username:</source>
         <translation>Nutzername:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="78"/>
+        <location filename="../src/widgets/add_password_widget.py" line="80"/>
         <source>Username</source>
         <translation>Nutzername</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="83"/>
+        <location filename="../src/widgets/add_password_widget.py" line="85"/>
         <source>Password:</source>
         <translation>Passwort:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="87"/>
+        <location filename="../src/widgets/add_password_widget.py" line="91"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="95"/>
+        <location filename="../src/widgets/add_password_widget.py" line="99"/>
         <source>show/hide password</source>
         <translation>Passwort zeigen/verstecken</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="100"/>
+        <location filename="../src/widgets/add_password_widget.py" line="104"/>
         <source>Websites:</source>
         <translation>Websites:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="104"/>
+        <location filename="../src/widgets/add_password_widget.py" line="110"/>
         <source>Website</source>
         <translation>Website</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="110"/>
+        <location filename="../src/widgets/add_password_widget.py" line="116"/>
         <source>Notes:</source>
         <translation>Notizen:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="114"/>
+        <location filename="../src/widgets/add_password_widget.py" line="122"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="127"/>
+        <location filename="../src/widgets/add_password_widget.py" line="137"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="179"/>
+        <location filename="../src/widgets/add_password_widget.py" line="193"/>
         <source>No name entered</source>
         <translation>Keinen Namen eingegeben</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="180"/>
+        <location filename="../src/widgets/add_password_widget.py" line="194"/>
         <source>The password needs a name to be saved!
 If you continue it will be lost</source>
         <translation>Das Passwort braucht einen Name um gespeichrt zu werden
 Wenn sie weitermachen wird es verloren gehen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="181"/>
+        <location filename="../src/widgets/add_password_widget.py" line="195"/>
         <source>Yes, proceed</source>
         <translation>Ja, weiter</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="182"/>
+        <location filename="../src/widgets/add_password_widget.py" line="196"/>
         <source>No, cancel</source>
         <translation>Nein, zurück</translation>
     </message>
