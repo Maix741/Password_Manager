@@ -234,7 +234,7 @@ class ReadPasswordWidget(QWidget):
 
         self.edit_button.setObjectName("saveButton")
         self.set_style_sheet()
-        self.edit_button.setText("Save")
+        self.edit_button.setText(self.tr("Save"))
 
     def save_password(self) -> None:
         logging.info(f"Saving password: {self.password_name}")
@@ -246,7 +246,7 @@ class ReadPasswordWidget(QWidget):
         self.show_password_action.setIcon(self.show_icon)
         self.edit_button.setObjectName("editButton")
         self.set_style_sheet()
-        self.edit_button.setText("Edit")
+        self.edit_button.setText(self.tr("Edit"))
 
         self.password["name"] = self.password_name
         self.password["username"] = self.username_edit.text()

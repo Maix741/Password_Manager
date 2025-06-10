@@ -316,6 +316,7 @@ Wenn sie weitermachen wird es verloren gehen</translation>
     </message>
     <message>
         <location filename="../src/widgets/read_password_widget.py" line="172"/>
+        <location filename="../src/widgets/read_password_widget.py" line="249"/>
         <source>Edit</source>
         <translation>Ändern</translation>
     </message>
@@ -323,6 +324,11 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <location filename="../src/widgets/read_password_widget.py" line="179"/>
         <source>Delete</source>
         <translation>Löschen</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/read_password_widget.py" line="237"/>
+        <source>Save</source>
+        <translation>Speichern</translation>
     </message>
 </context>
 <context>
