@@ -1,4 +1,5 @@
 import logging
+import sys
 import os
 
 from PySide6.QtWidgets import (
@@ -30,11 +31,7 @@ class PasswordGenerateDialog(QDialog):
 
         QCoreApplication.installTranslator(self.translator.get_translator())
 
-        try:
-            with open(os.path.join(styles_path, "generate_dialog.css"), "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the generate_dialog: {e}")
+        self.set_style_sheet()
 
         self.init_ui()
 
@@ -110,6 +107,19 @@ class PasswordGenerateDialog(QDialog):
         button_layout.addWidget(self.cancel_button)
 
         main_layout.addLayout(button_layout)
+
+    def set_style_sheet(self) -> None:
+        # Determine the correct path for PyInstaller or normal run
+        if hasattr(sys, "_MEIPASS"):
+            css_path = os.path.join(sys._MEIPASS, "styles", "read_password_widget.css")
+        else:
+            css_path = os.path.join(self.styles_path, "read_password_widget.css")
+
+        try:
+            with open(css_path, "r") as s_f:
+                self.setStyleSheet(s_f.read())
+        except (FileNotFoundError, PermissionError) as e:
+            logging.exception(f"Error getting style for the read_password_widget: {e}")
 
     def set_lenght_slider(self, value: int) -> None:
         if value < self.lenght_maximum:

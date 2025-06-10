@@ -1,4 +1,5 @@
 import logging
+import sys
 import os
 
 # Import GUI elements from PySide6
@@ -28,11 +29,7 @@ class SettingsWidget(QWidget):
         self.design_options: list[str] = [self.tr("system"), self.tr("dark"), self.tr("light")]
 
         self.setObjectName("settingsWidget")
-        try:
-            with open(os.path.join(styles_path, "settings_widget.css"), "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the settings_widget: {e}")
+        self.set_style_sheet()
 
         self.init_ui()
 
@@ -138,6 +135,19 @@ class SettingsWidget(QWidget):
 
         main_layout.addLayout(button_layout)
         main_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+    def set_style_sheet(self) -> None:
+        # Determine the correct path for PyInstaller or normal run
+        if hasattr(sys, "_MEIPASS"):
+            css_path = os.path.join(sys._MEIPASS, "styles", "read_password_widget.css")
+        else:
+            css_path = os.path.join(self.styles_path, "read_password_widget.css")
+
+        try:
+            with open(css_path, "r") as s_f:
+                self.setStyleSheet(s_f.read())
+        except (FileNotFoundError, PermissionError) as e:
+            logging.exception(f"Error getting style for the read_password_widget: {e}")
 
     def browse_data_path(self):
         from PySide6.QtWidgets import QFileDialog

@@ -1,4 +1,5 @@
 import logging
+import sys
 import os
 
 # Import GUI elements from PySide6
@@ -18,11 +19,7 @@ class PasswordWidget(QWidget):
         self.website: str = website
     
         self.setObjectName("PasswordCardInList")
-        try:
-            with open(os.path.join(styles_path, "list_password_widget.css"), "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the list_password_widget: {e}")
+        self.set_style_sheet()
 
         self.init_ui()
 
@@ -48,3 +45,16 @@ class PasswordWidget(QWidget):
         # grid_layout.addWidget(label_website, 0, 2, alignment=Qt.AlignLeft)
 
         main_layout.addLayout(grid_layout)
+
+    def set_style_sheet(self) -> None:
+        # Determine the correct path for PyInstaller or normal run
+        if hasattr(sys, "_MEIPASS"):
+            css_path = os.path.join(sys._MEIPASS, "styles", "read_password_widget.css")
+        else:
+            css_path = os.path.join(self.styles_path, "read_password_widget.css")
+
+        try:
+            with open(css_path, "r") as s_f:
+                self.setStyleSheet(s_f.read())
+        except (FileNotFoundError, PermissionError) as e:
+            logging.exception(f"Error getting style for the read_password_widget: {e}")

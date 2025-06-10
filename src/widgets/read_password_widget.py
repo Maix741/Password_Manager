@@ -1,4 +1,5 @@
 import logging
+import sys
 import os
 
 import pyperclip
@@ -187,8 +188,14 @@ class ReadPasswordWidget(QWidget):
         return QSpacerItem(5, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
     def set_style_sheet(self) -> None:
+        # Determine the correct path for PyInstaller or normal run
+        if hasattr(sys, "_MEIPASS"):
+            css_path = os.path.join(sys._MEIPASS, "styles", "read_password_widget.css")
+        else:
+            css_path = os.path.join(self.styles_path, "read_password_widget.css")
+
         try:
-            with open(os.path.join(self.styles_path, "read_password_widget.css"), "r") as s_f:
+            with open(css_path, "r") as s_f:
                 self.setStyleSheet(s_f.read())
         except (FileNotFoundError, PermissionError) as e:
             logging.exception(f"Error getting style for the read_password_widget: {e}")

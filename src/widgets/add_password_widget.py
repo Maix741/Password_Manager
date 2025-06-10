@@ -1,4 +1,5 @@
 import logging
+import sys
 import os
 
 # Import GUI elements from PySide6
@@ -27,11 +28,7 @@ class AddPasswordWidget(QWidget):
         self.password: dict[str, str] = {}
 
         self.setObjectName("PasswordCard")
-        try:
-            with open(os.path.join(styles_path, "add_password_widget.css"), "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the add_password_widget: {e}")
+        self.set_style_sheet()
 
         QCoreApplication.installTranslator(translation_handler.get_translator())
 
@@ -143,6 +140,19 @@ class AddPasswordWidget(QWidget):
         main_layout.addLayout(button_layout)
 
         main_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+    def set_style_sheet(self) -> None:
+        # Determine the correct path for PyInstaller or normal run
+        if hasattr(sys, "_MEIPASS"):
+            css_path = os.path.join(sys._MEIPASS, "styles", "read_password_widget.css")
+        else:
+            css_path = os.path.join(self.styles_path, "read_password_widget.css")
+
+        try:
+            with open(css_path, "r") as s_f:
+                self.setStyleSheet(s_f.read())
+        except (FileNotFoundError, PermissionError) as e:
+            logging.exception(f"Error getting style for the read_password_widget: {e}")
 
     def get_spacer(self) -> QSpacerItem:
         # This spacer is used to align the labels and fields in the grid layout.
