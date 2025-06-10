@@ -9,7 +9,7 @@ from src import ManagerGUI
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-dp", "--data_path", type=str, required=False, help="Set data-path for application")
-    args = parser.parse_args
+    args = parser.parse_args()
 
     data_path = args.data_path or None
 
