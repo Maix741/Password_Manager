@@ -23,7 +23,7 @@ from .widgets import *
 
 
 class ManagerGUI(QMainWindow):
-    def __init__(self, parent: QWidget | None = None) -> None:
+    def __init__(self, data_path: str | None = None, parent: QWidget | None = None) -> None:
         super(ManagerGUI, self).__init__(parent)
         self.setGeometry(100, 100, 1000, 600)
         self.setWindowTitle(self.tr("Password Manager"))
@@ -31,7 +31,12 @@ class ManagerGUI(QMainWindow):
         self.settings_handler: SettingsHandler = SettingsHandler()
         self.translation_handler: TranslationHandler = TranslationHandler(self.settings_handler)
 
-        self.data_path: str = self.settings_handler.get("data_path")
+        if data_path:
+            os.makedirs(data_path, exist_ok=True)
+            self.data_path = data_path
+            self.settings_handler.set("data_path", data_path)
+        else:
+            self.data_path: str = self.settings_handler.get("data_path")
         self.passwords_path: str = os.path.join(self.data_path, "passwords")
         self.assets_path: str = get_assets_path(self.data_path)
         self.styles_path: str = get_styles_path(self.data_path)
