@@ -25,6 +25,7 @@ class PasswordGenerateDialog(QDialog):
 
         self.lenght_minimum: int = 4
         self.lenght_maximum: int = 64
+        self.lenght_maximum_spinbox: int = 200
         self.lenght_start_value: int = 12
 
         QCoreApplication.installTranslator(self.translator.get_translator())
@@ -58,12 +59,12 @@ class PasswordGenerateDialog(QDialog):
 
         self.length_spinbox = QSpinBox()
         self.length_spinbox.setMinimum(self.lenght_minimum)
-        self.length_spinbox.setMaximum(self.lenght_maximum)
+        self.length_spinbox.setMaximum(self.lenght_maximum_spinbox)
         self.length_spinbox.setValue(self.lenght_start_value)
 
         # Synchronize slider and spinbox
         self.length_slider.valueChanged.connect(self.length_spinbox.setValue)
-        self.length_spinbox.valueChanged.connect(self.length_slider.setValue)
+        self.length_spinbox.valueChanged.connect(self.set_lenght_slider)
 
         length_layout.addWidget(QLabel(self.tr("Length:")))
         length_layout.addWidget(self.length_slider)
@@ -110,8 +111,12 @@ class PasswordGenerateDialog(QDialog):
 
         main_layout.addLayout(button_layout)
 
+    def set_lenght_slider(self, value: int) -> None:
+        if value < self.lenght_maximum:
+            self.length_slider.setValue(value)
+
     def generate_password(self) -> str:
-        lenght: int = self.length_slider.value()
+        lenght: int = self.length_spinbox.value()
         include_letters: bool = self.letters_checkbox.isChecked()
         include_numbers: bool = self.numbers_checkbox.isChecked()
         include_special: bool = self.special_checkbox.isChecked()

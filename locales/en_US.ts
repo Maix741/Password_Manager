@@ -127,7 +127,7 @@ If you continue it will be lost</translation>
     <message>
         <location filename="../src/manager_gui.py" line="138"/>
         <source>Tools</source>
-        <translation>Tols</translation>
+        <translation>Tools</translation>
     </message>
     <message>
         <location filename="../src/manager_gui.py" line="142"/>
@@ -165,32 +165,32 @@ If you continue it will be lost</translation>
         <translation>Enter the password name:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="465"/>
+        <location filename="../src/manager_gui.py" line="461"/>
         <source>Enter Master Password</source>
         <translation>Enter Master Password</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="466"/>
+        <location filename="../src/manager_gui.py" line="462"/>
         <source>Enter the master password:</source>
         <translation>Enter the master password:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="482"/>
+        <location filename="../src/manager_gui.py" line="478"/>
         <source>Set New Master Password</source>
         <translation>Set new master passowrd</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="483"/>
+        <location filename="../src/manager_gui.py" line="479"/>
         <source>Enter a new master password:</source>
         <translation>Enter a new master password:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="515"/>
+        <location filename="../src/manager_gui.py" line="511"/>
         <source>Select csv-file</source>
         <translation>Select csv-file</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="534"/>
+        <location filename="../src/manager_gui.py" line="530"/>
         <source>Save csv-file</source>
         <translation>Save csv-file</translation>
     </message>
@@ -198,57 +198,57 @@ If you continue it will be lost</translation>
 <context>
     <name>PasswordGenerateDialog</name>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="41"/>
+        <location filename="../src/widgets/generate_dialog.py" line="42"/>
         <source>Password Generator</source>
         <translation>Password generator</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="46"/>
+        <location filename="../src/widgets/generate_dialog.py" line="47"/>
         <source>Password Length</source>
         <translation>Password lenght</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="68"/>
+        <location filename="../src/widgets/generate_dialog.py" line="69"/>
         <source>Length:</source>
         <translation>Lenght:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="75"/>
+        <location filename="../src/widgets/generate_dialog.py" line="76"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="79"/>
+        <location filename="../src/widgets/generate_dialog.py" line="80"/>
         <source>Include Letters</source>
         <translation>Include letters</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="81"/>
+        <location filename="../src/widgets/generate_dialog.py" line="82"/>
         <source>Include Numbers</source>
         <translation>Include numbers</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="83"/>
+        <location filename="../src/widgets/generate_dialog.py" line="84"/>
         <source>Include Special Characters</source>
         <translation>Include special characters</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="95"/>
+        <location filename="../src/widgets/generate_dialog.py" line="96"/>
         <source>Generated Password:</source>
         <translation>Generated password:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="100"/>
+        <location filename="../src/widgets/generate_dialog.py" line="101"/>
         <source>Generate</source>
         <translation>Generate</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="102"/>
+        <location filename="../src/widgets/generate_dialog.py" line="103"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="104"/>
+        <location filename="../src/widgets/generate_dialog.py" line="105"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
