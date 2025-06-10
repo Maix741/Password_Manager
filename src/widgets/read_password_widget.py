@@ -50,10 +50,6 @@ class ReadPasswordWidget(QWidget):
         self.timer.timeout.connect(self.return_to_list)
         self.timer.start(120000)
 
-    def get_spacer(self) -> QSpacerItem:
-        # This spacer is used to align the labels and fields in the grid layout.
-        return QSpacerItem(5, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
-
     def init_ui(self) -> None:
         # Main layout for the card with some margins.
         main_layout = QVBoxLayout(self)
@@ -185,6 +181,10 @@ class ReadPasswordWidget(QWidget):
         main_layout.addLayout(button_layout)
 
         main_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+    def get_spacer(self) -> QSpacerItem:
+        # This spacer is used to align the labels and fields in the grid layout.
+        return QSpacerItem(5, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
     def set_style_sheet(self) -> None:
         try:

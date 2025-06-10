@@ -260,68 +260,68 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation type="vanished">Name: </translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="85"/>
+        <location filename="../src/widgets/read_password_widget.py" line="81"/>
         <source>Username:</source>
         <translation>Nutzername:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="91"/>
+        <location filename="../src/widgets/read_password_widget.py" line="87"/>
         <source>Username</source>
         <translation>Nutzername</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="99"/>
+        <location filename="../src/widgets/read_password_widget.py" line="95"/>
         <source>copy username</source>
         <translation>Nutzernamen kopieren</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="106"/>
+        <location filename="../src/widgets/read_password_widget.py" line="102"/>
         <source>Password:</source>
         <translation>Passwort:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="112"/>
+        <location filename="../src/widgets/read_password_widget.py" line="108"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="122"/>
+        <location filename="../src/widgets/read_password_widget.py" line="118"/>
         <source>copy password</source>
         <translation>Passwort kopieren</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="129"/>
+        <location filename="../src/widgets/read_password_widget.py" line="125"/>
         <source>show/hide password</source>
         <translation>Passwort zeigen/verstecken</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="134"/>
+        <location filename="../src/widgets/read_password_widget.py" line="130"/>
         <source>Websites:</source>
         <translation>Websites:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="140"/>
+        <location filename="../src/widgets/read_password_widget.py" line="136"/>
         <source>Website</source>
         <translation>Website</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="148"/>
+        <location filename="../src/widgets/read_password_widget.py" line="144"/>
         <source>Notes:</source>
         <translation>Notizen:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="154"/>
+        <location filename="../src/widgets/read_password_widget.py" line="150"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="172"/>
+        <location filename="../src/widgets/read_password_widget.py" line="168"/>
         <location filename="../src/widgets/read_password_widget.py" line="249"/>
         <source>Edit</source>
         <translation>Ändern</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="179"/>
+        <location filename="../src/widgets/read_password_widget.py" line="175"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
