@@ -184,7 +184,7 @@ class ManagerGUI(QMainWindow):
         if not isinstance(passwords, list):
             password_names: list[str] = os.listdir(self.passwords_path)
             self.password_names: list[str] = [os.path.splitext(password)[0] for password in password_names]
-        elif type(passwords) == list:
+        else:
             self.password_names: list[str] = passwords
 
         for name in self.password_names:
@@ -240,6 +240,12 @@ class ManagerGUI(QMainWindow):
         self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_widget)
 
     def delete_password(self, password_name: str) -> None:
+        """
+        Delete a password by its name.
+
+        Args:
+            password_name (str): The name of the password to be deleted.
+        """
         remove_password(self.data_path, password_name)
         self.fill_passwords_list()
 
@@ -440,7 +446,7 @@ class ManagerGUI(QMainWindow):
         write_keys(self.data_path, aes_fragment)
         self.change_to_normal_list()
 
-    def load_keys(self, load_from: str) -> tuple[str, bytes, list[str, bytes]] | tuple[None]:
+    def load_keys(self, load_from: str) -> tuple[str, bytes, list[str, bytes]] | tuple[None, None, None]:
         correct_master: str = self.ask_master_pass(load_from)
         if not correct_master:
             self.wrong_master_entered()

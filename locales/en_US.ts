@@ -155,42 +155,42 @@ If you continue it will be lost</translation>
         <translation>Renew Keys</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="249"/>
+        <location filename="../src/manager_gui.py" line="255"/>
         <source>Enter New Password Name</source>
         <translation>Enter new password name</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="251"/>
+        <location filename="../src/manager_gui.py" line="257"/>
         <source>Enter the password Name:</source>
         <translation>Enter the password name:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="466"/>
+        <location filename="../src/manager_gui.py" line="472"/>
         <source>Enter Master Password</source>
         <translation>Enter Master Password</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="467"/>
+        <location filename="../src/manager_gui.py" line="473"/>
         <source>Enter the master password:</source>
         <translation>Enter the master password:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="483"/>
+        <location filename="../src/manager_gui.py" line="489"/>
         <source>Set New Master Password</source>
         <translation>Set new master passowrd</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="484"/>
+        <location filename="../src/manager_gui.py" line="490"/>
         <source>Enter a new master password:</source>
         <translation>Enter a new master password:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="516"/>
+        <location filename="../src/manager_gui.py" line="522"/>
         <source>Select csv-file</source>
         <translation>Select csv-file</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="535"/>
+        <location filename="../src/manager_gui.py" line="541"/>
         <source>Save csv-file</source>
         <translation>Save csv-file</translation>
     </message>
