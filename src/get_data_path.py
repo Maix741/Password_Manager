@@ -11,7 +11,7 @@ def get_data_path() -> str:
 
     else:
         current_dir: str = os.path.dirname(sys.argv[0])
-        if current_dir.endswith("src", "bin"):
+        if current_dir.endswith(("src", "bin")):
             data_path: str = os.path.join(Path(current_dir).parent, "DATA")
         else:
             data_path = os.path.join(current_dir, "DATA")
