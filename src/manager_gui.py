@@ -535,7 +535,7 @@ class ManagerGUI(QMainWindow):
         setup_correct: bool = check_setup(self.data_path)
         if setup_correct: logging.debug(f"Setup correct: {setup_correct}")
         elif not setup_correct: logging.warning(f"Setup correct: {setup_correct}")
-        if not setup_correct: self.__init__()
+        if not setup_correct: self.renew_keys()
 
     def import_passwords(self) -> None:
         try:
