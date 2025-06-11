@@ -9,7 +9,7 @@ import os
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
-    QMainWindow, QPushButton, QVBoxLayout, QListWidget, QMenu, QWidget, QFileDialog,
+    QMainWindow, QPushButton, QVBoxLayout, QListWidget, QMenu, QWidget, QFileDialog, QMenuBar,
     QSpacerItem, QSizePolicy, QDockWidget, QLineEdit, QListWidgetItem, QInputDialog
 )
 from PySide6.QtGui import QIcon, QAction
@@ -26,7 +26,6 @@ class ManagerGUI(QMainWindow):
     def __init__(self, data_path: str | None = None, parent: QWidget | None = None) -> None:
         super(ManagerGUI, self).__init__(parent)
         self.setGeometry(100, 100, 1000, 600)
-        self.setWindowTitle(self.tr("Password Manager"))
 
         self.settings_handler: SettingsHandler = SettingsHandler(data_path=data_path)
         self.translation_handler: TranslationHandler = TranslationHandler(self.settings_handler)
@@ -37,9 +36,7 @@ class ManagerGUI(QMainWindow):
             self.settings_handler.set("data_path", data_path)
         else:
             self.data_path: str = self.settings_handler.get("data_path")
-        self.passwords_path: str = os.path.join(self.data_path, "passwords")
-        self.assets_path: str = get_assets_path(self.data_path)
-        self.styles_path: str = get_styles_path(self.data_path)
+        self.update_data_path(self.data_path)
 
         self.password_names: list[str] = []
         self.wrong_attempts: int = 0
@@ -48,7 +45,6 @@ class ManagerGUI(QMainWindow):
         self.retry_count: int = 0
         self.max_wrong_attempts: int = 10
 
-        setup_logging(os.path.join(self.data_path, "log", "password_manager.log"))
         self.init_ui()
         if not os.path.isfile(os.path.join(self.data_path, "master", "master_pass.pem")):
             self.renew_keys()
@@ -56,6 +52,7 @@ class ManagerGUI(QMainWindow):
     def init_ui(self, create_dock: bool = True) -> None:
         """Initialize the GUI elements."""
         # Create the central widget layout
+        self.setWindowTitle(self.tr("Password Manager"))
         self.central_widget = QWidget(self)
         self.setCentralWidget(self.central_widget)
 
@@ -74,6 +71,18 @@ class ManagerGUI(QMainWindow):
             self.init_icons()
             self.create_controls_dock()
             self.create_menubar()
+
+    def reload_self(self) -> None:
+        self.data_path = self.settings_handler.get("data_path")
+        self.update_translations(self.settings_handler.get("system_locale"))
+        self.update_data_path(self.data_path)
+
+    def update_data_path(self, data_path: str) -> None:
+        self.passwords_path = os.path.join(data_path, "passwords")
+        self.assets_path = get_assets_path(data_path)
+        self.styles_path = get_styles_path(data_path)
+        setup_logging(os.path.join(data_path, "log", "password_manager.log"))
+        self.check_setup()
 
     def init_icons(self) -> None:
         self.icon_size: QSize = QSize(25, 25)
@@ -105,12 +114,14 @@ class ManagerGUI(QMainWindow):
 
     def create_menubar(self) -> None:
         """Create the menu bar with file and settings actions."""
+        if hasattr(self, "menubar") and self.menubar:
+            self.menubar.deleteLater()
         # Create the menu bar
-        menubar = self.menuBar()
+        self.menubar = QMenuBar(self)
 
         # Create "File" menu
         file_menu = QMenu(self.tr("File"), self)
-        menubar.addMenu(file_menu)
+        self.menubar.addMenu(file_menu)
 
         # Add actions to the "File" menu
         import_action = QAction(self.tr("Import"), self)
@@ -130,7 +141,7 @@ class ManagerGUI(QMainWindow):
 
         # Create "Edit" menu
         edit_menu = QMenu(self.tr("Edit"), self)
-        menubar.addMenu(edit_menu)
+        self.menubar.addMenu(edit_menu)
 
         # Add actions to the "Edit" menu
         settings_action = QAction(self.tr("Settings"), self)
@@ -141,13 +152,15 @@ class ManagerGUI(QMainWindow):
 
         # Create "tools" menu
         utils_menu = QMenu(self.tr("Tools"), self)
-        menubar.addMenu(utils_menu)
+        self.menubar.addMenu(utils_menu)
 
         # Add actions to the "tools" menu
         generating_action = QAction(self.tr("Generate Password"), self)
         generating_action.triggered.connect(self.show_generating_dialog)
 
         utils_menu.addAction(generating_action)
+
+        self.setMenuBar(self.menubar)
 
     def show_password_context_menu(self, password_name: str, password_list_widget: PasswordWidget, position) -> None:
         """Show context menu for the saved playlists."""
@@ -202,6 +215,8 @@ class ManagerGUI(QMainWindow):
 
     def create_controls_dock(self) -> None:
         """Create the dock widget with control buttons."""
+        if hasattr(self, "dock_widget") and self.dock_widget:
+            self.dock_widget.deleteLater()
         # Create a new dock widget
         self.dock_widget = QDockWidget(self)
 
@@ -399,10 +414,18 @@ class ManagerGUI(QMainWindow):
         add_password_card.returned.connect(self.change_to_normal_list)
 
     def change_to_settings(self) -> None:
-        if hasattr(self, "settings_widget") and self.settings_widget:
-            self.change_to_normal_list()
+        def settings_return(reload_self: bool) -> None:
+            self.settings_container.deleteLater()
             del self.settings_widget
+            if reload_self: self.reload_self()
+            else: self.change_to_normal_list()
+
+        # Check if settings_widget already exists and return to the list if it does
+        if hasattr(self, "settings_widget") and self.settings_widget:
+            logging.debug("Settings widget already exists, returning to normal list.")
+            self.settings_widget.return_to_list()
             return
+
         # Clear the central layout
         self.clear_central_layout()
 
@@ -420,7 +443,7 @@ class ManagerGUI(QMainWindow):
 
         # Add the container to the central layout
         self.central_layout.addWidget(self.settings_container)
-        self.settings_widget.returned.connect(self.change_to_normal_list)
+        self.settings_widget.returned.connect(settings_return)
 
     def change_to_normal_list(self) -> None:
         self.init_ui(False)
@@ -548,3 +571,10 @@ class ManagerGUI(QMainWindow):
 
         except (IndexError, PermissionError, FileNotFoundError, ValueError, KeyError) as e:
             logging.error(f"Error while exporting password: {e}")
+
+    def update_translations(self, locale: str) -> None:
+        """
+        Updates the translations for the UI components.
+        """
+        self.translation_handler.set_language(locale)
+        self.init_ui()
