@@ -311,7 +311,7 @@ class ManagerGUI(QMainWindow):
         def add_password(password: dict[str, str]) -> None:
             if not len(password.keys()) == 5:
                 return
-            logging.info(f"Adding Password: {password["name"]}")
+            logging.info(f"Adding Password: {password['name']}")
             AddPassword(
                 name=password["name"],
                 username=password["username"],
@@ -353,7 +353,7 @@ class ManagerGUI(QMainWindow):
     def change_to_read_card(self, password_card: ReadPasswordWidget, fernet_key: bytes, AES_key: tuple[bytes]) -> None:
         def modify_password(password: dict[str, str]) -> None:
             if not password: return self.change_to_normal_list()
-            logging.info(f"Modifying Password: {password["name"]}")
+            logging.info(f"Modifying Password: {password['name']}")
             AddPassword(
                 name=password["name"],
                 username=password["username"],

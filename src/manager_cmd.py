@@ -79,10 +79,10 @@ class ManagerCMD:
 
     def display_password(self, password: dict[str, str]) -> None:
         print()
-        print(f"Username: {password["username"]}")      # TODO: better displaying
-        print(f"Password: {password["password"]}")
-        print(f"Website: {password["website"]}")
-        print(f"Notes: {password["notes"]}")
+        print(f"Username: {password['username']}")      # TODO: better displaying
+        print(f"Password: {password['password']}")
+        print(f"Website: {password['website']}")
+        print(f"Notes: {password['notes']}")
         print()
         pyperclip.copy(password["password"])
 

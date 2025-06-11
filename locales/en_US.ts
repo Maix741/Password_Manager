@@ -399,6 +399,18 @@ If you continue it will be lost</translation>
         <translation>Use the website as the entry name by default.</translation>
     </message>
     <message>
+        <location filename="../src/widgets/settings_widget.py" line="101"/>
+        <location filename="../src/widgets/settings_widget.py" line="103"/>
+        <source>True</source>
+        <translation>True</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="101"/>
+        <location filename="../src/widgets/settings_widget.py" line="104"/>
+        <source>False</source>
+        <translation>False</translation>
+    </message>
+    <message>
         <location filename="../src/widgets/settings_widget.py" line="109"/>
         <location filename="../src/widgets/settings_widget.py" line="115"/>
         <source>Design</source>

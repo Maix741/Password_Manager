@@ -21,7 +21,7 @@ class ImportPasswords:
                 "website": website,
                 "notes": note
             }
-            logging.info(f"Adding Password({i+1}/{len(passwords)}): {password["name"]} ")
+            logging.info(f"Adding Password({i+1}/{len(passwords)}): {password['name']} ")
             self.add_password(password, *keys)
 
     def read_file(self, csv_file_path: str) -> list[str]:

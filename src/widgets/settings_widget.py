@@ -98,9 +98,9 @@ class SettingsWidget(QWidget):
         grid_layout.addWidget(use_website_label, 2, 0, alignment=Qt.AlignRight)
 
         self.use_website_combo_box = QComboBox()
-        self.use_website_combo_box.addItems(["True", "False"])
+        self.use_website_combo_box.addItems([self.tr("True"), self.tr("False")])
         self.use_website_combo_box.setCurrentText(
-            "True" if self.settings_handler.get("use_website_as_name") else "False"
+            self.tr("True") if self.settings_handler.get("use_website_as_name") else self.tr("False")
         )
         self.use_website_combo_box.setToolTip(self.tr("Use the website as the entry name by default."))
         grid_layout.addWidget(self.use_website_combo_box, 2, 1)

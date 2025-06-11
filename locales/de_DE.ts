@@ -399,6 +399,18 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation>Nutze standartmäßig die Website als Namen.</translation>
     </message>
     <message>
+        <location filename="../src/widgets/settings_widget.py" line="101"/>
+        <location filename="../src/widgets/settings_widget.py" line="103"/>
+        <source>True</source>
+        <translation>Wahr</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/settings_widget.py" line="101"/>
+        <location filename="../src/widgets/settings_widget.py" line="104"/>
+        <source>False</source>
+        <translation>Falsch</translation>
+    </message>
+    <message>
         <location filename="../src/widgets/settings_widget.py" line="109"/>
         <location filename="../src/widgets/settings_widget.py" line="115"/>
         <source>Design</source>
