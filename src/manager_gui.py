@@ -9,8 +9,9 @@ import os
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
-    QMainWindow, QPushButton, QVBoxLayout, QListWidget, QMenu, QWidget, QFileDialog, QMenuBar,
-    QSpacerItem, QSizePolicy, QDockWidget, QLineEdit, QListWidgetItem, QInputDialog
+    QMainWindow, QPushButton, QVBoxLayout, QListWidget,
+    QMenu, QWidget, QFileDialog, QMenuBar, QListWidgetItem,
+    QSpacerItem, QSizePolicy, QDockWidget, QLineEdit, QInputDialog
 )
 from PySide6.QtGui import QIcon, QAction
 from PySide6.QtCore import Qt, QSize
