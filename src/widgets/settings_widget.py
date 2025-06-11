@@ -143,11 +143,7 @@ class SettingsWidget(QWidget):
         main_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
     def set_style_sheet(self) -> None:
-        # Determine the correct path for PyInstaller or normal run
-        if hasattr(sys, "_MEIPASS"):
-            css_path = os.path.join(sys._MEIPASS, "styles", "settings_widget.css")
-        else:
-            css_path = os.path.join(self.styles_path, "settings_widget.css")
+        css_path: str = os.path.join(self.styles_path, "settings_widget.css")
 
         try:
             with open(css_path, "r") as s_f:

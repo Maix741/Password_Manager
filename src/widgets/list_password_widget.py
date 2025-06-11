@@ -48,11 +48,7 @@ class PasswordWidget(QWidget):
         main_layout.addLayout(grid_layout)
 
     def set_style_sheet(self) -> None:
-        # Determine the correct path for PyInstaller or normal run
-        if hasattr(sys, "_MEIPASS"):
-            css_path = os.path.join(sys._MEIPASS, "styles", "list_password_widget.css")
-        else:
-            css_path = os.path.join(self.styles_path, "list_password_widget.css")
+        css_path: str = os.path.join(self.styles_path, "list_password_widget.css")
 
         try:
             with open(css_path, "r") as s_f:

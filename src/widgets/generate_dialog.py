@@ -111,11 +111,7 @@ class PasswordGenerateDialog(QDialog):
         main_layout.addLayout(button_layout)
 
     def set_style_sheet(self) -> None:
-        # Determine the correct path for PyInstaller or normal run
-        if hasattr(sys, "_MEIPASS"):
-            css_path = os.path.join(sys._MEIPASS, "styles", "generate_dialog.css")
-        else:
-            css_path = os.path.join(self.styles_path, "generate_dialog.css")
+        css_path: str = os.path.join(self.styles_path, "generate_dialog.css")
 
         try:
             with open(css_path, "r") as s_f:

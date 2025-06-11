@@ -4,6 +4,10 @@ import os
 
 
 def get_styles_path(data_path: str) -> str:
+    # Determine the correct path for PyInstaller
+    if hasattr(sys, "_MEIPASS"):
+        return os.path.join(sys._MEIPASS, "styles")
+
     path1: str = os.path.join(data_path, "styles")
     if os.path.isdir(path1):
         icons: list[str] = os.listdir(path1)
