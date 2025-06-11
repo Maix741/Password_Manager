@@ -28,7 +28,7 @@ class ManagerGUI(QMainWindow):
         self.setGeometry(100, 100, 1000, 600)
         self.setWindowTitle(self.tr("Password Manager"))
 
-        self.settings_handler: SettingsHandler = SettingsHandler()
+        self.settings_handler: SettingsHandler = SettingsHandler(data_path=data_path)
         self.translation_handler: TranslationHandler = TranslationHandler(self.settings_handler)
 
         if data_path:

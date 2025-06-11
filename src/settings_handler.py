@@ -3,6 +3,7 @@ import json
 import os
 
 from .get_data_path import get_data_path
+from .setup_folders import setup_folders
 
 
 class SettingsHandler:
@@ -11,7 +12,9 @@ class SettingsHandler:
                  ) -> None:
 
         self.tester: SettingsTester = SettingsTester()
-        if not data_path:
+        if data_path:
+            setup_folders(data_path)
+        else:
             data_path = get_data_path()
 
         self.settings_file: str = os.path.join(data_path, "config", "settings.json")
