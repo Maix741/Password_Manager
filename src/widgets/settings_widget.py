@@ -12,7 +12,7 @@ from PySide6.QtGui import QPainter, QBrush, QColor
 
 
 class SettingsWidget(QWidget):
-    returned: Signal = Signal()
+    returned: Signal = Signal(bool)
     def __init__(self, styles_path: str,
                  settings_handler, translations_handler,
                  parent: QWidget | None = None
@@ -29,6 +29,9 @@ class SettingsWidget(QWidget):
         QCoreApplication.installTranslator(self.translations_handler.get_translator())
 
         self.design_options: list[str] = [self.tr("system"), self.tr("dark"), self.tr("light")]
+
+        self.data_path_changed: bool = False
+        self.language_changed: bool = False
 
         self.setObjectName("settingsWidget")
         self.set_style_sheet()
@@ -85,6 +88,7 @@ class SettingsWidget(QWidget):
         self.locale_combo_box.addItems(self.translations_handler.get_available_languages())
         self.locale_combo_box.setCurrentText(self.settings_handler.get("system_locale"))
         self.locale_combo_box.setToolTip(self.tr("Language for the application interface."))
+        self.locale_combo_box.currentTextChanged.connect(self.locale_changed)
         grid_layout.addWidget(self.locale_combo_box, 1, 1)
 
         # row 2: use_website_as_name
@@ -155,7 +159,15 @@ class SettingsWidget(QWidget):
         from PySide6.QtWidgets import QFileDialog
         path = QFileDialog.getExistingDirectory(self, self.tr("Select Data Directory"), self.data_edit.text())
         if path:
+            self.data_path_changed = True
             self.data_edit.setText(path)
+
+    def locale_changed(self) -> None:
+        """
+        Updates the translations for the UI components of the settings widget.
+        """
+        self.language_changed = True
+        # self.init_ui()
 
     def save_settings(self) -> None:
         logging.info("Saving settings")
@@ -165,8 +177,13 @@ class SettingsWidget(QWidget):
         self.settings_handler.set("design", self.design_combo.currentIndex())
         self.settings_handler.save()
 
+        self.return_to_list()
+
     def return_to_list(self) -> None:
-        self.returned.emit()
+        if self.language_changed or self.data_path_changed:
+            self.returned.emit(True)
+        else:
+            self.returned.emit(False)
 
     def paintEvent(self, event):
         painter = QPainter(self)
