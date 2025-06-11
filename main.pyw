@@ -6,11 +6,15 @@ from PySide6.QtWidgets import QApplication
 from src import ManagerGUI
 
 
-if __name__ == "__main__":
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("-dp", "--data_path", type=str, required=False, help="Set data-path for application")
-    args = parser.parse_args()
 
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    args: argparse.Namespace = parse_args()
     data_path = args.data_path or None
 
     app: QApplication = QApplication(sys.argv)
