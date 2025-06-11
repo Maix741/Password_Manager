@@ -59,24 +59,24 @@
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="204"/>
+        <location filename="../src/widgets/add_password_widget.py" line="200"/>
         <source>No name entered</source>
         <translation>Keinen Namen eingegeben</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="205"/>
+        <location filename="../src/widgets/add_password_widget.py" line="201"/>
         <source>The password needs a name to be saved!
 If you continue it will be lost</source>
         <translation>Das Passwort braucht einen Name um gespeichrt zu werden
 Wenn sie weitermachen wird es verloren gehen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="206"/>
+        <location filename="../src/widgets/add_password_widget.py" line="202"/>
         <source>Yes, proceed</source>
         <translation>Ja, weiter</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="207"/>
+        <location filename="../src/widgets/add_password_widget.py" line="203"/>
         <source>No, cancel</source>
         <translation>Nein, zurück</translation>
     </message>
@@ -316,7 +316,7 @@ Wenn sie weitermachen wird es verloren gehen</translation>
     </message>
     <message>
         <location filename="../src/widgets/read_password_widget.py" line="169"/>
-        <location filename="../src/widgets/read_password_widget.py" line="256"/>
+        <location filename="../src/widgets/read_password_widget.py" line="252"/>
         <source>Edit</source>
         <translation>Ändern</translation>
     </message>
@@ -326,7 +326,7 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="244"/>
+        <location filename="../src/widgets/read_password_widget.py" line="240"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
@@ -431,7 +431,7 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation>Änderungen verwerfen und zurückkehren</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="160"/>
+        <location filename="../src/widgets/settings_widget.py" line="156"/>
         <source>Select Data Directory</source>
         <translation>Daten Ordner auswählen</translation>
     </message>

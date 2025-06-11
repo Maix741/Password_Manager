@@ -59,24 +59,24 @@
         <translation>Save</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="204"/>
+        <location filename="../src/widgets/add_password_widget.py" line="200"/>
         <source>No name entered</source>
         <translation>No name entered</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="205"/>
+        <location filename="../src/widgets/add_password_widget.py" line="201"/>
         <source>The password needs a name to be saved!
 If you continue it will be lost</source>
         <translation>The password needs a name to be saved!
 If you continue it will be lost</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="206"/>
+        <location filename="../src/widgets/add_password_widget.py" line="202"/>
         <source>Yes, proceed</source>
         <translation>Yes, proceed</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="207"/>
+        <location filename="../src/widgets/add_password_widget.py" line="203"/>
         <source>No, cancel</source>
         <translation>No, cancel</translation>
     </message>
@@ -316,7 +316,7 @@ If you continue it will be lost</translation>
     </message>
     <message>
         <location filename="../src/widgets/read_password_widget.py" line="169"/>
-        <location filename="../src/widgets/read_password_widget.py" line="256"/>
+        <location filename="../src/widgets/read_password_widget.py" line="252"/>
         <source>Edit</source>
         <translation>Edit</translation>
     </message>
@@ -326,7 +326,7 @@ If you continue it will be lost</translation>
         <translation>Delete</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="244"/>
+        <location filename="../src/widgets/read_password_widget.py" line="240"/>
         <source>Save</source>
         <translation>Save</translation>
     </message>
@@ -431,7 +431,7 @@ If you continue it will be lost</translation>
         <translation>Discard changes and return</translation>
     </message>
     <message>
-        <location filename="../src/widgets/settings_widget.py" line="160"/>
+        <location filename="../src/widgets/settings_widget.py" line="156"/>
         <source>Select Data Directory</source>
         <translation>Select Data Directory</translation>
     </message>
