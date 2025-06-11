@@ -1,3 +1,4 @@
+import logging
 import os
 
 from PySide6.QtCore import QTranslator, QCoreApplication
@@ -14,11 +15,15 @@ class TranslationHandler:
 
     def get_available_languages(self) -> list[str]:
         # Get the available languages from the locales folder
-        return [
-            filename.split(".")[0]
-            for filename in os.listdir(self.locales_folder)
-            if filename.endswith(".qm")
-        ]
+        try:
+            return [
+                filename.split(".")[0]
+                for filename in os.listdir(self.locales_folder)
+                if filename.endswith(".qm")
+            ]
+        except (FileNotFoundError, PermissionError) as e:
+            logging.error(f"Unable to get available languages: {e}")
+            return []
 
     def get_translator(self) -> QTranslator:
         return self.translator
