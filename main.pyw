@@ -8,7 +8,7 @@ from src import ManagerGUI
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument("-dp", "--data_path", type=str, required=False, help="Set data-path for application")
+    parser.add_argument("-dp", "--data-path", type=str, required=False, help="Set data-path for application")
 
     return parser.parse_args()
 

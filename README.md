@@ -5,6 +5,10 @@ A secure, cross-platform password manager with both command-line and graphical u
 ## Features
 
 - **Secure Storage**: Passwords are encrypted using AES and Fernet cryptography.
+- **Cross-Platform**: Works on Windows, macOS, and Linux.
+- **Local Storage**: All data is stored locally on your device.
+- **Multi-Language Support**: Available in multiple languages.
+- **Dark Mode**: Supports dark mode for better usability.
 - **Master Password**: Protects access to all stored passwords.
 - **Command-Line Interface**: Manage passwords directly from the terminal ([main.py](main.py)).
 - **Graphical User Interface**: User-friendly GUI built with PySide6 ([main.pyw](main.pyw)).
@@ -25,6 +29,20 @@ A secure, cross-platform password manager with both command-line and graphical u
    ```sh
    pip install -r requirements.txt
    ```
+
+## Configure data path
+### Environment Variable:
+Set the `PASSWORD_MANAGER_DATA_PATH` environment variable to specify where the password database will be stored. If not set, it defaults to:
+
+**Windows:** `C:\Users\<YourUsername>\AppData\Local\Password_manager\`
+
+**Linux/macOS:** `/home/username/.Password_manager`
+
+### Command-Line Argument:
+You can also specify the data path when running the script by using the `--data-path` argument:
+```sh
+python main.pyw --data-path /path/to/your/data
+```
 
 ## Usage
 
