@@ -14,8 +14,12 @@ from .utils import *
 
 
 class ManagerCMD:
-    def __init__(self) -> None:
-        self.data_path: str = get_data_path()
+    def __init__(self, data_path: str = "") -> None:
+        if data_path:
+            os.makedirs(data_path, exist_ok=True)
+            self.data_path = data_path
+        else:
+            self.data_path: str = get_data_path()
         self.passwords_path: str = os.path.join(self.data_path, "passwords")
 
         setup_logging(os.path.join(self.data_path, "log", "password_manager.log"))

@@ -1,3 +1,5 @@
+import argparse
+
 from src import (
     ManagerCMD,
     remove_password, search_passwords
@@ -5,6 +7,14 @@ from src import (
 
 
 def get_input(manager: ManagerCMD) -> bool:
+    """Get input from the user and perform actions based on the input.
+
+    Args:
+        manager (ManagerCMD): Instance of the ManagerCMD class to manage passwords.
+
+    Returns:
+        bool: Returns True if the user wants to exit, otherwise False.
+    """
     manager.check_setup()
     selected_mode: str = input("Mode: ").lower().replace(" ", "")
 
@@ -75,6 +85,12 @@ def get_input(manager: ManagerCMD) -> bool:
 
 
 def unknown_mode(manager: ManagerCMD, selected_mode: str) -> None:
+    """Handle unknown modes by searching for passwords that match the input.
+
+    Args:
+        manager (ManagerCMD): Instance of the ManagerCMD class to manage passwords.
+        selected_mode (str): The input mode that was not recognized.
+    """
     search_result: list[str] = search_passwords(manager.data_path, selected_mode)
     if len(search_result) == 1 and len(selected_mode) >= 5:
         manager.read_password(search_result[0])
@@ -83,8 +99,28 @@ def unknown_mode(manager: ManagerCMD, selected_mode: str) -> None:
         print("Did you mean: " + ", ".join(search_result))
 
 
+def parse_args() -> argparse.Namespace:
+    """Parse command line arguments for the password manager.
+
+    Returns:
+        argparse.Namespace: Parsed command line arguments.
+    """
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-dp", "--data-path", type=str, required=False, help="Set data-path for application")
+
+    return parser.parse_args()
+
+
 def cmd_main() -> None:
-    manager: ManagerCMD = ManagerCMD()
+    """Main function to run the command line password manager.
+
+    This function initializes the ManagerCMD instance and enters a loop to get user input
+    until the user decides to exit.
+    """
+    args: argparse.Namespace = parse_args()
+    data_path = args.data_path or None
+
+    manager: ManagerCMD = ManagerCMD(data_path=data_path)
     running: bool = True
     while running:
         try:
