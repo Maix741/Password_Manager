@@ -1,3 +1,4 @@
+import platform
 import locale
 import json
 import os
@@ -23,7 +24,7 @@ class SettingsHandler:
         self.data_path: str = data_path
         self.system_locale: str = locale
         self.use_website_as_name: bool = use_website_as_name
-        self.design: int = 0    # Literal[0, 1, 2] 0 -> system, 1 -> dark, 2 -> light
+        self.design: int = 1 if self.is_dark_mode() else 0    # Literal[0, 1, 2] 0 -> system, 1 -> dark, 2 -> light
 
         self.load()
 
@@ -60,6 +61,18 @@ class SettingsHandler:
             "design": self.design
         }
         self.save()
+
+    def is_dark_mode(self) -> bool:
+        if platform.system() == "Windows":
+            try:
+                import winreg
+                registry = winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER)
+                key = winreg.OpenKey(registry, r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize")
+                value, _ = winreg.QueryValueEx(key, "AppsUseLightTheme")
+                return value == 0  # 0 = dark, 1 = light
+            except Exception:
+                return False
+        return False  # Default to light on other OS
 
 
 class SettingsTester:

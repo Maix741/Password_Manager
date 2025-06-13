@@ -67,11 +67,21 @@ class ManagerGUI(QMainWindow):
         self.central_layout.addWidget(self.search_edit)
 
         self.create_passwords_list()
+        self.set_style_sheet()
 
         if create_dock:
             self.init_icons()
             self.create_controls_dock()
             self.create_menubar()
+
+    def set_style_sheet(self) -> None:
+        css_path: str = os.path.join(self.styles_path, "manager_gui.css")
+
+        try:
+            with open(css_path, "r") as s_f:
+                self.setStyleSheet(s_f.read())
+        except (FileNotFoundError, PermissionError) as e:
+            logging.exception(f"Error getting style for the manager_gui: {e}")
 
     def reload_self(self) -> None:
         self.data_path = self.settings_handler.get("data_path")
