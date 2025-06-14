@@ -422,7 +422,11 @@ class ManagerGUI(QMainWindow):
 
         # Add the container to the central layout
         self.central_layout.addWidget(self.add_card_container)
-        add_password_card.name_edit.setFocus()
+        if not self.settings_handler.get("use_website_as_name"):
+            add_password_card.username_edit.setFocus()
+        else:
+            add_password_card.name_edit.setFocus()
+
         add_password_card.returned.connect(self.change_to_normal_list)
 
     def change_to_settings(self) -> None:
