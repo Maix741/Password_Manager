@@ -165,32 +165,32 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation>Geben sie den Name des Passworts ein:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="511"/>
+        <location filename="../src/manager_gui.py" line="512"/>
         <source>Enter Master Password</source>
         <translation>Hauptpasswort eingeben</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="512"/>
+        <location filename="../src/manager_gui.py" line="513"/>
         <source>Enter the master password:</source>
         <translation>Geben sie das Hauptpasswort ein:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="528"/>
+        <location filename="../src/manager_gui.py" line="529"/>
         <source>Set New Master Password</source>
         <translation>Neues Hauptpasswort setzen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="529"/>
+        <location filename="../src/manager_gui.py" line="530"/>
         <source>Enter a new master password:</source>
         <translation>Neues Hauptpasswort eingeben:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="561"/>
+        <location filename="../src/manager_gui.py" line="562"/>
         <source>Select csv-file</source>
         <translation>csv-Datei auswählen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="580"/>
+        <location filename="../src/manager_gui.py" line="581"/>
         <source>Save csv-file</source>
         <translation>csv-Datei speichern</translation>
     </message>
