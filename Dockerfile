@@ -18,5 +18,4 @@ RUN pip install --no-cache-dir pyinstaller
 COPY . .
 
 COPY build.sh ./
-RUN chmod +x build.sh
 CMD ["./build.sh"]
