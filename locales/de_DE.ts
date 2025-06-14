@@ -4,79 +4,79 @@
 <context>
     <name>AddPasswordWidget</name>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="53"/>
+        <location filename="../src/widgets/add_password_widget.py" line="55"/>
         <source>Name:</source>
         <translation>Name:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="72"/>
+        <location filename="../src/widgets/add_password_widget.py" line="74"/>
         <source>Username:</source>
         <translation>Nutzername:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="78"/>
+        <location filename="../src/widgets/add_password_widget.py" line="80"/>
         <source>Username</source>
         <translation>Nutzername</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="83"/>
+        <location filename="../src/widgets/add_password_widget.py" line="85"/>
         <source>Password:</source>
         <translation>Passwort:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="89"/>
+        <location filename="../src/widgets/add_password_widget.py" line="91"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="97"/>
+        <location filename="../src/widgets/add_password_widget.py" line="99"/>
         <source>show/hide password</source>
         <translation>Passwort zeigen/verstecken</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="102"/>
+        <location filename="../src/widgets/add_password_widget.py" line="104"/>
         <source>Websites:</source>
         <translation>Websites:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="108"/>
+        <location filename="../src/widgets/add_password_widget.py" line="110"/>
         <source>Website</source>
         <translation>Website</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="114"/>
+        <location filename="../src/widgets/add_password_widget.py" line="116"/>
         <source>Notes:</source>
         <translation>Notizen:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="120"/>
+        <location filename="../src/widgets/add_password_widget.py" line="122"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="135"/>
+        <location filename="../src/widgets/add_password_widget.py" line="137"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="200"/>
+        <location filename="../src/widgets/add_password_widget.py" line="207"/>
         <source>No name entered</source>
         <translation>Keinen Namen eingegeben</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="201"/>
+        <location filename="../src/widgets/add_password_widget.py" line="208"/>
         <source>The password needs a name to be saved!
 If you continue it will be lost</source>
         <translation>Das Passwort braucht einen Name um gespeichrt zu werden
 Wenn sie weitermachen wird es verloren gehen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="202"/>
+        <location filename="../src/widgets/add_password_widget.py" line="209"/>
         <source>Yes, proceed</source>
         <translation>Ja, weiter</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="203"/>
+        <location filename="../src/widgets/add_password_widget.py" line="210"/>
         <source>No, cancel</source>
         <translation>Nein, zurück</translation>
     </message>
@@ -165,32 +165,32 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation>Geben sie den Name des Passworts ein:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="506"/>
+        <location filename="../src/manager_gui.py" line="507"/>
         <source>Enter Master Password</source>
         <translation>Hauptpasswort eingeben</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="507"/>
+        <location filename="../src/manager_gui.py" line="508"/>
         <source>Enter the master password:</source>
         <translation>Geben sie das Hauptpasswort ein:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="523"/>
+        <location filename="../src/manager_gui.py" line="524"/>
         <source>Set New Master Password</source>
         <translation>Neues Hauptpasswort setzen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="524"/>
+        <location filename="../src/manager_gui.py" line="525"/>
         <source>Enter a new master password:</source>
         <translation>Neues Hauptpasswort eingeben:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="556"/>
+        <location filename="../src/manager_gui.py" line="557"/>
         <source>Select csv-file</source>
         <translation>csv-Datei auswählen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="575"/>
+        <location filename="../src/manager_gui.py" line="576"/>
         <source>Save csv-file</source>
         <translation>csv-Datei speichern</translation>
     </message>

@@ -332,7 +332,8 @@ class ManagerGUI(QMainWindow):
                 replace=False,
                 fernet_key=fernet_key,
                 AES_key=AES_key[0],
-                salt=AES_key[1]
+                salt=AES_key[1],
+                use_website_as_name=self.settings_handler.get("use_website_as_name")
             )
             self.change_to_normal_list()
 

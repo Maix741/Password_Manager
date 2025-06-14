@@ -15,6 +15,7 @@ class AddPasswordWidget(QWidget):
     returned: Signal = Signal(dict)
     def __init__(self, styles_path: str, assets_path: str,
                  show_generating_dialog, translation_handler,
+                 use_website_as_name: bool = False,
                  parent: QWidget | None = None
                  ) -> None:
         super(AddPasswordWidget, self).__init__(parent)
@@ -22,6 +23,7 @@ class AddPasswordWidget(QWidget):
         logging.debug(f"Initializing: {self}")
 
         self.show_generating_dialog = show_generating_dialog
+        self.use_website_as_name: bool = use_website_as_name
 
         self.assets_path: str = assets_path
         self.styles_path: str = styles_path
@@ -185,6 +187,11 @@ class AddPasswordWidget(QWidget):
 
         if self.password["name"]:
             self.return_to_list()
+
+        elif self.use_website_as_name and self.password["website"]:
+            self.password["name"] = self.password["website"]
+            self.return_to_list()
+
         else:
             self.show_warning()
 

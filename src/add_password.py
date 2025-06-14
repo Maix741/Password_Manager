@@ -9,14 +9,15 @@ class AddPassword:
     def __init__(self,
                  username: str, password: str, notes: str, name: str, website: str,
                  passwords_path: str, replace: bool,
-                 fernet_key: bytes, AES_key: str, salt: bytes
+                 fernet_key: bytes, AES_key: str, salt: bytes,
+                 use_website_as_name: bool = False
                  ) -> None:
 
-        if not name:
+        if not name or use_website_as_name:
             if "www." in website:
-                name: str = ".".join(website.split(".")[1:2].split("/")[0])
+                name: str = "".join("".join(website.split(".")[1:2]).split("/")[0])
             else:
-                name: str = ".".join(website.split(".")[0:1].split("/")[0])
+                name: str = "".join("".join(website.split(".")[0:1]).split("/")[0])
 
         name = re.sub(r'[\\/*?:"<>|]', "", name)
         password_path: str = os.path.join(passwords_path, f"{name}.json")

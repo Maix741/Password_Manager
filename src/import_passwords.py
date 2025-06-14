@@ -41,7 +41,8 @@ class ImportPasswords:
             replace=False,
             fernet_key=fernet_key,
             AES_key=AES_key[0],
-            salt=AES_key[1]
+            salt=AES_key[1],
+            use_website_as_name=False
         )
 
     def csv_to_list(self, input_string: str) -> list[str]:
