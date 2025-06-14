@@ -7,8 +7,6 @@ import logging
 import shutil
 import os
 
-import pyperclip
-
 # import nessesary utils
 from .utils import *
 
@@ -39,7 +37,7 @@ class ManagerCMD:
             password: str = getpass("Password: ")
             if not password:
                 password: str = gen_password_cmd()
-                pyperclip.copy(password)
+                self.copy_string(password)
 
             website: str = input("Website: ") or "n/a"
             notes: str = input("notes: ") or "n/a"
@@ -89,7 +87,7 @@ class ManagerCMD:
         print(f"Website: {password['website']}")
         print(f"Notes: {password['notes']}")
         print()
-        pyperclip.copy(password["password"])
+        self.copy_string(password["password"])
 
     def ask_master_pass(self, validate_from: str) -> str:
         master_pass = getpass("Master Password: ").strip().replace(" ", "_")
@@ -175,8 +173,8 @@ class ManagerCMD:
         password: str = gen_password_cmd()
         self.reset_console()
         print(f"Generated password: {password}")
-        print("The password was copied to the clipboard!")
-        pyperclip.copy(password)
+        if self.copy_string(password):
+            print("The password was copied to the clipboard!")
 
         return password
 
@@ -213,3 +211,6 @@ class ManagerCMD:
         except (IndexError, PermissionError, FileNotFoundError, ValueError, KeyError) as e:
             logging.error(f"Error while exporting password: {e}")
             print("Exporting unsuccessfull due to an Error")
+
+    def copy_string(self, string: str) -> None:
+        copy_string(string)

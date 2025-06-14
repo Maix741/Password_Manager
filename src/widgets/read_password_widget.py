@@ -1,8 +1,6 @@
 import logging
-import sys
 import os
 
-import pyperclip
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
@@ -19,6 +17,7 @@ class ReadPasswordWidget(QWidget):
                  password_name: str, password: dict[str, str],
                  assets_path: str, passwords_path: str,
                  translations_handler,
+                 string_copyer,
                  parent: QWidget | None = None
                  ) -> None:
         super(ReadPasswordWidget, self).__init__(parent)
@@ -26,6 +25,8 @@ class ReadPasswordWidget(QWidget):
         logging.debug(f"Initializing: {self}")
 
         QCoreApplication.installTranslator(translations_handler.get_translator())
+
+        self.copy_string = string_copyer
 
         self.styles_path: str = styles_path
         self.passwords_path: str = passwords_path
@@ -207,10 +208,10 @@ class ReadPasswordWidget(QWidget):
             self.show_password_action.setIcon(self.hide_icon)
 
     def copy_password(self) -> None:
-        pyperclip.copy(self.password["password"])
+        self.copy_string(self.password["password"], True)
 
     def copy_username(self) -> None:
-        pyperclip.copy(self.password["username"])
+        self.copy_string(self.password["username"], True)
 
     def delete_password(self) -> None:
         password_path: str = os.path.join(self.passwords_path, f"{self.password_name}.json")

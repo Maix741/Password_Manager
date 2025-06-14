@@ -7,16 +7,17 @@ from PySide6.QtWidgets import (
     QSlider, QSpinBox, QCheckBox, QLineEdit, QSizePolicy, QGroupBox, QDialog
 )
 from PySide6.QtCore import Qt, QCoreApplication
-import pyperclip
 
 
 class PasswordGenerateDialog(QDialog):
-    def __init__(self, styles_path: str, settings_handler, translator, generator, parent=None):
+    def __init__(self, styles_path: str, settings_handler, translator, generator, password_copyer, parent=None):
         super(PasswordGenerateDialog, self).__init__(parent)
 
         logging.debug(f"Initializing password generator (GUI): {self}")
 
         self.generator = generator
+        self.copy_string = password_copyer
+
         self.settings_handler = settings_handler
         self.translator = translator
 
@@ -146,6 +147,6 @@ class PasswordGenerateDialog(QDialog):
     def closeEvent(self, event) -> None:
         if not self.cancelled and self.password:
             self.password_return = self.password
-            pyperclip.copy(self.password_return)
+            self.copy_string(self.password_return, True)
 
         event.accept()

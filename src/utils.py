@@ -32,3 +32,5 @@ from .get_keys import get_keys
 from .setup_folders import setup_folders
 from .check_setup import check_setup
 from .setup_logging import setup_logging
+
+from .copy_string import copy_string

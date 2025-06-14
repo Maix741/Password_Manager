@@ -1,5 +1,4 @@
 import logging
-import sys
 import os
 
 # Import GUI elements from PySide6

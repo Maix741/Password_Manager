@@ -197,6 +197,7 @@ class ManagerGUI(QMainWindow):
             self.styles_path,
             self.settings_handler, self.translation_handler,
             generate_password,
+            copy_string,
             self
             )
         dialog.setModal(True)
@@ -307,6 +308,7 @@ class ManagerGUI(QMainWindow):
                 password_name=password_name,
                 password=decrypted_password,
                 translations_handler=self.translation_handler,
+                string_copyer=copy_string,
                 parent=self
                 )
 
