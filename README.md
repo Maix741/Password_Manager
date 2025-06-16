@@ -59,10 +59,6 @@ Launch the GUI version:
 ```sh
 pythonw main.pyw
 ```
-or
-```sh
-python main.pyw
-```
 
 ## Directory Structure
 
