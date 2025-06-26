@@ -1,9 +1,7 @@
 import string  # For checking character diversity
 import math  # For entropy calculation
 
-
-# Minimum recommended password length
-MIN_LENGTH = 4
+from .constants import PASSWORD_MIN_LENGHT, ENTROPY_THRESHOLD
 
 
 def calculate_entropy(password: str) -> float:
@@ -28,7 +26,7 @@ def check_password_strength(password: str) -> bool:
     entropy: int = calculate_entropy(password)
 
     # Classifying password strength
-    if entropy > 45:
+    if entropy > ENTROPY_THRESHOLD and not len(password) < PASSWORD_MIN_LENGHT:
         return True
     else:
         return False

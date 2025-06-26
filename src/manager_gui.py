@@ -22,11 +22,14 @@ from .utils import *
 # import widgets
 from .widgets import *
 
+# import constants
+from .constants import *
+
 
 class ManagerGUI(QMainWindow):
     def __init__(self, data_path: str | None = None, parent: QWidget | None = None) -> None:
         super(ManagerGUI, self).__init__(parent)
-        self.setGeometry(100, 100, 1000, 600)
+        self.setGeometry(*MAINWINDOW_DEFAULT_GEOMETRY)
 
         self.settings_handler: SettingsHandler = SettingsHandler(data_path=data_path)
         self.translation_handler: TranslationHandler = TranslationHandler(self.settings_handler)
@@ -44,7 +47,7 @@ class ManagerGUI(QMainWindow):
         self.generated_password: str = ""
 
         self.retry_count: int = 0
-        self.max_wrong_attempts: int = 10
+        self.max_wrong_attempts: int = MAX_WRONG_MASTER_ATTEMPTS
 
         self.init_ui()
         if not os.path.isfile(os.path.join(self.data_path, "master", "master_pass.pem")):
@@ -198,7 +201,8 @@ class ManagerGUI(QMainWindow):
             self.settings_handler, self.translation_handler,
             generate_password,
             copy_string,
-            self
+            self,
+            *PASSWORD_CONSTANTS
             )
         dialog.setModal(True)
         dialog.exec()
@@ -309,7 +313,8 @@ class ManagerGUI(QMainWindow):
                 password=decrypted_password,
                 translations_handler=self.translation_handler,
                 string_copyer=copy_string,
-                parent=self
+                parent=self,
+                timer_lenght=INACTIVITY_TIMER_LENGHT
                 )
 
         except Exception as e:
