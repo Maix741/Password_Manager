@@ -189,7 +189,7 @@ class CheckPasswordWidget(QWidget):
         entry_widget.setObjectName("PasswordEntry")
         self.weak_list_layout.addWidget(entry_widget)
 
-    def add_duplicate_password(self, group: list) -> None:
+    def add_duplicate_password(self, group: list[dict[str, str]]) -> None:
         # Label: "x Accounts with the same password"
         group_widget: QWidget = QWidget()
         group_layout: QVBoxLayout = QVBoxLayout(group_widget)
@@ -242,7 +242,7 @@ class CheckPasswordWidget(QWidget):
             label.setEchoMode(QLineEdit.Normal)
             action.setIcon(self.hide_icon)
 
-    def check_passwords(self, passwords: list[str]) -> None:
+    def check_passwords(self, passwords: list[dict[str, str]]) -> None:
         """
         Analyze the provided list of password dictionaries to identify duplicates and weak passwords.
 
