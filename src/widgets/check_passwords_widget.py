@@ -13,7 +13,8 @@ from PySide6.QtGui import QPainter, QBrush, QColor, QIcon
 class CheckPasswordWidget(QWidget):
     returned = Signal()
     def __init__(self,
-                 password_reader, fernet_key: str, AES_key: list[bytes], strength_check, duplication_check,
+                 password_reader, fernet_key: str, AES_key: list[bytes],
+                 strength_check, duplication_check,
                  styles_path: str, assets_path: str, passwords_path: str,
                  translations_handler,
                  parent: QWidget | None = None,
@@ -36,7 +37,7 @@ class CheckPasswordWidget(QWidget):
         self.set_style_sheet()
 
         self.list_passwords()
-        passwords = self.decrypt_all(fernet_key, AES_key)
+        passwords: list[dict[str, str]] = self.decrypt_all(fernet_key, AES_key)
         self.check_passwords(passwords)
 
         self.init_ui()
@@ -55,56 +56,61 @@ class CheckPasswordWidget(QWidget):
 
         # Header layout for back button and title
         header_layout: QHBoxLayout = QHBoxLayout()
-        back_btn = QPushButton(self.tr("Back"))
-        back_btn.setIcon(self.back_icon)
-        back_btn.setIconSize(self.back_icon_size)
-        back_btn.setObjectName("BackButton")
-        back_btn.clicked.connect(self.return_to_list)
-        header_layout.addWidget(back_btn, alignment=Qt.AlignRight)
+        back_button: QPushButton = QPushButton(self.tr("Back"))
+
+        back_button.setIcon(self.back_icon)
+        back_button.setIconSize(self.back_icon_size)
+
+        back_button.setObjectName("BackButton")
+        back_button.clicked.connect(self.return_to_list)
+        header_layout.addWidget(back_button, alignment=Qt.AlignRight)
+
+        header_layout.addStretch()
+
+        title_label: QLabel = QLabel(self.tr("Password Checks"))
+        title_label.setObjectName("CheckPasswordTitle")
+        title_label.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+        header_layout.addWidget(title_label)
+
+        header_layout.addStretch()
         layout.addLayout(header_layout)
 
-        header_layout.addStretch()
-
-        title = QLabel(self.tr("Password Checks"))
-        title.setObjectName("CheckPasswordTitle")
-        title.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
-        header_layout.addWidget(title)
-
-        header_layout.addStretch()
-
         # Weak Passwords Section
-        self.weak_toggle_btn = QPushButton(
+        self.weak_toggle_button: QPushButton = QPushButton(
             self.tr(f"Weak Passwords (0) ▼")
         )
-        self.weak_toggle_btn.setCheckable(True)
-        self.weak_toggle_btn.setChecked(False)
-        self.weak_toggle_btn.clicked.connect(self.toggle_weak_list)
-        self.weak_toggle_btn.setObjectName("ToggleButton")
-        layout.addWidget(self.weak_toggle_btn)
+        self.weak_toggle_button.setCheckable(True)
+        self.weak_toggle_button.setChecked(False)
+        self.weak_toggle_button.clicked.connect(self.toggle_weak_list)
+        self.weak_toggle_button.setObjectName("ToggleButton")
+        layout.addWidget(self.weak_toggle_button)
 
-        self.weak_list_widget = QWidget()
-        self.weak_list_layout = QVBoxLayout(self.weak_list_widget)
+        self.weak_list_widget: QWidget = QWidget()
+        self.weak_list_layout: QVBoxLayout = QVBoxLayout(self.weak_list_widget)
         self.weak_list_layout.setContentsMargins(10, 0, 0, 0)
         self.weak_list_widget.setVisible(False)
         layout.addWidget(self.weak_list_widget)
 
+        # Spacer
+        layout.addItem(QSpacerItem(0, 10, QSizePolicy.Fixed, QSizePolicy.Minimum))
+
         # Reused Passwords Section
-        self.reused_toggle_btn = QPushButton(
+        self.reused_toggle_button: QPushButton = QPushButton(
             self.tr(f"Reused Passwords (0) ▼")
         )
-        self.reused_toggle_btn.setCheckable(True)
-        self.reused_toggle_btn.setChecked(False)
-        self.reused_toggle_btn.clicked.connect(self.toggle_reused_list)
-        self.reused_toggle_btn.setObjectName("ToggleButton")
-        layout.addWidget(self.reused_toggle_btn)
+        self.reused_toggle_button.setCheckable(True)
+        self.reused_toggle_button.setChecked(False)
+        self.reused_toggle_button.clicked.connect(self.toggle_reused_list)
+        self.reused_toggle_button.setObjectName("ToggleButton")
+        layout.addWidget(self.reused_toggle_button)
 
-        self.reused_list_widget = QWidget()
-        self.reused_list_layout = QVBoxLayout(self.reused_list_widget)
+        self.reused_list_widget: QWidget = QWidget()
+        self.reused_list_layout: QVBoxLayout = QVBoxLayout(self.reused_list_widget)
         self.reused_list_layout.setContentsMargins(10, 0, 0, 0)
         self.reused_list_widget.setVisible(False)
         layout.addWidget(self.reused_list_widget)
 
-        # Spacer
+        # Spacer (to continue the background until the bottom)
         layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         self.setLayout(layout)
@@ -112,8 +118,7 @@ class CheckPasswordWidget(QWidget):
         # Populate the lists with password data
         self.populate_password_lists()
 
-    def populate_password_lists(self) -> None:
-        # Clear previous widgets
+    def clear_lists(self) -> None:
         for i in reversed(range(self.weak_list_layout.count())):
             widget = self.weak_list_layout.itemAt(i).widget()
             if widget:
@@ -123,42 +128,46 @@ class CheckPasswordWidget(QWidget):
             if widget:
                 widget.setParent(None)
 
+    def populate_password_lists(self) -> None:
+        # Clear previous widgets
+        self.clear_lists()
+
         # Add weak passwords
         for pwd in self.weak_passwords:
             self.add_weak_password(pwd)
-
-        count_weak = self.weak_list_layout.count()
-        arrow_weak = "▼"
-        if not count_weak:
-            self.weak_toggle_btn.setText(self.tr(f"Weak Passwords ({count_weak}) {arrow_weak}"))
-        else:
-            self.weak_toggle_btn.setText(self.tr(f"⚠️ Weak Passwords ({count_weak}) {arrow_weak}"))
 
         # Add reused passwords
         for group in self.duplicates:
             self.add_duplicate_password(group)
 
-        count_reused = self.reused_list_layout.count()
-        arrow_reused = "▼"
-        if not count_reused:
-            self.reused_toggle_btn.setText(self.tr(f"Reused Passwords ({count_reused}) {arrow_reused}"))
+        arrow: str = "▼"
+
+        count_weak: int = self.weak_list_layout.count()
+        if not count_weak:
+            self.weak_toggle_button.setText(self.tr(f"Weak Passwords ({count_weak}) {arrow}"))
         else:
-            self.reused_toggle_btn.setText(self.tr(f"⚠️ Reused Passwords ({count_reused}) {arrow_reused}"))
+            self.weak_toggle_button.setText(self.tr(f"⚠️ Weak Passwords ({count_weak}) {arrow}"))
+
+        count_reused: int = self.reused_list_layout.count()
+        if not count_reused:
+            self.reused_toggle_button.setText(self.tr(f"Reused Passwords ({count_reused}) {arrow}"))
+        else:
+            self.reused_toggle_button.setText(self.tr(f"⚠️ Reused Passwords ({count_reused}) {arrow}"))
 
     def add_weak_password(self, pwd: dict[str, str]) -> None:
-        entry_widget = QWidget()
-        entry_layout = QHBoxLayout(entry_widget)
+        entry_widget: QWidget = QWidget()
+        entry_layout: QHBoxLayout = QHBoxLayout(entry_widget)
 
         # name
-        name_label = QLabel(pwd.get("name", ""))
+        name_label: QLabel = QLabel(pwd.get("name", ""))
         entry_layout.addWidget(name_label)
 
         # spacing
-        spacer = QSpacerItem(30, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+        spacer: QSpacerItem = QSpacerItem(30, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
         entry_layout.addItem(spacer)
 
         # password
-        password_label = QLineEdit(pwd.get("password", ""))
+        password_label: QLineEdit = QLineEdit(pwd.get("password", ""))
         password_label.setReadOnly(True)
         password_label.setEchoMode(QLineEdit.Password)
         password_label.setObjectName("PasswordLabel")
@@ -174,35 +183,34 @@ class CheckPasswordWidget(QWidget):
                                                )
 
         # spacing
-        spacer = QLabel("")
-        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
-        entry_layout.addWidget(spacer)
+        spacer: QSpacerItem = QSpacerItem(30, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        entry_layout.addItem(spacer)
 
         entry_widget.setObjectName("PasswordEntry")
         self.weak_list_layout.addWidget(entry_widget)
 
     def add_duplicate_password(self, group: list) -> None:
-        # 1. Label: "x Accounts with the same password"
-        group_widget = QWidget()
-        group_layout = QVBoxLayout(group_widget)
+        # Label: "x Accounts with the same password"
+        group_widget: QWidget = QWidget()
+        group_layout: QVBoxLayout = QVBoxLayout(group_widget)
         group_layout.setContentsMargins(0, 0, 0, 16)  # Add vertical spacing to next group
 
-        count = len(group)
-        group_label = QLabel(self.tr(f"{count} Accounts with the same password"))
+        count: int = len(group)
+        group_label: QLabel = QLabel(self.tr(f"{count} Accounts with the same password"))
         group_label.setObjectName("DuplicateGroupLabel")
         group_layout.addWidget(group_label)
 
-        # 2. Each account: name, password(hidden), show_action
+        # Each account: name, password(hidden) + show_action
         for entry in group:
-            entry_widget = QWidget()
-            entry_layout = QHBoxLayout(entry_widget)
+            entry_widget: QWidget = QWidget()
+            entry_layout: QHBoxLayout = QHBoxLayout(entry_widget)
             entry_layout.setContentsMargins(8, 4, 8, 4)
 
-            name_label = QLabel(entry.get("name", ""))
+            name_label: QLabel = QLabel(entry.get("name", ""))
             name_label.setObjectName("EntryName")
             entry_layout.addWidget(name_label)
 
-            password_label = QLineEdit(entry.get("password", ""))
+            password_label: QLineEdit = QLineEdit(entry.get("password", ""))
             password_label.setReadOnly(True)
             password_label.setEchoMode(QLineEdit.Password)
             password_label.setObjectName("PasswordLabel")
@@ -213,7 +221,7 @@ class CheckPasswordWidget(QWidget):
             )
             show_password_action.setToolTip(self.tr("show/hide password"))
             show_password_action.triggered.connect(
-                lambda checked=False, label=password_label, action=show_password_action:
+                lambda checked, label=password_label, action=show_password_action:
                     self.toggle_password_visibility(label, action)
             )
 
@@ -250,8 +258,8 @@ class CheckPasswordWidget(QWidget):
             pwd for pwd, is_weak in zip(passwords, weak_results) if is_weak
         ]
 
-    def decrypt_all(self, fernet_key, AES_key) -> list[dict]:
-        passwords = []
+    def decrypt_all(self, fernet_key, AES_key) -> list[dict[str, str]]:
+        passwords: list[dict[str, str]] = []
         for password_name in self.password_names:
             password = self.password_reader.read_password(name=password_name,
                 AES_key=AES_key[0], salt=AES_key[1], fernet_key=fernet_key,
@@ -265,22 +273,22 @@ class CheckPasswordWidget(QWidget):
         self.password_names: list[str] = [os.path.splitext(password)[0] for password in os.listdir(self.passwords_path)]
 
     def toggle_weak_list(self) -> None:
-        count = self.weak_list_layout.count()
+        count: int = self.weak_list_layout.count()
         if not count:
             return
-        expanded = self.weak_toggle_btn.isChecked()
+        expanded: bool = self.weak_toggle_button.isChecked()
         self.weak_list_widget.setVisible(expanded)
-        arrow = "▲" if expanded else "▼"
-        self.weak_toggle_btn.setText(self.tr(f"⚠️ Weak Passwords ({count}) {arrow}"))
+        arrow: str = "▲" if expanded else "▼"
+        self.weak_toggle_button.setText(self.tr(f"⚠️ Weak Passwords ({count}) {arrow}"))
 
     def toggle_reused_list(self) -> None:
-        count = self.reused_list_layout.count()
+        count: int = self.reused_list_layout.count()
         if not count:
             return
-        expanded = self.reused_toggle_btn.isChecked()
+        expanded: bool = self.reused_toggle_button.isChecked()
         self.reused_list_widget.setVisible(expanded)
-        arrow = "▲" if expanded else "▼"
-        self.reused_toggle_btn.setText(self.tr(f"⚠️ Reused Passwords ({count}) {arrow}"))
+        arrow: str = "▲" if expanded else "▼"
+        self.reused_toggle_button.setText(self.tr(f"⚠️ Reused Passwords ({count}) {arrow}"))
 
     def set_style_sheet(self) -> None:
         css_path: str = os.path.join(self.styles_path, "check_passwords_widget.css")
@@ -295,7 +303,7 @@ class CheckPasswordWidget(QWidget):
         self.returned.emit()
 
     def paintEvent(self, event):
-        painter = QPainter(self)
+        painter: QPainter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setBrush(QBrush(QColor("#2d2d2d")))
         painter.setPen(QColor("#000000"))
