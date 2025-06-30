@@ -82,6 +82,70 @@ Wenn sie weitermachen wird es verloren gehen</translation>
     </message>
 </context>
 <context>
+    <name>CheckPasswordWidget</name>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="59"/>
+        <source>Back</source>
+        <translation>Zurück</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="70"/>
+        <source>Password Checks</source>
+        <translation>Passwort-Checks</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="81"/>
+        <source>Weak Passwords (0) ▼</source>
+        <translation>Schwache Passwörter (0) ▼</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="100"/>
+        <source>Reused Passwords (0) ▼</source>
+        <translation>Wiederverwendete Passwörter (0) ▼</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="147"/>
+        <source>Weak Passwords ({count_weak}) {arrow}</source>
+        <translation>Schwache Passwörter ({count_weak}) {arrow}</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="149"/>
+        <source>⚠️ Weak Passwords ({count_weak}) {arrow}</source>
+        <translation>⚠️ Schwache Passwörter ({count_weak}) {arrow}</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="153"/>
+        <source>Reused Passwords ({count_reused}) {arrow}</source>
+        <translation>Wiederverwendete Passwörter ({count_reused}) {arrow}</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="155"/>
+        <source>⚠️ Reused Passwords ({count_reused}) {arrow}</source>
+        <translation>⚠️ Wiederverwendete Passwörter ({count_reused}) {arrow}</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="181"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="223"/>
+        <source>show/hide password</source>
+        <translation>Passwort zeigen/verstecken</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="200"/>
+        <source>{count} Accounts with the same password</source>
+        <translation>{count} Accounts mit dem selben Passwort</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="283"/>
+        <source>⚠️ Weak Passwords ({count}) {arrow}</source>
+        <translation>⚠️ Schwache Passwörter ({count}) {arrow}</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="292"/>
+        <source>⚠️ Reused Passwords ({count}) {arrow}</source>
+        <translation>⚠️ Wiederverwendete Passwörter ({count}) {arrow}</translation>
+    </message>
+</context>
+<context>
     <name>ManagerGUI</name>
     <message>
         <location filename="../src/manager_gui.py" line="59"/>
@@ -120,7 +184,7 @@ Wenn sie weitermachen wird es verloren gehen</translation>
     </message>
     <message>
         <location filename="../src/manager_gui.py" line="161"/>
-        <location filename="../src/manager_gui.py" line="264"/>
+        <location filename="../src/manager_gui.py" line="269"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
@@ -135,62 +199,67 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation>Passwort generieren</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="183"/>
+        <location filename="../src/manager_gui.py" line="177"/>
+        <source>Check</source>
+        <translation>Passwort-Check</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="188"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="189"/>
+        <location filename="../src/manager_gui.py" line="194"/>
         <source>Rename</source>
         <translation>Umbenennen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="250"/>
+        <location filename="../src/manager_gui.py" line="255"/>
         <source>Add Password</source>
         <translation>Passwort hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="257"/>
+        <location filename="../src/manager_gui.py" line="262"/>
         <source>Renew Keys</source>
         <translation>Schlüssel erneuern</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="286"/>
+        <location filename="../src/manager_gui.py" line="291"/>
         <source>Enter New Password Name</source>
         <translation>Name des neuen Passworts</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="288"/>
+        <location filename="../src/manager_gui.py" line="293"/>
         <source>Enter the password Name:</source>
         <translation>Geben sie den Name des Passworts ein:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="519"/>
+        <location filename="../src/manager_gui.py" line="550"/>
         <source>Enter Master Password</source>
         <translation>Hauptpasswort eingeben</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="520"/>
+        <location filename="../src/manager_gui.py" line="551"/>
         <source>Enter the master password:</source>
         <translation>Geben sie das Hauptpasswort ein:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="536"/>
+        <location filename="../src/manager_gui.py" line="567"/>
         <source>Set New Master Password</source>
         <translation>Neues Hauptpasswort setzen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="537"/>
+        <location filename="../src/manager_gui.py" line="568"/>
         <source>Enter a new master password:</source>
         <translation>Neues Hauptpasswort eingeben:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="569"/>
+        <location filename="../src/manager_gui.py" line="600"/>
         <source>Select csv-file</source>
         <translation>csv-Datei auswählen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="588"/>
+        <location filename="../src/manager_gui.py" line="619"/>
         <source>Save csv-file</source>
         <translation>csv-Datei speichern</translation>
     </message>
