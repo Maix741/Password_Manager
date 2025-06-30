@@ -5,7 +5,7 @@ PASSWORD_MAX_LENGHT_SPINBOX: int = 200
 PASSWORD_START_VALUE: int = 12
 
 # password strenght constants
-ENTROPY_THRESHOLD: int = 45
+ENTROPY_THRESHOLD: int = 60
 
 # read_password_constants
 INACTIVITY_TIMER_LENGHT: int = 120000
