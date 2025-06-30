@@ -34,3 +34,7 @@ from .check_setup import check_setup
 from .setup_logging import setup_logging
 
 from .copy_string import copy_string
+
+from .password_checks import (check_password_strength,
+                              check_password_duplication
+                              )

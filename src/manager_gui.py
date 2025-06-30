@@ -22,11 +22,14 @@ from .utils import *
 # import widgets
 from .widgets import *
 
+# import constants
+from .constants import *
+
 
 class ManagerGUI(QMainWindow):
     def __init__(self, data_path: str | None = None, parent: QWidget | None = None) -> None:
         super(ManagerGUI, self).__init__(parent)
-        self.setGeometry(100, 100, 1000, 600)
+        self.setGeometry(*MAINWINDOW_DEFAULT_GEOMETRY)
 
         self.settings_handler: SettingsHandler = SettingsHandler(data_path=data_path)
         self.translation_handler: TranslationHandler = TranslationHandler(self.settings_handler)
@@ -44,7 +47,7 @@ class ManagerGUI(QMainWindow):
         self.generated_password: str = ""
 
         self.retry_count: int = 0
-        self.max_wrong_attempts: int = 10
+        self.max_wrong_attempts: int = MAX_WRONG_MASTER_ATTEMPTS
 
         self.init_ui()
         if not os.path.isfile(os.path.join(self.data_path, "master", "master_pass.pem")):
@@ -171,6 +174,11 @@ class ManagerGUI(QMainWindow):
 
         utils_menu.addAction(generating_action)
 
+        check_action = QAction(self.tr("Check"), self)
+        check_action.triggered.connect(self.change_to_check_card)
+
+        utils_menu.addAction(check_action)
+
         self.setMenuBar(self.menubar)
 
     def show_password_context_menu(self, password_name: str, password_list_widget: PasswordWidget, position) -> None:
@@ -198,7 +206,8 @@ class ManagerGUI(QMainWindow):
             self.settings_handler, self.translation_handler,
             generate_password,
             copy_string,
-            self
+            self,
+            *PASSWORD_CONSTANTS
             )
         dialog.setModal(True)
         dialog.exec()
@@ -309,7 +318,8 @@ class ManagerGUI(QMainWindow):
                 password=decrypted_password,
                 translations_handler=self.translation_handler,
                 string_copyer=copy_string,
-                parent=self
+                parent=self,
+                timer_lenght=INACTIVITY_TIMER_LENGHT
                 )
 
         except Exception as e:
@@ -466,6 +476,32 @@ class ManagerGUI(QMainWindow):
 
     def change_to_normal_list(self) -> None:
         self.init_ui(False)
+
+    def change_to_check_card(self) -> None:
+        correct, fernet_key, AES_key  = self.load_keys("check_passwords")
+        if not correct: return
+        # Clear the central layout
+        self.clear_central_layout()
+
+        # create check widget
+        reader = PasswordReader()
+        check_widget: CheckPasswordWidget = CheckPasswordWidget(
+            reader, fernet_key, AES_key, check_password_strength, check_password_duplication,
+            self.styles_path, self.assets_path, self.passwords_path, self.translation_handler, self
+            )
+
+        # Create a new layout for the password card
+        check_card_layout = QVBoxLayout()
+        check_card_layout.setAlignment(Qt.AlignTop)
+        check_card_layout.addWidget(check_widget)
+
+        # Create a container widget for the layout
+        self.read_card_container = QWidget(self.central_widget)
+        self.read_card_container.setLayout(check_card_layout)
+
+        # Add the container to the central layout
+        self.central_layout.addWidget(self.read_card_container)
+        check_widget.returned.connect(self.change_to_normal_list)
 
     def renew_keys(self) -> None:
         logging.info("Renewing all keys")

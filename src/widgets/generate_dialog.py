@@ -10,7 +10,8 @@ from PySide6.QtCore import Qt, QCoreApplication
 
 
 class PasswordGenerateDialog(QDialog):
-    def __init__(self, styles_path: str, settings_handler, translator, generator, password_copyer, parent=None):
+    def __init__(self, styles_path: str, settings_handler, translator, generator, password_copyer, parent=None,
+                 lenght_minimum=4, lenght_maximum_spinbox=64, lenght_maximum_slider=200, lenght_start_value=12):
         super(PasswordGenerateDialog, self).__init__(parent)
 
         logging.debug(f"Initializing password generator (GUI): {self}")
@@ -27,10 +28,10 @@ class PasswordGenerateDialog(QDialog):
         self.password_return: str = ""
         self.cancelled: bool = False
 
-        self.lenght_minimum: int = 4
-        self.lenght_maximum: int = 64
-        self.lenght_maximum_spinbox: int = 200
-        self.lenght_start_value: int = 12
+        self.lenght_minimum: int = lenght_minimum
+        self.lenght_maximum_slider: int = lenght_maximum_slider
+        self.lenght_maximum_spinbox: int = lenght_maximum_spinbox
+        self.lenght_start_value: int = lenght_start_value
 
         QCoreApplication.installTranslator(self.translator.get_translator())
 
@@ -50,7 +51,7 @@ class PasswordGenerateDialog(QDialog):
 
         self.length_slider = QSlider(Qt.Horizontal)
         self.length_slider.setMinimum(self.lenght_minimum)
-        self.length_slider.setMaximum(self.lenght_maximum)
+        self.length_slider.setMaximum(self.lenght_maximum_slider)
         self.length_slider.setValue(self.lenght_start_value)
         self.length_slider.setTickInterval(1)
         self.length_slider.setTickPosition(QSlider.TicksBelow)
@@ -121,7 +122,7 @@ class PasswordGenerateDialog(QDialog):
             logging.exception(f"Error getting style for the generate_dialog: {e}")
 
     def set_lenght_slider(self, value: int) -> None:
-        if value < self.lenght_maximum:
+        if value < self.lenght_maximum_slider:
             self.length_slider.setValue(value)
 
     def generate_password(self) -> str:
