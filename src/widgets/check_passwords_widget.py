@@ -160,6 +160,7 @@ class CheckPasswordWidget(QWidget):
 
         # name
         name_label: QLabel = QLabel(pwd.get("name", ""))
+        name_label.setObjectName("EntryName")
         entry_layout.addWidget(name_label)
 
         # spacing
