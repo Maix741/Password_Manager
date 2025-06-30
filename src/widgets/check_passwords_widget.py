@@ -11,7 +11,7 @@ from PySide6.QtGui import QPainter, QBrush, QColor, QIcon
 
 
 class CheckPasswordWidget(QWidget):
-    returned: Signal = Signal()
+    returned = Signal()
     def __init__(self,
                  password_reader, fernet_key: str, AES_key: list[bytes], strength_check, duplication_check,
                  styles_path: str, assets_path: str, passwords_path: str,
@@ -29,13 +29,13 @@ class CheckPasswordWidget(QWidget):
         self.assets_path: str = assets_path
 
         self.password_reader = password_reader
-        self.strenght_check = strength_check
+        self.strength_check = strength_check
         self.duplication_check = duplication_check
 
         self.setObjectName("CheckPasswordCard")
         self.set_style_sheet()
 
-        self.list_password()
+        self.list_passwords()
         passwords = self.decrypt_all(fernet_key, AES_key)
         self.check_passwords(passwords)
 
@@ -49,12 +49,12 @@ class CheckPasswordWidget(QWidget):
 
     def init_ui(self) -> None:
         self.init_icons()
-        layout = QVBoxLayout(self)
+        layout: QVBoxLayout = QVBoxLayout(self)
         layout.setContentsMargins(20, 20, 20, 20)
         layout.setSpacing(15)
 
         # Header layout for back button and title
-        header_layout = QHBoxLayout()
+        header_layout: QHBoxLayout = QHBoxLayout()
         back_btn = QPushButton(self.tr("Back"))
         back_btn.setIcon(self.back_icon)
         back_btn.setIconSize(self.back_icon_size)
@@ -124,7 +124,7 @@ class CheckPasswordWidget(QWidget):
                 widget.setParent(None)
 
         # Add weak passwords
-        for pwd in self.weak_Passwords:
+        for pwd in self.weak_passwords:
             self.add_weak_password(pwd)
 
         count_weak = self.weak_list_layout.count()
@@ -235,11 +235,22 @@ class CheckPasswordWidget(QWidget):
             action.setIcon(self.hide_icon)
 
     def check_passwords(self, passwords: list[str]) -> None:
-        self.duplicates: list[list[dict[str, str]]] = self.duplication_check(passwords)
-        self.weak_Passwords = list(map(self.strenght_check, [paswd.get("password") for paswd in passwords]))
-        self.weak_Passwords: list[dict[str, str]] = [x for x, y in zip(passwords, self.weak_Passwords) if not y]
+        """
+        Analyze the provided list of password dictionaries to identify duplicates and weak passwords.
 
-    def decrypt_all(self, fernet_key, AES_key) -> None:
+        Parameters:
+            passwords (list[dict[str, str]]): A list of password entries, each as a dictionary with at least a "password" key.
+        """
+        # get reused passwords
+        self.duplicates: list[list[dict[str, str]]] = self.duplication_check(passwords)
+
+        # get weak passwords
+        weak_results = [not self.strength_check(pwd.get("password")) for pwd in passwords]
+        self.weak_passwords: list[dict[str, str]] = [
+            pwd for pwd, is_weak in zip(passwords, weak_results) if is_weak
+        ]
+
+    def decrypt_all(self, fernet_key, AES_key) -> list[dict]:
         passwords = []
         for password_name in self.password_names:
             password = self.password_reader.read_password(name=password_name,
@@ -250,7 +261,7 @@ class CheckPasswordWidget(QWidget):
             passwords.append(password)
         return passwords
 
-    def list_password(self) -> None:
+    def list_passwords(self) -> None:
         self.password_names: list[str] = [os.path.splitext(password)[0] for password in os.listdir(self.passwords_path)]
 
     def toggle_weak_list(self) -> None:
