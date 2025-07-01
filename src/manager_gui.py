@@ -486,8 +486,16 @@ class ManagerGUI(QMainWindow):
         # create check widget
         reader = PasswordReader()
         check_widget: CheckPasswordWidget = CheckPasswordWidget(
-            reader, fernet_key, AES_key, check_password_strength, check_password_duplication,
-            self.styles_path, self.assets_path, self.passwords_path, self.translation_handler, self
+            password_reader=reader,
+            fernet_key=fernet_key,
+            AES_key=AES_key,
+            strength_check=check_password_strength,
+            duplication_check=check_password_duplication,
+            styles_path=self.styles_path,
+            assets_path=self.assets_path,
+            passwords_path=self.passwords_path,
+            translations_handler=self.translation_handler,
+            parent=self
             )
 
         # Create a new layout for the password card
