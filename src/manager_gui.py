@@ -95,7 +95,7 @@ class ManagerGUI(QMainWindow):
         self.passwords_path = os.path.join(data_path, "passwords")
         self.assets_path = get_assets_path(data_path)
         self.styles_path = get_styles_path(data_path)
-        setup_logging(os.path.join(data_path, "log", "password_manager.log"))
+        setup_logging(os.path.join(data_path, "log", "password_manager.log"), self.settings_handler.get("log_level"))
         self.check_setup()
 
     def init_icons(self) -> None:

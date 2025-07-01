@@ -1,4 +1,5 @@
 import platform
+import logging
 import locale
 import json
 import os
@@ -54,11 +55,12 @@ class SettingsHandler:
                 self.save()
             return
 
-        self.settings: dict[str, str] = {
+        self.settings: dict[str, str | int | bool] = {
             "data_path": self.data_path,
             "system_locale": self.system_locale,
             "use_website_as_name": self.use_website_as_name,
-            "design": self.design
+            "design": self.design,
+            "log_level": logging.INFO
         }
         self.save()
 
@@ -97,6 +99,8 @@ class SettingsTester:
                 settings_to_test["use_website_as_name"] = self.settings["use_website_as_name"]
             if not type(settings_to_test["design"]) == int:
                 settings_to_test["design"] = self.settings["design"]
+            if not type(settings_to_test["log_level"]) == int:
+                settings_to_test["log_level"] = self.settings["log_level"]
 
             return settings_to_test
 
