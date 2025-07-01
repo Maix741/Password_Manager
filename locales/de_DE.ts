@@ -104,24 +104,20 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation>Wiederverwendete Passwörter (0) ▼</translation>
     </message>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="147"/>
         <source>Weak Passwords ({count_weak}) {arrow}</source>
-        <translation>Schwache Passwörter ({count_weak}) {arrow}</translation>
+        <translation type="vanished">Schwache Passwörter ({count_weak}) {arrow}</translation>
     </message>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="149"/>
         <source>⚠️ Weak Passwords ({count_weak}) {arrow}</source>
-        <translation>⚠️ Schwache Passwörter ({count_weak}) {arrow}</translation>
+        <translation type="vanished">⚠️ Schwache Passwörter ({count_weak}) {arrow}</translation>
     </message>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="153"/>
         <source>Reused Passwords ({count_reused}) {arrow}</source>
-        <translation>Wiederverwendete Passwörter ({count_reused}) {arrow}</translation>
+        <translation type="vanished">Wiederverwendete Passwörter ({count_reused}) {arrow}</translation>
     </message>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="155"/>
         <source>⚠️ Reused Passwords ({count_reused}) {arrow}</source>
-        <translation>⚠️ Wiederverwendete Passwörter ({count_reused}) {arrow}</translation>
+        <translation type="vanished">⚠️ Wiederverwendete Passwörter ({count_reused}) {arrow}</translation>
     </message>
     <message>
         <location filename="../src/widgets/check_passwords_widget.py" line="181"/>
@@ -135,11 +131,23 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation>{count} Accounts mit dem selben Passwort</translation>
     </message>
     <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="149"/>
         <location filename="../src/widgets/check_passwords_widget.py" line="283"/>
         <source>⚠️ Weak Passwords ({count}) {arrow}</source>
         <translation>⚠️ Schwache Passwörter ({count}) {arrow}</translation>
     </message>
     <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="147"/>
+        <source>Weak Passwords ({count}) {arrow}</source>
+        <translation>Schwache Passwörter ({count}) {arrow}</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="153"/>
+        <source>Reused Passwords ({count}) {arrow}</source>
+        <translation>Wiederverwendete Passwörter ({count}) {arrow}</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/check_passwords_widget.py" line="155"/>
         <location filename="../src/widgets/check_passwords_widget.py" line="292"/>
         <source>⚠️ Reused Passwords ({count}) {arrow}</source>
         <translation>⚠️ Wiederverwendete Passwörter ({count}) {arrow}</translation>
