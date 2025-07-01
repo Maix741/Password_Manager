@@ -142,17 +142,17 @@ class CheckPasswordWidget(QWidget):
 
         arrow: str = "▼"
 
-        count_weak: int = self.weak_list_layout.count()
-        if not count_weak:
-            self.weak_toggle_button.setText(self.tr(f"Weak Passwords ({count_weak}) {arrow}"))
+        count: int = self.weak_list_layout.count()
+        if not count:
+            self.weak_toggle_button.setText(self.tr("Weak Passwords ({count}) {arrow}").format(count=count, arrow=arrow))
         else:
-            self.weak_toggle_button.setText(self.tr(f"⚠️ Weak Passwords ({count_weak}) {arrow}"))
+            self.weak_toggle_button.setText(self.tr("⚠️ Weak Passwords ({count}) {arrow}").format(count=count, arrow=arrow))
 
-        count_reused: int = self.reused_list_layout.count()
-        if not count_reused:
-            self.reused_toggle_button.setText(self.tr(f"Reused Passwords ({count_reused}) {arrow}"))
+        count: int = self.reused_list_layout.count()
+        if not count:
+            self.reused_toggle_button.setText(self.tr("Reused Passwords ({count}) {arrow}").format(count=count, arrow=arrow))
         else:
-            self.reused_toggle_button.setText(self.tr(f"⚠️ Reused Passwords ({count_reused}) {arrow}"))
+            self.reused_toggle_button.setText(self.tr("⚠️ Reused Passwords ({count}) {arrow}").format(count=count, arrow=arrow))
 
     def add_weak_password(self, pwd: dict[str, str]) -> None:
         entry_widget: QWidget = QWidget()
@@ -197,7 +197,7 @@ class CheckPasswordWidget(QWidget):
         group_layout.setContentsMargins(0, 0, 0, 16)  # Add vertical spacing to next group
 
         count: int = len(group)
-        group_label: QLabel = QLabel(self.tr(f"{count} Accounts with the same password"))
+        group_label: QLabel = QLabel(self.tr("{count} Accounts with the same password").format(count=count))
         group_label.setObjectName("DuplicateGroupLabel")
         group_layout.addWidget(group_label)
 
@@ -280,7 +280,7 @@ class CheckPasswordWidget(QWidget):
         expanded: bool = self.weak_toggle_button.isChecked()
         self.weak_list_widget.setVisible(expanded)
         arrow: str = "▲" if expanded else "▼"
-        self.weak_toggle_button.setText(self.tr(f"⚠️ Weak Passwords ({count}) {arrow}"))
+        self.weak_toggle_button.setText(self.tr("⚠️ Weak Passwords ({count}) {arrow}").format(count=count, arrow=arrow))
 
     def toggle_reused_list(self) -> None:
         count: int = self.reused_list_layout.count()
@@ -289,7 +289,7 @@ class CheckPasswordWidget(QWidget):
         expanded: bool = self.reused_toggle_button.isChecked()
         self.reused_list_widget.setVisible(expanded)
         arrow: str = "▲" if expanded else "▼"
-        self.reused_toggle_button.setText(self.tr(f"⚠️ Reused Passwords ({count}) {arrow}"))
+        self.reused_toggle_button.setText(self.tr("⚠️ Reused Passwords ({count}) {arrow}").format(count=count, arrow=arrow))
 
     def set_style_sheet(self) -> None:
         css_path: str = os.path.join(self.styles_path, "check_passwords_widget.css")
