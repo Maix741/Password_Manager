@@ -2,7 +2,7 @@ import argparse
 
 from src import (
     ManagerCMD,
-    remove_password, search_passwords
+    remove_password
     )
 
 
@@ -30,7 +30,7 @@ def get_input(manager: ManagerCMD) -> bool:
 
 
     elif selected_mode in ("gen", "generate"):
-        _ = manager.gen_password()
+        manager.gen_password()
 
 
     elif selected_mode == "renew":
@@ -79,24 +79,9 @@ def get_input(manager: ManagerCMD) -> bool:
         if not selected_mode:
             manager.reset_console()
         else:
-            unknown_mode(manager, selected_mode)
+            manager.search_passwords(manager, selected_mode)
 
     return False
-
-
-def unknown_mode(manager: ManagerCMD, selected_mode: str) -> None:
-    """Handle unknown modes by searching for passwords that match the input.
-
-    Args:
-        manager (ManagerCMD): Instance of the ManagerCMD class to manage passwords.
-        selected_mode (str): The input mode that was not recognized.
-    """
-    search_result: list[str] = search_passwords(manager.data_path, selected_mode)
-    if len(search_result) == 1 and len(selected_mode) >= 5:
-        manager.read_password(search_result[0])
-    else:
-        print("Unknown passowrd!")
-        print("Did you mean: " + ", ".join(search_result))
 
 
 def parse_args() -> argparse.Namespace:

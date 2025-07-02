@@ -173,8 +173,10 @@ class ManagerCMD:
         password: str = gen_password_cmd()
         self.reset_console()
         print(f"Generated password: {password}")
-        if self.copy_string(password):
+        if copy_string(password):
             print("The password was copied to the clipboard!")
+        else:
+            print("Copying was unsuccessfull. Please copy it manually")
 
         return password
 
@@ -212,5 +214,15 @@ class ManagerCMD:
             logging.error(f"Error while exporting password: {e}")
             print("Exporting unsuccessfull due to an Error")
 
-    def copy_string(self, string: str) -> None:
-        copy_string(string)
+    def search_passwords(self, query: str) -> None:
+        """Searches for passwords that match the query.
+
+        Args:
+            query (str): The query that will be searched for.
+        """
+        search_result: list[str] = search_passwords(self.data_path, query)
+        if len(search_result) == 1 and len(query) >= 5:
+            self.read_password(search_result[0])
+        else:
+            print("Unknown passowrd!")
+            print("Did you mean: " + ", ".join(search_result))
