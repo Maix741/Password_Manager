@@ -37,7 +37,7 @@ class ManagerCMD:
             password: str = getpass("Password: ")
             if not password:
                 password: str = gen_password_cmd()
-                self.copy_string(password)
+                copy_string(password)
 
             website: str = input("Website: ") or "n/a"
             notes: str = input("notes: ") or "n/a"
@@ -87,7 +87,7 @@ class ManagerCMD:
         print(f"Website: {password['website']}")
         print(f"Notes: {password['notes']}")
         print()
-        self.copy_string(password["password"])
+        copy_string(password["password"])
 
     def ask_master_pass(self, validate_from: str) -> str:
         master_pass = getpass("Master Password: ").strip().replace(" ", "_")

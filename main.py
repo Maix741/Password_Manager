@@ -79,7 +79,7 @@ def get_input(manager: ManagerCMD) -> bool:
         if not selected_mode:
             manager.reset_console()
         else:
-            manager.search_passwords(manager, selected_mode)
+            manager.search_passwords(selected_mode)
 
     return False
 
