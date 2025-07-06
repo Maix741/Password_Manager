@@ -26,8 +26,7 @@ class ExportPasswords:
 
     def write_file(self, csv_file_path: str, file_lines: list[dict[str, str]]) -> None:
         with open(csv_file_path, "w") as csv_file:
-            writer = csv.DictWriter(csv_file)
-            writer.fieldnames = ["name", "url", "username", "password", "note"]
+            writer = csv.DictWriter(csv_file, fieldnames=["name", "url", "username", "password", "note"])
             writer.writeheader()
             # Write the file lines to the CSV file
             writer.writerows(file_lines)

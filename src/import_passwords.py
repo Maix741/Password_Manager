@@ -49,5 +49,5 @@ class ImportPasswords:
         # Use StringIO to treat the string as a file-like object.
         f = io.StringIO(input_string)
         reader = csv.reader(f)
-        # Get the first (and only) row from the CSV reader.
+        # Get the first row from the CSV reader.
         return tuple(next(reader))
