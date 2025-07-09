@@ -1,4 +1,4 @@
-# Passwort_Manager
+# Password_Manager
 
 A secure, cross-platform password manager with both command-line and graphical user interfaces. Store, manage, and organize your passwords securely using strong encryption.
 
