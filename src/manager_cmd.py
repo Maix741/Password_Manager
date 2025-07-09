@@ -226,3 +226,7 @@ class ManagerCMD:
         else:
             print("Unknown passowrd!")
             print("Did you mean: " + ", ".join(search_result))
+
+    def remove_password(self, name) -> None:
+        remove_password(self.data_path, name)
+        print(f"\"{name}\" has been removed")

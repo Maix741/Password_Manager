@@ -1,9 +1,6 @@
 import argparse
 
-from src import (
-    ManagerCMD,
-    remove_password
-    )
+from src import ManagerCMD
 
 
 def get_input(manager: ManagerCMD) -> bool:
@@ -54,14 +51,12 @@ def get_input(manager: ManagerCMD) -> bool:
     elif selected_mode in ("remove", "rm"):
         name: str = manager.get_password_name()
         if name in manager.password_names:
-            remove_password(manager.data_path, name)
-            print(f"\"{name}\" has been removed")
+            manager.remove_password(name)
 
     elif selected_mode.startswith(("remove", "rm")):
         name: str = (selected_mode + ":").split(":")[1].lower().strip()
         if name in manager.password_names:
-            remove_password(manager.data_path, name)
-            print(f"\"{name}\" has been removed")
+            manager.remove_password(name)
 
     elif selected_mode in ("import", "im"):
         manager.import_passwords()
