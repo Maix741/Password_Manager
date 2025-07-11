@@ -3,6 +3,7 @@ import os
 import re
 
 from .encryption_handlers import AESCrypto, FernetCrypto
+from .transform_website import transform_website
 
 
 class AddPassword:
@@ -14,10 +15,7 @@ class AddPassword:
                  ) -> None:
 
         if not name or use_website_as_name:
-            if "www." in website:
-                name: str = "".join("".join(website.split(".")[1:2]).split("/")[0])
-            else:
-                name: str = "".join("".join(website.split(".")[0:1]).split("/")[0])
+            name = transform_website(website)
 
         name = re.sub(r'[\\/*?:"<>|]', "", name)
         password_path: str = os.path.join(passwords_path, f"{name}.json")
