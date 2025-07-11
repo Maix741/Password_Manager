@@ -498,6 +498,7 @@ class ManagerGUI(QMainWindow):
             assets_path=self.assets_path,
             passwords_path=self.passwords_path,
             translations_handler=self.translation_handler,
+            constants=(PASSWORD_MIN_LENGHT, ENTROPY_THRESHOLD),
             parent=self
             )
 

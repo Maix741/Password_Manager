@@ -17,6 +17,7 @@ class CheckPasswordWidget(QWidget):
                  strength_check, duplication_check,
                  styles_path: str, assets_path: str, passwords_path: str,
                  translations_handler,
+                 constants,
                  parent: QWidget | None = None,
                  ) -> None:
         super(CheckPasswordWidget, self).__init__(parent)
@@ -32,6 +33,8 @@ class CheckPasswordWidget(QWidget):
         self.password_reader = password_reader
         self.strength_check = strength_check
         self.duplication_check = duplication_check
+
+        self.check_constants = constants
 
         self.setObjectName("CheckPasswordCard")
         self.set_style_sheet()
@@ -254,7 +257,7 @@ class CheckPasswordWidget(QWidget):
         self.duplicates: list[list[dict[str, str]]] = self.duplication_check(passwords)
 
         # get weak passwords
-        weak_results = [not self.strength_check(pwd.get("password")) for pwd in passwords]
+        weak_results = [not self.strength_check(pwd.get("password"), *self.check_constants) for pwd in passwords]
         self.weak_passwords: list[dict[str, str]] = [
             pwd for pwd, is_weak in zip(passwords, weak_results) if is_weak
         ]
