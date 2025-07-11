@@ -647,7 +647,7 @@ class ManagerGUI(QMainWindow):
 
             csv_file, _ = QFileDialog.getOpenFileName(self,
                                                       self.tr("Select csv-file"),
-                                                      get_parent_folder()[1],
+                                                      get_download_path(),
                                                       "csv (*.csv);;All Files (*)"
                                                     )
             if not csv_file: return
@@ -663,10 +663,9 @@ class ManagerGUI(QMainWindow):
             correct, fernet_key, AES_key = self.load_keys("export_passwords")
             if not correct: return MasterWarningMessage(self).exec()
 
-            save_directory = get_download_path()
             csv_file, _ = QFileDialog.getSaveFileName(self,
                                                       self.tr("Save csv-file"),
-                                                      os.path.join(save_directory, "passwords.csv"),
+                                                      os.path.join(get_download_path(), "passwords.csv"),
                                                       "csv (*.csv);;All Files (*)"
                                                     )
             if not csv_file: return
