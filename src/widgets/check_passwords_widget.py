@@ -4,7 +4,7 @@ import os
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
     QPushButton, QVBoxLayout, QLabel, QWidget, QHBoxLayout,
-    QSpacerItem, QSizePolicy, QLineEdit
+    QSpacerItem, QSizePolicy, QLineEdit, QScrollArea
 )
 from PySide6.QtCore import Signal, Qt, QCoreApplication, QSize
 from PySide6.QtGui import QPainter, QBrush, QColor, QIcon
@@ -53,7 +53,15 @@ class CheckPasswordWidget(QWidget):
 
     def init_ui(self) -> None:
         self.init_icons()
-        layout: QVBoxLayout = QVBoxLayout(self)
+        # Create a scroll area
+        scroll_area = QScrollArea(self)
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setFrameShape(QScrollArea.NoFrame)
+        scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+        # Main content widget inside the scroll area
+        content_widget = QWidget()
+        layout: QVBoxLayout = QVBoxLayout(content_widget)
         layout.setContentsMargins(20, 20, 20, 20)
         layout.setSpacing(15)
 
@@ -116,7 +124,14 @@ class CheckPasswordWidget(QWidget):
         # Spacer (to continue the background until the bottom)
         layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        self.setLayout(layout)
+        # Set the content widget as the scroll area's widget
+        scroll_area.setWidget(content_widget)
+
+        # Set the main layout for this widget
+        main_layout = QVBoxLayout(self)
+        main_layout.setContentsMargins(0, 0, 0, 0)
+        main_layout.addWidget(scroll_area)
+        self.setLayout(main_layout)
 
         # Populate the lists with password data
         self.populate_password_lists()

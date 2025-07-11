@@ -16,7 +16,7 @@ class ImportPasswords:
 
     def add_all_passwords(self, passwords: list[dict[str, str]], keys: tuple[bytes, list[bytes]]) -> None:
         for i, password in enumerate(passwords):
-            logging.info(f"Adding Password({i+1}/{len(passwords)}): {password['name']} ")
+            logging.debug(f"Adding Password({i+1}/{len(passwords)}): {password['name']} ")
             self.add_password(password, *keys)
 
     def read_file(self, csv_file_path: str) -> list[dict[str, str]]:
