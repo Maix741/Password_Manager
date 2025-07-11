@@ -303,7 +303,9 @@ class ManagerGUI(QMainWindow):
         error = None
         try:
             correct, fernet_key, AES_key = self.load_keys("read_password")
-            if not correct: raise Exception("Incorrect Master entered")
+            if not correct:
+                MasterWarningMessage(self).exec()
+                raise Exception("Incorrect Master entered")
             logging.info(f"Reading password: {password_name}")
             reader = PasswordReader()
             decrypted_password: dict[str, str] = reader.read_password(
@@ -350,7 +352,8 @@ class ManagerGUI(QMainWindow):
 
         try:
             correct, fernet_key, AES_key = self.load_keys("add_password")
-            if not correct: return
+            if not correct: return MasterWarningMessage(self).exec()
+
 
             password_card: AddPasswordWidget = AddPasswordWidget(self.styles_path, self.assets_path,
                                                                  self.show_generating_dialog,
@@ -478,7 +481,8 @@ class ManagerGUI(QMainWindow):
 
     def change_to_check_card(self) -> None:
         correct, fernet_key, AES_key  = self.load_keys("check_passwords")
-        if not correct: return
+        if not correct: return MasterWarningMessage(self).exec()
+
         # Clear the central layout
         self.clear_central_layout()
 
@@ -557,7 +561,7 @@ class ManagerGUI(QMainWindow):
 
     def renew_keys_only(self) -> None:
         keys = self.load_keys("renew_passwords_without_deleting_passwords")
-        if not keys[0]: return
+        if not keys[0]: return MasterWarningMessage(self).exec()
 
         logging.info("Renewing all keys without deleting passwords")
         new_master: str = self.ask_new_master()
@@ -638,7 +642,7 @@ class ManagerGUI(QMainWindow):
     def import_passwords(self) -> None:
         try:
             correct, fernet_key, AES_key = self.load_keys("import_passwords")
-            if not correct: return
+            if not correct: return MasterWarningMessage(self).exec()
 
             csv_file, _ = QFileDialog.getOpenFileName(self,
                                                       self.tr("Select csv-file"),
@@ -656,7 +660,7 @@ class ManagerGUI(QMainWindow):
     def export_passwords(self) -> None:
         try:
             correct, fernet_key, AES_key = self.load_keys("export_passwords")
-            if not correct: return
+            if not correct: return MasterWarningMessage(self).exec()
 
             save_directory = get_download_path()
             csv_file, _ = QFileDialog.getSaveFileName(self,

@@ -6,3 +6,5 @@ from .list_password_widget import PasswordWidget
 from .settings_widget import SettingsWidget
 
 from .generate_dialog import PasswordGenerateDialog
+
+from .wrong_master_message import MasterWarningMessage
