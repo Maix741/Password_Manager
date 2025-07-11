@@ -1,0 +1,27 @@
+#BackButton {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 20px;
+    padding: 4px 12px;
+}
+#BackButton:hover {
+    color: #fff;
+    background: #3a3f4b;
+    border-radius: 8px;
+}
+
+#KeyManagementWidget {
+    background: #23272e;
+    border-radius: 14px;
+    color: #f3f3f3;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 15px;
+}
+
+#KeyManagementTitle {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #e0e0e0;
+}

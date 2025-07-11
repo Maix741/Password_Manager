@@ -262,7 +262,7 @@ class ManagerGUI(QMainWindow):
         renew_keys_button.setToolTip(self.tr("Renew Keys"))
         renew_keys_button.setIcon(self.key_icon)
         renew_keys_button.setIconSize(self.icon_size)
-        renew_keys_button.clicked.connect(self.renew_keys)
+        renew_keys_button.clicked.connect(self.change_to_key_card)
         dock_layout.addWidget(renew_keys_button)
 
         settings_button: QPushButton = QPushButton(self)
@@ -510,6 +510,40 @@ class ManagerGUI(QMainWindow):
         # Add the container to the central layout
         self.central_layout.addWidget(self.read_card_container)
         check_widget.returned.connect(self.change_to_normal_list)
+
+    def change_to_key_card(self) -> None:
+        def key_management_card_return(return_code: int) -> None:
+            if return_code == 0:
+                pass
+            elif return_code == 1:
+                pass # TODO: renew keys without deleteing passwords
+            elif return_code == 2:
+                self.renew_keys() # renew keys and remove passwords
+
+            self.change_to_normal_list()
+        # Clear the central layout
+        self.clear_central_layout()
+
+        # create management widget
+        management_widget: KeyManagementWidget = KeyManagementWidget(
+            styles_path=self.styles_path,
+            assets_path=self.assets_path,
+            translations_handler=self.translation_handler,
+            parent=self
+            )
+
+        # Create a new layout for the password card
+        management_card_layout = QVBoxLayout()
+        management_card_layout.setAlignment(Qt.AlignTop)
+        management_card_layout.addWidget(management_widget)
+
+        # Create a container widget for the layout
+        self.read_card_container = QWidget(self.central_widget)
+        self.read_card_container.setLayout(management_card_layout)
+
+        # Add the container to the central layout
+        self.central_layout.addWidget(self.read_card_container)
+        management_widget.returned.connect(key_management_card_return)
 
     def renew_keys(self) -> None:
         logging.info("Renewing all keys")
