@@ -22,6 +22,11 @@ def transform_website(website_raw: str) -> str:
     elif website.startswith("https://"):
         website = website[8:]
 
+    website = website.split("/")[0]  # Get the domain part before any path
+    website = website.split("?")[0]  # Remove query parameters if any
+    website = website.split("#")[0]  # Remove fragment identifiers if any
+
+    # Remove trailing slashes
     website = website.rstrip("/")
 
     return website
