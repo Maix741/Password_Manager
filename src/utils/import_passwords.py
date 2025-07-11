@@ -1,5 +1,5 @@
 import logging
-import io, csv
+import csv
 
 from .add_password import AddPassword
 
@@ -21,9 +21,19 @@ class ImportPasswords:
 
     def read_file(self, csv_file_path: str) -> list[dict[str, str]]:
         with open(csv_file_path, "r") as csv_file:
-            a = [{k: int(v) for k, v in row.items()}
-                for row in csv.DictReader(csv_file, skipinitialspace=True)]
-        return a
+            reader = csv.DictReader(csv_file)
+            passwords = []
+            for row in reader:
+                # Map CSV fields to expected keys
+                password_entry = {
+                    "name": row.get("name", ""),
+                    "website": row.get("url", ""),
+                    "username": row.get("username", ""),
+                    "password": row.get("password", ""),
+                    "notes": row.get("note", ""),
+                }
+                passwords.append(password_entry)
+            return passwords
 
     def add_password(self, password: dict[str, str], fernet_key: bytes, AES_key: list[bytes]) -> None:
         AddPassword(
@@ -39,10 +49,3 @@ class ImportPasswords:
             salt=AES_key[1],
             use_website_as_name=False
         )
-
-    def csv_to_list(self, input_string: str) -> list[str]:
-        # Use StringIO to treat the string as a file-like object.
-        f = io.StringIO(input_string)
-        reader = csv.reader(f)
-        # Get the first row from the CSV reader.
-        return tuple(next(reader))
