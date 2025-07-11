@@ -65,10 +65,40 @@ class KeyManagementWidget(QWidget):
         layout.addLayout(header_layout)
 
 
+        renew_label = QLabel(self.tr("Renew Encryption Keys"))
+        renew_label.setObjectName("RenewLabel")
+        renew_label.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+        layout.addWidget(renew_label)
+
+        renew_keep_btn = QPushButton(self.tr("Renew Keys (Keep Passwords)"))
+        renew_keep_btn.setObjectName("RenewKeepButton")
+        renew_keep_btn.clicked.connect(self.renew_keys_keep_passwords)
+        layout.addWidget(renew_keep_btn)
+
+        renew_delete_btn = QPushButton(self.tr("Renew Keys (Delete Passwords)"))
+        renew_delete_btn.setObjectName("RenewDeleteButton")
+        renew_delete_btn.clicked.connect(self.renew_keys_delete_passwords)
+        layout.addWidget(renew_delete_btn)
+
+        delete_btn = QPushButton(self.tr("Delete all Passwords"))
+        delete_btn.setObjectName("DeleteButton")
+        delete_btn.clicked.connect(self.delete_passwords)
+        layout.addWidget(delete_btn)
+
+
         # Spacer (to continue the background until the bottom)
         layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         self.setLayout(layout)
+
+    def renew_keys_keep_passwords(self):
+        self.return_to_list(1)
+
+    def renew_keys_delete_passwords(self):
+        self.return_to_list(2)
+
+    def delete_passwords(self) -> None:
+        self.return_to_list(3)
 
     def set_style_sheet(self) -> None:
         css_path: str = os.path.join(self.styles_path, "key_management_widget.css")
@@ -79,8 +109,8 @@ class KeyManagementWidget(QWidget):
         except (FileNotFoundError, PermissionError) as e:
             logging.exception(f"Error getting style for the key_management_widget: {e}")
 
-    def return_to_list(self) -> None:
-        self.returned.emit(0)
+    def return_to_list(self, return_code: int = 0) -> None:
+        self.returned.emit(return_code)
 
     def paintEvent(self, event):
         painter: QPainter = QPainter(self)

@@ -41,5 +41,6 @@ from .password_checks import (check_password_strength,
                               )
 
 from .renew_keys_utils import (renew_keys_and_delete_paswords,
-                               renew_keys_only
+                               renew_keys_only,
+                               delete_paswords
                                )

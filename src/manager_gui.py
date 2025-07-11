@@ -4,7 +4,6 @@
 
 from functools import partial
 import logging
-import shutil
 import os
 
 # Import GUI elements from PySide6
@@ -514,11 +513,13 @@ class ManagerGUI(QMainWindow):
     def change_to_key_card(self) -> None:
         def key_management_card_return(return_code: int) -> None:
             if return_code == 0:
-                renew_keys_only(self.load_keys("Test"), self.ask_new_master(), self.data_path)
+                pass # do nothing
             elif return_code == 1:
-                pass # TODO: renew keys without deleteing passwords
+                self.renew_keys_only() # renew keys without deleting passwords
             elif return_code == 2:
                 self.renew_keys() # renew keys and remove passwords
+            elif return_code == 3:
+                delete_paswords(self.data_path) # delete passwords
 
             self.change_to_normal_list()
         # Clear the central layout
@@ -552,6 +553,19 @@ class ManagerGUI(QMainWindow):
             logging.info("Renewing cancelled")
             return
         renew_keys_and_delete_paswords(new_master, self.data_path)
+        self.change_to_normal_list()
+
+    def renew_keys_only(self) -> None:
+        keys = self.load_keys("renew_passwords_without_deleting_passwords")
+        if not keys[0]: return
+
+        logging.info("Renewing all keys without deleting passwords")
+        new_master: str = self.ask_new_master()
+        if not new_master:
+            logging.info("Renewing cancelled")
+            return
+
+        renew_keys_only(keys, new_master, self.data_path)
         self.change_to_normal_list()
 
     def load_keys(self, load_from: str) -> tuple[str, bytes, list[str, bytes]] | tuple[None, None, None]:

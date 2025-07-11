@@ -67,3 +67,4 @@ def delete_paswords(data_path) -> None:
 
     except (FileNotFoundError, PermissionError) as e:
         logging.error(f"Error while removing previous keys/passwords: {e}")
+    os.makedirs(os.path.join(data_path, "passwords"), exist_ok=True)
