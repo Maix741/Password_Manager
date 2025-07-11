@@ -99,6 +99,9 @@ class ManagerGUI(QMainWindow):
 
     def init_icons(self) -> None:
         self.icon_size: QSize = QSize(25, 25)
+        self.window_icon: QIcon = QIcon(os.path.join(self.assets_path, "app-icon.png"))
+        self.setWindowIcon(self.window_icon)
+
         self.settings_icon: QIcon = QIcon(os.path.join(self.assets_path, "settings-icon.png"))
         self.add_icon: QIcon = QIcon(os.path.join(self.assets_path, "add-icon.png"))
         self.key_icon: QIcon = QIcon(os.path.join(self.assets_path, "key-icon.png"))
