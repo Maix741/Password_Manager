@@ -4,7 +4,7 @@ import os
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
     QPushButton, QVBoxLayout, QLabel, QWidget, QHBoxLayout,
-    QSpacerItem, QSizePolicy, QLineEdit
+    QSpacerItem, QSizePolicy
 )
 from PySide6.QtCore import Signal, Qt, QCoreApplication, QSize
 from PySide6.QtGui import QPainter, QBrush, QColor, QIcon
@@ -56,7 +56,7 @@ class KeyManagementWidget(QWidget):
 
         header_layout.addStretch()
 
-        title_label: QLabel = QLabel(self.tr("Manage Keys"))
+        title_label: QLabel = QLabel(self.tr("Manage encryption Keys"))
         title_label.setObjectName("KeyManagementTitle")
         title_label.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
         header_layout.addWidget(title_label)
