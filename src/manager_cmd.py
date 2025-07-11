@@ -153,7 +153,8 @@ class ManagerCMD:
         CreateMasterPassword(self.data_path, new_master).create()
 
         _, _, aes_fragment = gen_aes_key(new_master)
-        write_keys(self.data_path, aes_fragment)
+        fernet_key = gen_fernet_key()
+        write_keys(self.data_path, aes_fragment, fernet_key)
         self.reset_console()
 
     def reset_console(self) -> None:

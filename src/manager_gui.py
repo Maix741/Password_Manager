@@ -514,7 +514,7 @@ class ManagerGUI(QMainWindow):
     def change_to_key_card(self) -> None:
         def key_management_card_return(return_code: int) -> None:
             if return_code == 0:
-                pass
+                renew_keys_only(self.load_keys("Test"), self.ask_new_master(), self.data_path)
             elif return_code == 1:
                 pass # TODO: renew keys without deleteing passwords
             elif return_code == 2:
@@ -551,19 +551,7 @@ class ManagerGUI(QMainWindow):
         if not new_master:
             logging.info("Renewing cancelled")
             return
-        try:
-            shutil.rmtree(self.passwords_path)
-            shutil.rmtree(os.path.join(self.data_path, "master"))
-            shutil.rmtree(os.path.join(self.data_path, "keys"))
-
-        except (FileNotFoundError, PermissionError) as e:
-            logging.error(f"Error while removing previous keys/passwords: {e}")
-
-        setup_folders(self.data_path)
-        CreateMasterPassword(self.data_path, new_master).create()
-
-        _, _, aes_fragment = gen_aes_key(new_master)
-        write_keys(self.data_path, aes_fragment)
+        renew_keys_and_delete_paswords(new_master, self.data_path)
         self.change_to_normal_list()
 
     def load_keys(self, load_from: str) -> tuple[str, bytes, list[str, bytes]] | tuple[None, None, None]:

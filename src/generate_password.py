@@ -2,6 +2,8 @@ import logging
 import string
 import random
 
+from cryptography.fernet import Fernet
+
 
 class PasswordGenerator:
     def new_password(self, min_lenght: int, include_letters: bool = True, include_numbers: bool = True, include_special: bool = True) -> str:
@@ -53,6 +55,9 @@ def gen_aes_key(master_pass: str) -> str:
 
     return aes_key, master_key_fragment, aes_key.removeprefix(master_key_fragment)
 
+
+def gen_fernet_key() -> bytes:
+    return Fernet.generate_key()
 
 def generate_password(min_lenght: int, include_letters: bool, include_numbers: bool, include_special: bool) -> str:
     generator: PasswordGenerator = PasswordGenerator()

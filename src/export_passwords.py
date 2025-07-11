@@ -12,7 +12,13 @@ class ExportPasswords:
         password_names: list[str] = self.list_passwords()
         passwords: list[dict[str, str]] = self.read_all_passwords(password_names, keys)
 
-        self.write_file(csv_file_path, passwords)
+        if csv_file_path:
+            self.write_file(csv_file_path, passwords)
+        elif not csv_file_path:
+            self.passwords = passwords
+
+    def return_as_list(self) -> list[dict[str, str]]:
+        return self.passwords
 
     def read_all_passwords(self, password_names: list[str], keys: tuple[bytes, list[bytes]]) -> list[dict[str, str]]:
         passwords: list[tuple[str]] = []

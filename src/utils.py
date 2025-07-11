@@ -12,6 +12,7 @@ from .create_master_pass import CreateMasterPassword
 
 from .generate_password import (get_master_key_fragment,
                                 generate_password,
+                                gen_fernet_key,
                                 gen_aes_key,
                                 gen_password_cmd
                                 )
@@ -38,3 +39,7 @@ from .copy_string import copy_string
 from .password_checks import (check_password_strength,
                               check_password_duplication
                               )
+
+from .renew_keys_utils import (renew_keys_and_delete_paswords,
+                               renew_keys_only
+                               )
