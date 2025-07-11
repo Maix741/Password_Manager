@@ -52,6 +52,9 @@ def renew_keys_only(old_keys: tuple[str, bytes, list[str, bytes]], new_master: s
 
     delete_paswords(data_path)
     setup_folders(data_path)
+
+    if not passwords: return
+
     ImportPasswords(
         csv_file_path="",
         passwords_path=os.path.join(data_path, "passwords"),
