@@ -9,12 +9,17 @@ def get_translations_path(appdata_path: str = "", current_dir: str = "") -> str:
     translations_folder_with_translations: str = ""
 
     # Get the translations folder path
-    if current_dir.endswith(("src", "bin")) or ("locales" in os.listdir(current_dir)):
+    if current_dir.endswith(("src", "bin", "utils")) or ("locales" in os.listdir(current_dir)):
         translations_folder: str = os.path.join(Path(current_dir).parent, "locales")
         if "locales" in os.listdir(current_dir):
             translations_folder_with_translations: str = os.path.join(current_dir, "locales")
         if check_for_translations(translations_folder):
             translations_folder_with_translations: str = translations_folder
+        else:
+            translations_folder: str = os.path.join(Path(current_dir).parent.parent, "locales")
+            if check_for_translations(translations_folder):
+                translations_folder_with_translations: str = translations_folder
+
     else:
         if appdata_path:
             translations_folder: str = os.path.join(appdata_path, "Password_manager", "locales")

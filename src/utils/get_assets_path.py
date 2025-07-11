@@ -13,6 +13,9 @@ def get_assets_path(data_path: str) -> str:
     current_dir: str = os.path.dirname(sys.argv[0])
     if current_dir.endswith(("src", "bin")):
         path2: str = os.path.join(Path(current_dir).parent, "assets")
+    elif current_dir.endswith("utils"):
+        path2: str = os.path.join(Path(current_dir).parent.parent, "assets")
+
     else: path2 = os.path.join(current_dir, "assets")
 
     if os.path.isdir(path2):
