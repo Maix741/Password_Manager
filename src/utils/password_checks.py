@@ -24,7 +24,7 @@ def check_password_strength(password: str, min_lenght: int, entropy_threshold: i
     entropy: int = calculate_entropy(password)
 
     # Classifying password strength
-    if entropy > entropy_threshold and not len(password) < min_lenght:
+    if entropy >= entropy_threshold and len(password) >= min_lenght:
         return True
     else:
         return False
