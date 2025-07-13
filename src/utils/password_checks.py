@@ -1,3 +1,4 @@
+from collections import defaultdict
 import string  # For checking character diversity
 import math  # For entropy calculation
 
@@ -34,7 +35,6 @@ def check_password_duplication(all_passwords: list[dict]) -> list[list[dict]]:
     """Checks for duplicate passwords in the provided list.
     Returns a list of lists, where each inner list contains entries with the same reused password.
     """
-    from collections import defaultdict
 
     password_map = defaultdict(list)
     for entry in all_passwords:
