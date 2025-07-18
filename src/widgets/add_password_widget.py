@@ -50,8 +50,8 @@ class AddPasswordWidget(QWidget):
         self.card_frame.setObjectName("PasswordCardFrame")
         self.card_frame.setFrameShape(QFrame.StyledPanel)
         self.card_frame.setFrameShadow(QFrame.Raised)
-
         card_layout = QVBoxLayout(self.card_frame)
+
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()
         grid_layout.setObjectName("PasswordCardLayout")
