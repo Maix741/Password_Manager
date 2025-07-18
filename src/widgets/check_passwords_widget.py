@@ -4,10 +4,10 @@ import os
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
     QPushButton, QVBoxLayout, QLabel, QWidget, QHBoxLayout,
-    QSpacerItem, QSizePolicy, QLineEdit, QScrollArea
+    QSpacerItem, QSizePolicy, QLineEdit, QScrollArea, QFrame
 )
 from PySide6.QtCore import Signal, Qt, QCoreApplication, QSize
-from PySide6.QtGui import QPainter, QBrush, QColor, QIcon
+from PySide6.QtGui import QIcon
 
 
 class CheckPasswordWidget(QWidget):
@@ -61,9 +61,16 @@ class CheckPasswordWidget(QWidget):
 
         # Main content widget inside the scroll area
         content_widget = QWidget()
+        content_widget.setObjectName("contentWidget")
         layout: QVBoxLayout = QVBoxLayout(content_widget)
-        layout.setContentsMargins(20, 20, 20, 20)
         layout.setSpacing(15)
+
+        # Create a QFrame to act as the rounded card
+        self.card_frame = QFrame(self)
+        self.card_frame.setObjectName("PasswordCardFrame")
+        self.card_frame.setFrameShape(QFrame.StyledPanel)
+        self.card_frame.setFrameShadow(QFrame.Raised)
+        card_layout = QVBoxLayout(self.card_frame)
 
         # Header layout for back button and title
         header_layout: QHBoxLayout = QHBoxLayout()
@@ -129,8 +136,13 @@ class CheckPasswordWidget(QWidget):
 
         # Set the main layout for this widget
         main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(0, 0, 0, 0)
-        main_layout.addWidget(scroll_area)
+        # card_layout.addLayout(layout)
+        card_layout.addWidget(scroll_area)
+        # card_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+        self.card_frame.setLayout(card_layout)
+
+        main_layout.addWidget(self.card_frame)
         self.setLayout(main_layout)
 
         # Populate the lists with password data
@@ -320,11 +332,3 @@ class CheckPasswordWidget(QWidget):
 
     def return_to_list(self) -> None:
         self.returned.emit()
-
-    def paintEvent(self, event):
-        painter: QPainter = QPainter(self)
-        painter.setRenderHint(QPainter.Antialiasing)
-        painter.setBrush(QBrush(QColor("#2d2d2d")))
-        painter.setPen(QColor("#000000"))
-        painter.drawRoundedRect(self.rect(), 10, 10)
-        super().paintEvent(event)
