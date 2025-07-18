@@ -30,7 +30,7 @@ def renew_keys_and_delete_paswords(new_master: str, data_path: str) -> None:
     write_keys(data_path, aes_fragment, fernet_key)
 
 
-def renew_keys_only(old_keys: tuple[str, bytes, list[str, bytes]], new_master: str, data_path: str) -> None: # TODO
+def renew_keys_only(old_keys: tuple[str, bytes, list[str, bytes]], new_master: str, data_path: str) -> None:
     _, old_fernet, old_aes = old_keys
 
     CreateMasterPassword(data_path, new_master).create()
