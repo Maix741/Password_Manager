@@ -14,7 +14,7 @@ class PasswordGenerator:
 
         meets_criteria: bool = False
         while not meets_criteria:
-            password: list[str] = random.sample(possible_characters, lenght)
+            password: list[str] = [random.choice(possible_characters) for _ in range(lenght)] # random.sample(possible_characters, lenght)
             meets_criteria = self.meets_criteria(password, include_letters, include_numbers, include_special)
             password: str = "".join(password)
 
@@ -52,9 +52,10 @@ def gen_aes_key(master_pass: str) -> str:
 def gen_fernet_key() -> bytes:
     return Fernet.generate_key()
 
-def generate_password(min_lenght: int, include_letters: bool, include_numbers: bool, include_special: bool) -> str:
+
+def generate_password(lenght: int, include_letters: bool, include_numbers: bool, include_special: bool) -> str:
     generator: PasswordGenerator = PasswordGenerator()
-    password: str = generator.new_password(min_lenght, include_letters, include_numbers, include_special)
+    password: str = generator.new_password(lenght, include_letters, include_numbers, include_special)
 
     return password
 
@@ -78,10 +79,10 @@ def get_password_lenght(minimum: int = 0) -> int:
 
 
 def gen_password_cmd() -> str:
-    logging.info("Generating new password")
-    min_lenght: int = get_password_lenght()
-    include_letters: bool = input("Should the passowrd include letters (y/n): ").lower().replace(" ", "") == ("y" or "yes")
-    include_numbers: bool = input("Should the passowrd include numbers (y/n): ").lower().replace(" ", "") == ("y" or "yes")
-    include_special: bool = input("Should the passowrd include special characters (y/n): ").lower().replace(" ", "") == ("y" or "yes")
+    logging.debug("Generating new password")
+    lenght: int = get_password_lenght()
+    include_letters: bool = input("Should the password include letters (y/n): ").lower().replace(" ", "") in ("y", "yes")
+    include_numbers: bool = input("Should the password include numbers (y/n): ").lower().replace(" ", "") in ("y", "yes")
+    include_special: bool = input("Should the password include special characters (y/n): ").lower().replace(" ", "") in ("y", "yes")
 
-    return generate_password(min_lenght, include_letters, include_numbers, include_special)
+    return generate_password(lenght, include_letters, include_numbers, include_special)
