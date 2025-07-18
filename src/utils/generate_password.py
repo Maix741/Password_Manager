@@ -6,45 +6,38 @@ from cryptography.fernet import Fernet
 
 
 class PasswordGenerator:
-    def new_password(self, min_lenght: int, include_letters: bool = True, include_numbers: bool = True, include_special: bool = True) -> str:
-        possible_characters: str = self.possible_characters(include_letters, include_numbers, include_special)
+    def new_password(self, lenght: int, include_letters: bool = True, include_numbers: bool = True, include_special: bool = True) -> str:
+        possible_characters: list[str] = self.possible_characters(include_letters, include_numbers, include_special)
 
-        password: str = ""
+        if lenght < 3:
+            lenght = 3
+
         meets_criteria: bool = False
-        has_lenght: bool = False
-        has_letter: bool = not include_letters
-        has_number: bool = not include_numbers
-        has_special: bool = not include_special
-
         while not meets_criteria:
-            new_letter: str = random.choice(possible_characters)
-            password += new_letter
-
-            if len(password) >= min_lenght:
-                has_lenght = True
-            if new_letter in self.letters:
-                has_letter = True
-            if new_letter in self.numbers:
-                has_number = True
-            if new_letter in self.special:
-                has_special = True
-            if has_lenght and has_letter and has_number and has_special:
-                meets_criteria = True
+            password: list[str] = random.sample(possible_characters, lenght)
+            meets_criteria = self.meets_criteria(password, include_letters, include_numbers, include_special)
+            password: str = "".join(password)
 
         return password
 
     def possible_characters(self, include_Letters: bool, include_Numbers: bool, include_Special: bool) -> str:
-        possible_characters: str = ""
-        self.letters: str = string.ascii_letters * 3
-        self.numbers: str = string.digits * 2
-        self.special: str = r"""!"#$%&()*+-/<=>?@[\]^_{|}~"""
+        possible_characters: list[str] = []
+        self.letters: list[str] = [s for s in string.ascii_letters * 3]
+        self.numbers: list[str] = [s for s in string.digits * 2]
+        self.special: list[str] = [s for s in r"""!"#$%&()*+-/<=>?@[\]^_{|}~"""]
 
         if include_Letters: possible_characters += self.letters
         if include_Numbers: possible_characters += self.numbers
         if include_Special: possible_characters += self.special
 
-        if not possible_characters: possible_characters += self.letters
-        return possible_characters
+        return possible_characters if possible_characters else self.letters
+
+    def meets_criteria(self, password: list[str], include_letters: bool, include_numbers: bool, include_special: bool) -> bool:
+        has_letter: bool = (not include_letters) or (any(map(lambda x: x in self.letters, password)))
+        has_number: bool = (not include_numbers) or (any(map(lambda x: x in self.numbers, password)))
+        has_special: bool = (not include_special) or (any(map(lambda x: x in self.special, password)))
+    
+        return all([has_letter, has_number, has_special])
 
 
 def gen_aes_key(master_pass: str) -> str:
@@ -77,7 +70,7 @@ def get_master_key_fragment(master_pass: str) -> str:
 
 
 def get_password_lenght(minimum: int = 0) -> int:
-    number: str = input("Minimal lenght of the password: ")
+    number: str = input("Lenght of the password: ")
     while not number.isdigit() or int(number) < minimum:
         number: str = input(f"Please enter a number above {minimum}!: ")
 
@@ -87,8 +80,8 @@ def get_password_lenght(minimum: int = 0) -> int:
 def gen_password_cmd() -> str:
     logging.info("Generating new password")
     min_lenght: int = get_password_lenght()
-    include_letters: bool = input("Should the passowrd include letters (y/n): ").lower().replace(" ", "") == "y"
-    include_numbers: bool = input("Should the passowrd include numbers (y/n): ").lower().replace(" ", "") == "y"
-    include_special: bool = input("Should the passowrd include special characters (y/n): ").lower().replace(" ", "") == "y"
+    include_letters: bool = input("Should the passowrd include letters (y/n): ").lower().replace(" ", "") == ("y" or "yes")
+    include_numbers: bool = input("Should the passowrd include numbers (y/n): ").lower().replace(" ", "") == ("y" or "yes")
+    include_special: bool = input("Should the passowrd include special characters (y/n): ").lower().replace(" ", "") == ("y" or "yes")
 
     return generate_password(min_lenght, include_letters, include_numbers, include_special)
