@@ -3,11 +3,11 @@ import os
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
-    QPushButton, QVBoxLayout, QLabel, QWidget, QMessageBox,
+    QPushButton, QVBoxLayout, QLabel, QWidget, QMessageBox, QFrame,
     QSpacerItem, QSizePolicy, QHBoxLayout, QLineEdit, QGridLayout
 )
 from PySide6.QtCore import Signal, Qt, QSize, QCoreApplication
-from PySide6.QtGui import QPainter, QBrush, QColor, QIcon
+from PySide6.QtGui import QIcon
 
 
 class AddPasswordWidget(QWidget):
@@ -44,10 +44,17 @@ class AddPasswordWidget(QWidget):
     def init_ui(self) -> None:
         # Main layout for the card with some margins.
         main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(32, 32, 32, 32)
 
+        # Create a QFrame to act as the rounded card
+        self.card_frame = QFrame(self)
+        self.card_frame.setObjectName("PasswordCardFrame")
+        self.card_frame.setFrameShape(QFrame.StyledPanel)
+        self.card_frame.setFrameShadow(QFrame.Raised)
+
+        card_layout = QVBoxLayout(self.card_frame)
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()
+        grid_layout.setObjectName("PasswordCardLayout")
 
 
         # Row 0: password name and back button
@@ -127,8 +134,11 @@ class AddPasswordWidget(QWidget):
         spacer = QSpacerItem(0, 15, QSizePolicy.Minimum, QSizePolicy.Fixed)
         grid_layout.addItem(spacer, 6, 0)
 
-        main_layout.addLayout(grid_layout)
+        card_layout.addLayout(grid_layout)
+        self.card_frame.setLayout(card_layout)
 
+        main_layout.addWidget(self.card_frame)
+        self.setLayout(main_layout)
 
         # Horizontal layout for action buttons.
         button_layout = QHBoxLayout()
@@ -139,9 +149,9 @@ class AddPasswordWidget(QWidget):
         self.save_button.clicked.connect(self.save_password)
 
         button_layout.addStretch()
-        main_layout.addLayout(button_layout)
+        card_layout.addLayout(button_layout)
 
-        main_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        card_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
     def set_style_sheet(self) -> None:
         css_path: str = os.path.join(self.styles_path, "add_password_widget.css")
@@ -213,11 +223,3 @@ class AddPasswordWidget(QWidget):
             self.return_to_list()
         elif msg_box.clickedButton() == no_button:
             return
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.setRenderHint(QPainter.Antialiasing)
-        painter.setBrush(QBrush(QColor("#2d2d2d")))
-        painter.setPen(QColor("#000000"))
-        painter.drawRoundedRect(self.rect(), 10, 10)
-        super().paintEvent(event)
