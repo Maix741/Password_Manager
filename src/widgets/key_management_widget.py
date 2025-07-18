@@ -3,11 +3,11 @@ import os
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
-    QPushButton, QVBoxLayout, QLabel, QWidget, QHBoxLayout,
-    QSpacerItem, QSizePolicy
+    QPushButton, QVBoxLayout, QLabel, QHBoxLayout,
+    QSpacerItem, QSizePolicy, QFrame, QWidget
 )
 from PySide6.QtCore import Signal, Qt, QCoreApplication, QSize
-from PySide6.QtGui import QPainter, QBrush, QColor, QIcon
+from PySide6.QtGui import QIcon
 
 
 class KeyManagementWidget(QWidget):
@@ -39,9 +39,17 @@ class KeyManagementWidget(QWidget):
 
     def init_ui(self) -> None:
         self.init_icons()
-        layout: QVBoxLayout = QVBoxLayout(self)
-        layout.setContentsMargins(20, 20, 20, 20)
-        layout.setSpacing(15)
+        main_layout: QVBoxLayout = QVBoxLayout(self)
+
+        # Create a QFrame to act as the rounded card
+        self.card_frame = QFrame(self)
+        self.card_frame.setObjectName("PasswordCardFrame")
+        self.card_frame.setFrameShape(QFrame.StyledPanel)
+        self.card_frame.setFrameShadow(QFrame.Raised)
+        card_layout = QVBoxLayout(self.card_frame)
+
+        content_layout: QVBoxLayout = QVBoxLayout(self)
+        content_layout.setSpacing(15)
 
         # Header layout for back button and title
         header_layout: QHBoxLayout = QHBoxLayout()
@@ -62,34 +70,38 @@ class KeyManagementWidget(QWidget):
         header_layout.addWidget(title_label)
 
         header_layout.addStretch()
-        layout.addLayout(header_layout)
+        content_layout.addLayout(header_layout)
 
 
         renew_label = QLabel(self.tr("Renew Encryption Keys"))
         renew_label.setObjectName("RenewLabel")
         renew_label.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
-        layout.addWidget(renew_label)
+        content_layout.addWidget(renew_label)
 
         renew_keep_btn = QPushButton(self.tr("Renew Keys (Keep Passwords)"))
         renew_keep_btn.setObjectName("RenewKeepButton")
         renew_keep_btn.clicked.connect(self.renew_keys_keep_passwords)
-        layout.addWidget(renew_keep_btn)
+        content_layout.addWidget(renew_keep_btn)
 
         renew_delete_btn = QPushButton(self.tr("Renew Keys (Delete Passwords)"))
         renew_delete_btn.setObjectName("RenewDeleteButton")
         renew_delete_btn.clicked.connect(self.renew_keys_delete_passwords)
-        layout.addWidget(renew_delete_btn)
+        content_layout.addWidget(renew_delete_btn)
 
         delete_btn = QPushButton(self.tr("Delete all Passwords"))
         delete_btn.setObjectName("DeleteButton")
         delete_btn.clicked.connect(self.delete_passwords)
-        layout.addWidget(delete_btn)
+        content_layout.addWidget(delete_btn)
 
 
         # Spacer (to continue the background until the bottom)
-        layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        content_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        self.setLayout(layout)
+        card_layout.addLayout(content_layout)
+        self.card_frame.setLayout(card_layout)
+
+        main_layout.addWidget(self.card_frame)
+        self.setLayout(main_layout)
 
     def renew_keys_keep_passwords(self):
         self.return_to_list(1)
@@ -111,11 +123,3 @@ class KeyManagementWidget(QWidget):
 
     def return_to_list(self, return_code: int = 0) -> None:
         self.returned.emit(return_code)
-
-    def paintEvent(self, event):
-        painter: QPainter = QPainter(self)
-        painter.setRenderHint(QPainter.Antialiasing)
-        painter.setBrush(QBrush(QColor("#2d2d2d")))
-        painter.setPen(QColor("#000000"))
-        painter.drawRoundedRect(self.rect(), 10, 10)
-        super().paintEvent(event)

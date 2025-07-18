@@ -5,6 +5,15 @@
     font-size: 20px;
     padding: 4px 12px;
 }
+
+QFrame#PasswordCardFrame {
+    background-color: #2d2d2d;
+    border-radius: 10px;
+    border: 1px solid #000000;
+    /* Optional: add padding or shadow */
+    padding: 16px;
+}
+
 #BackButton:hover {
     color: #fff;
     background: #3a3f4b;
