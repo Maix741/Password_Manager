@@ -13,4 +13,6 @@ def check_setup(data_path: str) -> bool:
 
     checks.append(os.path.exists(os.path.join(data_path, "master", "master_pass.pem")))
 
+    checks.append(os.path.exists(os.path.join(data_path, "log", "password_manager.log")))
+
     return all(checks)
