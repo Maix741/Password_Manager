@@ -7,6 +7,14 @@ QLabel#titleLabel {
     color: #BDBDBD;
 }
 
+QFrame#PasswordCardFrame {
+    background-color: #2d2d2d;
+    border-radius: 10px;
+    border: 1px solid #000000;
+    /* Optional: add padding or shadow */
+    padding: 16px;
+}
+
 QLineEdit {
     border: none;
     background-color: #F9F9F9;

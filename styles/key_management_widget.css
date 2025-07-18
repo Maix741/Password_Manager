@@ -6,7 +6,7 @@
     padding: 4px 12px;
 }
 
-#PasswordCardFrame {
+QFrame#PasswordCardFrame {
     background-color: #2d2d2d;
     border-radius: 10px;
     border: 1px solid #000000;

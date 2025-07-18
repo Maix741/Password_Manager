@@ -1,14 +1,12 @@
 import logging
-import sys
 import os
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
-    QPushButton, QVBoxLayout, QLabel, QWidget, QSpacerItem,
+    QPushButton, QVBoxLayout, QLabel, QWidget, QSpacerItem, QFrame,
     QComboBox, QHBoxLayout, QLineEdit, QGridLayout, QSizePolicy
 )
 from PySide6.QtCore import Signal, Qt, QCoreApplication
-from PySide6.QtGui import QPainter, QBrush, QColor
 
 
 class SettingsWidget(QWidget):
@@ -40,15 +38,20 @@ class SettingsWidget(QWidget):
 
     def init_ui(self) -> None:
         main_layout = QVBoxLayout(self)
-        main_layout.setObjectName("mainLayout")
-        main_layout.setContentsMargins(32, 32, 32, 32)
         main_layout.setSpacing(28)
+
+        # Create a QFrame to act as the rounded card
+        self.card_frame = QFrame(self)
+        self.card_frame.setObjectName("PasswordCardFrame")
+        self.card_frame.setFrameShape(QFrame.StyledPanel)
+        self.card_frame.setFrameShadow(QFrame.Raised)
+        card_layout = QVBoxLayout(self.card_frame)
 
         # Section title
         title_label = QLabel(self.tr("Settings"))
         title_label.setObjectName("titleLabel")
         title_label.setAlignment(Qt.AlignCenter)
-        main_layout.addWidget(title_label)
+        card_layout.addWidget(title_label)
 
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()
@@ -118,8 +121,6 @@ class SettingsWidget(QWidget):
         self.design_combo.setToolTip(self.tr("Theme for the application."))
         grid_layout.addWidget(self.design_combo, 3, 1)
 
-        main_layout.addLayout(grid_layout)
-
         # Horizontal layout for action buttons.
         button_layout = QHBoxLayout()
         button_layout.setSpacing(30)
@@ -139,8 +140,14 @@ class SettingsWidget(QWidget):
 
         button_layout.addStretch()
 
-        main_layout.addLayout(button_layout)
-        main_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        card_layout.addLayout(grid_layout)
+        card_layout.addLayout(button_layout)
+        card_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+        self.card_frame.setLayout(card_layout)
+
+        main_layout.addWidget(self.card_frame)
+        self.setLayout(main_layout)
 
     def set_style_sheet(self) -> None:
         css_path: str = os.path.join(self.styles_path, "settings_widget.css")
@@ -180,11 +187,3 @@ class SettingsWidget(QWidget):
             self.returned.emit(True)
         else:
             self.returned.emit(False)
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.setRenderHint(QPainter.Antialiasing)
-        painter.setBrush(QBrush(QColor("#2d2d2d")))
-        painter.setPen(QColor("#000000"))
-        painter.drawRoundedRect(self.rect(), 10, 10)
-        super().paintEvent(event)
