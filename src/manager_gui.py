@@ -375,8 +375,6 @@ class ManagerGUI(QMainWindow):
             else:
                 logging.error("Maximum retry attempts reached. Exiting add_password process.")
                 self.retry_count = 0  # Reset retry count
-        finally:
-            self.retry_count = 0  # Reset retry count
 
     def change_to_read_card(self, password_card: ReadPasswordWidget, fernet_key: bytes, AES_key: tuple[bytes]) -> None:
         def modify_password(password: dict[str, str]) -> None:
@@ -680,7 +678,8 @@ class ManagerGUI(QMainWindow):
 
     def update_translations(self, locale: str) -> None:
         """
-        Updates the translations for the UI components.
+        Set the language for the translation handler and reinitialize the UI,
+        so that all visible UI components (menus, buttons, dialogs, etc.) are updated with the selected translations.
         """
         self.translation_handler.set_language(locale)
         self.init_ui()
