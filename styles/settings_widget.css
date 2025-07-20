@@ -1,9 +1,9 @@
 QLabel {
-    font-size: 13pt;
+    font-size: var(--font-size-medium);
     color: var(--text-muted);
 }
 QLabel#titleLabel {
-    font-size: 24pt;
+    font-size: var(--font-size-large);
     color: var(--text-main);
     font-weight: bold;
 }
@@ -11,24 +11,24 @@ QLabel#titleLabel {
 QFrame#PasswordCardFrame {
     background-color: var(--bg-card);
     border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    padding: 20px;
+    border: var(--border-width) solid var(--border-color);
+    padding: var(--padding-base);
 }
 
 QLineEdit, QComboBox {
-    border: 1.5px solid #444;
+    border: var(--border-width) solid #444;
     background-color: var(--bg-input);
-    padding: 7px 12px;
-    font-size: 13pt;
+    padding: var(--padding-small) var(--padding-medium);
+    font-size: var(--font-size-medium);
     color: var(--text-main);
-    border-radius: 8px;
+    border-radius: var(--border-radius-small);
 }
 
 QPushButton#saveButton {
     background-color: var(--bg-accent);
     color: white;
-    border-radius: 8px;
-    padding: 8px 24px;
+    border-radius: var(--border-radius-small);
+    padding: var(--padding-small) var(--padding-large);
     font-weight: bold;
 }
 QPushButton#saveButton:hover {
@@ -38,8 +38,8 @@ QPushButton#saveButton:hover {
 QPushButton#cancelButton, QPushButton#browseButton {
     background-color: var(--bg-muted);
     color: white;
-    border-radius: 8px;
-    padding: 8px 24px;
+    border-radius: var(--border-radius-small);
+    padding: var(--padding-small) var(--padding-large);
 }
 QPushButton#cancelButton:hover, QPushButton#browseButton:hover {
     background-color: #222;

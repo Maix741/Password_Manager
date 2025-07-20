@@ -12,25 +12,25 @@ QListWidget {
     background: var(--bg-card);
     border-radius: var(--border-radius);
     color: var(--text-main);
-    font-size: 14px;
-    border: 1px solid var(--border-color);
+    font-size: var(--font-size-base);
+    border: var(--border-width) solid var(--border-color);
 }
 
 QLineEdit {
     background: var(--bg-input);
     color: var(--text-main);
-    border: 1.5px solid #444;
-    border-radius: 8px;
-    padding: 7px 12px;
-    font-size: 13pt;
+    border: var(--border-width) solid #444;
+    border-radius: var(--border-radius-small);
+    padding: var(--padding-small) var(--padding-medium);
+    font-size: var(--font-size-medium);
 }
 
 QPushButton {
     background: var(--bg-muted);
     color: var(--text-main);
-    border-radius: 8px;
-    padding: 10px 24px;
-    font-size: 14px;
+    border-radius: var(--border-radius-small);
+    padding: var(--padding-small) var(--padding-large);
+    font-size: var(--font-size-base);
     border: none;
     font-weight: 500;
 }
