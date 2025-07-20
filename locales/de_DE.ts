@@ -579,17 +579,17 @@ Wenn sie weitermachen wird es verloren gehen</translation>
 <context>
     <name>WarningMessage</name>
     <message>
-        <location filename="../src/utils/copy_string.py" line="13"/>
+        <location filename="../src/utils/copy_string.py" line="11"/>
         <source>Unable to copy text</source>
         <translation>Text konnte nicht kopiert werden</translation>
     </message>
     <message>
-        <location filename="../src/utils/copy_string.py" line="14"/>
+        <location filename="../src/utils/copy_string.py" line="12"/>
         <source>Unable to copy the text to clipboard. </source>
         <translation>Der Text konnte nicht in die Zwischenablage kopiert werden. </translation>
     </message>
     <message>
-        <location filename="../src/utils/copy_string.py" line="15"/>
+        <location filename="../src/utils/copy_string.py" line="13"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
