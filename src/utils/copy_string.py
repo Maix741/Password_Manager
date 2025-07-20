@@ -1,3 +1,4 @@
+from PySide6.QtWidgets import QMessageBox
 import pyperclip
 
 
@@ -37,8 +38,6 @@ def copy_string(string: str, show_warning: bool = False) -> bool:
 
     except pyperclip.PyperclipException:
         if show_warning:
-            global QMessageBox
-            from PySide6.QtWidgets import QMessageBox
             WarningMessage().exec()
         else:
             print(f"Unable to copy the text: {string}")

@@ -1,71 +1,49 @@
+@import url("theme.css");
+
 QLabel {
-    font-size: 12pt;
-    color: #BDBDBD;
+    font-size: 13pt;
+    color: var(--text-muted);
 }
 QLabel#titleLabel {
-    font-size: 25pt;
-    color: #BDBDBD;
-}
-
-QFrame#PasswordCardFrame {
-    background-color: #2d2d2d;
-    border-radius: 10px;
-    border: 1px solid #000000;
-    /* Optional: add padding or shadow */
-    padding: 16px;
-}
-
-QLineEdit {
-    border: none;
-    background-color: #F9F9F9;
-    padding: 5px;
-    font-size: 12pt;
-    color: #333333;
-    border-radius: 9px;
-}
-
-QComboBox {
-    background-color: #f0f4fa;
-    color: #222233;
-    border: 2px solid #b0b8c1;
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-size: 12pt;
-    selection-background-color: #dbeafe;
-}
-QComboBox::down-arrow, QComboBox::drop-down {
-    border: none;
-    background: transparent;
-    width: 0;
-    height: 0;
-}
-
-QPushButton#saveButton {
-    background-color: #0078D7;
-    color: white;
-    border-radius: 6px;
-    padding: 8px 24px;
-    background-color: #005fa3;
+    font-size: 24pt;
+    color: var(--text-main);
     font-weight: bold;
 }
 
-QPushButton#cancelButton {
-    background-color: #444;
-    color: white;
-    border-radius: 6px;
-    padding: 8px 24px;
-}
-QPushButton#cancelButton:hover {
-    background-color: #222;
+QFrame#PasswordCardFrame {
+    background-color: var(--bg-card);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    padding: 20px;
 }
 
-QPushButton#browseButton {
-    background-color: #444;
+QLineEdit, QComboBox {
+    border: 1.5px solid #444;
+    background-color: var(--bg-input);
+    padding: 7px 12px;
+    font-size: 13pt;
+    color: var(--text-main);
+    border-radius: 8px;
+}
+
+QPushButton#saveButton {
+    background-color: var(--bg-accent);
     color: white;
-    border-radius: 6px;
+    border-radius: 8px;
+    padding: 8px 24px;
+    font-weight: bold;
+}
+QPushButton#saveButton:hover {
+    background-color: var(--bg-accent-hover);
+}
+
+QPushButton#cancelButton, QPushButton#browseButton {
+    background-color: var(--bg-muted);
+    color: white;
+    border-radius: 8px;
     padding: 8px 24px;
 }
-QPushButton#browseButton:hover {
+QPushButton#cancelButton:hover, QPushButton#browseButton:hover {
     background-color: #222;
 }
 

@@ -1,0 +1,209 @@
+/* --- Color Variables --- */
+:root {
+    --bg-main: #23272e;
+    --bg-card: #2d2d2d;
+    --bg-input: #23272e;
+    --bg-accent: #0078D7;
+    --bg-accent-hover: #005fa3;
+    --bg-danger: #ff2e63;
+    --bg-danger-hover: #c82333;
+    --bg-success: #00adb5;
+    --bg-muted: #393e46;
+    --border-color: #222831;
+    --border-radius: 12px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.18);
+    --text-main: #f3f3f3;
+    --text-muted: #bdbdbd;
+    --text-accent: #00adb5;
+    --text-danger: #ff2e63;
+    --font-main: 'Segoe UI', Arial, sans-serif;
+}
+
+/* --- Base Styles --- */
+QWidget, QDialog, QMainWindow {
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    font-size: 15px;
+}
+
+QFrame#PasswordCardFrame, QWidget#PasswordCard, QWidget#CheckPasswordCard, QWidget#KeyManagementWidget {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    padding: 20px;
+}
+
+QLabel {
+    color: var(--text-muted);
+    font-size: 13pt;
+}
+
+QLabel#titleLabel, QLabel#nameLabel, #CheckPasswordTitle, #KeyManagementTitle {
+    font-size: 24pt;
+    color: var(--text-main);
+    font-weight: bold;
+}
+
+QLineEdit, QComboBox, QSpinBox {
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: 1.5px solid #444;
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 13pt;
+    transition: border-color 0.2s;
+}
+QLineEdit:focus, QComboBox:focus, QSpinBox:focus {
+    border-color: var(--bg-accent);
+}
+
+QPushButton {
+    background: var(--bg-muted);
+    color: var(--text-main);
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 14px;
+    border: none;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+QPushButton:hover {
+    background: var(--bg-accent);
+    color: #fff;
+}
+
+QPushButton#saveButton {
+    background: var(--bg-accent);
+    color: #fff;
+    font-weight: bold;
+}
+QPushButton#saveButton:hover {
+    background: var(--bg-accent-hover);
+}
+
+QPushButton#cancelButton, QPushButton#browseButton {
+    background: #444;
+    color: #fff;
+}
+QPushButton#cancelButton:hover, QPushButton#browseButton:hover {
+    background: #222;
+}
+
+QPushButton#deleteButton, QPushButton#DeleteButton {
+    background: var(--bg-danger);
+    color: #fff;
+}
+QPushButton#deleteButton:hover, QPushButton#DeleteButton:hover {
+    background: var(--bg-danger-hover);
+}
+
+QPushButton#editButton, QPushButton#RenewKeepButton, QPushButton#RenewDeleteButton {
+    background: var(--bg-muted);
+    color: #fff;
+}
+QPushButton#editButton:hover, QPushButton#RenewKeepButton:hover, QPushButton#RenewDeleteButton:hover {
+    background: var(--bg-success);
+    color: #23272e;
+}
+
+QPushButton#backButton, #BackButton {
+    background: transparent;
+    border: none;
+    color: var(--text-accent);
+    font-size: 18px;
+    padding: 4px 12px;
+}
+QPushButton#backButton:hover, #BackButton:hover {
+    color: #fff;
+    background: #3a3f4b;
+    border-radius: 8px;
+}
+
+QComboBox {
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: 1.5px solid #444;
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 13pt;
+}
+QComboBox::drop-down, QComboBox::down-arrow {
+    border: none;
+    background: transparent;
+}
+
+QScrollArea, QWidget#contentWidget {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+}
+
+QGroupBox {
+    border: 1px solid #444;
+    border-radius: 8px;
+    margin-top: 12px;
+    background: #23272e;
+    color: var(--text-main);
+    font-weight: 500;
+    padding: 10px 16px;
+}
+
+QCheckBox, QRadioButton {
+    color: var(--text-main);
+    font-size: 13pt;
+}
+
+QMessageBox {
+    background: var(--bg-card);
+    color: var(--text-main);
+    border-radius: var(--border-radius);
+    font-size: 15px;
+}
+
+/* --- Custom Widget IDs --- */
+#PasswordEntry {
+    background: #292d36;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    padding: 8px 12px;
+}
+#EntryName {
+    font-size: 15px;
+    font-weight: 500;
+    color: #b8c0cc;
+    min-width: 120px;
+}
+#PasswordLabel {
+    font-family: 'Consolas', monospace;
+    background: transparent;
+    color: #f3f3f3;
+    padding: 2px 8px;
+    border-radius: 0px;
+    min-width: 80px;
+}
+#DuplicateGroupLabel {
+    font-size: 16px;
+    font-weight: 600;
+    color: #f3c674;
+    margin-bottom: 6px;
+    margin-top: 8px;
+}
+#ToggleButton {
+    background: #2d313a;
+    border: none;
+    border-radius: 8px;
+    color: #e0e0e0;
+    font-weight: 500;
+    padding: 8px 16px;
+    margin-bottom: 6px;
+    text-align: left;
+}
+#ToggleButton:hover {
+    background: #3a3f4b;
+}
+
+/* --- Misc --- */
+QSpacerItem {
+    min-height: 10px;
+}
