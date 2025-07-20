@@ -1,3 +1,25 @@
+# version and app constants
+__version__: str = "v1.1.7"
+__app_name__: str = "Password Manager"
+
+__license__: str = "MIT"
+__copyright__: str = "Copyright (c) 2025 Maix741"
+
+__url__: str = "https://www.github.com/Maix741/Password_Manager"
+__author__: str = "Maix741"
+__maintainer__: str = "Maix741"
+
+__all_version_info__: dict[str, str] = {
+    "__version__": __version__,
+    "__app_name__": __app_name__,
+    "__license__": __license__,
+    "__copyright__": __copyright__,
+    "__url__": __url__,
+    "__author__": __author__,
+    "__maintainer__": __maintainer__,
+}
+
+
 # password constants
 PASSWORD_MIN_LENGHT: int = 4
 PASSWORD_MAX_LENGHT_SLIDER: int = 64
