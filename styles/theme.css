@@ -1,23 +1,44 @@
-/* --- Color Variables --- */
+/* --- Color, Font, and Spacing Variables --- */
 :root {
+    /* Backgrounds */
     --bg-main: #23272e;
-    --bg-card: #282c37; /* Lighter than main for contrast */
+    --bg-card: #2d2d2d;
     --bg-input: #23272e;
-    --bg-accent: #2196f3; /* More vibrant blue */
-    --bg-accent-hover: #1769aa;
-    --bg-accent-pressed: #0d47a1;
+    --bg-muted: #393e46;
+    --bg-accent: #0078D7;
+    --bg-accent-hover: #005fa3;
     --bg-danger: #ff2e63;
     --bg-danger-hover: #c82333;
     --bg-success: #00adb5;
-    --bg-muted: #393e46;
-    --border-color: #222831;
+
+    /* Borders & Shadows */
+    --border-color: #000000;
     --border-radius: 12px;
+    --border-radius-small: 8px;
+    --border-width: 1.5px;
     --shadow: 0 2px 12px rgba(0,0,0,0.18);
+
+    /* Text */
     --text-main: #f3f3f3;
     --text-muted: #bdbdbd;
     --text-accent: #00adb5;
     --text-danger: #ff2e63;
+
+    /* Fonts */
     --font-main: 'Segoe UI', Arial, sans-serif;
+    --font-size-base: 15px;
+    --font-size-large: 24pt;
+    --font-size-medium: 13pt;
+    --font-size-small: 11pt;
+
+    /* Spacing & Padding */
+    --padding-base: 20px;
+    --padding-small: 8px;
+    --padding-medium: 12px;
+    --padding-large: 24px;
+    --margin-base: 10px;
+    --margin-small: 6px;
+    --margin-large: 20px;
 }
 
 /* --- Base Styles --- */
@@ -32,7 +53,7 @@ QFrame#PasswordCardFrame, QWidget#PasswordCard, QWidget#CheckPasswordCard, QWidg
     background: var(--bg-card);
     border-radius: var(--border-radius);
     border: 1px solid var(--border-color);
-    box-shadow: var(--shadow);
+    /* box-shadow: var(--shadow); */
     padding: 20px;
 }
 
@@ -54,48 +75,38 @@ QLineEdit, QComboBox, QSpinBox {
     border-radius: 8px;
     padding: 7px 12px;
     font-size: 13pt;
-    transition: border-color 0.2s;
+    /* transition: border-color 0.2s; */
 }
 QLineEdit:focus, QComboBox:focus, QSpinBox:focus {
     border-color: var(--bg-accent);
 }
 
-/* --- Button Styles --- */
 QPushButton {
-    background: var(--bg-accent);
-    color: #fff;
+    background: var(--bg-muted);
+    color: var(--text-main);
     border-radius: 8px;
     padding: 10px 24px;
-    font-size: 15px;
+    font-size: 14px;
     border: none;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(33,150,243,0.08);
-    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    font-weight: 500;
+    /* transition: background 0.2s, color 0.2s; */
 }
 QPushButton:hover {
-    background: var(--bg-accent-hover);
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(33,150,243,0.18);
-}
-QPushButton:pressed {
-    background: var(--bg-accent-pressed);
+    background: var(--bg-accent);
     color: #fff;
 }
 
-QPushButton#saveButton, QPushButton#okButton, QPushButton#addButton {
+QPushButton#saveButton {
     background: var(--bg-accent);
     color: #fff;
     font-weight: bold;
 }
-QPushButton#saveButton:hover, QPushButton#okButton:hover, QPushButton#addButton:hover {
+QPushButton#saveButton:hover {
     background: var(--bg-accent-hover);
-}
-QPushButton#saveButton:pressed, QPushButton#okButton:pressed, QPushButton#addButton:pressed {
-    background: var(--bg-accent-pressed);
 }
 
 QPushButton#cancelButton, QPushButton#browseButton {
-    background: var(--bg-muted);
+    background: #444;
     color: #fff;
 }
 QPushButton#cancelButton:hover, QPushButton#browseButton:hover {
@@ -122,7 +133,7 @@ QPushButton#editButton:hover, QPushButton#RenewKeepButton:hover, QPushButton#Ren
 QPushButton#backButton, #BackButton {
     background: transparent;
     border: none;
-    color: var(--bg-accent);
+    color: var(--text-accent);
     font-size: 18px;
     padding: 4px 12px;
 }

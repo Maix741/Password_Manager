@@ -10,6 +10,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Signal, Qt, QTimer, QSize, QCoreApplication
 from PySide6.QtGui import QIcon
 
+from .load_stylesheets import load_stylesheets
+
 
 class ReadPasswordWidget(QWidget):
     returned: Signal = Signal(dict)
@@ -199,13 +201,7 @@ class ReadPasswordWidget(QWidget):
         return QSpacerItem(5, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
     def set_style_sheet(self) -> None:
-        css_path: str = os.path.join(self.styles_path, "read_password_widget.css")
-
-        try:
-            with open(css_path, "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the read_password_widget: {e}")
+        self.setStyleSheet(load_stylesheets(self.styles_path, "read_password_widget"))
 
     def hide_or_unhide_password(self) -> None:
         if self.password_edit.echoMode() != QLineEdit.Password:

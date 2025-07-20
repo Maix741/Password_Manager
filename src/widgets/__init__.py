@@ -8,3 +8,5 @@ from .settings_widget import SettingsWidget
 from .generate_dialog import PasswordGenerateDialog
 
 from .wrong_master_message import MasterWarningMessage
+
+from .load_stylesheets import load_stylesheets

@@ -8,6 +8,8 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Qt, QCoreApplication
 
+from .load_stylesheets import load_stylesheets
+
 
 class PasswordGenerateDialog(QDialog):
     def __init__(self, styles_path: str, settings_handler, translator, generator, password_copyer, parent=None,
@@ -113,13 +115,7 @@ class PasswordGenerateDialog(QDialog):
         main_layout.addLayout(button_layout)
 
     def set_style_sheet(self) -> None:
-        css_path: str = os.path.join(self.styles_path, "generate_dialog.css")
-
-        try:
-            with open(css_path, "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the generate_dialog: {e}")
+        self.setStyleSheet(load_stylesheets(self.styles_path, "generate_dialog"))
 
     def set_lenght_slider(self, value: int) -> None:
         if value < self.lenght_maximum_slider:

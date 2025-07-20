@@ -9,6 +9,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Signal, Qt, QCoreApplication, QSize
 from PySide6.QtGui import QIcon
 
+from .load_stylesheets import load_stylesheets
+
 
 class CheckPasswordWidget(QWidget):
     returned = Signal()
@@ -322,13 +324,7 @@ class CheckPasswordWidget(QWidget):
         self.reused_toggle_button.setText(self.tr("⚠️ Reused Passwords ({count}) {arrow}").format(count=count, arrow=arrow))
 
     def set_style_sheet(self) -> None:
-        css_path: str = os.path.join(self.styles_path, "check_passwords_widget.css")
-
-        try:
-            with open(css_path, "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the check_passwords_widget: {e}")
+        self.setStyleSheet(load_stylesheets(self.styles_path, "check_passwords_widget"))
 
     def return_to_list(self) -> None:
         self.returned.emit()

@@ -1,5 +1,3 @@
-@import url("theme.css");
-
 QWidget#KeyManagementWidget {
     background: var(--bg-main);
     border-radius: var(--border-radius);

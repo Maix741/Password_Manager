@@ -8,6 +8,8 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtCore import Signal, Qt, QCoreApplication
 
+from .load_stylesheets import load_stylesheets
+
 
 class SettingsWidget(QWidget):
     returned: Signal = Signal(bool)
@@ -150,13 +152,7 @@ class SettingsWidget(QWidget):
         self.setLayout(main_layout)
 
     def set_style_sheet(self) -> None:
-        css_path: str = os.path.join(self.styles_path, "settings_widget.css")
-
-        try:
-            with open(css_path, "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the settings_widget: {e}")
+        self.setStyleSheet(load_stylesheets(self.styles_path, "settings_widget"))
 
     def browse_data_path(self):
         from PySide6.QtWidgets import QFileDialog
