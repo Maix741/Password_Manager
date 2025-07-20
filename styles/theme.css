@@ -1,10 +1,11 @@
 /* --- Color Variables --- */
 :root {
     --bg-main: #23272e;
-    --bg-card: #2d2d2d;
+    --bg-card: #282c37; /* Lighter than main for contrast */
     --bg-input: #23272e;
-    --bg-accent: #0078D7;
-    --bg-accent-hover: #005fa3;
+    --bg-accent: #2196f3; /* More vibrant blue */
+    --bg-accent-hover: #1769aa;
+    --bg-accent-pressed: #0d47a1;
     --bg-danger: #ff2e63;
     --bg-danger-hover: #c82333;
     --bg-success: #00adb5;
@@ -59,32 +60,42 @@ QLineEdit:focus, QComboBox:focus, QSpinBox:focus {
     border-color: var(--bg-accent);
 }
 
+/* --- Button Styles --- */
 QPushButton {
-    background: var(--bg-muted);
-    color: var(--text-main);
+    background: var(--bg-accent);
+    color: #fff;
     border-radius: 8px;
     padding: 10px 24px;
-    font-size: 14px;
+    font-size: 15px;
     border: none;
-    font-weight: 500;
-    transition: background 0.2s, color 0.2s;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(33,150,243,0.08);
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
 }
 QPushButton:hover {
-    background: var(--bg-accent);
+    background: var(--bg-accent-hover);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(33,150,243,0.18);
+}
+QPushButton:pressed {
+    background: var(--bg-accent-pressed);
     color: #fff;
 }
 
-QPushButton#saveButton {
+QPushButton#saveButton, QPushButton#okButton, QPushButton#addButton {
     background: var(--bg-accent);
     color: #fff;
     font-weight: bold;
 }
-QPushButton#saveButton:hover {
+QPushButton#saveButton:hover, QPushButton#okButton:hover, QPushButton#addButton:hover {
     background: var(--bg-accent-hover);
+}
+QPushButton#saveButton:pressed, QPushButton#okButton:pressed, QPushButton#addButton:pressed {
+    background: var(--bg-accent-pressed);
 }
 
 QPushButton#cancelButton, QPushButton#browseButton {
-    background: #444;
+    background: var(--bg-muted);
     color: #fff;
 }
 QPushButton#cancelButton:hover, QPushButton#browseButton:hover {
@@ -111,7 +122,7 @@ QPushButton#editButton:hover, QPushButton#RenewKeepButton:hover, QPushButton#Ren
 QPushButton#backButton, #BackButton {
     background: transparent;
     border: none;
-    color: var(--text-accent);
+    color: var(--bg-accent);
     font-size: 18px;
     padding: 4px 12px;
 }
