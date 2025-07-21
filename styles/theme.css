@@ -43,7 +43,6 @@
 
 /* --- Base Styles --- */
 QWidget, QDialog, QMainWindow {
-    background: var(--bg-main);
     color: var(--text-main);
     font-family: var(--font-main);
     font-size: 15px;
@@ -75,7 +74,6 @@ QLineEdit, QComboBox, QSpinBox {
     border-radius: 8px;
     padding: 7px 12px;
     font-size: 13pt;
-    /* transition: border-color 0.2s; */
 }
 QLineEdit:focus, QComboBox:focus, QSpinBox:focus {
     border-color: var(--bg-accent);
@@ -143,14 +141,6 @@ QPushButton#backButton:hover, #BackButton:hover {
     border-radius: 8px;
 }
 
-QComboBox {
-    background: var(--bg-input);
-    color: var(--text-main);
-    border: 1.5px solid #444;
-    border-radius: 8px;
-    padding: 7px 12px;
-    font-size: 13pt;
-}
 QComboBox::drop-down, QComboBox::down-arrow {
     border: none;
     background: transparent;
