@@ -48,3 +48,8 @@ QPushButton#cancelButton:hover, QPushButton#browseButton:hover {
 QPushButton:hover {
     text-decoration: underline;
 }
+
+QPushButton#browseButton {
+    border: 1.5px solid #444;
+    font-size: var(--font-size-medium);
+}

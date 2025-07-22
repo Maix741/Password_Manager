@@ -143,6 +143,7 @@ class SettingsWidget(QWidget):
         button_layout.addStretch()
 
         card_layout.addLayout(grid_layout)
+        card_layout.addSpacerItem(QSpacerItem(0, 20, QSizePolicy.Minimum, QSizePolicy.Fixed))
         card_layout.addLayout(button_layout)
         card_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
