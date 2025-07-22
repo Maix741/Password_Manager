@@ -4,8 +4,13 @@ QMainWindow {
 
 QMenuBar, QMenu {
     background: var(--bg-card);
+    font-size: var(--font-size-small);
     color: var(--text-main);
-    border-radius: var(--border-radius);
+}
+
+QDockWidget#mainDockWidget {
+    width: 200pt;
+    background-color: #FFFFFF;
 }
 
 QListWidget {
@@ -37,4 +42,15 @@ QPushButton {
 QPushButton:hover {
     background: var(--bg-accent);
     color: #fff;
+}
+
+QPushButton#controlsDockButton {
+    background: var(--bg-muted);
+    border-radius: 8px;
+    border: none;
+}
+QPushButton#controlsDockButton:hover {
+    background: #c1b6b6;
+    color: var(--text-main);
+
 }

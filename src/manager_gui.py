@@ -248,6 +248,7 @@ class ManagerGUI(QMainWindow):
         dock_layout.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         add_password_button: QPushButton = QPushButton(self)
+        add_password_button.setObjectName("controlsDockButton")
         add_password_button.setToolTip(self.tr("Add Password"))
         add_password_button.clicked.connect(self.add_password)
         add_password_button.setIcon(self.add_icon)
@@ -255,6 +256,7 @@ class ManagerGUI(QMainWindow):
         dock_layout.addWidget(add_password_button)
 
         renew_keys_button: QPushButton = QPushButton(self)
+        renew_keys_button.setObjectName("controlsDockButton")
         renew_keys_button.setToolTip(self.tr("Renew Keys"))
         renew_keys_button.setIcon(self.key_icon)
         renew_keys_button.setIconSize(self.icon_size)
@@ -262,6 +264,7 @@ class ManagerGUI(QMainWindow):
         dock_layout.addWidget(renew_keys_button)
 
         settings_button: QPushButton = QPushButton(self)
+        settings_button.setObjectName("controlsDockButton")
         settings_button.setToolTip(self.tr("Settings"))
         settings_button.clicked.connect(self.change_to_settings)
         settings_button.setIcon(self.settings_icon)

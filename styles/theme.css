@@ -50,9 +50,8 @@ QWidget, QDialog, QMainWindow {
 
 QFrame#PasswordCardFrame, QWidget#PasswordCard, QWidget#CheckPasswordCard, QWidget#KeyManagementWidget {
     background: var(--bg-card);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-small);
     border: 1px solid var(--border-color);
-    /* box-shadow: var(--shadow); */
     padding: 20px;
 }
 
@@ -87,7 +86,6 @@ QPushButton {
     font-size: 14px;
     border: none;
     font-weight: 500;
-    /* transition: background 0.2s, color 0.2s; */
 }
 QPushButton:hover {
     background: var(--bg-accent);
