@@ -1,6 +1,4 @@
-import argparse
-
-from src import ManagerCMD
+from src import ManagerCMD, parse_args
 
 
 def get_input(manager: ManagerCMD) -> bool:
@@ -79,25 +77,13 @@ def get_input(manager: ManagerCMD) -> bool:
     return False
 
 
-def parse_args() -> argparse.Namespace:
-    """Parse command line arguments for the password manager.
-
-    Returns:
-        argparse.Namespace: Parsed command line arguments.
-    """
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-dp", "--data-path", type=str, required=False, help="Set data-path for application")
-
-    return parser.parse_args()
-
-
 def cmd_main() -> None:
     """Main function to run the command line password manager.
 
     This function initializes the ManagerCMD instance and enters a loop to get user input
     until the user decides to exit.
     """
-    args: argparse.Namespace = parse_args()
+    args = parse_args()
     data_path = args.data_path or None
 
     manager: ManagerCMD = ManagerCMD(data_path=data_path)
