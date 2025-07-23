@@ -31,7 +31,19 @@ class ExportPasswords:
         return passwords
 
     def write_file(self, csv_file_path: str, file_lines: list[dict[str, str]]) -> None:
-        with open(csv_file_path, "w") as csv_file:
+        """Writes the passwords to a CSV file.
+
+        Args:
+            csv_file_path (str): Path to the CSV file where passwords will be exported.
+            file_lines (list[dict[str, str]]): List of dictionaries containing password data.
+        """
+        # change keys 'website' to 'url' and 'notes' to 'note', and remove the old keys
+        file_lines = [
+            {**{k: v for k, v in line.items() if k not in ("website", "notes")},
+             "url": line.get("website", ""), "note": line.get("notes", "").strip()}
+            for line in file_lines
+        ]
+        with open(csv_file_path, "w", newline="") as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=["name", "url", "username", "password", "note"])
             writer.writeheader()
             # Write the file lines to the CSV file
