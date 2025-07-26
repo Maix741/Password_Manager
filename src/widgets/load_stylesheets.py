@@ -40,7 +40,10 @@ def load_stylesheets(styles_path: str, widget_name: str) -> str:
     """
     theme_file = os.path.join(styles_path, "theme.css")
     widget_file = os.path.join(styles_path, f"{widget_name}.css")
-    variables = extract_css_variables(theme_file)
+    try:
+        variables = extract_css_variables(theme_file)
+    except (FileNotFoundError, PermissionError):
+        return ""
 
     qss: str = ""
     for file in [theme_file, widget_file]:
