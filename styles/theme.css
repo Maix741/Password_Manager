@@ -66,7 +66,7 @@ QLabel#titleLabel, QLabel#nameLabel, #CheckPasswordTitle, #KeyManagementTitle {
     font-weight: bold;
 }
 
-QLineEdit, QComboBox, QSpinBox {
+QLineEdit, QComboBox {
     background: var(--bg-input);
     color: var(--text-main);
     border: var(--border-width) solid #444;
@@ -74,7 +74,7 @@ QLineEdit, QComboBox, QSpinBox {
     padding: 7px 12px;
     font-size: var(--font-size-medium);
 }
-QLineEdit:focus, QComboBox:focus, QSpinBox:focus {
+QLineEdit:focus, QComboBox:focus {
     border-color: var(--bg-accent);
 }
 
