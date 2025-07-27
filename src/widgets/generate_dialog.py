@@ -55,8 +55,6 @@ class PasswordGenerateDialog(QDialog):
         self.length_slider.setMinimum(self.lenght_minimum)
         self.length_slider.setMaximum(self.lenght_maximum_slider)
         self.length_slider.setValue(self.lenght_start_value)
-        self.length_slider.setTickInterval(1)
-        self.length_slider.setTickPosition(QSlider.TicksBelow)
         self.length_slider.setSingleStep(1)
         self.length_slider.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
