@@ -72,3 +72,8 @@ QSpinBox#lenghtSpinBox {
 QSpinBox#lenghtSpinBox:focus {
     border-color: var(--bg-accent);
 }
+
+QGroupBox::title {
+  background-color: transparent;
+  padding-top: -24px;
+}
