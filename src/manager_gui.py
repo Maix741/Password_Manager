@@ -452,7 +452,7 @@ class ManagerGUI(QMainWindow):
         # Check if settings_widget already exists and return to the list if it does
         if hasattr(self, "settings_widget") and self.settings_widget:
             logging.debug("Settings widget already exists, returning to normal list.")
-            self.settings_widget.return_to_list()
+            self.settings_widget.return_to_list() # FIXME: RuntimeError: Signal source has been deleted
             return
 
         # Clear the central layout
