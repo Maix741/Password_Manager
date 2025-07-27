@@ -2,8 +2,15 @@ QMainWindow {
     background: var(--bg-main);
 }
 
-QMenuBar, QMenu {
+QMenuBar {
     background: var(--bg-card);
+    font-size: var(--font-size-small);
+    color: var(--text-main);
+
+}
+QMenu {
+    background: var(--bg-card);
+    border-radius: var(--border-radius-small);
     font-size: var(--font-size-small);
     color: var(--text-main);
 }
