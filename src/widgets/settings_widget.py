@@ -88,7 +88,7 @@ class SettingsWidget(QWidget):
         self.locale_combo_box = QComboBox()
         self.locale_combo_box.setPlaceholderText(self.tr("Locale"))
         self.locale_combo_box.addItems(self.translations_handler.get_available_languages())
-        self.locale_combo_box.setCurrentText(self.settings_handler.get("system_locale"))
+        self.locale_combo_box.setCurrentText(self.translations_handler.get_language_name(self.settings_handler.get("system_locale")))
         self.locale_combo_box.setToolTip(self.tr("Language for the application interface."))
         self.locale_combo_box.currentTextChanged.connect(self.locale_changed)
         grid_layout.addWidget(self.locale_combo_box, 1, 1)
@@ -166,7 +166,7 @@ class SettingsWidget(QWidget):
     def save_settings(self) -> None:
         logging.info("Saving settings")
         self.settings_handler.set("data_path", self.data_edit.text())
-        self.settings_handler.set("system_locale", self.locale_combo_box.currentText())
+        self.settings_handler.set("system_locale", self.translations_handler.get_locale_name(self.locale_combo_box.currentText()))
         self.settings_handler.set("use_website_as_name", self.use_website_combo_box.currentIndex() == 0)
         self.settings_handler.set("design", self.design_combo.currentIndex())
         self.settings_handler.save()
