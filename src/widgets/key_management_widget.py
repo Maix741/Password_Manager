@@ -50,7 +50,7 @@ class KeyManagementWidget(QWidget):
         self.card_frame.setFrameShadow(QFrame.Raised)
         card_layout = QVBoxLayout(self.card_frame)
 
-        content_layout: QVBoxLayout = QVBoxLayout(self)
+        content_layout: QVBoxLayout = QVBoxLayout()
         content_layout.setSpacing(15)
 
         # Header layout for back button and title
