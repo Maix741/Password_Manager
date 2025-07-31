@@ -55,6 +55,9 @@ class SettingsWidget(QWidget):
         title_label.setAlignment(Qt.AlignCenter)
         card_layout.addWidget(title_label)
 
+        # Spacer between title and widget
+        card_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Fixed))
+
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()
         grid_layout.setHorizontalSpacing(20)
