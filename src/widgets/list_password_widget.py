@@ -1,6 +1,4 @@
 import logging
-import sys
-import os
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
