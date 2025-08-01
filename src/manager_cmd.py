@@ -7,6 +7,8 @@ import logging
 import shutil
 import os
 
+from colorama import Fore, Style
+
 # import nessesary utils
 from .utils import *
 
@@ -43,7 +45,7 @@ class ManagerCMD:
             notes: str = input("notes: ") or "n/a"
 
             if not (name and website):
-                print("Password must have a name or website to save!")
+                print(f"{Fore.YELLOW}Password must have a name or website to save!{Style.RESET_ALL}")
                 return
 
             logging.info(f"Adding Password: {name}")
@@ -62,7 +64,7 @@ class ManagerCMD:
             )
 
         except (IndexError, PermissionError, FileNotFoundError, ValueError):
-            print("Invalid inputs! | Please try again")
+            print(f"{Fore.RED}Invalid inputs! | Please try again{Style.RESET_ALL}")
             return self.add_password()
 
     def read_password(self, name: str) -> None:
@@ -77,7 +79,7 @@ class ManagerCMD:
             self.display_password(decrypted_password)
 
         except Exception as e:
-            print("Invalid name or key! | Please try again") # TODO: Suggesting names
+            print(f"{Fore.RED}Invalid name or key! | Please try again{Style.RESET_ALL}") # TODO: Suggesting names
             logging.error(f"Invalid key or name for reading: {e}")
 
     def display_password(self, password: dict[str, str]) -> None:
@@ -128,7 +130,7 @@ class ManagerCMD:
         return (correct_master, fernet_key, [AES_key, salt])
 
     def wrong_master_entered(self) -> None:
-        print("Wrong master Password entered!")
+        print(f"{Fore.RED}Wrong master Password entered!{Style.RESET_ALL}")
 
     def get_password_name(self) -> str:
         name = input("Name of the password: ").lower().replace(" ", "")
@@ -175,9 +177,9 @@ class ManagerCMD:
         self.reset_console()
         print(f"Generated password: {password}")
         if copy_string(password):
-            print("The password was copied to the clipboard!")
+            print(f"{Fore.GREEN}The password was copied to the clipboard!{Style.RESET_ALL}")
         else:
-            print("Copying was unsuccessfull. Please copy it manually")
+            print(f"{Fore.RED}Copying was unsuccessfull. Please copy it manually{Style.RESET_ALL}")
 
         return password
 
@@ -188,7 +190,7 @@ class ManagerCMD:
 
             csv_file = input("File path for csv file: ")
             if not csv_file or not os.path.isfile(csv_file):
-                print("Invalid file path entered!")
+                print(f"{Fore.RED}Invalid file path entered!{Style.RESET_ALL}")
                 return
 
             ImportPasswords(csv_file, self.passwords_path, (fernet_key, AES_key))
@@ -196,7 +198,7 @@ class ManagerCMD:
 
         except (IndexError, PermissionError, FileNotFoundError, ValueError, KeyError) as e:
             logging.error(f"Error while importing password: {e}")
-            print("Saving unsuccessfull due to an Error")
+            print(f"{Fore.RED}Saving unsuccessfull due to an Error{Style.RESET_ALL}")
 
     def export_passwords(self) -> None:
         try:
@@ -205,7 +207,7 @@ class ManagerCMD:
 
             save_directory = input("Folder for saving csv file(path): ")
             if not save_directory or not os.path.isdir(save_directory):
-                print("Invalid folder path entered!")
+                print(f"{Fore.RED}Invalid folder path entered!{Style.RESET_ALL}")
                 return
 
             csv_file = os.path.join(save_directory, "passwords.csv")
@@ -213,7 +215,7 @@ class ManagerCMD:
 
         except (IndexError, PermissionError, FileNotFoundError, ValueError, KeyError) as e:
             logging.error(f"Error while exporting password: {e}")
-            print("Exporting unsuccessfull due to an Error")
+            print(f"{Fore.RED}Exporting unsuccessfull due to an Error{Style.RESET_ALL}")
 
     def search_passwords(self, query: str) -> None:
         """Searches for passwords that match the query.
@@ -225,9 +227,9 @@ class ManagerCMD:
         if len(search_result) == 1 and len(query) >= 5:
             self.read_password(search_result[0])
         else:
-            print("Unknown passowrd!")
+            print(f"{Fore.YELLOW}Unknown passowrd!{Style.RESET_ALL}")
             print("Did you mean: " + ", ".join(search_result))
 
     def remove_password(self, name) -> None:
         remove_password(self.data_path, name)
-        print(f"\"{name}\" has been removed")
+        print(f"{Fore.YELLOW}\"{name}\" has been removed{Style.RESET_ALL}")
