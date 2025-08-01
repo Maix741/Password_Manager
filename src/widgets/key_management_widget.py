@@ -9,6 +9,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Signal, Qt, QCoreApplication, QSize
 from PySide6.QtGui import QIcon
 
+from .load_stylesheets import load_stylesheets
+
 
 class KeyManagementWidget(QWidget):
     returned: Signal = Signal(int)
@@ -48,7 +50,7 @@ class KeyManagementWidget(QWidget):
         self.card_frame.setFrameShadow(QFrame.Raised)
         card_layout = QVBoxLayout(self.card_frame)
 
-        content_layout: QVBoxLayout = QVBoxLayout(self)
+        content_layout: QVBoxLayout = QVBoxLayout()
         content_layout.setSpacing(15)
 
         # Header layout for back button and title
@@ -113,13 +115,7 @@ class KeyManagementWidget(QWidget):
         self.return_to_list(3)
 
     def set_style_sheet(self) -> None:
-        css_path: str = os.path.join(self.styles_path, "key_management_widget.css")
-
-        try:
-            with open(css_path, "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the key_management_widget: {e}")
+        self.setStyleSheet(load_stylesheets(self.styles_path, "key_management_widget"))
 
     def return_to_list(self, return_code: int = 0) -> None:
         self.returned.emit(return_code)

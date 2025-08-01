@@ -9,6 +9,8 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Signal, Qt, QSize, QCoreApplication
 from PySide6.QtGui import QIcon
 
+from .load_stylesheets import load_stylesheets
+
 
 class AddPasswordWidget(QWidget):
     returned: Signal = Signal(dict)
@@ -154,13 +156,7 @@ class AddPasswordWidget(QWidget):
         card_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
     def set_style_sheet(self) -> None:
-        css_path: str = os.path.join(self.styles_path, "add_password_widget.css")
-
-        try:
-            with open(css_path, "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the add_password_widget: {e}")
+        self.setStyleSheet(load_stylesheets(self.styles_path, "add_password_widget"))
 
     def get_spacer(self) -> QSpacerItem:
         # This spacer is used to align the labels and fields in the grid layout.

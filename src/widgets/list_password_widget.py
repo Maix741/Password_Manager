@@ -1,6 +1,4 @@
 import logging
-import sys
-import os
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
@@ -8,6 +6,8 @@ from PySide6.QtWidgets import (
     QSizePolicy, QGridLayout
 )
 from PySide6.QtCore import Qt
+
+from .load_stylesheets import load_stylesheets
 
 
 class PasswordWidget(QWidget):
@@ -48,10 +48,4 @@ class PasswordWidget(QWidget):
         main_layout.addLayout(grid_layout)
 
     def set_style_sheet(self) -> None:
-        css_path: str = os.path.join(self.styles_path, "list_password_widget.css")
-
-        try:
-            with open(css_path, "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the list_password_widget: {e}")
+        self.setStyleSheet(load_stylesheets(self.styles_path, "list_password_widget"))

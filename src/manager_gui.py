@@ -77,13 +77,7 @@ class ManagerGUI(QMainWindow):
             self.create_menubar()
 
     def set_style_sheet(self) -> None:
-        css_path: str = os.path.join(self.styles_path, "manager_gui.css")
-
-        try:
-            with open(css_path, "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the manager_gui: {e}")
+        self.setStyleSheet(load_stylesheets(self.styles_path, "manager_gui"))
 
     def reload_self(self) -> None:
         self.data_path = self.settings_handler.get("data_path")
@@ -254,6 +248,7 @@ class ManagerGUI(QMainWindow):
         dock_layout.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         add_password_button: QPushButton = QPushButton(self)
+        add_password_button.setObjectName("controlsDockButton")
         add_password_button.setToolTip(self.tr("Add Password"))
         add_password_button.clicked.connect(self.add_password)
         add_password_button.setIcon(self.add_icon)
@@ -261,6 +256,7 @@ class ManagerGUI(QMainWindow):
         dock_layout.addWidget(add_password_button)
 
         renew_keys_button: QPushButton = QPushButton(self)
+        renew_keys_button.setObjectName("controlsDockButton")
         renew_keys_button.setToolTip(self.tr("Renew Keys"))
         renew_keys_button.setIcon(self.key_icon)
         renew_keys_button.setIconSize(self.icon_size)
@@ -268,6 +264,7 @@ class ManagerGUI(QMainWindow):
         dock_layout.addWidget(renew_keys_button)
 
         settings_button: QPushButton = QPushButton(self)
+        settings_button.setObjectName("controlsDockButton")
         settings_button.setToolTip(self.tr("Settings"))
         settings_button.clicked.connect(self.change_to_settings)
         settings_button.setIcon(self.settings_icon)
@@ -455,7 +452,7 @@ class ManagerGUI(QMainWindow):
         # Check if settings_widget already exists and return to the list if it does
         if hasattr(self, "settings_widget") and self.settings_widget:
             logging.debug("Settings widget already exists, returning to normal list.")
-            self.settings_widget.return_to_list()
+            self.settings_widget.return_to_list() # FIXME: RuntimeError: Signal source has been deleted
             return
 
         # Clear the central layout

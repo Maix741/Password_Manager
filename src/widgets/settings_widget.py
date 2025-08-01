@@ -1,12 +1,13 @@
 import logging
-import os
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
     QPushButton, QVBoxLayout, QLabel, QWidget, QSpacerItem, QFrame,
-    QComboBox, QHBoxLayout, QLineEdit, QGridLayout, QSizePolicy
+    QComboBox, QHBoxLayout, QLineEdit, QGridLayout, QSizePolicy, QFileDialog
 )
 from PySide6.QtCore import Signal, Qt, QCoreApplication
+
+from .load_stylesheets import load_stylesheets
 
 
 class SettingsWidget(QWidget):
@@ -53,17 +54,18 @@ class SettingsWidget(QWidget):
         title_label.setAlignment(Qt.AlignCenter)
         card_layout.addWidget(title_label)
 
+        # Spacer between title and widget
+        card_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Fixed))
+
         # Grid layout for label/field pairs
         grid_layout = QGridLayout()
         grid_layout.setHorizontalSpacing(20)
         grid_layout.setVerticalSpacing(18)
-        label_width = 160
 
         # row 0: data_path
         data_path_label = QLabel(self.tr("Data path"))
-        data_path_label.setFixedWidth(label_width)
         data_path_label.setToolTip(self.tr("Location where your data is stored."))
-        grid_layout.addWidget(data_path_label, 0, 0, alignment=Qt.AlignRight)
+        grid_layout.addWidget(data_path_label, 0, 0)
 
         data_path_layout = QHBoxLayout()
         self.data_edit = QLineEdit()
@@ -82,21 +84,19 @@ class SettingsWidget(QWidget):
 
         # row 1: locale
         locale_label = QLabel(self.tr("Locale"))
-        locale_label.setFixedWidth(label_width)
         locale_label.setToolTip(self.tr("Language for the application interface."))
-        grid_layout.addWidget(locale_label, 1, 0, alignment=Qt.AlignRight)
+        grid_layout.addWidget(locale_label, 1, 0)
 
         self.locale_combo_box = QComboBox()
         self.locale_combo_box.setPlaceholderText(self.tr("Locale"))
         self.locale_combo_box.addItems(self.translations_handler.get_available_languages())
-        self.locale_combo_box.setCurrentText(self.settings_handler.get("system_locale"))
+        self.locale_combo_box.setCurrentText(self.translations_handler.get_language_name(self.settings_handler.get("system_locale")))
         self.locale_combo_box.setToolTip(self.tr("Language for the application interface."))
         self.locale_combo_box.currentTextChanged.connect(self.locale_changed)
         grid_layout.addWidget(self.locale_combo_box, 1, 1)
 
         # row 2: use_website_as_name
-        use_website_label = QLabel(self.tr("Use website as name"))
-        use_website_label.setFixedWidth(label_width)
+        use_website_label = QLabel(self.tr("Use website\n as name"))
         use_website_label.setToolTip(self.tr("Use the website as the entry name by default."))
         grid_layout.addWidget(use_website_label, 2, 0, alignment=Qt.AlignRight)
 
@@ -110,9 +110,8 @@ class SettingsWidget(QWidget):
 
         # row 3: design
         design_label = QLabel(self.tr("Design"))
-        design_label.setFixedWidth(label_width)
         design_label.setToolTip(self.tr("Theme for the application."))
-        grid_layout.addWidget(design_label, 3, 0, alignment=Qt.AlignRight)
+        grid_layout.addWidget(design_label, 3, 0)
 
         self.design_combo = QComboBox()
         self.design_combo.setPlaceholderText(self.tr("Design"))
@@ -141,6 +140,7 @@ class SettingsWidget(QWidget):
         button_layout.addStretch()
 
         card_layout.addLayout(grid_layout)
+        card_layout.addSpacerItem(QSpacerItem(0, 20, QSizePolicy.Minimum, QSizePolicy.Fixed))
         card_layout.addLayout(button_layout)
         card_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
@@ -150,16 +150,9 @@ class SettingsWidget(QWidget):
         self.setLayout(main_layout)
 
     def set_style_sheet(self) -> None:
-        css_path: str = os.path.join(self.styles_path, "settings_widget.css")
+        self.setStyleSheet(load_stylesheets(self.styles_path, "settings_widget"))
 
-        try:
-            with open(css_path, "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the settings_widget: {e}")
-
-    def browse_data_path(self):
-        from PySide6.QtWidgets import QFileDialog
+    def browse_data_path(self) -> None:
         path = QFileDialog.getExistingDirectory(self, self.tr("Select Data Directory"), self.data_edit.text())
         if path:
             self.data_path_changed = True
@@ -175,7 +168,7 @@ class SettingsWidget(QWidget):
     def save_settings(self) -> None:
         logging.info("Saving settings")
         self.settings_handler.set("data_path", self.data_edit.text())
-        self.settings_handler.set("system_locale", self.locale_combo_box.currentText())
+        self.settings_handler.set("system_locale", self.translations_handler.get_locale_name(self.locale_combo_box.currentText()))
         self.settings_handler.set("use_website_as_name", self.use_website_combo_box.currentIndex() == 0)
         self.settings_handler.set("design", self.design_combo.currentIndex())
         self.settings_handler.save()

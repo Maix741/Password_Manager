@@ -1,80 +1,74 @@
-#BackButton {
+QWidget#KeyManagementWidget {
+    background: var(--bg-main);
+    border-radius: var(--border-radius);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    font-size: var(--font-size-base);
+}
+
+QFrame#PasswordCardFrame {
+    background-color: var(--bg-card);
+    border-radius: var(--border-radius);
+    border: var(--border-width) solid var(--border-color);
+    padding: var(--padding-base);
+}
+
+QLabel#KeyManagementTitle {
+    font-size: var(--font-size-large);
+    font-weight: bold;
+    margin-bottom: var(--margin-base);
+    color: var(--text-main);
+}
+
+QLabel#RenewLabel {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-main);
+    margin-top: var(--margin-large);
+    margin-bottom: var(--margin-base);
+}
+
+QPushButton#BackButton {
     background: transparent;
     border: none;
     color: #aaa;
     font-size: 20px;
-    padding: 4px 12px;
+    padding: var(--padding-small) var(--padding-medium);
 }
-
-QFrame#PasswordCardFrame {
-    background-color: #2d2d2d;
-    border-radius: 10px;
-    border: 1px solid #000000;
-    /* Optional: add padding or shadow */
-    padding: 16px;
-}
-
-#BackButton:hover {
+QPushButton#BackButton:hover {
     color: #fff;
     background: #3a3f4b;
-    border-radius: 8px;
+    border-radius: var(--border-radius-small);
 }
 
-#KeyManagementWidget {
-    background: #23272e;
-    border-radius: 14px;
-    color: #f3f3f3;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-size: 15px;
-}
-
-#KeyManagementTitle {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #e0e0e0;
-}
-
-
-#RenewLabel {
-    font-size: 18px;
-    font-weight: bold;
-    color: #e0e0e0;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-#RenewKeepButton, #RenewDeleteButton {
-    background-color: #393e46;
+QPushButton#RenewKeepButton, QPushButton#RenewDeleteButton {
+    background-color: var(--bg-muted);
     color: #f8f8f2;
-    border: 1px solid #222831;
-    border-radius: 6px;
-    padding: 10px 18px;
-    font-size: 15px;
-    margin-bottom: 10px;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius-small);
+    padding: var(--padding-small) var(--padding-large);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--margin-base);
 }
-#DeleteButton {
-    background-color: #393e46;
-    color: #f8f8f2;
-    border: 1px solid #881515;
-    border-radius: 6px;
-    padding: 10px 18px;
-    font-size: 15px;
-    margin-bottom: 10px;
-
+QPushButton#RenewKeepButton:hover {
+    background-color: var(--bg-success);
+    color: var(--bg-main);
 }
-#RenewKeepButton:hover {
-    background-color: #00adb5;
-    color: #222831;
+QPushButton#RenewDeleteButton:hover {
+    background-color: var(--bg-danger);
+    color: #fff;
 }
 
-#RenewDeleteButton #DeleteButton {
-    background-color: #393e46;
-    color: #f8f8f2;
-    border: 1px solid #222831;
+QPushButton#DeleteButton {
+    background-color: var(--bg-danger);
+    color: #fff;
+    border: var(--border-width) solid #881515;
+    border-radius: var(--border-radius-small);
+    padding: var(--padding-small) var(--padding-large);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--margin-base);
 }
-
-#RenewDeleteButton:hover, #DeleteButton:hover{
-    background-color: #ff2e63;
+QPushButton#DeleteButton:hover {
+    background-color: var(--bg-danger-hover);
     color: #fff;
 }

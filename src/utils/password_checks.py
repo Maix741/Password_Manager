@@ -4,7 +4,14 @@ import math  # For entropy calculation
 
 
 def calculate_entropy(password: str) -> float:
-    """Calculates entropy based on character diversity and length."""
+    """Calculates entropy based on character diversity and length.
+
+    Args:
+        password (str): The password for which to calculate entropy.
+
+    Returns:
+        float: The calculated entropy of the password.
+    """
     charset_size = 0
     if any(c in string.ascii_lowercase for c in password):
         charset_size += 26
@@ -16,12 +23,21 @@ def calculate_entropy(password: str) -> float:
         charset_size += len(string.punctuation)
     if any(c.isspace() for c in password):
         charset_size += 1
-    
+
     return len(password) * math.log2(charset_size) if charset_size else 0.0
 
 
 def check_password_strength(password: str, min_lenght: int, entropy_threshold: int) -> bool:
-    """Evaluates password strength based on entropy and diversity."""
+    """""Evaluates password strength based on entropy and diversity.
+
+    Args:
+        password (str): The password to check.
+        min_lenght (int): Minimum length for the password to be considered strong.
+        entropy_threshold (int): Minimum entropy required for the password to be considered strong.
+
+    Returns:
+        bool: True if the password is strong, False otherwise.
+    """
     entropy: int = calculate_entropy(password)
 
     # Classifying password strength
@@ -33,9 +49,15 @@ def check_password_strength(password: str, min_lenght: int, entropy_threshold: i
 
 def check_password_duplication(all_passwords: list[dict]) -> list[list[dict]]:
     """Checks for duplicate passwords in the provided list.
-    Returns a list of lists, where each inner list contains entries with the same reused password.
-    """
+    This function groups passwords that are identical and returns a list of lists,
+    where each inner list contains dictionaries of duplicate passwords.
 
+    Args:
+        all_passwords (list[dict]): List of password entries, each entry is a dictionary containing a 'password' key.
+
+    Returns:
+        list[list[dict]]: A list of lists, where each inner list contains dictionaries of duplicate passwords.
+    """
     password_map = defaultdict(list)
     for entry in all_passwords:
         password = entry.get("password")

@@ -1,12 +1,12 @@
 import logging
-import sys
-import os
 
 from PySide6.QtWidgets import (
     QLabel, QPushButton, QVBoxLayout, QHBoxLayout,
     QSlider, QSpinBox, QCheckBox, QLineEdit, QSizePolicy, QGroupBox, QDialog
 )
 from PySide6.QtCore import Qt, QCoreApplication
+
+from .load_stylesheets import load_stylesheets
 
 
 class PasswordGenerateDialog(QDialog):
@@ -53,23 +53,22 @@ class PasswordGenerateDialog(QDialog):
         self.length_slider.setMinimum(self.lenght_minimum)
         self.length_slider.setMaximum(self.lenght_maximum_slider)
         self.length_slider.setValue(self.lenght_start_value)
-        self.length_slider.setTickInterval(1)
-        self.length_slider.setTickPosition(QSlider.TicksBelow)
         self.length_slider.setSingleStep(1)
         self.length_slider.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
-        self.length_spinbox = QSpinBox()
-        self.length_spinbox.setMinimum(self.lenght_minimum)
-        self.length_spinbox.setMaximum(self.lenght_maximum_spinbox)
-        self.length_spinbox.setValue(self.lenght_start_value)
+        self.lenght_spinbox = QSpinBox()
+        self.lenght_spinbox.setObjectName("lenghtSpinBox")
+        self.lenght_spinbox.setMinimum(self.lenght_minimum)
+        self.lenght_spinbox.setMaximum(self.lenght_maximum_spinbox)
+        self.lenght_spinbox.setValue(self.lenght_start_value)
 
         # Synchronize slider and spinbox
-        self.length_slider.valueChanged.connect(self.length_spinbox.setValue)
-        self.length_spinbox.valueChanged.connect(self.set_lenght_slider)
+        self.length_slider.valueChanged.connect(self.lenght_spinbox.setValue)
+        self.lenght_spinbox.valueChanged.connect(self.set_lenght_slider)
 
         length_layout.addWidget(QLabel(self.tr("Length:")))
         length_layout.addWidget(self.length_slider)
-        length_layout.addWidget(self.length_spinbox)
+        length_layout.addWidget(self.lenght_spinbox)
 
         main_layout.addWidget(length_group)
 
@@ -100,10 +99,13 @@ class PasswordGenerateDialog(QDialog):
         # Buttons
         button_layout = QHBoxLayout()
         self.generate_button = QPushButton(self.tr("Generate"))
+        self.generate_button.setObjectName("generateButton")
         self.generate_button.clicked.connect(self.generate_password)
         self.ok_button = QPushButton(self.tr("OK"))
+        self.ok_button.setObjectName("okButton")
         self.ok_button.clicked.connect(self.close)
         self.cancel_button = QPushButton(self.tr("Cancel"))
+        self.cancel_button.setObjectName("cancelButton")
         self.cancel_button.clicked.connect(self.cancel)
 
         button_layout.addWidget(self.generate_button)
@@ -113,20 +115,14 @@ class PasswordGenerateDialog(QDialog):
         main_layout.addLayout(button_layout)
 
     def set_style_sheet(self) -> None:
-        css_path: str = os.path.join(self.styles_path, "generate_dialog.css")
-
-        try:
-            with open(css_path, "r") as s_f:
-                self.setStyleSheet(s_f.read())
-        except (FileNotFoundError, PermissionError) as e:
-            logging.exception(f"Error getting style for the generate_dialog: {e}")
+        self.setStyleSheet(load_stylesheets(self.styles_path, "generate_dialog"))
 
     def set_lenght_slider(self, value: int) -> None:
         if value < self.lenght_maximum_slider:
             self.length_slider.setValue(value)
 
     def generate_password(self) -> str:
-        lenght: int = self.length_spinbox.value()
+        lenght: int = self.lenght_spinbox.value()
         include_letters: bool = self.letters_checkbox.isChecked()
         include_numbers: bool = self.numbers_checkbox.isChecked()
         include_special: bool = self.special_checkbox.isChecked()

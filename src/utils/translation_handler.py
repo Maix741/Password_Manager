@@ -6,6 +6,12 @@ from PySide6.QtCore import QTranslator, QCoreApplication
 from .get_paths import get_translations_path
 
 
+LOCALE_NAMES: dict[str, str] = {
+    "en_US": "English (United States)",
+    "de_DE": "Deutsch (Deutschland)",
+}
+
+
 class TranslationHandler:
     def __init__(self, settings_handler) -> None:
         self.settings_handler = settings_handler
@@ -13,11 +19,21 @@ class TranslationHandler:
 
         self.select_locale()
 
+    def get_language_name(self, locale: str) -> str:
+        return LOCALE_NAMES.get(locale, locale)
+
+    def get_locale_name(self, language: str) -> str:        
+        # Get the locale name from the user-friendly name
+        for locale, name in LOCALE_NAMES.items():
+            if name.lower() == language.lower():
+                return locale
+        return language
+
     def get_available_languages(self) -> list[str]:
         # Get the available languages from the locales folder
         try:
             return [
-                filename.split(".")[0]
+                self.get_language_name(filename.split(".")[0])
                 for filename in os.listdir(self.locales_folder)
                 if filename.endswith(".qm")
             ]

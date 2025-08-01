@@ -1,0 +1,63 @@
+QMainWindow {
+    background: var(--bg-main);
+}
+
+QMenuBar {
+    background: var(--bg-card);
+    font-size: var(--font-size-small);
+    color: var(--text-main);
+
+}
+QMenu {
+    background: var(--bg-card);
+    border-radius: var(--border-radius-small);
+    font-size: var(--font-size-small);
+    color: var(--text-main);
+}
+
+QDockWidget#mainDockWidget {
+    width: 200pt;
+    background-color: #FFFFFF;
+}
+
+QListWidget {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    color: var(--text-main);
+    font-size: var(--font-size-base);
+    border: var(--border-width) solid var(--border-color);
+}
+
+QLineEdit {
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: var(--border-width) solid #444;
+    border-radius: var(--border-radius-small);
+    padding: var(--padding-small) var(--padding-medium);
+    font-size: var(--font-size-medium);
+}
+
+QPushButton {
+    background: var(--bg-muted);
+    color: var(--text-main);
+    border-radius: var(--border-radius-small);
+    padding: var(--padding-small) var(--padding-large);
+    font-size: var(--font-size-base);
+    border: none;
+    font-weight: 500;
+}
+QPushButton:hover {
+    background: var(--bg-accent);
+    color: #fff;
+}
+
+QPushButton#controlsDockButton {
+    background: var(--bg-muted);
+    border-radius: 8px;
+    border: none;
+}
+QPushButton#controlsDockButton:hover {
+    background: #c1b6b6;
+    color: var(--text-main);
+
+}
