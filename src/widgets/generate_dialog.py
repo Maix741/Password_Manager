@@ -1,7 +1,7 @@
 import logging
 
 from PySide6.QtWidgets import (
-    QLabel, QPushButton, QVBoxLayout, QHBoxLayout,
+    QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QAbstractSpinBox,
     QSlider, QSpinBox, QCheckBox, QLineEdit, QSizePolicy, QGroupBox, QDialog
 )
 from PySide6.QtCore import Qt, QCoreApplication
@@ -57,6 +57,7 @@ class PasswordGenerateDialog(QDialog):
         self.length_slider.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
         self.lenght_spinbox = QSpinBox()
+        self.lenght_spinbox.setButtonSymbols(QAbstractSpinBox.NoButtons)
         self.lenght_spinbox.setObjectName("lenghtSpinBox")
         self.lenght_spinbox.setMinimum(self.lenght_minimum)
         self.lenght_spinbox.setMaximum(self.lenght_maximum_spinbox)
@@ -118,8 +119,12 @@ class PasswordGenerateDialog(QDialog):
         self.setStyleSheet(load_stylesheets(self.styles_path, "generate_dialog"))
 
     def set_lenght_slider(self, value: int) -> None:
-        if value < self.lenght_maximum_slider:
+        if value <= self.lenght_maximum_slider:
             self.length_slider.setValue(value)
+        elif value > self.lenght_maximum_slider:
+            self.length_slider.blockSignals(True)
+            self.length_slider.setValue(self.lenght_maximum_slider)
+            self.length_slider.blockSignals(False)
 
     def generate_password(self) -> str:
         lenght: int = self.lenght_spinbox.value()

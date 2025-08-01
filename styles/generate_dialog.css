@@ -67,7 +67,7 @@ QSpinBox#lenghtSpinBox {
     border-radius: 8px;
     padding: 7px 12px;
     font-size: var(--font-size-medium);
-    width: min-content;
+    width: auto;
 }
 QSpinBox#lenghtSpinBox:focus {
     border-color: var(--bg-accent);
