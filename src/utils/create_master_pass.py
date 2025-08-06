@@ -18,7 +18,7 @@ class CreateMasterPassword:
 
     def create(self) -> bool:
         inputted_hash: bytes = self.hash_inputted(self.entered_password, self.salt, self.iterations)
-        master_pass: dict = {"hash": str(inputted_hash), "salt": str(self.salt), "iterations": self.iterations}
+        master_pass: dict = {"hash": inputted_hash.hex(), "salt": self.salt.hex(), "iterations": self.iterations}
         self.save_master(master_pass)
 
         return self.validate(self.entered_password)

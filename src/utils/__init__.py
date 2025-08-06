@@ -10,8 +10,7 @@ from .translation_handler import TranslationHandler
 from .validate_master_pass import ValidateMasterPassword
 from .create_master_pass import CreateMasterPassword
 
-from .generate_password import (get_master_key_fragment,
-                                generate_password,
+from .generate_password import (generate_password,
                                 gen_fernet_key,
                                 gen_aes_key,
                                 gen_password_cmd

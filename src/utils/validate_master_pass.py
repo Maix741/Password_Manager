@@ -12,13 +12,11 @@ class ValidateMasterPassword:
         self.hashing_method: str = "sha512"
 
     def validate(self, password_to_check: str) -> bool:
-        master_pass: list[str, str, int] = get_master(self.data_path)
+        master_pass: list[bytes, bytes, int] = get_master(self.data_path)
         if not master_pass:
             self.record_attempt("incorrect", self.validate_from)
             return False
 
-        master_pass[0] = ast.literal_eval(master_pass[0])
-        master_pass[1] = ast.literal_eval(master_pass[1])
         inputted = self.hash_inputted(password_to_check, *master_pass[1:3])
 
         correct_pass: bool = self.is_Password_corect(master_pass[0], inputted)

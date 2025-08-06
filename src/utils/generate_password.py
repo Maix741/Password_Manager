@@ -40,13 +40,8 @@ class PasswordGenerator:
         return all([has_letter, has_number, has_special])
 
 
-def gen_aes_key(master_pass: str) -> str:
-    master_key_fragment: str = get_master_key_fragment(master_pass)
-
-    aes_key_fragment: str = generate_password(32, True, True, True)
-    aes_key: str = (master_key_fragment + aes_key_fragment)[:32]
-
-    return aes_key, master_key_fragment, aes_key.removeprefix(master_key_fragment)
+def gen_aes_key() -> str:
+    return generate_password(32, True, True, True)
 
 
 def gen_fernet_key() -> bytes:
@@ -58,16 +53,6 @@ def generate_password(lenght: int, include_letters: bool, include_numbers: bool,
     password: str = generator.new_password(lenght, include_letters, include_numbers, include_special)
 
     return password
-
-
-def get_master_key_fragment(master_pass: str) -> str:
-    master_key_fragment_lenght: int = 15
-    if len(master_pass) <= master_key_fragment_lenght:
-        master_key_fragment: str = master_pass
-    elif len(master_pass) >= master_key_fragment_lenght:
-        master_key_fragment: str = master_pass[:master_key_fragment_lenght]
-
-    return master_key_fragment
 
 
 def get_password_lenght(minimum: int = 0) -> int:

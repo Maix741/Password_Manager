@@ -4,7 +4,6 @@
 
 from getpass import getpass
 import logging
-import shutil
 import os
 
 from colorama import Fore, Style
@@ -115,19 +114,13 @@ class ManagerCMD:
             self.wrong_master_entered()
             return self.load_keys(validate_from)
 
-        master_key_fragment: str = get_master_key_fragment(correct_master)
-
-
-        fernet_key, AES_key_fragment = get_keys(self.data_path)
-        if not (fernet_key and AES_key_fragment):
+        fernet_key, AES_key_tuple = get_keys(self.data_path, correct_master)
+        if not (fernet_key and AES_key_tuple):
             logging.warning(f"Unable to load keys | from: {validate_from}")
             self.renew_keys()
             return self.load_keys(validate_from)
 
-        AES_key, salt = master_key_fragment + AES_key_fragment[0], AES_key_fragment[1]
-        fernet_key: bytes = fernet_key
-
-        return (correct_master, fernet_key, [AES_key, salt])
+        return (correct_master, fernet_key, list(AES_key_tuple))
 
     def wrong_master_entered(self) -> None:
         print(f"{Fore.RED}Wrong master Password entered!{Style.RESET_ALL}")
@@ -141,23 +134,12 @@ class ManagerCMD:
         return name
 
     def renew_keys(self) -> None:
-        logging.info("Renewing all keys")
-        try:
-            shutil.rmtree(self.passwords_path)
-            shutil.rmtree(os.path.join(self.data_path, "master"))
-            shutil.rmtree(os.path.join(self.data_path, "keys"))
-
-        except (FileNotFoundError, PermissionError) as e:
-            logging.error(f"Error while removing previous keys/passwords: {e}")
-        setup_folders(self.data_path)
-
         new_master: str = getpass("New master Password: ").strip().replace(" ", "_")
-        CreateMasterPassword(self.data_path, new_master).create()
-
-        _, _, aes_fragment = gen_aes_key(new_master)
-        fernet_key = gen_fernet_key()
-        write_keys(self.data_path, aes_fragment, fernet_key)
-        self.reset_console()
+        if new_master:
+            renew_keys_and_delete_paswords(new_master, self.data_path)
+            self.reset_console()
+        else:
+            print("Renewing cancelled!")
 
     def reset_console(self) -> None:
         self.clear_console()
