@@ -98,7 +98,7 @@ class ManagerCMD:
 
     def list_passwords(self) -> None:
         password_names: list[str] = os.listdir(self.passwords_path)
-        self.password_names: list[str] = [os.path.splitext(password)[0] for password in password_names]
+        self.password_names: list[str] = [password for password in password_names]
 
         print(f"{len(self.password_names)} Passwords:")
         print("\n".join(self.password_names) + "\n")

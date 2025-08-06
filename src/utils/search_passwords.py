@@ -6,7 +6,7 @@ from .get_website_for_password import get_website_for_password
 def search_passwords(data_path: str, search_query: str) -> list[str]:
     if not search_query: return []
     passwords_path: str = os.path.join(data_path, "passwords")
-    passwords: list[str] = [os.path.splitext(password)[0] for password in os.listdir(passwords_path)]
+    passwords: list[str] = [password for password in os.listdir(passwords_path)]
     websites: list[str] = [get_website_for_password(passwords_path, password) for password in passwords]
 
     websites = [website.split(".")[1] if "." in website else website for website in websites]

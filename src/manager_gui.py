@@ -213,7 +213,7 @@ class ManagerGUI(QMainWindow):
         self.passwords_list.clear()
         if not isinstance(passwords, list):
             password_names: list[str] = os.listdir(self.passwords_path)
-            self.password_names: list[str] = [os.path.splitext(password)[0] for password in password_names]
+            self.password_names: list[str] = [password for password in password_names]
         else:
             self.password_names: list[str] = passwords
 

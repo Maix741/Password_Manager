@@ -32,7 +32,7 @@ class AddPassword:
         i: int = 0
         while os.path.isfile(file_path) and not replace:
             i += 1
-            file_path: str = os.path.splitext(file_path)[0] + str(i)
+            file_path: str = file_path + str(i)
 
         with open(file_path, "w") as password_file:
             json.dump(password_dict, password_file)

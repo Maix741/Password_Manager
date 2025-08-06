@@ -303,7 +303,7 @@ class CheckPasswordWidget(QWidget):
         return passwords
 
     def list_passwords(self) -> None:
-        self.password_names: list[str] = [os.path.splitext(password)[0] for password in os.listdir(self.passwords_path)]
+        self.password_names: list[str] = [password for password in os.listdir(self.passwords_path)]
 
     def toggle_weak_list(self) -> None:
         count: int = self.weak_list_layout.count()
