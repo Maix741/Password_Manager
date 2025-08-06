@@ -1,8 +1,8 @@
 import logging
 import os
 
-from .get_checksum import get_checksum
 from .encryption_handlers import AESCrypto
+from .get_checksum import get_checksum
 from .get_master import get_master
 
 

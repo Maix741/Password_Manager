@@ -1,6 +1,5 @@
 import hashlib
 import logging
-import ast
 
 from .get_master import get_master
 

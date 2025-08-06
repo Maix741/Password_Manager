@@ -3,7 +3,7 @@ import os
 
 from .encryption_handlers import AESCrypto
 from .get_checksum import get_checksum
-from  .get_master import get_master
+from .get_master import get_master
 
 
 # -> (fernet_key: bytes, (AES_key: str, salt: bytes))
