@@ -18,7 +18,7 @@ class AddPassword:
             name = transform_website(website)
 
         name = re.sub(r'[\\/*?:"<>|]', "", name)
-        password_path: str = os.path.join(passwords_path, f"{name}.json")
+        password_path: str = os.path.join(passwords_path, name)
         password_to_add: dict[str, str] = {
                                 "username": self.encrypt_string(username, AES_key, salt, fernet_key),
                                 "password": self.encrypt_string(password, AES_key, salt, fernet_key),
@@ -32,7 +32,7 @@ class AddPassword:
         i: int = 0
         while os.path.isfile(file_path) and not replace:
             i += 1
-            file_path: str = os.path.splitext(file_path)[0] + f"{i}.json"
+            file_path: str = os.path.splitext(file_path)[0] + str(i)
 
         with open(file_path, "w") as password_file:
             json.dump(password_dict, password_file)

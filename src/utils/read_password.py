@@ -6,7 +6,7 @@ from .encryption_handlers import FernetCrypto, AESCrypto
 
 class PasswordReader:
     def read_password(self, name: str, AES_key: str, salt: bytes, fernet_key: bytes, password_path: str):
-        password_path = os.path.join(password_path, f"{name}.json")
+        password_path = os.path.join(password_path, name)
 
         password_to_read: dict[str, str] = self.read_json(password_path)
 

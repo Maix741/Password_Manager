@@ -3,7 +3,7 @@ import os
 
 
 def remove_password(data_path: str, password_name: str) -> None:
-    password_path: str = os.path.join(data_path, "passwords", f"{password_name}.json")
+    password_path: str = os.path.join(data_path, "passwords", password_name)
     logging.info(f"Removing password: {password_name}")
     try:
         os.remove(password_path)
