@@ -27,9 +27,9 @@ class CreateMasterPassword:
         return ValidateMasterPassword(self.data_path, "test-created").validate(password_to_check)
 
     def save_master(self, master_pass: dict) -> None:
-        config_file: str = os.path.join(self.data_path, "master", "master_pass.pem")
+        master_file: str = os.path.join(self.data_path, "master", "master_pass.pem")
         try:
-            with open(config_file, "w") as file:
+            with open(master_file, "w") as file:
                 json.dump(master_pass, file)
 
         except (FileNotFoundError, PermissionError) as e:
