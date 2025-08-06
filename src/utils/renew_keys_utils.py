@@ -36,7 +36,7 @@ def renew_keys_only(old_keys: tuple[str, bytes, list[str, bytes]], new_master: s
 
     creator = CreateMasterPassword(data_path, new_master)
     creator.create()
-    new_aes_key = gen_aes_key(new_master)
+    new_aes_key = gen_aes_key()
     new_fernet_key = gen_fernet_key()
 
     master: tuple[str, bytes] = (new_master, creator.salt)
