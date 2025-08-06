@@ -1,6 +1,5 @@
 import hashlib
 import logging
-import json
 import os
 
 from .validate_master_pass import ValidateMasterPassword
@@ -18,19 +17,18 @@ class CreateMasterPassword:
 
     def create(self) -> bool:
         inputted_hash: bytes = self.hash_inputted(self.entered_password, self.salt, self.iterations)
-        master_pass: dict = {"hash": inputted_hash.hex(), "salt": self.salt.hex(), "iterations": self.iterations}
-        self.save_master(master_pass)
+        self.save_master(f'{inputted_hash.hex()}\n{self.salt.hex()}\n{self.iterations}')
 
         return self.validate(self.entered_password)
 
     def validate(self, password_to_check: str) -> bool:
         return ValidateMasterPassword(self.data_path, "test-created").validate(password_to_check)
 
-    def save_master(self, master_pass: dict) -> None:
+    def save_master(self, master_pass: str) -> None:
         master_file: str = os.path.join(self.data_path, "master", "master_pass.pem")
         try:
             with open(master_file, "w") as file:
-                json.dump(master_pass, file)
+                file.write(master_pass)
 
         except (FileNotFoundError, PermissionError) as e:
             logging.exception(f"Error saving master password: {e}")
