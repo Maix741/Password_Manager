@@ -1,5 +1,5 @@
 # version and app constants
-__version__: str = "v1.6"
+__version__: str = "v1.6.3"
 __app_name__: str = "Password Manager"
 
 __license__: str = "MIT"
