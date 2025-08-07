@@ -213,7 +213,7 @@ class ManagerGUI(QMainWindow):
         self.passwords_list.clear()
         if not isinstance(passwords, list):
             password_names: list[str] = os.listdir(self.passwords_path)
-            self.password_names: list[str] = [os.path.splitext(password)[0] for password in password_names]
+            self.password_names: list[str] = [password for password in password_names]
         else:
             self.password_names: list[str] = passwords
 
@@ -577,19 +577,13 @@ class ManagerGUI(QMainWindow):
             self.wrong_master_entered()
             return (None, None, None)
 
-        master_key_fragment: str = get_master_key_fragment(correct_master)
-
-
-        fernet_key, AES_key_fragment = get_keys(self.data_path)
-        if not (fernet_key and AES_key_fragment):
+        fernet_key, AES_key_tuple = get_keys(self.data_path, correct_master)
+        if not (fernet_key and AES_key_tuple):
             logging.error(f"Unable to load keys | from: {load_from}")
             self.renew_keys()
             return self.load_keys(load_from)
 
-        AES_key, salt = master_key_fragment + str(AES_key_fragment[0]), AES_key_fragment[1]
-        fernet_key: bytes = fernet_key
-
-        return (correct_master, fernet_key, [AES_key, salt])
+        return (correct_master, fernet_key, list(AES_key_tuple))
 
     def ask_master_pass(self, ask_from: str) -> str:
         master_pass, ok = QInputDialog.getText(

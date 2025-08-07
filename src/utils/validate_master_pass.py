@@ -1,8 +1,7 @@
 import hashlib
 import logging
-import json
-import os
-import ast
+
+from .get_master import get_master
 
 
 class ValidateMasterPassword:
@@ -12,13 +11,11 @@ class ValidateMasterPassword:
         self.hashing_method: str = "sha512"
 
     def validate(self, password_to_check: str) -> bool:
-        master_pass: list[str, str, int] = self.get_master()
+        master_pass: list[bytes, bytes, int] = get_master(self.data_path)
         if not master_pass:
             self.record_attempt("incorrect", self.validate_from)
             return False
 
-        master_pass[0] = ast.literal_eval(master_pass[0])
-        master_pass[1] = ast.literal_eval(master_pass[1])
         inputted = self.hash_inputted(password_to_check, *master_pass[1:3])
 
         correct_pass: bool = self.is_Password_corect(master_pass[0], inputted)
@@ -28,17 +25,6 @@ class ValidateMasterPassword:
             self.record_attempt("incorrect", self.validate_from)
 
         return correct_pass
-
-    def get_master(self) -> list[bytes, bytes, int]:
-        config_file: str = os.path.join(self.data_path, "master", "master_pass.pem")
-        try:
-            with open(config_file, "r") as file:
-                config: dict[bytes, bytes, int] = json.loads(file.read()) # hash, salt, iterations
-
-        except (FileNotFoundError, PermissionError):
-            return None
-
-        return list(config.values())
 
     def hash_inputted(self, inputted: str, salt: str, iterations: int) -> str:
         return hashlib.pbkdf2_hmac(self.hashing_method, bytes(inputted, "utf-8"), salt, iterations)

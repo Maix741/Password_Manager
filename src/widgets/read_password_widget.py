@@ -220,7 +220,7 @@ class ReadPasswordWidget(QWidget):
         self.copy_string(self.password["username"], True)
 
     def delete_password(self) -> None:
-        password_path: str = os.path.join(self.passwords_path, f"{self.password_name}.json")
+        password_path: str = os.path.join(self.passwords_path, self.password_name)
         logging.info(f"Removing password: {self.password_name}")
         try:
             os.remove(password_path)
