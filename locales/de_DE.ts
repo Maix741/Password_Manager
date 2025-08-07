@@ -267,12 +267,12 @@ Wenn sie weitermachen wird es verloren gehen</translation>
     <message>
         <location filename="../src/manager_gui.py" line="290"/>
         <source>Enter New Password Name</source>
-        <translation>Name des neuen Passworts</translation>
+        <translation>Passwort umbenennen</translation>
     </message>
     <message>
         <location filename="../src/manager_gui.py" line="292"/>
         <source>Enter the password Name:</source>
-        <translation>Geben sie den Name des Passworts ein:</translation>
+        <translation>Geben sie den Namen des Passworts ein:</translation>
     </message>
     <message>
         <location filename="../src/manager_gui.py" line="591"/>
@@ -315,7 +315,7 @@ Wenn sie weitermachen wird es verloren gehen</translation>
     <message>
         <location filename="../src/widgets/wrong_master_message.py" line="15"/>
         <source>Invalid master password entered. Please try again </source>
-        <translation>Falsches Hauptpasswort eingegeben. Bitte versuchen sie es erneut</translation>
+        <translation>Falsches Hauptpasswort eingegeben. Bitte versuchen sie es erneut </translation>
     </message>
     <message>
         <location filename="../src/widgets/wrong_master_message.py" line="16"/>
