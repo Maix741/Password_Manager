@@ -8,7 +8,19 @@ from .load_stylesheets import load_stylesheets
 
 
 def open_input_dialog(parent, title: str, label: str, password: bool = False) -> str | None:
-    """Show a modal input dialog and return the typed value (or None)."""
+    """Open an input dialog to get user input.
+    This function creates a dialog with a text input field, allowing the user to enter a string.
+    If `password` is True, the input will be masked as a password.
+
+    Args:
+        parent (_type_): The parent widget for the dialog.
+        title (str): The title of the dialog.
+        label (str): The label text above the input field.
+        password (bool, optional): Whether the input will be a password. Defaults to False.
+
+    Returns:
+        str | None: The user input if the dialog is accepted, otherwise None.
+    """
 
     def show_hide_text(dialog: QInputDialog, action: QAction) -> None:
         """Toggle the visibility of the text in the line-edit."""
