@@ -693,12 +693,12 @@ class ManagerGUI(QMainWindow):
 
         def add_show_action(dialog: QInputDialog) -> None:
             """Add a show/hide password action to the line-edit."""
-            # Grab the line-edit that QInputDialog uses internally
+            # grab the line-edit that QInputDialog uses internally
             line_edit: QLineEdit | None = dialog.findChild(QLineEdit)
             if line_edit is None:
                 return  # should never happen
 
-            # Add the action to the trailing (right) side of the line-edit
+            # add the action to the trailing (right) side of the line-edit
             show_action: QAction = line_edit.addAction(
                 self.show_icon, QLineEdit.TrailingPosition
             )
@@ -706,11 +706,11 @@ class ManagerGUI(QMainWindow):
             show_action.setCheckable(True)
             show_action.triggered.connect(partial(show_hide_text, dialog, show_action))
 
-        dialog = QInputDialog(self)
+        dialog: QInputDialog = QInputDialog(self)
 
         dialog.setWindowTitle(title)
         dialog.setLabelText(label)
-        dialog.setTextValue("")                                # start with empty
+        dialog.setTextValue("")
         dialog.setTextEchoMode(QLineEdit.Password if password else QLineEdit.Normal)
 
         # styling / window flags
@@ -722,7 +722,7 @@ class ManagerGUI(QMainWindow):
         dialog.setWindowIcon(self.window_icon)
         dialog.setStyleSheet(load_stylesheets(self.styles_path, "input_dialog"))
 
-        # If the field is a password, add the show/hide button
+        # if the field is a password, add the show/hide button
         if password:
             add_show_action(dialog)
 
