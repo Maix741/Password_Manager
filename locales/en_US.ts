@@ -199,108 +199,121 @@ If you continue it will be lost</translation>
         <translation>Search passwords</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="133"/>
+        <location filename="../src/manager_gui.py" line="136"/>
         <source>File</source>
         <translation>File</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="137"/>
+        <location filename="../src/manager_gui.py" line="140"/>
         <source>Import</source>
         <translation>Import</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="142"/>
+        <location filename="../src/manager_gui.py" line="145"/>
         <source>Export</source>
         <translation>Export</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="147"/>
+        <location filename="../src/manager_gui.py" line="150"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="153"/>
+        <location filename="../src/manager_gui.py" line="156"/>
         <source>Edit</source>
         <translation>Edit</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="157"/>
-        <location filename="../src/manager_gui.py" line="268"/>
+        <location filename="../src/manager_gui.py" line="160"/>
+        <location filename="../src/manager_gui.py" line="271"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="164"/>
+        <location filename="../src/manager_gui.py" line="167"/>
         <source>Tools</source>
         <translation>Tools</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="168"/>
+        <location filename="../src/manager_gui.py" line="171"/>
         <source>Generate Password</source>
         <translation>Generate password</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="173"/>
+        <location filename="../src/manager_gui.py" line="176"/>
         <source>Check</source>
         <translation>Check passwords</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="184"/>
+        <location filename="../src/manager_gui.py" line="187"/>
         <source>Delete</source>
         <translation>Delete</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="190"/>
+        <location filename="../src/manager_gui.py" line="193"/>
         <source>Rename</source>
         <translation>Rename</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="252"/>
+        <location filename="../src/manager_gui.py" line="255"/>
         <source>Add Password</source>
         <translation>Add Password</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="260"/>
+        <location filename="../src/manager_gui.py" line="263"/>
         <source>Renew Keys</source>
         <translation>Renew Keys</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="290"/>
+        <location filename="../src/manager_gui.py" line="293"/>
+        <source>Rename Password</source>
+        <translation>Rename Password</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="294"/>
+        <source>Enter the new password name:</source>
+        <translation>Enter the new name:</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="705"/>
+        <source>Show/Hide Password</source>
+        <translation>show/hide password</translation>
+    </message>
+    <message>
         <source>Enter New Password Name</source>
-        <translation>Enter new password name</translation>
+        <translation type="vanished">Enter new password name</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="292"/>
         <source>Enter the password Name:</source>
-        <translation>Enter the password name:</translation>
+        <translation type="vanished">Enter the password name:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="591"/>
+        <location filename="../src/manager_gui.py" line="594"/>
         <source>Enter Master Password</source>
         <translation>Enter Master Password</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="592"/>
+        <location filename="../src/manager_gui.py" line="595"/>
         <source>Enter the master password:</source>
         <translation>Enter the master password:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="608"/>
+        <location filename="../src/manager_gui.py" line="612"/>
         <source>Set New Master Password</source>
         <translation>Set new master passowrd</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="609"/>
+        <location filename="../src/manager_gui.py" line="613"/>
         <source>Enter a new master password:</source>
         <translation>Enter a new master password:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="641"/>
+        <location filename="../src/manager_gui.py" line="645"/>
         <source>Select csv-file</source>
         <translation>Select csv-file</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="659"/>
+        <location filename="../src/manager_gui.py" line="663"/>
         <source>Save csv-file</source>
         <translation>Save csv-file</translation>
     </message>

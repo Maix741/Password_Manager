@@ -39,6 +39,18 @@
     --margin-base: 10px;
     --margin-small: 6px;
     --margin-large: 20px;
+
+    /* Input Dialog */
+    --input-dialog-bg-color: #2d2d2d;
+    --input-dialog-text-color: #f3f3f3;
+    --input-dialog-font-size: 15px;
+    --input-dialog-border-color: #444444;
+    --input-dialog-border-radius: 8px;
+    --input-dialog-padding: 12px;
+    --input-dialog-accept-button-bg: #0078D7;
+    --input-dialog-button-hover-bg: #005fa3;
+    --input-dialog-button-text-color: #ffffff;
+
 }
 
 /* --- Base Styles --- */

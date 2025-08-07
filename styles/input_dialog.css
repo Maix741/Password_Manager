@@ -1,0 +1,14 @@
+QInputDialog {
+    background-color: var(--input-dialog-bg-color);
+    color: var(--input-dialog-text-color);
+    font-size: var(--input-dialog-font-size);
+    border: 1px solid var(--input-dialog-border-color);
+    border-radius: var(--input-dialog-border-radius);
+}
+
+QInputDialog QPushButton#acceptButton {
+    color: var(--input-dialog-button-text-color);
+    font-weight: bold;
+    background-color: var(--input-dialog-accept-button-bg);
+    
+}

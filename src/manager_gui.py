@@ -8,7 +8,7 @@ import os
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
-    QMainWindow, QPushButton, QVBoxLayout, QListWidget,
+    QMainWindow, QPushButton, QVBoxLayout, QListWidget, QDialog,
     QMenu, QWidget, QFileDialog, QMenuBar, QListWidgetItem,
     QSpacerItem, QSizePolicy, QDockWidget, QLineEdit, QInputDialog
 )
@@ -106,6 +106,9 @@ class ManagerGUI(QMainWindow):
         self.import_icon: QIcon = QIcon(os.path.join(self.assets_path, "import-icon.png"))
         self.export_icon: QIcon = QIcon(os.path.join(self.assets_path, "export-icon.png"))
         self.exit_icon: QIcon = QIcon(os.path.join(self.assets_path, "exit-icon.png"))
+
+        self.show_icon: QIcon = QIcon(os.path.join(self.assets_path, "show-icon.png"))
+        self.hide_icon: QIcon = QIcon(os.path.join(self.assets_path, "hide-icon.png"))
 
     def on_search_text_changed(self, query: str) -> None:
         if not query:
@@ -285,12 +288,13 @@ class ManagerGUI(QMainWindow):
         self.fill_passwords_list()
 
     def rename_password(self, old_password_name) -> None:
-        new_password_name, ok = QInputDialog.getText(
-            self,
-            self.tr("Enter New Password Name"),
-            self.tr("Enter the password Name:")
+        """Rename a password by its name."""
+        new_password_name: str | None = self.open_input_dialog(
+            self.tr("Rename Password"),
+            self.tr("Enter the new password name:"),
+            False
         )
-        if ok and new_password_name:
+        if new_password_name:
             rename_password(self.passwords_path, old_password_name, new_password_name)
             self.fill_passwords_list()
 
@@ -586,13 +590,13 @@ class ManagerGUI(QMainWindow):
         return (correct_master, fernet_key, list(AES_key_tuple))
 
     def ask_master_pass(self, ask_from: str) -> str:
-        master_pass, ok = QInputDialog.getText(
-            self, 
-            self.tr("Enter Master Password"), 
-            self.tr("Enter the master password:"), 
-            QLineEdit.Password
-        )
-        if ok and master_pass:
+        master_pass: str | None = self.open_input_dialog(
+            self.tr("Enter Master Password"),
+            self.tr("Enter the master password:"),
+            True
+            )
+
+        if master_pass:
             if self.validate_master_pass(master_pass, ask_from):
                 return master_pass
             else:
@@ -603,13 +607,13 @@ class ManagerGUI(QMainWindow):
             return ""
 
     def ask_new_master(self) -> str:
-        new_master, ok = QInputDialog.getText(
-            self, 
-            self.tr("Set New Master Password"), 
-            self.tr("Enter a new master password:"), 
-            QLineEdit.Password
+        """Ask the user to set a new master password."""
+        new_master: str | None = self.open_input_dialog(
+            self.tr("Set New Master Password"),
+            self.tr("Enter a new master password:"),
+            True
         )
-        if ok and new_master:
+        if new_master:
             return new_master
         else:
             logging.warning("No master password was set.")
@@ -674,3 +678,55 @@ class ManagerGUI(QMainWindow):
         """
         self.translation_handler.set_language(locale)
         self.init_ui()
+
+    def open_input_dialog(self, title: str, label: str, password: bool = False) -> str | None:
+        """Show a modal input dialog and return the typed value (or None)."""
+
+        def show_hide_text(dialog: QInputDialog, action: QAction) -> None:
+            """Toggle the visibility of the text in the line-edit."""
+            if dialog.textEchoMode() == QLineEdit.Password:
+                dialog.setTextEchoMode(QLineEdit.Normal)
+                action.setIcon(self.hide_icon)
+            else:
+                dialog.setTextEchoMode(QLineEdit.Password)
+                action.setIcon(self.show_icon)
+
+        def add_show_action(dialog: QInputDialog) -> None:
+            """Add a show/hide password action to the line-edit."""
+            # Grab the line-edit that QInputDialog uses internally
+            line_edit: QLineEdit | None = dialog.findChild(QLineEdit)
+            if line_edit is None:
+                return  # should never happen
+
+            # Add the action to the trailing (right) side of the line-edit
+            show_action: QAction = line_edit.addAction(
+                self.show_icon, QLineEdit.TrailingPosition
+            )
+            show_action.setToolTip(self.tr("Show/Hide Password"))
+            show_action.setCheckable(True)
+            show_action.triggered.connect(partial(show_hide_text, dialog, show_action))
+
+        dialog = QInputDialog(self)
+
+        dialog.setWindowTitle(title)
+        dialog.setLabelText(label)
+        dialog.setTextValue("")                                # start with empty
+        dialog.setTextEchoMode(QLineEdit.Password if password else QLineEdit.Normal)
+
+        # styling / window flags
+        dialog.setWindowFlags(
+            Qt.WindowType.Window
+            | Qt.WindowType.WindowTitleHint
+            | Qt.WindowType.CustomizeWindowHint
+        )
+        dialog.setWindowIcon(self.window_icon)
+        dialog.setStyleSheet(load_stylesheets(self.styles_path, "input_dialog"))
+
+        # If the field is a password, add the show/hide button
+        if password:
+            add_show_action(dialog)
+
+        # run the dialog
+        if dialog.exec_() == QDialog.Accepted:
+            return dialog.textValue()
+        return None
