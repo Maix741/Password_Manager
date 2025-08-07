@@ -10,3 +10,5 @@ from .generate_dialog import PasswordGenerateDialog
 from .wrong_master_message import MasterWarningMessage
 
 from .load_stylesheets import load_stylesheets
+
+from .open_input_dialog import open_input_dialog

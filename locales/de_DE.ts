@@ -275,9 +275,8 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation>Geben sie den neuen Namen ein:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="705"/>
         <source>Show/Hide Password</source>
-        <translation>Passwort zeigen/verstecken</translation>
+        <translation type="vanished">Passwort zeigen/verstecken</translation>
     </message>
     <message>
         <source>Enter New Password Name</source>
