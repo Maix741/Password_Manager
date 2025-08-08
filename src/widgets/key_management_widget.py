@@ -117,7 +117,7 @@ class KeyManagementWidget(QWidget):
         self.return_to_list(3)
 
     def set_style_sheet(self) -> None:
-        self.setStyleSheet(load_stylesheets(self.styles_path, "key_management_widget", self.settings_handler.get("design")))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "key_management_widget", self.settings_handler.get_design()))
 
     def return_to_list(self, return_code: int = 0) -> None:
         self.returned.emit(return_code)

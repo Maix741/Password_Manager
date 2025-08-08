@@ -203,7 +203,7 @@ class ReadPasswordWidget(QWidget):
         return QSpacerItem(5, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
     def set_style_sheet(self) -> None:
-        self.setStyleSheet(load_stylesheets(self.styles_path, "read_password_widget", self.settings_handler.get("design")))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "read_password_widget", self.settings_handler.get_design()))
 
     def hide_or_unhide_password(self) -> None:
         if self.password_edit.echoMode() != QLineEdit.Password:

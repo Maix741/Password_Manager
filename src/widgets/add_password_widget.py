@@ -157,7 +157,7 @@ class AddPasswordWidget(QWidget):
         card_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
     def set_style_sheet(self) -> None:
-        self.setStyleSheet(load_stylesheets(self.styles_path, "add_password_widget", self.settings_handler.get("design")))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "add_password_widget", self.settings_handler.get_design()))
 
     def get_spacer(self) -> QSpacerItem:
         # This spacer is used to align the labels and fields in the grid layout.

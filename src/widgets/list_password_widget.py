@@ -50,4 +50,4 @@ class PasswordWidget(QWidget):
         main_layout.addLayout(grid_layout)
 
     def set_style_sheet(self) -> None:
-        self.setStyleSheet(load_stylesheets(self.styles_path, "list_password_widget", self.settings_handler.get("design")))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "list_password_widget", self.settings_handler.get_design()))

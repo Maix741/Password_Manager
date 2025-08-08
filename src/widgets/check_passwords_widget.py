@@ -325,7 +325,7 @@ class CheckPasswordWidget(QWidget):
         self.reused_toggle_button.setText(self.tr("⚠️ Reused Passwords ({count}) {arrow}").format(count=count, arrow=arrow))
 
     def set_style_sheet(self) -> None:
-        self.setStyleSheet(load_stylesheets(self.styles_path, "check_passwords_widget", self.settings_handler.get("design")))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "check_passwords_widget", self.settings_handler.get_design()))
 
     def return_to_list(self) -> None:
         self.returned.emit()

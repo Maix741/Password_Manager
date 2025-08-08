@@ -77,7 +77,7 @@ class ManagerGUI(QMainWindow):
             self.create_menubar()
 
     def set_style_sheet(self) -> None:
-        self.setStyleSheet(load_stylesheets(self.styles_path, "manager_gui", self.settings_handler.get("design")))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "manager_gui", self.settings_handler.get_design()))
 
     def reload_self(self) -> None:
         self.data_path = self.settings_handler.get("data_path")
@@ -362,7 +362,8 @@ class ManagerGUI(QMainWindow):
             password_card: AddPasswordWidget = AddPasswordWidget(self.styles_path, self.assets_path,
                                                                  self.show_generating_dialog,
                                                                  self.translation_handler,
-                                                                 self
+                                                                 use_website_as_name=self.settings_handler.get("use_website_as_name"),
+                                                                 parent=self
                                                                  )
             password_card.returned.connect(add_password)
             self.change_to_add_card(password_card)

@@ -21,4 +21,4 @@ class MasterWarningMessage(QMessageBox):
             self.close()
 
     def set_style_sheet(self) -> None: # TODO
-        self.setStyleSheet(load_stylesheets(self.styles_path, "master_warning_message", self.settings_handler.get("design")))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "master_warning_message", self.settings_handler.get_design()))
