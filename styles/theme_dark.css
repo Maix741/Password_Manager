@@ -1,4 +1,4 @@
-/* --- Color, Font, and Spacing Variables --- */
+/* --- Color, Font, and Spacing Variables for dark theme --- */
 :root {
     /* Backgrounds */
     --bg-main: #23272e;
@@ -89,9 +89,9 @@ QLabel#titleLabel, QLabel#nameLabel, #CheckPasswordTitle, #KeyManagementTitle {
 QLineEdit, QComboBox {
     background: var(--bg-input);
     color: var(--text-main);
-    border: var(--border-width) solid #444;
+    border: var(--border-width) solid var(--border-color-grey);
     border-radius: var(--border-radius-small);
-    padding: 7px 12px;
+    padding: 7px var(--padding-medium);
     font-size: var(--font-size-medium);
 }
 QLineEdit:focus, QComboBox:focus {
@@ -151,7 +151,7 @@ QPushButton#backButton, #BackButton {
     border: none;
     color: var(--text-accent);
     font-size: 18px;
-    padding: 4px 12px;
+    padding: 4px var(--padding-medium);
 }
 QPushButton#backButton:hover, #BackButton:hover {
     color: #fff;
@@ -172,7 +172,7 @@ QScrollArea, QWidget#contentWidget {
 QGroupBox {
     border: 1px solid #444;
     border-radius: var(--border-radius-small);
-    margin-top: 12px;
+    margin-top: var(--padding-medium);
     background: #23272e;
     color: var(--text-main);
     font-weight: var(--font-weight-base);
@@ -195,8 +195,8 @@ QMessageBox {
 #PasswordEntry {
     background: #292d36;
     border-radius: var(--border-radius-small);
-    margin-bottom: 8px;
-    padding: 8px 12px;
+    margin-bottom: var(--padding-small);
+    padding: var(--padding-small) var(--padding-medium);
 }
 #EntryName {
     font-size: 15px;
@@ -207,8 +207,8 @@ QMessageBox {
 #PasswordLabel {
     font-family: 'Consolas', monospace;
     background: transparent;
-    color: #f3f3f3;
-    padding: 2px 8px;
+    color: var(--text-main);
+    padding: 2px var(--padding-small);
     border-radius: 0px;
     min-width: 80px;
 }
@@ -216,8 +216,8 @@ QMessageBox {
     font-size: 16px;
     font-weight: 600;
     color: #f3c674;
-    margin-bottom: 6px;
-    margin-top: 8px;
+    margin-bottom: var(--margin-small);
+    margin-top: var(--padding-small);
 }
 #ToggleButton {
     background: var(--bg-button-2);
@@ -225,15 +225,10 @@ QMessageBox {
     border-radius: var(--border-radius-small);
     color: var(--text-white);
     font-weight: var(--font-weight-base);
-    padding: 8px 16px;
-    margin-bottom: 6px;
+    padding: var(--padding-small) 16px;
+    margin-bottom: var(--margin-small);
     text-align: left;
 }
 #ToggleButton:hover {
     background: var(--bg-button);
-}
-
-/* --- Misc --- */
-QSpacerItem {
-    min-height: 10px;
 }
