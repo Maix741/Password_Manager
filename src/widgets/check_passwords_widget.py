@@ -28,6 +28,7 @@ class CheckPasswordWidget(QWidget):
 
         QCoreApplication.installTranslator(translations_handler.get_translator())
 
+        self.settings_handler = parent.settings_handler
         self.styles_path: str = styles_path
         self.passwords_path: str = passwords_path
         self.assets_path: str = assets_path
@@ -324,7 +325,7 @@ class CheckPasswordWidget(QWidget):
         self.reused_toggle_button.setText(self.tr("⚠️ Reused Passwords ({count}) {arrow}").format(count=count, arrow=arrow))
 
     def set_style_sheet(self) -> None:
-        self.setStyleSheet(load_stylesheets(self.styles_path, "check_passwords_widget"))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "check_passwords_widget", self.settings_handler.get("design")))
 
     def return_to_list(self) -> None:
         self.returned.emit()

@@ -77,7 +77,7 @@ class ManagerGUI(QMainWindow):
             self.create_menubar()
 
     def set_style_sheet(self) -> None:
-        self.setStyleSheet(load_stylesheets(self.styles_path, "manager_gui"))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "manager_gui", self.settings_handler.get("design")))
 
     def reload_self(self) -> None:
         self.data_path = self.settings_handler.get("data_path")
@@ -222,7 +222,7 @@ class ManagerGUI(QMainWindow):
 
         for name in self.password_names:
             item = QListWidgetItem(self.passwords_list)
-            widget = PasswordWidget(self.styles_path, name, get_website_for_password(self.passwords_path, name))
+            widget = PasswordWidget(self.styles_path, name, get_website_for_password(self.passwords_path, name), self)
             item.setSizeHint(widget.sizeHint())
             self.passwords_list.addItem(item)
             self.passwords_list.setItemWidget(item, widget)
