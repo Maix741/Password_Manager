@@ -39,11 +39,10 @@ def load_stylesheets(styles_path: str, widget_name: str, design: int = 0) -> str
     Loads and preprocesses theme.css and widget css, replacing CSS variables for Qt compatibility.
     """
     if design == 1:
-        styles_path = os.path.join(styles_path, "dark")
+        theme_file = os.path.join(styles_path, "theme_dark.css")
     else:
-        styles_path = os.path.join(styles_path, "light")
+        theme_file = os.path.join(styles_path, "theme_light.css")
 
-    theme_file = os.path.join(styles_path, "theme.css")
     widget_file = os.path.join(styles_path, f"{widget_name}.css")
     qss: str = ""
     try:

@@ -10,21 +10,27 @@ def get_styles_path(data_path: str) -> str:
 
     # For development or when not using PyInstaller
 
-    # try to use the provided data_path
-    data_styles_path = os.path.join(data_path, "styles")
-    if os.path.exists(data_styles_path):
-        if ["dark", "light"] == os.listdir(data_styles_path):
-            return str(data_styles_path)
+    try:
+        # try to use the provided data_path
+        data_styles_path = os.path.join(data_path, "styles")
+        if os.path.exists(data_styles_path):
+            if all([f.endswith(".css") for f in os.listdir(data_styles_path)]):
+                return str(data_styles_path)
+    except (FileNotFoundError, PermissionError): ...
 
-    # Fallback to the default styles directory
-    current_dir = os.path.dirname(sys.argv[0])
-    default_styles_path = os.path.join(Path(current_dir).parent, "styles")
-    if os.path.exists(default_styles_path) and (["dark", "light"] == os.listdir(data_styles_path)):
-        return str(default_styles_path)
+    try:
+        # Fallback to the default styles directory
+        current_dir = os.path.dirname(sys.argv[0])
+        default_styles_path = os.path.join(Path(current_dir).parent, "styles")
+        if os.path.exists(default_styles_path) and all([f.endswith(".css") for f in os.listdir(default_styles_path)]):
+            return str(default_styles_path)
+    except (FileNotFoundError, PermissionError): ...
 
-    # current working directory as a last resort
-    current_dir = os.path.join(os.path.dirname(sys.argv[0]), "styles")
-    if os.path.exists(current_dir) and (["dark", "light"] == os.listdir(current_dir)):
-        return str(current_dir)
+    try:
+        # current working directory as a last resort
+        current_dir = os.path.join(os.path.dirname(sys.argv[0]), "styles")
+        if os.path.exists(current_dir) and all([f.endswith(".css") for f in os.listdir(current_dir)]):
+            return str(current_dir)
+    except (FileNotFoundError, PermissionError): ...
 
     raise FileNotFoundError("Styles directory not found in any expected location.")

@@ -17,7 +17,7 @@ QMenu {
 
 QDockWidget#mainDockWidget {
     width: 200pt;
-    background-color: #FFFFFF;
+    background-color: var(--bg-white);
 }
 
 QListWidget {
@@ -31,7 +31,7 @@ QListWidget {
 QLineEdit {
     background: var(--bg-input);
     color: var(--text-main);
-    border: var(--border-width) solid #444;
+    border: var(--border-width) solid var(--border-color-grey);
     border-radius: var(--border-radius-small);
     padding: var(--padding-small) var(--padding-medium);
     font-size: var(--font-size-medium);
@@ -44,16 +44,16 @@ QPushButton {
     padding: var(--padding-small) var(--padding-large);
     font-size: var(--font-size-base);
     border: none;
-    font-weight: 500;
+    font-weight: var(--font-weight-base);
 }
 QPushButton:hover {
     background: var(--bg-accent);
-    color: #fff;
+    color: var(--text-white);
 }
 
 QPushButton#controlsDockButton {
     background: var(--bg-muted);
-    border-radius: 8px;
+    border-radius: var(--border-radius-small);
     border: none;
 }
 QPushButton#controlsDockButton:hover {
