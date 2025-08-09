@@ -52,12 +52,12 @@ QPushButton:hover {
 }
 
 QPushButton#controlsDockButton {
-    background: var(--bg-muted);
+    background: #d4caca;
     border-radius: var(--border-radius-small);
     border: none;
 }
 QPushButton#controlsDockButton:hover {
-    background: #c1b6b6;
+    background: #9e9a9a;
     color: var(--text-main);
 
 }
