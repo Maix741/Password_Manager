@@ -49,3 +49,11 @@ QPushButton#browseButton {
     border: var(--border-width) solid var(--border-color-grey);
     font-size: var(--font-size-medium);
 }
+
+QComboBox QAbstractItemView {
+    background-color: var(--bg-input);
+    color: var(--text-main);
+    border: var(--border-width) solid var(--border-color-grey);
+    padding: var(--padding-small);
+
+}
