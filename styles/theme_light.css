@@ -13,6 +13,8 @@
     --bg-danger-hover: #ff3232;
     --bg-success: #00bfa0;
     --bg-white: #ffffff;
+    --bg-controls-dock-button: #d4caca;
+    --bg-controls-dock-button-hover: #9e9a9a;
 
     /* Borders & Shadows */
     --border-color: #cccccc;
