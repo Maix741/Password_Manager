@@ -61,6 +61,15 @@
     --input-dialog-button-hover-bg: #005fa3;
     --input-dialog-button-text-color: #ffffff;
 
+    /* Slider variables */
+    --slider-bg: #0078D7;
+    --slider-border: 1px;
+    --slider-radius-handle: 7px;
+    --slider-radius: 4px;
+    --slider-add-page-bg: #cccccc;
+    --slider-margin: -5px 0;
+    --slider-width: 15px;
+
 }
 
 /* --- Base Styles --- */

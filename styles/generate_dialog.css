@@ -77,3 +77,34 @@ QGroupBox::title {
   background-color: transparent;
   padding-top: -24px;
 }
+
+QSlider {
+    min-height: 10px;
+    max-height: 20px;
+}
+
+QSlider::groove:horizontal {
+    border: 1px solid #bbb;
+    background: #eee;
+    height: 10px;
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background: var(--slider-bg);
+    border: var(--slider-border) solid var(--slider-bg);
+    width: var(--slider-width);
+    height: var(--slider-width);
+    border-radius: var(--slider-radius-handle);
+    margin: var(--slider-margin);
+}
+
+QSlider::sub-page:horizontal {
+    background: var(--slider-bg);
+    border-radius: var(--slider-radius);
+}
+
+QSlider::add-page:horizontal {
+    background: var(--slider-add-page-bg);
+    border-radius: var(--slider-radius);
+}
