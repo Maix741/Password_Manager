@@ -6,7 +6,9 @@ import os
 def get_styles_path(data_path: str) -> str:
     # Determine the correct path for PyInstaller
     if hasattr(sys, "_MEIPASS"):
-        return os.path.join(sys._MEIPASS, "styles")
+        if os.path.exists(os.path.join(sys._MEIPASS, "styles")):
+            # If running from a PyInstaller bundle, return the styles path
+            return os.path.join(sys._MEIPASS, "styles")
 
     # For development or when not using PyInstaller
 

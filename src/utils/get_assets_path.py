@@ -4,23 +4,35 @@ import os
 
 
 def get_assets_path(data_path: str) -> str:
-    path1: str = os.path.join(data_path, "assets")
-    if os.path.isdir(path1):
-        icons: list[str] = os.listdir(path1)
-        if all([icon.endswith("-icon.png") for icon in icons]):
-            return path1
+    # Determine the correct path for PyInstaller
+    if hasattr(sys, "_MEIPASS"):
+        if os.path.exists(os.path.join(sys._MEIPASS, "assets")):
+            # If running from a PyInstaller bundle, return the assets path
+            return os.path.join(sys._MEIPASS, "assets")
 
-    current_dir: str = os.path.dirname(sys.argv[0])
-    if current_dir.endswith(("src", "bin")):
-        path2: str = os.path.join(Path(current_dir).parent, "assets")
-    elif current_dir.endswith("utils"):
-        path2: str = os.path.join(Path(current_dir).parent.parent, "assets")
+    # For development or when not using PyInstaller
 
-    else: path2 = os.path.join(current_dir, "assets")
+    try:
+        # try to use the provided data_path
+        data_assets_path = os.path.join(data_path, "assets")
+        if os.path.exists(data_assets_path):
+            if all([f.endswith("-icon.png") for f in os.listdir(data_assets_path)]):
+                return str(data_assets_path)
+    except (FileNotFoundError, PermissionError): ...
 
-    if os.path.isdir(path2):
-        icons: list[str] = os.listdir(path2)
-        if all([icon.endswith("-icon.png") for icon in icons]):
-            return path2
+    try:
+        # Fallback to the default assets directory
+        current_dir = os.path.dirname(sys.argv[0])
+        default_assets_path = os.path.join(Path(current_dir).parent, "assets")
+        if os.path.exists(default_assets_path) and all([f.endswith("-icon.png") for f in os.listdir(default_assets_path)]):
+            return str(default_assets_path)
+    except (FileNotFoundError, PermissionError): ...
 
-    return ""
+    try:
+        # current working directory as a last resort
+        current_dir = os.path.join(os.path.dirname(sys.argv[0]), "assets")
+        if os.path.exists(current_dir) and all([f.endswith("-icon.png") for f in os.listdir(current_dir)]):
+            return str(current_dir)
+    except (FileNotFoundError, PermissionError): ...
+
+    raise FileNotFoundError("Assets directory not found in any expected location.")
