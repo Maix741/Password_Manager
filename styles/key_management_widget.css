@@ -21,7 +21,7 @@ QLabel#KeyManagementTitle {
 }
 
 QLabel#RenewLabel {
-    font-size: 18px;
+    font-size: var(--font-size-base-large);
     font-weight: bold;
     color: var(--text-main);
     margin-top: var(--margin-large);
@@ -31,19 +31,19 @@ QLabel#RenewLabel {
 QPushButton#BackButton {
     background: transparent;
     border: none;
-    color: #aaa;
-    font-size: 20px;
+    color: var(--text-muted);
+    font-size: var(--font-size-large-small);
     padding: var(--padding-small) var(--padding-medium);
 }
 QPushButton#BackButton:hover {
-    color: #fff;
-    background: #3a3f4b;
+    color: var(--text-white);
+    background: var(--bg-button);
     border-radius: var(--border-radius-small);
 }
 
 QPushButton#RenewKeepButton, QPushButton#RenewDeleteButton {
     background-color: var(--bg-muted);
-    color: #f8f8f2;
+    color: var(--text-white);
     border: var(--border-width) solid var(--border-color);
     border-radius: var(--border-radius-small);
     padding: var(--padding-small) var(--padding-large);
@@ -56,13 +56,13 @@ QPushButton#RenewKeepButton:hover {
 }
 QPushButton#RenewDeleteButton:hover {
     background-color: var(--bg-danger);
-    color: #fff;
+    color: var(--text-white);
 }
 
 QPushButton#DeleteButton {
     background-color: var(--bg-danger);
-    color: #fff;
-    border: var(--border-width) solid #881515;
+    color: var(--text-white);
+    border: var(--border-width) solid #ff2e63;
     border-radius: var(--border-radius-small);
     padding: var(--padding-small) var(--padding-large);
     font-size: var(--font-size-base);
@@ -70,5 +70,5 @@ QPushButton#DeleteButton {
 }
 QPushButton#DeleteButton:hover {
     background-color: var(--bg-danger-hover);
-    color: #fff;
+    color: var(--text-white);
 }

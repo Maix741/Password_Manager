@@ -29,6 +29,8 @@ class ReadPasswordWidget(QWidget):
 
         QCoreApplication.installTranslator(translations_handler.get_translator())
 
+        self.settings_handler = parent.settings_handler
+
         self.copy_string = string_copyer
 
         self.styles_path: str = styles_path
@@ -201,7 +203,7 @@ class ReadPasswordWidget(QWidget):
         return QSpacerItem(5, 0, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
     def set_style_sheet(self) -> None:
-        self.setStyleSheet(load_stylesheets(self.styles_path, "read_password_widget"))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "read_password_widget", self.settings_handler.get_design()))
 
     def hide_or_unhide_password(self) -> None:
         if self.password_edit.echoMode() != QLineEdit.Password:

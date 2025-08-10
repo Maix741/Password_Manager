@@ -77,7 +77,7 @@ class ManagerGUI(QMainWindow):
             self.create_menubar()
 
     def set_style_sheet(self) -> None:
-        self.setStyleSheet(load_stylesheets(self.styles_path, "manager_gui"))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "manager_gui", self.settings_handler.get_design()))
 
     def reload_self(self) -> None:
         self.data_path = self.settings_handler.get("data_path")
@@ -222,7 +222,7 @@ class ManagerGUI(QMainWindow):
 
         for name in self.password_names:
             item = QListWidgetItem(self.passwords_list)
-            widget = PasswordWidget(self.styles_path, name, get_website_for_password(self.passwords_path, name))
+            widget = PasswordWidget(self.styles_path, name, get_website_for_password(self.passwords_path, name), self)
             item.setSizeHint(widget.sizeHint())
             self.passwords_list.addItem(item)
             self.passwords_list.setItemWidget(item, widget)
@@ -308,7 +308,7 @@ class ManagerGUI(QMainWindow):
         try:
             correct, fernet_key, AES_key = self.load_keys("read_password")
             if not correct:
-                MasterWarningMessage(self).exec()
+                MasterWarningMessage(self.styles_path, self).exec()
                 raise Exception("Incorrect Master entered")
             logging.info(f"Reading password: {password_name}")
             reader = PasswordReader()
@@ -356,13 +356,14 @@ class ManagerGUI(QMainWindow):
 
         try:
             correct, fernet_key, AES_key = self.load_keys("add_password")
-            if not correct: return MasterWarningMessage(self).exec()
+            if not correct: return MasterWarningMessage(self.styles_path, self).exec()
 
 
             password_card: AddPasswordWidget = AddPasswordWidget(self.styles_path, self.assets_path,
                                                                  self.show_generating_dialog,
                                                                  self.translation_handler,
-                                                                 self
+                                                                 use_website_as_name=self.settings_handler.get("use_website_as_name"),
+                                                                 parent=self
                                                                  )
             password_card.returned.connect(add_password)
             self.change_to_add_card(password_card)
@@ -483,7 +484,7 @@ class ManagerGUI(QMainWindow):
 
     def change_to_check_card(self) -> None:
         correct, fernet_key, AES_key  = self.load_keys("check_passwords")
-        if not correct: return MasterWarningMessage(self).exec()
+        if not correct: return MasterWarningMessage(self.styles_path, self).exec()
 
         # Clear the central layout
         self.clear_central_layout()
@@ -564,7 +565,7 @@ class ManagerGUI(QMainWindow):
 
     def renew_keys_only(self) -> None:
         keys = self.load_keys("renew_passwords_without_deleting_passwords")
-        if not keys[0]: return MasterWarningMessage(self).exec()
+        if not keys[0]: return MasterWarningMessage(self.styles_path, self).exec()
 
         logging.info("Renewing all keys without deleting passwords")
         new_master: str = self.ask_new_master()
@@ -639,7 +640,7 @@ class ManagerGUI(QMainWindow):
     def import_passwords(self) -> None:
         try:
             correct, fernet_key, AES_key = self.load_keys("import_passwords")
-            if not correct: return MasterWarningMessage(self).exec()
+            if not correct: return MasterWarningMessage(self.styles_path, self).exec()
 
             csv_file, _ = QFileDialog.getOpenFileName(self,
                                                       self.tr("Select csv-file"),
@@ -657,7 +658,7 @@ class ManagerGUI(QMainWindow):
     def export_passwords(self) -> None:
         try:
             correct, fernet_key, AES_key = self.load_keys("export_passwords")
-            if not correct: return MasterWarningMessage(self).exec()
+            if not correct: return MasterWarningMessage(self.styles_path, self).exec()
 
             csv_file, _ = QFileDialog.getSaveFileName(self,
                                                       self.tr("Save csv-file"),

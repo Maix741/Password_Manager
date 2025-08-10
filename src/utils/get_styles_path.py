@@ -8,27 +8,29 @@ def get_styles_path(data_path: str) -> str:
     if hasattr(sys, "_MEIPASS"):
         return os.path.join(sys._MEIPASS, "styles")
 
-    path: str = os.path.join(data_path, "styles")
-    if os.path.isdir(path):
-        icons: list[str] = os.listdir(path)
-        if all([icon.endswith(".css") for icon in icons]):
-            return path
+    # For development or when not using PyInstaller
 
-    current_dir: str = os.path.dirname(sys.argv[0])
-    if current_dir.endswith("utils"):
-        path_temp = str(Path(current_dir).parent)
-        if path_temp.endswith(("src", "bin")):
-            path: str = os.path.join(Path(path_temp).parent, "styles")
-        else:
-            path: str = os.path.join(path_temp, "styles")
+    try:
+        # try to use the provided data_path
+        data_styles_path = os.path.join(data_path, "styles")
+        if os.path.exists(data_styles_path):
+            if all([f.endswith(".css") for f in os.listdir(data_styles_path)]):
+                return str(data_styles_path)
+    except (FileNotFoundError, PermissionError): ...
 
-    elif current_dir.endswith(("src", "bin")):
-        path: str = os.path.join(Path(current_dir).parent, "styles")
-    else: path = os.path.join(current_dir, "styles")
+    try:
+        # Fallback to the default styles directory
+        current_dir = os.path.dirname(sys.argv[0])
+        default_styles_path = os.path.join(Path(current_dir).parent, "styles")
+        if os.path.exists(default_styles_path) and all([f.endswith(".css") for f in os.listdir(default_styles_path)]):
+            return str(default_styles_path)
+    except (FileNotFoundError, PermissionError): ...
 
-    if os.path.isdir(path):
-        icons: list[str] = os.listdir(path)
-        if all([icon.endswith(".css") for icon in icons]):
-            return path
+    try:
+        # current working directory as a last resort
+        current_dir = os.path.join(os.path.dirname(sys.argv[0]), "styles")
+        if os.path.exists(current_dir) and all([f.endswith(".css") for f in os.listdir(current_dir)]):
+            return str(current_dir)
+    except (FileNotFoundError, PermissionError): ...
 
-    return ""
+    raise FileNotFoundError("Styles directory not found in any expected location.")

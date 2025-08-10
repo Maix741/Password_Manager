@@ -4,12 +4,12 @@ QDialog {
 }
 
 QGroupBox {
-    border: var(--border-width) solid #444;
+    border: var(--border-width) solid var(--border-color-grey);
     border-radius: var(--border-radius-small);
     margin-top: var(--margin-base);
     background: var(--bg-main);
     color: var(--text-main);
-    font-weight: 500;
+    font-weight: var(--font-weight-base);
     padding: var(--padding-small) var(--padding-medium);
 }
 
@@ -21,7 +21,7 @@ QLabel {
 QLineEdit {
     background: var(--bg-input);
     color: var(--text-main);
-    border: var(--border-width) solid #444;
+    border: var(--border-width) solid var(--border-color-grey);
     border-radius: var(--border-radius-small);
     padding: var(--padding-small) var(--padding-medium);
     font-size: var(--font-size-medium);
@@ -34,38 +34,38 @@ QPushButton #generateButton #okButton #cancelButton{
     padding: var(--padding-small) var(--padding-large);
     font-size: var(--font-size-base);
     border: none;
-    font-weight: 500;
+    font-weight: var(--font-weight-base);
 }
 QPushButton #generateButton:hover #okButton:hover #cancelButton:hover {
     background: var(--bg-accent);
-    color: #fff;
+    color: var(--text-white);
 }
 
 QSpinBox#lenghtSpinBox::up-arrow,
 QSpinBox#lenghtSpinBox::down-arrow {
-    width: 200px;
-    height: 12px;
+    width: 0px;
+    height: 0px;
 }
 QSpinBox#lenghtSpinBox::up-button {
-    border: 1px solid transparent;
+    border: var(--border-radius) solid transparent;
     border-radius: var(--border-radius-small);
     background-color: var(--bg-input);
     width: 20px;
 
 }
 QSpinBox#lenghtSpinBox::down-button {
-    border: 1px solid transparent;
+    border: var(--border-width) solid transparent;
     border-radius: var(--border-radius-small);
     background-color: var(--bg-input);
-    width: 20px;
+    width: 0px;
 }
 
 QSpinBox#lenghtSpinBox {
     background: var(--bg-input);
     color: var(--text-main);
-    border: var(--border-width) solid #444;
-    border-radius: 8px;
-    padding: 7px 12px;
+    border: var(--border-width) solid var(--border-color-grey);
+    border-radius: var(--border-radius-small);
+    padding: var(--padding-small) var(--padding-medium);
     font-size: var(--font-size-medium);
     width: auto;
 }
@@ -76,4 +76,35 @@ QSpinBox#lenghtSpinBox:focus {
 QGroupBox::title {
   background-color: transparent;
   padding-top: -24px;
+}
+
+QSlider {
+    min-height: 10px;
+    max-height: 20px;
+}
+
+QSlider::groove:horizontal {
+    border: 1px solid #bbb;
+    background: #eee;
+    height: 10px;
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background: var(--slider-bg);
+    border: var(--slider-border) solid var(--slider-bg);
+    width: var(--slider-width);
+    height: var(--slider-width);
+    border-radius: var(--slider-radius-handle);
+    margin: var(--slider-margin);
+}
+
+QSlider::sub-page:horizontal {
+    background: var(--slider-bg);
+    border-radius: var(--slider-radius);
+}
+
+QSlider::add-page:horizontal {
+    background: var(--slider-add-page-bg);
+    border-radius: var(--slider-radius);
 }

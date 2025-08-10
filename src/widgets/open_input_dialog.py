@@ -60,7 +60,7 @@ def open_input_dialog(parent, title: str, label: str, password: bool = False) ->
         | Qt.WindowType.CustomizeWindowHint
     )
     dialog.setWindowIcon(parent.window_icon)
-    dialog.setStyleSheet(load_stylesheets(parent.styles_path, "input_dialog"))
+    dialog.setStyleSheet(load_stylesheets(parent.styles_path, "input_dialog", parent.settings_handler.get_design()))
 
     # if the field is a password, add the show/hide button
     if password:

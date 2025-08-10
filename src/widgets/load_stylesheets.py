@@ -34,11 +34,15 @@ def preprocess_qss(qss: str, variables: dict) -> str:
     return re.sub(r"var\((--[\w-]+)\)", replacer, qss)
 
 
-def load_stylesheets(styles_path: str, widget_name: str) -> str:
+def load_stylesheets(styles_path: str, widget_name: str, design: int = 0) -> str:
     """
     Loads and preprocesses theme.css and widget css, replacing CSS variables for Qt compatibility.
     """
-    theme_file = os.path.join(styles_path, "theme.css")
+    if design == 1:
+        theme_file = os.path.join(styles_path, "theme_dark.css")
+    else:
+        theme_file = os.path.join(styles_path, "theme_light.css")
+
     widget_file = os.path.join(styles_path, f"{widget_name}.css")
     qss: str = ""
     try:

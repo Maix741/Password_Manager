@@ -25,6 +25,8 @@ class KeyManagementWidget(QWidget):
 
         QCoreApplication.installTranslator(translations_handler.get_translator())
 
+        self.settings_handler = parent.settings_handler
+
         self.styles_path: str = styles_path
         self.assets_path: str = assets_path
 
@@ -115,7 +117,7 @@ class KeyManagementWidget(QWidget):
         self.return_to_list(3)
 
     def set_style_sheet(self) -> None:
-        self.setStyleSheet(load_stylesheets(self.styles_path, "key_management_widget"))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "key_management_widget", self.settings_handler.get_design()))
 
     def return_to_list(self, return_code: int = 0) -> None:
         self.returned.emit(return_code)

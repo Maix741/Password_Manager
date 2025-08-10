@@ -150,7 +150,7 @@ class SettingsWidget(QWidget):
         self.setLayout(main_layout)
 
     def set_style_sheet(self) -> None:
-        self.setStyleSheet(load_stylesheets(self.styles_path, "settings_widget"))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "settings_widget", self.settings_handler.get_design()))
 
     def browse_data_path(self) -> None:
         path = QFileDialog.getExistingDirectory(self, self.tr("Select Data Directory"), self.data_edit.text())

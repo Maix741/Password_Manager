@@ -34,6 +34,12 @@ class SettingsHandler:
     def get(self, key: str) -> str | int | bool:
         return self.settings.get(key, None)
 
+    def get_design(self) -> int:
+        if self.settings.get("design") == 0:
+            return 1 if is_dark_mode() else 2
+        else:
+            return self.settings.get("design")
+
     def set(self, key: str, value: str | int | bool) -> None:
         self.settings[key] = value
 

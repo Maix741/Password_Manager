@@ -16,7 +16,7 @@ QFrame#PasswordCardFrame {
 }
 
 QLineEdit, QComboBox {
-    border: var(--border-width) solid #444;
+    border: var(--border-width) solid var(--border-color-grey);
     background-color: var(--bg-input);
     padding: var(--padding-small) var(--padding-medium);
     font-size: var(--font-size-medium);
@@ -26,7 +26,7 @@ QLineEdit, QComboBox {
 
 QPushButton#saveButton {
     background-color: var(--bg-accent);
-    color: white;
+    color: var(--text-white);
     border-radius: var(--border-radius-small);
     padding: var(--padding-small) var(--padding-large);
     font-weight: bold;
@@ -37,7 +37,7 @@ QPushButton#saveButton:hover {
 
 QPushButton#cancelButton, QPushButton#browseButton {
     background-color: var(--bg-muted);
-    color: white;
+    color: var(--text-white);
     border-radius: var(--border-radius-small);
     padding: var(--padding-small) var(--padding-large);
 }
@@ -46,6 +46,14 @@ QPushButton#cancelButton:hover, QPushButton#browseButton:hover {
 }
 
 QPushButton#browseButton {
-    border: 1.5px solid #444;
+    border: var(--border-width) solid var(--border-color-grey);
     font-size: var(--font-size-medium);
+}
+
+QComboBox QAbstractItemView {
+    background-color: var(--bg-input);
+    color: var(--text-main);
+    border: var(--border-width) solid var(--border-color-grey);
+    padding: var(--padding-small);
+
 }

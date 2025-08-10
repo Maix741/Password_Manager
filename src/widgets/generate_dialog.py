@@ -116,7 +116,7 @@ class PasswordGenerateDialog(QDialog):
         main_layout.addLayout(button_layout)
 
     def set_style_sheet(self) -> None:
-        self.setStyleSheet(load_stylesheets(self.styles_path, "generate_dialog"))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "generate_dialog", self.settings_handler.get_design()))
 
     def set_lenght_slider(self, value: int) -> None:
         if value <= self.lenght_maximum_slider:

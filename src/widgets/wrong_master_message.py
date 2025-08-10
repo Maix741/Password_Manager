@@ -5,9 +5,11 @@ from .load_stylesheets import load_stylesheets
 
 class MasterWarningMessage(QMessageBox):
     def __init__(self, styles_path: str = "", parent = None) -> None:
-            super().__init__(parent)
-            self.styles_path: str = styles_path
-            self.__init_ui()
+        super().__init__(parent)
+        self.settings_handler = parent.settings_handler
+
+        self.styles_path: str = styles_path
+        self.__init_ui()
 
     def __init_ui(self) -> None:
         self.setIcon(QMessageBox.Warning)
@@ -19,4 +21,4 @@ class MasterWarningMessage(QMessageBox):
             self.close()
 
     def set_style_sheet(self) -> None: # TODO
-        self.setStyleSheet(load_stylesheets(self.styles_path, "master_warning_message"))
+        self.setStyleSheet(load_stylesheets(self.styles_path, "master_warning_message", self.settings_handler.get_design()))
