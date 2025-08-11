@@ -307,12 +307,12 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation>Neues Hauptpasswort eingeben:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="646"/>
+        <location filename="../src/manager_gui.py" line="647"/>
         <source>Select csv-file</source>
         <translation>csv-Datei auswählen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="664"/>
+        <location filename="../src/manager_gui.py" line="665"/>
         <source>Save csv-file</source>
         <translation>csv-Datei speichern</translation>
     </message>

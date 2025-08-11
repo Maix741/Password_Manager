@@ -308,7 +308,6 @@ class ManagerGUI(QMainWindow):
         try:
             correct, fernet_key, AES_key = self.load_keys("read_password")
             if not correct:
-                MasterWarningMessage(self.styles_path, self).exec()
                 raise Exception("Incorrect Master entered")
             logging.info(f"Reading password: {password_name}")
             reader = PasswordReader()
@@ -356,7 +355,7 @@ class ManagerGUI(QMainWindow):
 
         try:
             correct, fernet_key, AES_key = self.load_keys("add_password")
-            if not correct: return MasterWarningMessage(self.styles_path, self).exec()
+            if not correct: return
 
 
             password_card: AddPasswordWidget = AddPasswordWidget(self.styles_path, self.assets_path,
@@ -484,7 +483,7 @@ class ManagerGUI(QMainWindow):
 
     def change_to_check_card(self) -> None:
         correct, fernet_key, AES_key  = self.load_keys("check_passwords")
-        if not correct: return MasterWarningMessage(self.styles_path, self).exec()
+        if not correct: return
 
         # Clear the central layout
         self.clear_central_layout()
@@ -565,7 +564,7 @@ class ManagerGUI(QMainWindow):
 
     def renew_keys_only(self) -> None:
         keys = self.load_keys("renew_passwords_without_deleting_passwords")
-        if not keys[0]: return MasterWarningMessage(self.styles_path, self).exec()
+        if not keys[0]: return
 
         logging.info("Renewing all keys without deleting passwords")
         new_master: str = self.ask_new_master()
@@ -579,7 +578,8 @@ class ManagerGUI(QMainWindow):
     def load_keys(self, load_from: str) -> tuple[str, bytes, list[str, bytes]] | tuple[None, None, None]:
         correct_master: str = self.ask_master_pass(load_from)
         if not correct_master:
-            self.wrong_master_entered()
+            if not type(correct_master) == type(None):
+                self.wrong_master_entered()
             return (None, None, None)
 
         fernet_key, AES_key_tuple = get_keys(self.data_path, correct_master)
@@ -590,7 +590,7 @@ class ManagerGUI(QMainWindow):
 
         return (correct_master, fernet_key, list(AES_key_tuple))
 
-    def ask_master_pass(self, ask_from: str) -> str:
+    def ask_master_pass(self, ask_from: str) -> str | None:
         master_pass: str | None = open_input_dialog(self,
             self.tr("Enter Master Password"),
             self.tr("Enter the master password:"),
@@ -605,7 +605,7 @@ class ManagerGUI(QMainWindow):
                 return ""
         else:
             logging.warning("No master password was entered.")
-            return ""
+            return None
 
     def ask_new_master(self) -> str:
         """Ask the user to set a new master password."""
@@ -626,6 +626,7 @@ class ManagerGUI(QMainWindow):
         if self.wrong_attempts >= self.max_wrong_attempts:
             logging.error("Incorrect master entered ten times!")
             self.close()
+        MasterWarningMessage(self.styles_path, self).exec()
 
     def validate_master_pass(self, password_to_check: str, validate_from: str) -> bool:
         validator = ValidateMasterPassword(self.data_path, validate_from)
@@ -640,7 +641,7 @@ class ManagerGUI(QMainWindow):
     def import_passwords(self) -> None:
         try:
             correct, fernet_key, AES_key = self.load_keys("import_passwords")
-            if not correct: return MasterWarningMessage(self.styles_path, self).exec()
+            if not correct: return
 
             csv_file, _ = QFileDialog.getOpenFileName(self,
                                                       self.tr("Select csv-file"),
@@ -658,7 +659,7 @@ class ManagerGUI(QMainWindow):
     def export_passwords(self) -> None:
         try:
             correct, fernet_key, AES_key = self.load_keys("export_passwords")
-            if not correct: return MasterWarningMessage(self.styles_path, self).exec()
+            if not correct: return
 
             csv_file, _ = QFileDialog.getSaveFileName(self,
                                                       self.tr("Save csv-file"),

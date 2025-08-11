@@ -307,12 +307,12 @@ If you continue it will be lost</translation>
         <translation>Enter a new master password:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="646"/>
+        <location filename="../src/manager_gui.py" line="647"/>
         <source>Select csv-file</source>
         <translation>Select csv-file</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="664"/>
+        <location filename="../src/manager_gui.py" line="665"/>
         <source>Save csv-file</source>
         <translation>Save csv-file</translation>
     </message>
