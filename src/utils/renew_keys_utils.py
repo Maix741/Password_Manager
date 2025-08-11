@@ -40,7 +40,7 @@ def renew_keys_only(old_keys: tuple[str, bytes, list[str, bytes]], new_master: s
     new_fernet_key = gen_fernet_key()
 
     master: tuple[str, bytes] = (new_master, creator.salt)
-    write_keys(data_path, new_aes_key, new_fernet_key, master)
+    aes_salt = write_keys(data_path, new_aes_key, new_fernet_key, master)
 
     passwords: list[dict[str, str]] = ExportPasswords(
         csv_file_path="",
@@ -56,7 +56,7 @@ def renew_keys_only(old_keys: tuple[str, bytes, list[str, bytes]], new_master: s
     ImportPasswords(
         csv_file_path="",
         passwords_path=os.path.join(data_path, "passwords"),
-        keys=(new_fernet_key, list(new_aes_key)),
+        keys=(new_fernet_key, [new_aes_key, aes_salt]),
         passwords_without_file=passwords
         )
 
