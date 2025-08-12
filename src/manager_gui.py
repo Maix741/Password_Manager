@@ -96,7 +96,7 @@ class ManagerGUI(QMainWindow):
         add_password_button: QPushButton = QPushButton(self)
         add_password_button.setObjectName("controlsDockButton")
         add_password_button.setToolTip(self.tr("Add Password"))
-        add_password_button.clicked.connect(self.add_password)
+        add_password_button.clicked.connect(self.change_to_add_card)
         add_password_button.setIcon(self.add_icon)
         add_password_button.setIconSize(self.icon_size)
         dock_layout.addWidget(add_password_button)
@@ -106,7 +106,7 @@ class ManagerGUI(QMainWindow):
         renew_keys_button.setToolTip(self.tr("Renew Keys"))
         renew_keys_button.setIcon(self.key_icon)
         renew_keys_button.setIconSize(self.icon_size)
-        renew_keys_button.clicked.connect(self.change_to_key_card)
+        renew_keys_button.clicked.connect(self.change_to_key_management_card)
         dock_layout.addWidget(renew_keys_button)
 
         settings_button: QPushButton = QPushButton(self)
@@ -238,7 +238,7 @@ class ManagerGUI(QMainWindow):
     def read_selected(self) -> None:
         current_item = self.passwords_list.currentItem()
         if current_item:
-            self.read_password(self.password_names[self.passwords_list.row(current_item)])
+            self.change_to_read_card(self.password_names[self.passwords_list.row(current_item)])
 
     def show_password_context_menu(self, password_name: str, password_list_widget: PasswordWidget, position) -> None:
         """Show context menu for the saved playlists."""
@@ -321,7 +321,7 @@ class ManagerGUI(QMainWindow):
         self.central_layout.addWidget(self.widget_card_container)
         widget.returned.connect(on_return)
 
-    def read_password(self, password_name: str) -> None:
+    def change_to_read_card(self, password_name: str) -> None:
         def modify_password(password: dict[str, str]) -> None:
             if not password: return self.change_to_normal_list()
             logging.info(f"Modifying Password: {password['name']}")
@@ -368,7 +368,7 @@ class ManagerGUI(QMainWindow):
         if not error:
             self.load_widget(password_card, modify_password)
 
-    def add_password(self) -> None:
+    def change_to_add_card(self) -> None:
         def add_password(password: dict[str, str]) -> None:
             if not len(password.keys()) == 5:
                 return self.change_to_normal_list()
@@ -447,39 +447,29 @@ class ManagerGUI(QMainWindow):
         correct, fernet_key, AES_key  = self.load_keys("check_passwords")
         if not correct: return
 
-        # Clear the central layout
-        self.clear_central_layout()
+        try:
+            # create check widget
+            reader = PasswordReader()
+            check_widget: CheckPasswordWidget = CheckPasswordWidget(
+                password_reader=reader,
+                fernet_key=fernet_key,
+                AES_key=AES_key,
+                strength_check=check_password_strength,
+                duplication_check=check_password_duplication,
+                styles_path=self.styles_path,
+                assets_path=self.assets_path,
+                passwords_path=self.passwords_path,
+                translations_handler=self.translation_handler,
+                constants=(PASSWORD_MIN_LENGHT, ENTROPY_THRESHOLD),
+                parent=self
+                )
 
-        # create check widget
-        reader = PasswordReader()
-        check_widget: CheckPasswordWidget = CheckPasswordWidget(
-            password_reader=reader,
-            fernet_key=fernet_key,
-            AES_key=AES_key,
-            strength_check=check_password_strength,
-            duplication_check=check_password_duplication,
-            styles_path=self.styles_path,
-            assets_path=self.assets_path,
-            passwords_path=self.passwords_path,
-            translations_handler=self.translation_handler,
-            constants=(PASSWORD_MIN_LENGHT, ENTROPY_THRESHOLD),
-            parent=self
-            )
+            self.load_widget(check_widget, self.change_to_normal_list)
 
-        # Create a new layout for the password card
-        check_card_layout = QVBoxLayout()
-        check_card_layout.setAlignment(Qt.AlignTop)
-        check_card_layout.addWidget(check_widget)
+        except Exception as e:
+            logging.exception(f"Error loading CheckPasswordWidget: {e}")
 
-        # Create a container widget for the layout
-        self.read_card_container = QWidget(self.central_widget)
-        self.read_card_container.setLayout(check_card_layout)
-
-        # Add the container to the central layout
-        self.central_layout.addWidget(self.read_card_container)
-        check_widget.returned.connect(self.change_to_normal_list)
-
-    def change_to_key_card(self) -> None:
+    def change_to_key_management_card(self) -> None:
         def key_management_card_return(return_code: int) -> None:
             if return_code == 0:
                 pass # do nothing
@@ -491,8 +481,6 @@ class ManagerGUI(QMainWindow):
                 delete_paswords(self.data_path) # delete passwords
 
             self.change_to_normal_list()
-        # Clear the central layout
-        self.clear_central_layout()
 
         # create management widget
         management_widget: KeyManagementWidget = KeyManagementWidget(
@@ -502,18 +490,7 @@ class ManagerGUI(QMainWindow):
             parent=self
             )
 
-        # Create a new layout for the password card
-        management_card_layout = QVBoxLayout()
-        management_card_layout.setAlignment(Qt.AlignTop)
-        management_card_layout.addWidget(management_widget)
-
-        # Create a container widget for the layout
-        self.read_card_container = QWidget(self.central_widget)
-        self.read_card_container.setLayout(management_card_layout)
-
-        # Add the container to the central layout
-        self.central_layout.addWidget(self.read_card_container)
-        management_widget.returned.connect(key_management_card_return)
+        self.load_widget(management_widget, key_management_card_return)
 
     def renew_keys(self) -> None:
         logging.info("Renewing all keys")
