@@ -303,7 +303,41 @@ class ManagerGUI(QMainWindow):
             rename_password(self.passwords_path, old_password_name, new_password_name)
             self.fill_passwords_list()
 
+    def load_widget(self, widget: CheckPasswordWidget | KeyManagementWidget | ReadPasswordWidget | AddPasswordWidget | SettingsWidget, on_return) -> None:
+        # Clear the central layout
+        self.clear_central_layout()
+
+        # Create a new layout for the widget
+        widget_card_layout = QVBoxLayout()
+        widget_card_layout.setAlignment(Qt.AlignTop)
+        widget_card_layout.addWidget(widget)
+
+        # Create a container widget for the layout
+        self.widget_card_container = QWidget(self.central_widget)
+        self.widget_card_container.setLayout(widget_card_layout)
+
+        # Add the container to the central layout
+        self.central_layout.addWidget(self.widget_card_container)
+        widget.returned.connect(on_return)
+
     def read_password(self, password_name: str) -> None:
+        def modify_password(password: dict[str, str]) -> None:
+            if not password: return self.change_to_normal_list()
+            logging.info(f"Modifying Password: {password['name']}")
+            AddPassword(
+                name=password["name"],
+                username=password["username"],
+                password=password["password"],
+                notes=password["notes"],
+                website=password["website"],
+                passwords_path=self.passwords_path,
+                replace=True,
+                fernet_key=fernet_key,
+                AES_key=AES_key[0],
+                salt=AES_key[1]
+            )
+            self.change_to_normal_list()
+
         error = None
         try:
             correct, fernet_key, AES_key = self.load_keys("read_password")
@@ -313,7 +347,7 @@ class ManagerGUI(QMainWindow):
             reader = PasswordReader()
             decrypted_password: dict[str, str] = reader.read_password(
                 name=password_name, AES_key=AES_key[0], salt=AES_key[1], fernet_key=fernet_key, password_path=self.passwords_path
-            )
+                )
             password_card: ReadPasswordWidget = ReadPasswordWidget(
                 styles_path=self.styles_path,
                 assets_path=self.assets_path,
@@ -331,7 +365,7 @@ class ManagerGUI(QMainWindow):
             logging.warning(f"Invalid key or name for reading: {e}")
 
         if not error:
-            self.change_to_read_card(password_card, fernet_key, AES_key)
+            self.load_widget(password_card, modify_password)
 
     def add_password(self) -> None:
         def add_password(password: dict[str, str]) -> None:
@@ -376,40 +410,6 @@ class ManagerGUI(QMainWindow):
             else:
                 logging.error("Maximum retry attempts reached. Exiting add_password process.")
                 self.retry_count = 0  # Reset retry count
-
-    def change_to_read_card(self, password_card: ReadPasswordWidget, fernet_key: bytes, AES_key: tuple[bytes]) -> None:
-        def modify_password(password: dict[str, str]) -> None:
-            if not password: return self.change_to_normal_list()
-            logging.info(f"Modifying Password: {password['name']}")
-            AddPassword(
-                name=password["name"],
-                username=password["username"],
-                password=password["password"],
-                notes=password["notes"],
-                website=password["website"],
-                passwords_path=self.passwords_path,
-                replace=True,
-                fernet_key=fernet_key,
-                AES_key=AES_key[0],
-                salt=AES_key[1]
-            )
-            self.change_to_normal_list()
-
-        # Clear the central layout
-        self.clear_central_layout()
-
-        # Create a new layout for the password card
-        read_card_layout = QVBoxLayout()
-        read_card_layout.setAlignment(Qt.AlignTop)
-        read_card_layout.addWidget(password_card)
-
-        # Create a container widget for the layout
-        self.read_card_container = QWidget(self.central_widget)
-        self.read_card_container.setLayout(read_card_layout)
-
-        # Add the container to the central layout
-        self.central_layout.addWidget(self.read_card_container)
-        password_card.returned.connect(modify_password)
 
     def clear_central_layout(self) -> None:
         # Remove all widgets from self.central_layout
