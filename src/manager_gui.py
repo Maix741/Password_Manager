@@ -305,6 +305,12 @@ class ManagerGUI(QMainWindow):
             self.fill_passwords_list()
 
     def load_widget(self, widget: CheckPasswordWidget | KeyManagementWidget | ReadPasswordWidget | AddPasswordWidget | SettingsWidget, on_return) -> None:
+        """ Load a widget into the central layout.
+
+        Args:
+            widget (CheckPasswordWidget | KeyManagementWidget | ReadPasswordWidget | AddPasswordWidget | SettingsWidget): The widget to be loaded.
+            on_return (_type_): Callback function to be called when the widget returns.
+        """
         # Clear the central layout
         self.clear_central_layout()
 
