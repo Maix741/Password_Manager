@@ -224,6 +224,21 @@ class ManagerGUI(QMainWindow):
 
         self.setMenuBar(self.menubar)
 
+    def delete_password(self, password_name: str) -> None:
+        """
+        Delete a password by its name.
+
+        Args:
+            password_name (str): The name of the password to be deleted.
+        """
+        remove_password(self.data_path, password_name)
+        self.fill_passwords_list()
+
+    def read_selected(self) -> None:
+        current_item = self.passwords_list.currentItem()
+        if current_item:
+            self.read_password(self.password_names[self.passwords_list.row(current_item)])
+
     def show_password_context_menu(self, password_name: str, password_list_widget: PasswordWidget, position) -> None:
         """Show context menu for the saved playlists."""
         context_menu = QMenu(self)
@@ -277,16 +292,6 @@ class ManagerGUI(QMainWindow):
                 lambda pos, n=name, w=widget: self.show_password_context_menu(n, w, pos)
             )
 
-    def delete_password(self, password_name: str) -> None:
-        """
-        Delete a password by its name.
-
-        Args:
-            password_name (str): The name of the password to be deleted.
-        """
-        remove_password(self.data_path, password_name)
-        self.fill_passwords_list()
-
     def rename_password(self, old_password_name) -> None:
         """Rename a password by its name."""
         new_password_name: str | None = open_input_dialog(self,
@@ -297,11 +302,6 @@ class ManagerGUI(QMainWindow):
         if new_password_name:
             rename_password(self.passwords_path, old_password_name, new_password_name)
             self.fill_passwords_list()
-
-    def read_selected(self) -> None:
-        current_item = self.passwords_list.currentItem()
-        if current_item:
-            self.read_password(self.password_names[self.passwords_list.row(current_item)])
 
     def read_password(self, password_name: str) -> None:
         error = None
