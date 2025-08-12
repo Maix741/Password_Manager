@@ -304,7 +304,9 @@ class ManagerGUI(QMainWindow):
             rename_password(self.passwords_path, old_password_name, new_password_name)
             self.fill_passwords_list()
 
-    def load_widget(self, widget: CheckPasswordWidget | KeyManagementWidget | ReadPasswordWidget | AddPasswordWidget | SettingsWidget, on_return) -> None:
+    def load_widget(self,
+        widget: CheckPasswordWidget | KeyManagementWidget | ReadPasswordWidget | AddPasswordWidget | SettingsWidget,
+        on_return) -> None:
         """ Load a widget into the central layout.
 
         Args:
