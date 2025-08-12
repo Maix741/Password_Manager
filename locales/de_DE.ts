@@ -199,78 +199,78 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation>Passwort suchen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="136"/>
+        <location filename="../src/manager_gui.py" line="181"/>
         <source>File</source>
         <translation>Datei</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="140"/>
+        <location filename="../src/manager_gui.py" line="185"/>
         <source>Import</source>
         <translation>Importieren</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="145"/>
+        <location filename="../src/manager_gui.py" line="190"/>
         <source>Export</source>
         <translation>Exportiren</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="150"/>
+        <location filename="../src/manager_gui.py" line="195"/>
         <source>Exit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="156"/>
+        <location filename="../src/manager_gui.py" line="201"/>
         <source>Edit</source>
         <translation>Ändern</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="160"/>
-        <location filename="../src/manager_gui.py" line="271"/>
+        <location filename="../src/manager_gui.py" line="114"/>
+        <location filename="../src/manager_gui.py" line="205"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="167"/>
+        <location filename="../src/manager_gui.py" line="212"/>
         <source>Tools</source>
         <translation>Werkzeuge</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="171"/>
+        <location filename="../src/manager_gui.py" line="216"/>
         <source>Generate Password</source>
         <translation>Passwort generieren</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="176"/>
+        <location filename="../src/manager_gui.py" line="221"/>
         <source>Check</source>
         <translation>Passwort-Check</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="187"/>
+        <location filename="../src/manager_gui.py" line="247"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="193"/>
+        <location filename="../src/manager_gui.py" line="253"/>
         <source>Rename</source>
         <translation>Umbenennen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="255"/>
+        <location filename="../src/manager_gui.py" line="98"/>
         <source>Add Password</source>
         <translation>Passwort hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="263"/>
+        <location filename="../src/manager_gui.py" line="106"/>
         <source>Renew Keys</source>
         <translation>Schlüssel erneuern</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="293"/>
+        <location filename="../src/manager_gui.py" line="299"/>
         <source>Rename Password</source>
         <translation>Passwort umbenennen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="294"/>
+        <location filename="../src/manager_gui.py" line="300"/>
         <source>Enter the new password name:</source>
         <translation>Geben sie den neuen Namen ein:</translation>
     </message>
@@ -287,32 +287,32 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation type="vanished">Geben sie den Namen des Passworts ein:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="595"/>
+        <location filename="../src/manager_gui.py" line="554"/>
         <source>Enter Master Password</source>
         <translation>Hauptpasswort eingeben</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="596"/>
+        <location filename="../src/manager_gui.py" line="555"/>
         <source>Enter the master password:</source>
         <translation>Geben sie das Hauptpasswort ein:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="613"/>
+        <location filename="../src/manager_gui.py" line="572"/>
         <source>Set New Master Password</source>
         <translation>Neues Hauptpasswort setzen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="614"/>
+        <location filename="../src/manager_gui.py" line="573"/>
         <source>Enter a new master password:</source>
         <translation>Neues Hauptpasswort eingeben:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="647"/>
+        <location filename="../src/manager_gui.py" line="606"/>
         <source>Select csv-file</source>
         <translation>csv-Datei auswählen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="665"/>
+        <location filename="../src/manager_gui.py" line="624"/>
         <source>Save csv-file</source>
         <translation>csv-Datei speichern</translation>
     </message>

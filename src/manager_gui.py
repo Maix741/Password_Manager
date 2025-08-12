@@ -76,6 +76,50 @@ class ManagerGUI(QMainWindow):
             self.create_controls_dock()
             self.create_menubar()
 
+    def create_controls_dock(self) -> None:
+        """Create the dock widget with control buttons."""
+        if hasattr(self, "dock_widget") and self.dock_widget:
+            self.dock_widget.deleteLater()
+        # Create a new dock widget
+        self.dock_widget = QDockWidget(self)
+
+        self.dock_widget.setTitleBarWidget(QWidget())
+        self.dock_widget.setFeatures(QDockWidget.NoDockWidgetFeatures)
+        self.dock_widget.setAllowedAreas(Qt.LeftDockWidgetArea)
+        self.dock_widget.setFixedWidth(50)
+        dock_content = QWidget(self)
+        dock_layout = QVBoxLayout(dock_content)
+
+        # Spacer to keep buttons at the bottom
+        dock_layout.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+        add_password_button: QPushButton = QPushButton(self)
+        add_password_button.setObjectName("controlsDockButton")
+        add_password_button.setToolTip(self.tr("Add Password"))
+        add_password_button.clicked.connect(self.change_to_add_card)
+        add_password_button.setIcon(self.add_icon)
+        add_password_button.setIconSize(self.icon_size)
+        dock_layout.addWidget(add_password_button)
+
+        renew_keys_button: QPushButton = QPushButton(self)
+        renew_keys_button.setObjectName("controlsDockButton")
+        renew_keys_button.setToolTip(self.tr("Renew Keys"))
+        renew_keys_button.setIcon(self.key_icon)
+        renew_keys_button.setIconSize(self.icon_size)
+        renew_keys_button.clicked.connect(self.change_to_key_management_card)
+        dock_layout.addWidget(renew_keys_button)
+
+        settings_button: QPushButton = QPushButton(self)
+        settings_button.setObjectName("controlsDockButton")
+        settings_button.setToolTip(self.tr("Settings"))
+        settings_button.clicked.connect(self.change_to_settings)
+        settings_button.setIcon(self.settings_icon)
+        settings_button.setIconSize(self.icon_size)
+        dock_layout.addWidget(settings_button)
+
+        self.dock_widget.setWidget(dock_content)
+        self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_widget)
+
     def set_style_sheet(self) -> None:
         self.setStyleSheet(load_stylesheets(self.styles_path, "manager_gui", self.settings_handler.get_design()))
 
@@ -83,6 +127,7 @@ class ManagerGUI(QMainWindow):
         self.data_path = self.settings_handler.get("data_path")
         self.update_translations(self.settings_handler.get("system_locale"))
         self.update_data_path(self.data_path)
+        self.change_to_normal_list()
 
     def update_data_path(self, data_path: str) -> None:
         self.passwords_path = os.path.join(data_path, "passwords")
@@ -180,6 +225,21 @@ class ManagerGUI(QMainWindow):
 
         self.setMenuBar(self.menubar)
 
+    def delete_password(self, password_name: str) -> None:
+        """
+        Delete a password by its name.
+
+        Args:
+            password_name (str): The name of the password to be deleted.
+        """
+        remove_password(self.data_path, password_name)
+        self.fill_passwords_list()
+
+    def read_selected(self) -> None:
+        current_item = self.passwords_list.currentItem()
+        if current_item:
+            self.change_to_read_card(self.password_names[self.passwords_list.row(current_item)])
+
     def show_password_context_menu(self, password_name: str, password_list_widget: PasswordWidget, position) -> None:
         """Show context menu for the saved playlists."""
         context_menu = QMenu(self)
@@ -233,60 +293,6 @@ class ManagerGUI(QMainWindow):
                 lambda pos, n=name, w=widget: self.show_password_context_menu(n, w, pos)
             )
 
-    def create_controls_dock(self) -> None:
-        """Create the dock widget with control buttons."""
-        if hasattr(self, "dock_widget") and self.dock_widget:
-            self.dock_widget.deleteLater()
-        # Create a new dock widget
-        self.dock_widget = QDockWidget(self)
-
-        self.dock_widget.setTitleBarWidget(QWidget())
-        self.dock_widget.setFeatures(QDockWidget.NoDockWidgetFeatures)
-        self.dock_widget.setAllowedAreas(Qt.LeftDockWidgetArea)
-        self.dock_widget.setFixedWidth(50)
-        dock_content = QWidget(self)
-        dock_layout = QVBoxLayout(dock_content)
-
-        # Spacer to keep buttons at the bottom
-        dock_layout.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
-
-        add_password_button: QPushButton = QPushButton(self)
-        add_password_button.setObjectName("controlsDockButton")
-        add_password_button.setToolTip(self.tr("Add Password"))
-        add_password_button.clicked.connect(self.add_password)
-        add_password_button.setIcon(self.add_icon)
-        add_password_button.setIconSize(self.icon_size)
-        dock_layout.addWidget(add_password_button)
-
-        renew_keys_button: QPushButton = QPushButton(self)
-        renew_keys_button.setObjectName("controlsDockButton")
-        renew_keys_button.setToolTip(self.tr("Renew Keys"))
-        renew_keys_button.setIcon(self.key_icon)
-        renew_keys_button.setIconSize(self.icon_size)
-        renew_keys_button.clicked.connect(self.change_to_key_card)
-        dock_layout.addWidget(renew_keys_button)
-
-        settings_button: QPushButton = QPushButton(self)
-        settings_button.setObjectName("controlsDockButton")
-        settings_button.setToolTip(self.tr("Settings"))
-        settings_button.clicked.connect(self.change_to_settings)
-        settings_button.setIcon(self.settings_icon)
-        settings_button.setIconSize(self.icon_size)
-        dock_layout.addWidget(settings_button)
-
-        self.dock_widget.setWidget(dock_content)
-        self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_widget)
-
-    def delete_password(self, password_name: str) -> None:
-        """
-        Delete a password by its name.
-
-        Args:
-            password_name (str): The name of the password to be deleted.
-        """
-        remove_password(self.data_path, password_name)
-        self.fill_passwords_list()
-
     def rename_password(self, old_password_name) -> None:
         """Rename a password by its name."""
         new_password_name: str | None = open_input_dialog(self,
@@ -298,12 +304,61 @@ class ManagerGUI(QMainWindow):
             rename_password(self.passwords_path, old_password_name, new_password_name)
             self.fill_passwords_list()
 
-    def read_selected(self) -> None:
-        current_item = self.passwords_list.currentItem()
-        if current_item:
-            self.read_password(self.password_names[self.passwords_list.row(current_item)])
+    def load_widget(self,
+        widget: CheckPasswordWidget | KeyManagementWidget | ReadPasswordWidget | AddPasswordWidget | SettingsWidget,
+        on_return) -> None:
+        """ Load a widget into the central layout.
 
-    def read_password(self, password_name: str) -> None:
+        Args:
+            widget (CheckPasswordWidget | KeyManagementWidget | ReadPasswordWidget | AddPasswordWidget | SettingsWidget): The widget to be loaded.
+            on_return (_type_): Callback function to be called when the widget returns.
+        """
+        try:
+            if hasattr(self, "widget_card_container") and self.widget_card_container:
+                if type(widget) in [type(child) for child in self.widget_card_container.children()]:
+                    # If a widget is already loaded, delete it
+                    self.central_layout.removeWidget(self.widget_card_container)
+                    self.widget_card_container.deleteLater()
+                    self.widget_card_container = None
+                    return self.change_to_normal_list()  # Reset to normal list before loading new widget
+
+        except (RuntimeError, AttributeError):
+            logging.warning("Error while checking widget_card_container, it might not exist yet.")
+
+        # Clear the central layout
+        self.clear_central_layout()
+
+        # Create a new layout for the widget
+        widget_card_layout: QVBoxLayout = QVBoxLayout()
+        widget_card_layout.setAlignment(Qt.AlignTop)
+        widget_card_layout.addWidget(widget)
+
+        # Create a container widget for the layout
+        self.widget_card_container: QWidget = QWidget(self.central_widget)
+        self.widget_card_container.setLayout(widget_card_layout)
+
+        # Add the container to the central layout
+        self.central_layout.addWidget(self.widget_card_container)
+        widget.returned.connect(on_return)
+
+    def change_to_read_card(self, password_name: str) -> None:
+        def modify_password(password: dict[str, str]) -> None:
+            if not password: return self.change_to_normal_list()
+            logging.info(f"Modifying Password: {password['name']}")
+            AddPassword(
+                name=password["name"],
+                username=password["username"],
+                password=password["password"],
+                notes=password["notes"],
+                website=password["website"],
+                passwords_path=self.passwords_path,
+                replace=True,
+                fernet_key=fernet_key,
+                AES_key=AES_key[0],
+                salt=AES_key[1]
+            )
+            self.change_to_normal_list()
+
         error = None
         try:
             correct, fernet_key, AES_key = self.load_keys("read_password")
@@ -313,7 +368,7 @@ class ManagerGUI(QMainWindow):
             reader = PasswordReader()
             decrypted_password: dict[str, str] = reader.read_password(
                 name=password_name, AES_key=AES_key[0], salt=AES_key[1], fernet_key=fernet_key, password_path=self.passwords_path
-            )
+                )
             password_card: ReadPasswordWidget = ReadPasswordWidget(
                 styles_path=self.styles_path,
                 assets_path=self.assets_path,
@@ -331,12 +386,12 @@ class ManagerGUI(QMainWindow):
             logging.warning(f"Invalid key or name for reading: {e}")
 
         if not error:
-            self.change_to_read_card(password_card, fernet_key, AES_key)
+            self.load_widget(password_card, modify_password)
 
-    def add_password(self) -> None:
+    def change_to_add_card(self) -> None:
         def add_password(password: dict[str, str]) -> None:
             if not len(password.keys()) == 5:
-                return
+                return self.change_to_normal_list()
             logging.info(f"Adding Password: {password['name']}")
             AddPassword(
                 name=password["name"],
@@ -357,59 +412,22 @@ class ManagerGUI(QMainWindow):
             correct, fernet_key, AES_key = self.load_keys("add_password")
             if not correct: return
 
+            add_password_widget: AddPasswordWidget = AddPasswordWidget(
+                self.styles_path, self.assets_path,
+                self.show_generating_dialog,
+                self.translation_handler,
+                use_website_as_name=self.settings_handler.get("use_website_as_name"),
+                parent=self
+                )
+            add_password_widget.name_edit.setFocus()
+            if self.settings_handler.get("use_website_as_name"):
+                add_password_widget.name_edit.setReadOnly(True)
+                add_password_widget.username_edit.setFocus()
 
-            password_card: AddPasswordWidget = AddPasswordWidget(self.styles_path, self.assets_path,
-                                                                 self.show_generating_dialog,
-                                                                 self.translation_handler,
-                                                                 use_website_as_name=self.settings_handler.get("use_website_as_name"),
-                                                                 parent=self
-                                                                 )
-            password_card.returned.connect(add_password)
-            self.change_to_add_card(password_card)
+            self.load_widget(add_password_widget, add_password)
 
         except (IndexError, PermissionError, FileNotFoundError, ValueError, KeyError) as e:
-            logging.error(f"Error while adding password: {e}")
-            self.retry_count += 1
-            if self.retry_count <= 3:  # Retry up to 3 times
-                logging.info(f"Retrying to add password (Attempt {self.retry_count}/3)...")
-                self.add_password()
-            else:
-                logging.error("Maximum retry attempts reached. Exiting add_password process.")
-                self.retry_count = 0  # Reset retry count
-
-    def change_to_read_card(self, password_card: ReadPasswordWidget, fernet_key: bytes, AES_key: tuple[bytes]) -> None:
-        def modify_password(password: dict[str, str]) -> None:
-            if not password: return self.change_to_normal_list()
-            logging.info(f"Modifying Password: {password['name']}")
-            AddPassword(
-                name=password["name"],
-                username=password["username"],
-                password=password["password"],
-                notes=password["notes"],
-                website=password["website"],
-                passwords_path=self.passwords_path,
-                replace=True,
-                fernet_key=fernet_key,
-                AES_key=AES_key[0],
-                salt=AES_key[1]
-            )
-            self.change_to_normal_list()
-
-        # Clear the central layout
-        self.clear_central_layout()
-
-        # Create a new layout for the password card
-        read_card_layout = QVBoxLayout()
-        read_card_layout.setAlignment(Qt.AlignTop)
-        read_card_layout.addWidget(password_card)
-
-        # Create a container widget for the layout
-        self.read_card_container = QWidget(self.central_widget)
-        self.read_card_container.setLayout(read_card_layout)
-
-        # Add the container to the central layout
-        self.central_layout.addWidget(self.read_card_container)
-        password_card.returned.connect(modify_password)
+            logging.exception(f"Error while adding password: {e}")
 
     def clear_central_layout(self) -> None:
         # Remove all widgets from self.central_layout
@@ -423,60 +441,24 @@ class ManagerGUI(QMainWindow):
                 # If it's a layout or spacer, remove it accordingly
                 self.central_layout.removeItem(item)
 
-    def change_to_add_card(self, add_password_card: AddPasswordWidget) -> None:
-        # Clear the central layout
-        self.clear_central_layout()
-
-        # Create a new layout for the password card
-        add_card_layout = QVBoxLayout()
-        add_card_layout.setAlignment(Qt.AlignTop)  # Align the widget to the top
-        add_card_layout.addWidget(add_password_card)
-
-        # Create a container widget for the layout
-        self.add_card_container = QWidget(self)
-        self.add_card_container.setLayout(add_card_layout)
-
-        # Add the container to the central layout
-        self.central_layout.addWidget(self.add_card_container)
-        if self.settings_handler.get("use_website_as_name"):
-            add_password_card.name_edit.setReadOnly(True)
-            add_password_card.username_edit.setFocus()
-        else:
-            add_password_card.name_edit.setFocus()
-
-        add_password_card.returned.connect(self.change_to_normal_list)
-
     def change_to_settings(self) -> None:
         def settings_return(reload_self: bool) -> None:
-            self.settings_container.deleteLater()
-            del self.settings_widget
             if reload_self: self.reload_self()
             else: self.change_to_normal_list()
 
-        # Check if settings_widget already exists and return to the list if it does
-        if hasattr(self, "settings_widget") and self.settings_widget:
-            logging.debug("Settings widget already exists, returning to normal list.")
-            self.settings_widget.return_to_list() # FIXME: RuntimeError: Signal source has been deleted
-            return
+        try:
+            # create settings widget
+            settings_widget: SettingsWidget = SettingsWidget(
+                self.styles_path,
+                self.settings_handler,
+                self.translation_handler,
+                self
+                )
+            
+            self.load_widget(settings_widget, settings_return)
 
-        # Clear the central layout
-        self.clear_central_layout()
-
-        # create settings widget
-        self.settings_widget: SettingsWidget = SettingsWidget(self.styles_path, self.settings_handler, self.translation_handler, self)
-
-        # Create a new layout for the settings widget
-        settings_layout = QVBoxLayout()
-        settings_layout.setAlignment(Qt.AlignTop)  # Align the widget to the top
-        settings_layout.addWidget(self.settings_widget)
-
-        # Create a container widget for the layout
-        self.settings_container = QWidget(self)
-        self.settings_container.setLayout(settings_layout)
-
-        # Add the container to the central layout
-        self.central_layout.addWidget(self.settings_container)
-        self.settings_widget.returned.connect(settings_return)
+        except Exception as e:
+            logging.exception(f"Error loading settings_widget: {e}")
 
     def change_to_normal_list(self) -> None:
         self.init_ui(False)
@@ -485,39 +467,29 @@ class ManagerGUI(QMainWindow):
         correct, fernet_key, AES_key  = self.load_keys("check_passwords")
         if not correct: return
 
-        # Clear the central layout
-        self.clear_central_layout()
+        try:
+            # create check widget
+            reader = PasswordReader()
+            check_widget: CheckPasswordWidget = CheckPasswordWidget(
+                password_reader=reader,
+                fernet_key=fernet_key,
+                AES_key=AES_key,
+                strength_check=check_password_strength,
+                duplication_check=check_password_duplication,
+                styles_path=self.styles_path,
+                assets_path=self.assets_path,
+                passwords_path=self.passwords_path,
+                translations_handler=self.translation_handler,
+                constants=(PASSWORD_MIN_LENGHT, ENTROPY_THRESHOLD),
+                parent=self
+                )
 
-        # create check widget
-        reader = PasswordReader()
-        check_widget: CheckPasswordWidget = CheckPasswordWidget(
-            password_reader=reader,
-            fernet_key=fernet_key,
-            AES_key=AES_key,
-            strength_check=check_password_strength,
-            duplication_check=check_password_duplication,
-            styles_path=self.styles_path,
-            assets_path=self.assets_path,
-            passwords_path=self.passwords_path,
-            translations_handler=self.translation_handler,
-            constants=(PASSWORD_MIN_LENGHT, ENTROPY_THRESHOLD),
-            parent=self
-            )
+            self.load_widget(check_widget, self.change_to_normal_list)
 
-        # Create a new layout for the password card
-        check_card_layout = QVBoxLayout()
-        check_card_layout.setAlignment(Qt.AlignTop)
-        check_card_layout.addWidget(check_widget)
+        except Exception as e:
+            logging.exception(f"Error loading CheckPasswordWidget: {e}")
 
-        # Create a container widget for the layout
-        self.read_card_container = QWidget(self.central_widget)
-        self.read_card_container.setLayout(check_card_layout)
-
-        # Add the container to the central layout
-        self.central_layout.addWidget(self.read_card_container)
-        check_widget.returned.connect(self.change_to_normal_list)
-
-    def change_to_key_card(self) -> None:
+    def change_to_key_management_card(self) -> None:
         def key_management_card_return(return_code: int) -> None:
             if return_code == 0:
                 pass # do nothing
@@ -529,8 +501,6 @@ class ManagerGUI(QMainWindow):
                 delete_paswords(self.data_path) # delete passwords
 
             self.change_to_normal_list()
-        # Clear the central layout
-        self.clear_central_layout()
 
         # create management widget
         management_widget: KeyManagementWidget = KeyManagementWidget(
@@ -540,18 +510,7 @@ class ManagerGUI(QMainWindow):
             parent=self
             )
 
-        # Create a new layout for the password card
-        management_card_layout = QVBoxLayout()
-        management_card_layout.setAlignment(Qt.AlignTop)
-        management_card_layout.addWidget(management_widget)
-
-        # Create a container widget for the layout
-        self.read_card_container = QWidget(self.central_widget)
-        self.read_card_container.setLayout(management_card_layout)
-
-        # Add the container to the central layout
-        self.central_layout.addWidget(self.read_card_container)
-        management_widget.returned.connect(key_management_card_return)
+        self.load_widget(management_widget, key_management_card_return)
 
     def renew_keys(self) -> None:
         logging.info("Renewing all keys")
