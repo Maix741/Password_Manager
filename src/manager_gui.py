@@ -311,16 +311,28 @@ class ManagerGUI(QMainWindow):
             widget (CheckPasswordWidget | KeyManagementWidget | ReadPasswordWidget | AddPasswordWidget | SettingsWidget): The widget to be loaded.
             on_return (_type_): Callback function to be called when the widget returns.
         """
+        try:
+            if hasattr(self, "widget_card_container") and self.widget_card_container:
+                if type(widget) in [type(child) for child in self.widget_card_container.children()]:
+                    # If a widget is already loaded, delete it
+                    self.central_layout.removeWidget(self.widget_card_container)
+                    self.widget_card_container.deleteLater()
+                    self.widget_card_container = None
+                    return self.change_to_normal_list()  # Reset to normal list before loading new widget
+
+        except (RuntimeError, AttributeError):
+            logging.warning("Error while checking widget_card_container, it might not exist yet.")
+
         # Clear the central layout
         self.clear_central_layout()
 
         # Create a new layout for the widget
-        widget_card_layout = QVBoxLayout()
+        widget_card_layout: QVBoxLayout = QVBoxLayout()
         widget_card_layout.setAlignment(Qt.AlignTop)
         widget_card_layout.addWidget(widget)
 
         # Create a container widget for the layout
-        self.widget_card_container = QWidget(self.central_widget)
+        self.widget_card_container: QWidget = QWidget(self.central_widget)
         self.widget_card_container.setLayout(widget_card_layout)
 
         # Add the container to the central layout
