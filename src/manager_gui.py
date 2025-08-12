@@ -370,7 +370,7 @@ class ManagerGUI(QMainWindow):
     def add_password(self) -> None:
         def add_password(password: dict[str, str]) -> None:
             if not len(password.keys()) == 5:
-                return
+                return self.change_to_normal_list()
             logging.info(f"Adding Password: {password['name']}")
             AddPassword(
                 name=password["name"],
@@ -391,25 +391,22 @@ class ManagerGUI(QMainWindow):
             correct, fernet_key, AES_key = self.load_keys("add_password")
             if not correct: return
 
+            add_password_widget: AddPasswordWidget = AddPasswordWidget(
+                self.styles_path, self.assets_path,
+                self.show_generating_dialog,
+                self.translation_handler,
+                use_website_as_name=self.settings_handler.get("use_website_as_name"),
+                parent=self
+                )
+            add_password_widget.name_edit.setFocus()
+            if self.settings_handler.get("use_website_as_name"):
+                add_password_widget.name_edit.setReadOnly(True)
+                add_password_widget.username_edit.setFocus()
 
-            password_card: AddPasswordWidget = AddPasswordWidget(self.styles_path, self.assets_path,
-                                                                 self.show_generating_dialog,
-                                                                 self.translation_handler,
-                                                                 use_website_as_name=self.settings_handler.get("use_website_as_name"),
-                                                                 parent=self
-                                                                 )
-            password_card.returned.connect(add_password)
-            self.change_to_add_card(password_card)
+            self.load_widget(add_password_widget, add_password)
 
         except (IndexError, PermissionError, FileNotFoundError, ValueError, KeyError) as e:
-            logging.error(f"Error while adding password: {e}")
-            self.retry_count += 1
-            if self.retry_count <= 3:  # Retry up to 3 times
-                logging.info(f"Retrying to add password (Attempt {self.retry_count}/3)...")
-                self.add_password()
-            else:
-                logging.error("Maximum retry attempts reached. Exiting add_password process.")
-                self.retry_count = 0  # Reset retry count
+            logging.exception(f"Error while adding password: {e}")
 
     def clear_central_layout(self) -> None:
         # Remove all widgets from self.central_layout
@@ -422,29 +419,6 @@ class ManagerGUI(QMainWindow):
             else:
                 # If it's a layout or spacer, remove it accordingly
                 self.central_layout.removeItem(item)
-
-    def change_to_add_card(self, add_password_card: AddPasswordWidget) -> None:
-        # Clear the central layout
-        self.clear_central_layout()
-
-        # Create a new layout for the password card
-        add_card_layout = QVBoxLayout()
-        add_card_layout.setAlignment(Qt.AlignTop)  # Align the widget to the top
-        add_card_layout.addWidget(add_password_card)
-
-        # Create a container widget for the layout
-        self.add_card_container = QWidget(self)
-        self.add_card_container.setLayout(add_card_layout)
-
-        # Add the container to the central layout
-        self.central_layout.addWidget(self.add_card_container)
-        if self.settings_handler.get("use_website_as_name"):
-            add_password_card.name_edit.setReadOnly(True)
-            add_password_card.username_edit.setFocus()
-        else:
-            add_password_card.name_edit.setFocus()
-
-        add_password_card.returned.connect(self.change_to_normal_list)
 
     def change_to_settings(self) -> None:
         def settings_return(reload_self: bool) -> None:
