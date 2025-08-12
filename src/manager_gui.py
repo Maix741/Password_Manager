@@ -127,6 +127,7 @@ class ManagerGUI(QMainWindow):
         self.data_path = self.settings_handler.get("data_path")
         self.update_translations(self.settings_handler.get("system_locale"))
         self.update_data_path(self.data_path)
+        self.change_to_normal_list()
 
     def update_data_path(self, data_path: str) -> None:
         self.passwords_path = os.path.join(data_path, "passwords")
@@ -422,35 +423,22 @@ class ManagerGUI(QMainWindow):
 
     def change_to_settings(self) -> None:
         def settings_return(reload_self: bool) -> None:
-            self.settings_container.deleteLater()
-            del self.settings_widget
             if reload_self: self.reload_self()
             else: self.change_to_normal_list()
 
-        # Check if settings_widget already exists and return to the list if it does
-        if hasattr(self, "settings_widget") and self.settings_widget:
-            logging.debug("Settings widget already exists, returning to normal list.")
-            self.settings_widget.return_to_list() # FIXME: RuntimeError: Signal source has been deleted
-            return
+        try:
+            # create settings widget
+            settings_widget: SettingsWidget = SettingsWidget(
+                self.styles_path,
+                self.settings_handler,
+                self.translation_handler,
+                self
+                )
+            
+            self.load_widget(settings_widget, settings_return)
 
-        # Clear the central layout
-        self.clear_central_layout()
-
-        # create settings widget
-        self.settings_widget: SettingsWidget = SettingsWidget(self.styles_path, self.settings_handler, self.translation_handler, self)
-
-        # Create a new layout for the settings widget
-        settings_layout = QVBoxLayout()
-        settings_layout.setAlignment(Qt.AlignTop)  # Align the widget to the top
-        settings_layout.addWidget(self.settings_widget)
-
-        # Create a container widget for the layout
-        self.settings_container = QWidget(self)
-        self.settings_container.setLayout(settings_layout)
-
-        # Add the container to the central layout
-        self.central_layout.addWidget(self.settings_container)
-        self.settings_widget.returned.connect(settings_return)
+        except Exception as e:
+            logging.exception(f"Error loading settings_widget: {e}")
 
     def change_to_normal_list(self) -> None:
         self.init_ui(False)
