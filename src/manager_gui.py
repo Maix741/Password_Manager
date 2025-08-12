@@ -76,6 +76,50 @@ class ManagerGUI(QMainWindow):
             self.create_controls_dock()
             self.create_menubar()
 
+    def create_controls_dock(self) -> None:
+        """Create the dock widget with control buttons."""
+        if hasattr(self, "dock_widget") and self.dock_widget:
+            self.dock_widget.deleteLater()
+        # Create a new dock widget
+        self.dock_widget = QDockWidget(self)
+
+        self.dock_widget.setTitleBarWidget(QWidget())
+        self.dock_widget.setFeatures(QDockWidget.NoDockWidgetFeatures)
+        self.dock_widget.setAllowedAreas(Qt.LeftDockWidgetArea)
+        self.dock_widget.setFixedWidth(50)
+        dock_content = QWidget(self)
+        dock_layout = QVBoxLayout(dock_content)
+
+        # Spacer to keep buttons at the bottom
+        dock_layout.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+        add_password_button: QPushButton = QPushButton(self)
+        add_password_button.setObjectName("controlsDockButton")
+        add_password_button.setToolTip(self.tr("Add Password"))
+        add_password_button.clicked.connect(self.add_password)
+        add_password_button.setIcon(self.add_icon)
+        add_password_button.setIconSize(self.icon_size)
+        dock_layout.addWidget(add_password_button)
+
+        renew_keys_button: QPushButton = QPushButton(self)
+        renew_keys_button.setObjectName("controlsDockButton")
+        renew_keys_button.setToolTip(self.tr("Renew Keys"))
+        renew_keys_button.setIcon(self.key_icon)
+        renew_keys_button.setIconSize(self.icon_size)
+        renew_keys_button.clicked.connect(self.change_to_key_card)
+        dock_layout.addWidget(renew_keys_button)
+
+        settings_button: QPushButton = QPushButton(self)
+        settings_button.setObjectName("controlsDockButton")
+        settings_button.setToolTip(self.tr("Settings"))
+        settings_button.clicked.connect(self.change_to_settings)
+        settings_button.setIcon(self.settings_icon)
+        settings_button.setIconSize(self.icon_size)
+        dock_layout.addWidget(settings_button)
+
+        self.dock_widget.setWidget(dock_content)
+        self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_widget)
+
     def set_style_sheet(self) -> None:
         self.setStyleSheet(load_stylesheets(self.styles_path, "manager_gui", self.settings_handler.get_design()))
 
@@ -232,50 +276,6 @@ class ManagerGUI(QMainWindow):
             widget.customContextMenuRequested.connect(
                 lambda pos, n=name, w=widget: self.show_password_context_menu(n, w, pos)
             )
-
-    def create_controls_dock(self) -> None:
-        """Create the dock widget with control buttons."""
-        if hasattr(self, "dock_widget") and self.dock_widget:
-            self.dock_widget.deleteLater()
-        # Create a new dock widget
-        self.dock_widget = QDockWidget(self)
-
-        self.dock_widget.setTitleBarWidget(QWidget())
-        self.dock_widget.setFeatures(QDockWidget.NoDockWidgetFeatures)
-        self.dock_widget.setAllowedAreas(Qt.LeftDockWidgetArea)
-        self.dock_widget.setFixedWidth(50)
-        dock_content = QWidget(self)
-        dock_layout = QVBoxLayout(dock_content)
-
-        # Spacer to keep buttons at the bottom
-        dock_layout.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
-
-        add_password_button: QPushButton = QPushButton(self)
-        add_password_button.setObjectName("controlsDockButton")
-        add_password_button.setToolTip(self.tr("Add Password"))
-        add_password_button.clicked.connect(self.add_password)
-        add_password_button.setIcon(self.add_icon)
-        add_password_button.setIconSize(self.icon_size)
-        dock_layout.addWidget(add_password_button)
-
-        renew_keys_button: QPushButton = QPushButton(self)
-        renew_keys_button.setObjectName("controlsDockButton")
-        renew_keys_button.setToolTip(self.tr("Renew Keys"))
-        renew_keys_button.setIcon(self.key_icon)
-        renew_keys_button.setIconSize(self.icon_size)
-        renew_keys_button.clicked.connect(self.change_to_key_card)
-        dock_layout.addWidget(renew_keys_button)
-
-        settings_button: QPushButton = QPushButton(self)
-        settings_button.setObjectName("controlsDockButton")
-        settings_button.setToolTip(self.tr("Settings"))
-        settings_button.clicked.connect(self.change_to_settings)
-        settings_button.setIcon(self.settings_icon)
-        settings_button.setIconSize(self.icon_size)
-        dock_layout.addWidget(settings_button)
-
-        self.dock_widget.setWidget(dock_content)
-        self.addDockWidget(Qt.LeftDockWidgetArea, self.dock_widget)
 
     def delete_password(self, password_name: str) -> None:
         """
