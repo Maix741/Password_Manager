@@ -243,14 +243,45 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation>Passwort-Check</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="247"/>
+        <location filename="../src/manager_gui.py" line="240"/>
+        <source>Delete Error</source>
+        <translation>Lösch Error</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="242"/>
+        <source>An error occurred while deleting the password. Please check the log for details.</source>
+        <translation>Beim löschen ist ein Error entstanden.
+Bitte versuchen sie es später erneut.</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="253"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="253"/>
+        <location filename="../src/manager_gui.py" line="259"/>
         <source>Rename</source>
         <translation>Umbenennen</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="316"/>
+        <source>Rename Error</source>
+        <translation>Umbenennen Error</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="318"/>
+        <source>An error occurred while renaming the password. Please check the log for details.</source>
+        <translation>Beim Umbenennen des Passworts ist ein Fehler passiert. Schau dir das Protokoll für Details an.</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="649"/>
+        <source>Export Error</source>
+        <translation>Export Error</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="651"/>
+        <source>An error occurred while exporting passwords. Please check the log for details.</source>
+        <translation>Beim Exportieren der Passwörter ist ein Fehler passiert. Schau dir das Protokoll für Details an.</translation>
     </message>
     <message>
         <location filename="../src/manager_gui.py" line="98"/>
@@ -263,12 +294,12 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation>Schlüssel erneuern</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="299"/>
+        <location filename="../src/manager_gui.py" line="305"/>
         <source>Rename Password</source>
         <translation>Passwort umbenennen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="300"/>
+        <location filename="../src/manager_gui.py" line="306"/>
         <source>Enter the new password name:</source>
         <translation>Geben sie den neuen Namen ein:</translation>
     </message>
@@ -285,32 +316,42 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation type="vanished">Geben sie den Namen des Passworts ein:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="554"/>
+        <location filename="../src/manager_gui.py" line="564"/>
         <source>Enter Master Password</source>
         <translation>Hauptpasswort eingeben</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="555"/>
+        <location filename="../src/manager_gui.py" line="565"/>
         <source>Enter the master password:</source>
         <translation>Geben sie das Hauptpasswort ein:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="572"/>
+        <location filename="../src/manager_gui.py" line="582"/>
         <source>Set New Master Password</source>
         <translation>Neues Hauptpasswort setzen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="573"/>
+        <location filename="../src/manager_gui.py" line="583"/>
         <source>Enter a new master password:</source>
         <translation>Neues Hauptpasswort eingeben:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="606"/>
+        <location filename="../src/manager_gui.py" line="616"/>
         <source>Select csv-file</source>
         <translation>csv-Datei auswählen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="624"/>
+        <location filename="../src/manager_gui.py" line="628"/>
+        <source>Import Error</source>
+        <translation>Import Error</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="630"/>
+        <source>An error occurred while importing passwords. Please check the log for details.</source>
+        <translation>Beim Importieren der Passwörter ist ein Fehler passiert. Schau dir das Protokoll für Details an.</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="638"/>
         <source>Save csv-file</source>
         <translation>csv-Datei speichern</translation>
     </message>
@@ -421,73 +462,85 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <translation type="vanished">Name: </translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="94"/>
+        <location filename="../src/widgets/read_password_widget.py" line="95"/>
         <source>Username:</source>
         <translation>Nutzername:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="100"/>
+        <location filename="../src/widgets/read_password_widget.py" line="101"/>
         <source>Username</source>
         <translation>Nutzername</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="108"/>
+        <location filename="../src/widgets/read_password_widget.py" line="109"/>
         <source>copy username</source>
         <translation>Nutzernamen kopieren</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="115"/>
+        <location filename="../src/widgets/read_password_widget.py" line="116"/>
         <source>Password:</source>
         <translation>Passwort:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="121"/>
+        <location filename="../src/widgets/read_password_widget.py" line="122"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="131"/>
+        <location filename="../src/widgets/read_password_widget.py" line="132"/>
         <source>copy password</source>
         <translation>Passwort kopieren</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="138"/>
+        <location filename="../src/widgets/read_password_widget.py" line="139"/>
         <source>show/hide password</source>
         <translation>Passwort zeigen/verstecken</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="143"/>
+        <location filename="../src/widgets/read_password_widget.py" line="144"/>
         <source>Websites:</source>
         <translation>Websites:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="149"/>
+        <location filename="../src/widgets/read_password_widget.py" line="150"/>
         <source>Website</source>
         <translation>Website</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="157"/>
+        <location filename="../src/widgets/read_password_widget.py" line="158"/>
         <source>Notes:</source>
         <translation>Notizen:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="163"/>
+        <location filename="../src/widgets/read_password_widget.py" line="164"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="179"/>
-        <location filename="../src/widgets/read_password_widget.py" line="261"/>
+        <location filename="../src/widgets/read_password_widget.py" line="180"/>
+        <location filename="../src/widgets/read_password_widget.py" line="271"/>
         <source>Edit</source>
         <translation>Ändern</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="186"/>
+        <location filename="../src/widgets/read_password_widget.py" line="187"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/read_password_widget.py" line="249"/>
+        <location filename="../src/widgets/read_password_widget.py" line="238"/>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/read_password_widget.py" line="239"/>
+        <source>Could not delete password &quot;{password_name}&quot;. 
+Please try again later.</source>
+        <translation>Das Passwort &quot;{password_name}&quot; konnte nicht gelöscht werden.
+Bitte versuchen sie es später erneut.</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/read_password_widget.py" line="259"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>

@@ -12,6 +12,7 @@ from .open_input_dialog import open_input_dialog
 
 # messages
 from .wrong_master_message import MasterWarningMessage
+from .message_box import MessageBox
 
 # utils
 from .load_stylesheets import load_stylesheets

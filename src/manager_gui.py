@@ -232,8 +232,14 @@ class ManagerGUI(QMainWindow):
         Args:
             password_name (str): The name of the password to be deleted.
         """
-        remove_password(self.data_path, password_name)
-        self.fill_passwords_list()
+        password_removed: bool = remove_password(self.data_path, password_name)
+        if password_removed:
+            self.fill_passwords_list()
+            return
+        self.show_error(
+            self.tr("Delete Error"),
+            self.tr("An error occurred while deleting the password. Please check the log for details.")
+        )
 
     def read_selected(self) -> None:
         current_item = self.passwords_list.currentItem()
@@ -300,9 +306,16 @@ class ManagerGUI(QMainWindow):
             self.tr("Enter the new password name:"),
             False
         )
-        if new_password_name:
-            rename_password(self.passwords_path, old_password_name, new_password_name)
+        if not new_password_name:
+            return
+        password_renamed: bool = rename_password(self.passwords_path, old_password_name, new_password_name)
+        if password_renamed:
             self.fill_passwords_list()
+            return
+        self.show_error(
+            self.tr("Rename Error"),
+            self.tr("An error occurred while renaming the password. Please check the log for details.")
+        )
 
     def load_widget(self,
         widget: CheckPasswordWidget | KeyManagementWidget | ReadPasswordWidget | AddPasswordWidget | SettingsWidget,
@@ -359,7 +372,6 @@ class ManagerGUI(QMainWindow):
             )
             self.change_to_normal_list()
 
-        error = None
         try:
             correct, fernet_key, AES_key = self.load_keys("read_password")
             if not correct:
@@ -381,12 +393,10 @@ class ManagerGUI(QMainWindow):
                 timer_lenght=INACTIVITY_TIMER_LENGHT
                 )
 
-        except Exception as e:
-            error = e
-            logging.warning(f"Invalid key or name for reading: {e}")
-
-        if not error:
             self.load_widget(password_card, modify_password)
+
+        except Exception as e:
+            logging.warning(f"Invalid key or name for reading: {e}")            
 
     def change_to_add_card(self) -> None:
         def add_password(password: dict[str, str]) -> None:
@@ -614,6 +624,10 @@ class ManagerGUI(QMainWindow):
 
         except (IndexError, PermissionError, FileNotFoundError, ValueError, KeyError) as e:
             logging.error(f"Error while importing password: {e}")
+            self.show_error(
+                self.tr("Import Error"),
+                self.tr("An error occurred while importing passwords. Please check the log for details.")
+            )
 
     def export_passwords(self) -> None:
         try:
@@ -631,6 +645,10 @@ class ManagerGUI(QMainWindow):
 
         except (IndexError, PermissionError, FileNotFoundError, ValueError, KeyError) as e:
             logging.error(f"Error while exporting password: {e}")
+            self.show_error(
+                self.tr("Export Error"),
+                self.tr("An error occurred while exporting passwords. Please check the log for details.")
+            )
 
     def update_translations(self, locale: str) -> None:
         """
@@ -639,3 +657,8 @@ class ManagerGUI(QMainWindow):
         """
         self.translation_handler.set_language(locale)
         self.init_ui()
+
+    def show_error(self, title: str, text: str) -> None:
+        """Show an error message box."""
+        error_box: MessageBox = MessageBox(self.styles_path, self.settings_handler, self)
+        error_box.critical(title, text)

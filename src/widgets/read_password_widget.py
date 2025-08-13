@@ -11,6 +11,7 @@ from PySide6.QtCore import Signal, Qt, QTimer, QSize, QCoreApplication
 from PySide6.QtGui import QIcon
 
 from .load_stylesheets import load_stylesheets
+from .message_box import MessageBox
 
 
 class ReadPasswordWidget(QWidget):
@@ -228,6 +229,15 @@ class ReadPasswordWidget(QWidget):
             os.remove(password_path)
         except (FileNotFoundError, PermissionError) as e:
             logging.error(f"Error removing {self.password_name}: {e}")
+            msg_box = MessageBox(
+                self.styles_path,
+                self.settings_handler,
+                self
+            )
+            msg_box.critical(
+                self.tr("Error"),
+                self.tr("Could not delete password \"{password_name}\". \nPlease try again later.").format(password_name=self.password_name)
+            )
         self.return_to_list()
 
     def enable_editing(self) -> None:
