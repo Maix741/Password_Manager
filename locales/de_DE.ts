@@ -633,4 +633,33 @@ Namen verwenden</translation>
         <translation>OK</translation>
     </message>
 </context>
+<context>
+    <name>dialog</name>
+    <message>
+        <source>OK</source>
+        <translation type="vanished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="vanished">Abbrechen</translation>
+    </message>
+</context>
+<context>
+    <name>parent</name>
+    <message>
+        <location filename="../src/widgets/open_input_dialog.py" line="45"/>
+        <source>Show/Hide Password</source>
+        <translation>Passwort zeigen/verstecken</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/open_input_dialog.py" line="66"/>
+        <source>Ok</source>
+        <translation>Ok</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/open_input_dialog.py" line="67"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+</context>
 </TS>

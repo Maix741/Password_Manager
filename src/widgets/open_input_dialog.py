@@ -1,6 +1,6 @@
 from functools import partial
 
-from PySide6.QtWidgets import QInputDialog, QLineEdit, QDialog
+from PySide6.QtWidgets import QInputDialog, QLineEdit
 from PySide6.QtGui import QAction
 from PySide6.QtCore import Qt
 
@@ -62,11 +62,15 @@ def open_input_dialog(parent, title: str, label: str, password: bool = False) ->
     dialog.setWindowIcon(parent.window_icon)
     dialog.setStyleSheet(load_stylesheets(parent.styles_path, "input_dialog", parent.settings_handler.get_design()))
 
+    # set ok and cancel buttons text
+    dialog.setOkButtonText(parent.tr("Ok"))
+    dialog.setCancelButtonText(parent.tr("Cancel"))
+
     # if the field is a password, add the show/hide button
     if password:
         add_show_action(dialog)
 
     # run the dialog
-    if dialog.exec_() == QDialog.Accepted:
+    if dialog.exec():
         return dialog.textValue()
     return None

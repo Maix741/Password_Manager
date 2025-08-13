@@ -633,4 +633,33 @@ If you continue it will be lost</translation>
         <translation>OK</translation>
     </message>
 </context>
+<context>
+    <name>dialog</name>
+    <message>
+        <source>OK</source>
+        <translation type="vanished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="vanished">Cancel</translation>
+    </message>
+</context>
+<context>
+    <name>parent</name>
+    <message>
+        <location filename="../src/widgets/open_input_dialog.py" line="45"/>
+        <source>Show/Hide Password</source>
+        <translation>show/hide password</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/open_input_dialog.py" line="66"/>
+        <source>Ok</source>
+        <translation>Ok</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/open_input_dialog.py" line="67"/>
+        <source>Cancel</source>
+        <translation>Cancel</translation>
+    </message>
+</context>
 </TS>
