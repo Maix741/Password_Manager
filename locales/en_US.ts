@@ -328,8 +328,14 @@ If you continue it will be lost</translation>
     </message>
     <message>
         <location filename="../src/widgets/wrong_master_message.py" line="17"/>
+        <source>Invalid master password entered. 
+Please try again </source>
+        <translation>Invalid master password entered. 
+Please try again </translation>
+    </message>
+    <message>
         <source>Invalid master password entered. Please try again </source>
-        <translation>Invalid master password entered. Please try again </translation>
+        <translation type="vanished">Invalid master password entered. Please try again </translation>
     </message>
     <message>
         <location filename="../src/widgets/wrong_master_message.py" line="18"/>

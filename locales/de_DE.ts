@@ -329,8 +329,14 @@ Bitte versuchen sie es später erneut.</translation>
     </message>
     <message>
         <location filename="../src/widgets/wrong_master_message.py" line="17"/>
+        <source>Invalid master password entered. 
+Please try again </source>
+        <translation>Falsches Hauptpasswort eingegeben. 
+Bitte versuchen sie es erneut </translation>
+    </message>
+    <message>
         <source>Invalid master password entered. Please try again </source>
-        <translation>Falsches Hauptpasswort eingegeben. Bitte versuchen sie es erneut </translation>
+        <translation type="vanished">Falsches Hauptpasswort eingegeben. Bitte versuchen sie es erneut </translation>
     </message>
     <message>
         <location filename="../src/widgets/wrong_master_message.py" line="18"/>

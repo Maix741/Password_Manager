@@ -14,7 +14,7 @@ class MasterWarningMessage(QMessageBox):
     def init_ui(self) -> None:
         self.setIcon(QMessageBox.Warning)
         self.setWindowTitle(self.tr("Invalid Master entered"))
-        self.setText(self.tr("Invalid master password entered. Please try again "))
+        self.setText(self.tr("Invalid master password entered. \nPlease try again "))
         ok_button = self.addButton(self.tr("OK"), QMessageBox.AcceptRole)
 
         if self.clickedButton() == ok_button:
