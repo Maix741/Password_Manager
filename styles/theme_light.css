@@ -195,13 +195,6 @@ QCheckBox, QRadioButton {
     font-size: 13pt;
 }
 
-QMessageBox {
-    background: var(--bg-card);
-    color: var(--text-main);
-    border-radius: var(--border-radius);
-    font-size: 15px;
-}
-
 /* --- Custom Widget IDs --- */
 #PasswordEntry {
     background: #cdcaca;

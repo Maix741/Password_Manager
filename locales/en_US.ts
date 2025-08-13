@@ -1,84 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US" sourcelanguage="en">
+<TS version="2.1" language="en_US" sourcelanguage="en_US">
 <context>
     <name>AddPasswordWidget</name>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="64"/>
+        <location filename="../src/widgets/add_password_widget.py" line="65"/>
         <source>Name:</source>
         <translation>Name:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="83"/>
+        <location filename="../src/widgets/add_password_widget.py" line="84"/>
         <source>Username:</source>
         <translation>Username:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="89"/>
+        <location filename="../src/widgets/add_password_widget.py" line="90"/>
         <source>Username</source>
         <translation>Username</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="94"/>
+        <location filename="../src/widgets/add_password_widget.py" line="95"/>
         <source>Password:</source>
         <translation>Password:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="100"/>
+        <location filename="../src/widgets/add_password_widget.py" line="101"/>
         <source>Password</source>
         <translation>Password</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="108"/>
+        <location filename="../src/widgets/add_password_widget.py" line="109"/>
         <source>show/hide password</source>
         <translation>show/hide password</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="113"/>
+        <location filename="../src/widgets/add_password_widget.py" line="114"/>
         <source>Websites:</source>
         <translation>Websites:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="119"/>
+        <location filename="../src/widgets/add_password_widget.py" line="120"/>
         <source>Website</source>
         <translation>Website</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="125"/>
+        <location filename="../src/widgets/add_password_widget.py" line="126"/>
         <source>Notes:</source>
         <translation>Notes:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="131"/>
+        <location filename="../src/widgets/add_password_widget.py" line="132"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="149"/>
+        <location filename="../src/widgets/add_password_widget.py" line="150"/>
         <source>Save</source>
         <translation>Save</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="213"/>
+        <location filename="../src/widgets/add_password_widget.py" line="218"/>
         <source>No name entered</source>
         <translation>No name entered</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="214"/>
+        <location filename="../src/widgets/add_password_widget.py" line="220"/>
         <source>The password needs a name to be saved!
 If you continue it will be lost</source>
         <translation>The password needs a name to be saved!
 If you continue it will be lost</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="215"/>
         <source>Yes, proceed</source>
-        <translation>Yes, proceed</translation>
+        <translation type="vanished">Yes, proceed</translation>
     </message>
     <message>
-        <location filename="../src/widgets/add_password_widget.py" line="216"/>
         <source>No, cancel</source>
-        <translation>No, cancel</translation>
+        <translation type="vanished">No, cancel</translation>
     </message>
 </context>
 <context>
@@ -333,6 +331,29 @@ If you continue it will be lost</translation>
         <location filename="../src/widgets/wrong_master_message.py" line="18"/>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>MessageBox</name>
+    <message>
+        <location filename="../src/widgets/message_box.py" line="26"/>
+        <source>Ok</source>
+        <translation>Ok</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/message_box.py" line="27"/>
+        <source>Cancel</source>
+        <translation>Cancel</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/message_box.py" line="69"/>
+        <source>Yes</source>
+        <translation>Yes</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/message_box.py" line="70"/>
+        <source>No</source>
+        <translation>No</translation>
     </message>
 </context>
 <context>

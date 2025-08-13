@@ -1,0 +1,20 @@
+QMessageBox {
+    background: var(--bg-card);
+    color: var(--text-main);
+    border-radius: var(--border-radius);
+    font-size: 15px;
+}
+QMessageBox QPushButton {
+    background: var(--bg-button);
+    color: var(--text-white);
+    border-radius: var(--border-radius-small);
+    padding: 8px 16px;
+    font-size: 14px;
+}
+QMessageBox QPushButton:hover {
+    background: var(--bg-button-2);
+}
+QMessageBox QLabel {
+    color: var(--text-muted);
+    font-size: 14px;
+}

@@ -3,13 +3,14 @@ import os
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
-    QPushButton, QVBoxLayout, QLabel, QWidget, QMessageBox, QFrame,
+    QPushButton, QVBoxLayout, QLabel, QWidget, QFrame,
     QSpacerItem, QSizePolicy, QHBoxLayout, QLineEdit, QGridLayout
 )
 from PySide6.QtCore import Signal, Qt, QSize, QCoreApplication
 from PySide6.QtGui import QIcon
 
 from .load_stylesheets import load_stylesheets
+from .message_box import MessageBox
 
 
 class AddPasswordWidget(QWidget):
@@ -208,15 +209,18 @@ class AddPasswordWidget(QWidget):
             self.returned.emit({})
 
     def show_warning(self) -> None:
-        msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Warning)  # Options: Information, Warning, Critical, Question
-        msg_box.setWindowTitle(self.tr("No name entered"))
-        msg_box.setText(self.tr("The password needs a name to be saved!\nIf you continue it will be lost"))
-        yes_button = msg_box.addButton(self.tr("Yes, proceed"), QMessageBox.AcceptRole)
-        no_button = msg_box.addButton(self.tr("No, cancel"), QMessageBox.RejectRole)
-        msg_box.exec()
+        msg_box: MessageBox = MessageBox(
+            styles_path=self.styles_path,
+            settings_handler=self.settings_handler,
+            parent=self
+        )
+        yes_clicked = msg_box.warn(
+            title=self.tr("No name entered"),
+            text=self.tr("The password needs a name to be saved!\nIf you continue it will be lost")
+        )
 
-        if msg_box.clickedButton() == yes_button:
+        if yes_clicked:
             self.return_to_list()
-        elif msg_box.clickedButton() == no_button:
             return
+
+        self.name_edit.setFocus()
