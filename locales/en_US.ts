@@ -70,14 +70,6 @@ If you continue it will be lost</source>
         <translation>The password needs a name to be saved!
 If you continue it will be lost</translation>
     </message>
-    <message>
-        <source>Yes, proceed</source>
-        <translation type="vanished">Yes, proceed</translation>
-    </message>
-    <message>
-        <source>No, cancel</source>
-        <translation type="vanished">No, cancel</translation>
-    </message>
 </context>
 <context>
     <name>CheckPasswordWidget</name>
@@ -100,22 +92,6 @@ If you continue it will be lost</translation>
         <location filename="../src/widgets/check_passwords_widget.py" line="121"/>
         <source>Reused Passwords (0) ▼</source>
         <translation>Reused Passwords (0) ▼</translation>
-    </message>
-    <message>
-        <source>Weak Passwords ({count_weak}) {arrow}</source>
-        <translation type="vanished">Weak Passwords ({count_weak}) {arrow}</translation>
-    </message>
-    <message>
-        <source>⚠️ Weak Passwords ({count_weak}) {arrow}</source>
-        <translation type="vanished">⚠️ Weak Passwords ({count_weak}) {arrow}</translation>
-    </message>
-    <message>
-        <source>Reused Passwords ({count_reused}) {arrow}</source>
-        <translation type="vanished">Reused Passwords ({count_reused}) {arrow}</translation>
-    </message>
-    <message>
-        <source>⚠️ Reused Passwords ({count_reused}) {arrow}</source>
-        <translation type="vanished">⚠️ Reused Passwords ({count_reused}) {arrow}</translation>
     </message>
     <message>
         <location filename="../src/widgets/check_passwords_widget.py" line="214"/>
@@ -303,18 +279,6 @@ If you continue it will be lost</translation>
         <translation>Enter the new name:</translation>
     </message>
     <message>
-        <source>Show/Hide Password</source>
-        <translation type="vanished">show/hide password</translation>
-    </message>
-    <message>
-        <source>Enter New Password Name</source>
-        <translation type="vanished">Enter new password name</translation>
-    </message>
-    <message>
-        <source>Enter the password Name:</source>
-        <translation type="vanished">Enter the password name:</translation>
-    </message>
-    <message>
         <location filename="../src/manager_gui.py" line="564"/>
         <source>Enter Master Password</source>
         <translation>Enter Master Password</translation>
@@ -456,10 +420,6 @@ If you continue it will be lost</translation>
 </context>
 <context>
     <name>ReadPasswordWidget</name>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">Name: </translation>
-    </message>
     <message>
         <location filename="../src/widgets/read_password_widget.py" line="95"/>
         <source>Username:</source>
@@ -608,10 +568,6 @@ Please try again later.</translation>
  as name</translation>
     </message>
     <message>
-        <source>Use website as name</source>
-        <translation type="vanished">Use website as name</translation>
-    </message>
-    <message>
         <location filename="../src/widgets/settings_widget.py" line="100"/>
         <location filename="../src/widgets/settings_widget.py" line="108"/>
         <source>Use the website as the entry name by default.</source>
@@ -683,17 +639,6 @@ Please try again later.</translation>
         <location filename="../src/utils/copy_string.py" line="14"/>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>dialog</name>
-    <message>
-        <source>OK</source>
-        <translation type="vanished">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">Cancel</translation>
     </message>
 </context>
 <context>

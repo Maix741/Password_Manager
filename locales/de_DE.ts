@@ -70,14 +70,6 @@ If you continue it will be lost</source>
         <translation>Das Passwort braucht einen Name um gespeichrt zu werden
 Wenn sie weitermachen wird es verloren gehen</translation>
     </message>
-    <message>
-        <source>Yes, proceed</source>
-        <translation type="vanished">Ja, weiter</translation>
-    </message>
-    <message>
-        <source>No, cancel</source>
-        <translation type="vanished">Nein, zurück</translation>
-    </message>
 </context>
 <context>
     <name>CheckPasswordWidget</name>
@@ -100,22 +92,6 @@ Wenn sie weitermachen wird es verloren gehen</translation>
         <location filename="../src/widgets/check_passwords_widget.py" line="121"/>
         <source>Reused Passwords (0) ▼</source>
         <translation>Wiederverwendete Passwörter (0) ▼</translation>
-    </message>
-    <message>
-        <source>Weak Passwords ({count_weak}) {arrow}</source>
-        <translation type="vanished">Schwache Passwörter ({count_weak}) {arrow}</translation>
-    </message>
-    <message>
-        <source>⚠️ Weak Passwords ({count_weak}) {arrow}</source>
-        <translation type="vanished">⚠️ Schwache Passwörter ({count_weak}) {arrow}</translation>
-    </message>
-    <message>
-        <source>Reused Passwords ({count_reused}) {arrow}</source>
-        <translation type="vanished">Wiederverwendete Passwörter ({count_reused}) {arrow}</translation>
-    </message>
-    <message>
-        <source>⚠️ Reused Passwords ({count_reused}) {arrow}</source>
-        <translation type="vanished">⚠️ Wiederverwendete Passwörter ({count_reused}) {arrow}</translation>
     </message>
     <message>
         <location filename="../src/widgets/check_passwords_widget.py" line="214"/>
@@ -304,18 +280,6 @@ Bitte versuchen sie es später erneut.</translation>
         <translation>Geben sie den neuen Namen ein:</translation>
     </message>
     <message>
-        <source>Show/Hide Password</source>
-        <translation type="vanished">Passwort zeigen/verstecken</translation>
-    </message>
-    <message>
-        <source>Enter New Password Name</source>
-        <translation type="vanished">Passwort umbenennen</translation>
-    </message>
-    <message>
-        <source>Enter the password Name:</source>
-        <translation type="vanished">Geben sie den Namen des Passworts ein:</translation>
-    </message>
-    <message>
         <location filename="../src/manager_gui.py" line="564"/>
         <source>Enter Master Password</source>
         <translation>Hauptpasswort eingeben</translation>
@@ -457,10 +421,6 @@ Bitte versuchen sie es später erneut.</translation>
 </context>
 <context>
     <name>ReadPasswordWidget</name>
-    <message>
-        <source>Name: </source>
-        <translation type="vanished">Name: </translation>
-    </message>
     <message>
         <location filename="../src/widgets/read_password_widget.py" line="95"/>
         <source>Username:</source>
@@ -609,10 +569,6 @@ Bitte versuchen sie es später erneut.</translation>
 Namen verwenden</translation>
     </message>
     <message>
-        <source>Use website as name</source>
-        <translation type="vanished">Website als Namen verwenden</translation>
-    </message>
-    <message>
         <location filename="../src/widgets/settings_widget.py" line="100"/>
         <location filename="../src/widgets/settings_widget.py" line="108"/>
         <source>Use the website as the entry name by default.</source>
@@ -684,17 +640,6 @@ Namen verwenden</translation>
         <location filename="../src/utils/copy_string.py" line="14"/>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-</context>
-<context>
-    <name>dialog</name>
-    <message>
-        <source>OK</source>
-        <translation type="vanished">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">Abbrechen</translation>
     </message>
 </context>
 <context>
