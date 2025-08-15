@@ -80,23 +80,23 @@ class ReadPasswordWidget(QWidget):
         back_button.clicked.connect(self.return_to_list)
         back_button.setIcon(self.back_icon)
         back_button.setIconSize(QSize(50, 50))
-        header_layout.addWidget(back_button, alignment=Qt.AlignLeft)
+        header_layout.addWidget(back_button, alignment=Qt.AlignmentFlag.AlignLeft)
 
         label_name = QLabel(self.password_name)
         label_name.setObjectName("nameLabel")
-        header_layout.addWidget(label_name, alignment=Qt.AlignLeft)
+        header_layout.addWidget(label_name, alignment=Qt.AlignmentFlag.AlignLeft)
         header_layout.addStretch()
         grid_layout.addLayout(header_layout, 0, 0, 1, 2)
 
         # Add vertical spacing after this row
         spacer_1 = QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Fixed)
-        grid_layout.addItem(spacer_1, 1, 0, 1, 3)
+        # grid_layout.addItem(spacer_1, 1, 0, 1, 3)
 
 
         # Row 1(column 0): Username
         username_layout = QVBoxLayout()
         label_username = QLabel(self.tr("Username:"))
-        username_layout.addWidget(label_username, alignment=Qt.AlignLeft)
+        username_layout.addWidget(label_username, alignment=Qt.AlignmentFlag.AlignLeft)
 
         self.username_edit = QLineEdit()
         self.username_edit.setPlaceholderText(self.tr("Username"))
@@ -117,7 +117,7 @@ class ReadPasswordWidget(QWidget):
         # Row 3(column 0): Password
         password_layout = QVBoxLayout()
         label_password = QLabel(self.tr("Password:"))
-        password_layout.addWidget(label_password, alignment=Qt.AlignLeft)
+        password_layout.addWidget(label_password, alignment=Qt.AlignmentFlag.AlignLeft)
 
         self.password_edit = QLineEdit()
         self.password_edit.setPlaceholderText(self.tr("Password"))
@@ -151,7 +151,7 @@ class ReadPasswordWidget(QWidget):
         # Row 1(column 2): Websites
         website_layout = QVBoxLayout()
         label_websites = QLabel(self.tr("Websites:"))
-        website_layout.addWidget(label_websites, alignment=Qt.AlignLeft)
+        website_layout.addWidget(label_websites, alignment=Qt.AlignmentFlag.AlignLeft)
 
         self.website_label = QLabel()
         self.website_label.setText(f'''<a href='{self.password["website"]}'>{self.password["website"]}</a>''')
@@ -164,7 +164,7 @@ class ReadPasswordWidget(QWidget):
         # Row 3(column 2): Notes
         notes_layout = QVBoxLayout()
         label_note = QLabel(self.tr("Notes:"))
-        notes_layout.addWidget(label_note, alignment=Qt.AlignLeft)
+        notes_layout.addWidget(label_note, alignment=Qt.AlignmentFlag.AlignLeft)
 
         self.note_edit = QLineEdit()
         self.note_edit.setPlaceholderText(self.tr("Notes"))
@@ -186,12 +186,12 @@ class ReadPasswordWidget(QWidget):
         self.edit_button = QPushButton(self.tr("Edit"))
         self.edit_button.setObjectName("editButton")
         self.edit_button.clicked.connect(self.enable_editing)
-        grid_layout.addWidget(self.edit_button, 5, 0, Qt.AlignCenter)
+        grid_layout.addWidget(self.edit_button, 5, 0, Qt.AlignmentFlag.AlignCenter)
 
         self.delete_button = QPushButton(self.tr("Delete"))
         self.delete_button.setObjectName("deleteButton")
         self.delete_button.clicked.connect(self.delete_password)
-        grid_layout.addWidget(self.delete_button, 5, 2, Qt.AlignCenter)
+        grid_layout.addWidget(self.delete_button, 5, 2, Qt.AlignmentFlag.AlignCenter)
 
         card_layout.addLayout(grid_layout)
         card_layout.addSpacerItem(QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Expanding))
