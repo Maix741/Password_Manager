@@ -1,7 +1,6 @@
 import logging
 import os
 
-
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
     QPushButton, QVBoxLayout, QLabel, QWidget, QGridLayout,
@@ -149,17 +148,17 @@ class ReadPasswordWidget(QWidget):
 
 
         # Row 1(column 2): Websites
-        website_layout = QVBoxLayout()
+        self.website_layout = QVBoxLayout()
         label_websites = QLabel(self.tr("Websites:"))
-        website_layout.addWidget(label_websites, alignment=Qt.AlignmentFlag.AlignLeft)
+        self.website_layout.addWidget(label_websites, alignment=Qt.AlignmentFlag.AlignLeft)
 
         self.website_label = QLabel()
         self.website_label.setText(f'''<a href='{self.password["website"]}'>{self.password["website"]}</a>''')
         self.website_label.setOpenExternalLinks(True)
         self.website_label.setObjectName("websiteLabel")
-        website_layout.addWidget(self.website_label)
+        self.website_layout.addWidget(self.website_label)
 
-        grid_layout.addLayout(website_layout, 1, 2)
+        grid_layout.addLayout(self.website_layout, 1, 2)
 
         # Row 3(column 2): Notes
         notes_layout = QVBoxLayout()
@@ -249,8 +248,14 @@ class ReadPasswordWidget(QWidget):
 
         self.username_edit.setReadOnly(False)
         self.password_edit.setReadOnly(False)
-        self.website_label.setReadOnly(False)
         self.note_edit.setReadOnly(False)
+
+        self.website_label.deleteLater()
+        self.website_label = QLineEdit()
+        self.website_label.setPlaceholderText(self.tr("Website"))
+        self.website_label.setText(self.password["website"])
+        self.website_label.setObjectName("websiteEdit")
+        self.website_layout.addWidget(self.website_label)
 
         self.edit_button.setObjectName("saveButton")
         self.set_style_sheet()
@@ -260,8 +265,8 @@ class ReadPasswordWidget(QWidget):
         logging.info(f"Saving password: {self.password_name}")
         self.username_edit.setReadOnly(True)
         self.password_edit.setReadOnly(True)
-        self.website_label.setReadOnly(True)
         self.note_edit.setReadOnly(True)
+
 
         self.show_password_action.setIcon(self.show_icon)
         self.edit_button.setObjectName("editButton")
@@ -273,6 +278,13 @@ class ReadPasswordWidget(QWidget):
         self.password["password"] = self.password_edit.text()
         self.password["website"] = self.website_label.text()
         self.password["notes"] = self.note_edit.text()
+
+        self.website_label.deleteLater()
+        self.website_label = QLabel()
+        self.website_label.setText(f'''<a href='{self.password["website"]}'>{self.password["website"]}</a>''')
+        self.website_label.setOpenExternalLinks(True)
+        self.website_label.setObjectName("websiteLabel")
+        self.website_layout.addWidget(self.website_label)
 
         if self.password_edit.echoMode() == QLineEdit.Normal:
             self.password_edit.setEchoMode(QLineEdit.Password)
