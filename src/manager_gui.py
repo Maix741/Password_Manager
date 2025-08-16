@@ -319,7 +319,7 @@ class ManagerGUI(QMainWindow):
 
     def load_widget(self,
         widget: CheckPasswordWidget | KeyManagementWidget | ReadPasswordWidget | AddPasswordWidget | SettingsWidget,
-        on_return) -> None:
+        on_return, on_shown = None) -> None:
         """ Load a widget into the central layout.
 
         Args:
@@ -336,7 +336,7 @@ class ManagerGUI(QMainWindow):
                     return self.change_to_normal_list()  # Reset to normal list before loading new widget
 
         except (RuntimeError, AttributeError):
-            logging.warning("Error while checking widget_card_container, it might not exist yet.")
+            logging.info("Error while checking widget_card_container, it might not exist yet.")
 
         # Clear the central layout
         self.clear_central_layout()
@@ -353,6 +353,7 @@ class ManagerGUI(QMainWindow):
         # Add the container to the central layout
         self.central_layout.addWidget(self.widget_card_container)
         widget.returned.connect(on_return)
+        if on_shown: on_shown()
 
     def change_to_read_card(self, password_name: str) -> None:
         def modify_password(password: dict[str, str]) -> None:
@@ -422,19 +423,20 @@ class ManagerGUI(QMainWindow):
             correct, fernet_key, AES_key = self.load_keys("add_password")
             if not correct: return
 
+            use_website_as_name = self.settings_handler.get("use_website_as_name")
             add_password_widget: AddPasswordWidget = AddPasswordWidget(
                 self.styles_path, self.assets_path,
                 self.show_generating_dialog,
                 self.translation_handler,
-                use_website_as_name=self.settings_handler.get("use_website_as_name"),
+                use_website_as_name=use_website_as_name,
                 parent=self
                 )
-            add_password_widget.name_edit.setFocus()
-            if self.settings_handler.get("use_website_as_name"):
+            if use_website_as_name:
                 add_password_widget.name_edit.setReadOnly(True)
-                add_password_widget.username_edit.setFocus()
 
-            self.load_widget(add_password_widget, add_password)
+            self.load_widget(add_password_widget,
+                             add_password,
+                             add_password_widget.username_edit.setFocus if use_website_as_name else add_password_widget.name_edit.setFocus)
 
         except (IndexError, PermissionError, FileNotFoundError, ValueError, KeyError) as e:
             logging.exception(f"Error while adding password: {e}")
