@@ -2,8 +2,8 @@ import logging
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
-    QVBoxLayout, QLabel, QWidget, 
-    QSizePolicy, QGridLayout
+    QVBoxLayout, QLabel,
+    QGridLayout, QWidget
 )
 from PySide6.QtCore import Qt
 
@@ -38,14 +38,12 @@ class PasswordWidget(QWidget):
         grid_layout.setVerticalSpacing(8)
 
         label_name = QLabel(self.password_name)
-        grid_layout.addWidget(label_name, 0, 0, alignment=Qt.AlignRight)
-
-        spacer = QLabel("")
-        spacer.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
-        grid_layout.addWidget(spacer, 0, 1)
+        label_name.setObjectName("nameLabel")
+        grid_layout.addWidget(label_name, 0, 0, alignment=Qt.AlignmentFlag.AlignLeft)
 
         label_website = QLabel(self.website)
-        # grid_layout.addWidget(label_website, 0, 2, alignment=Qt.AlignLeft)
+        label_website.setObjectName("websiteLabel")
+        # grid_layout.addWidget(label_website, 1, 0, alignment=Qt.AlignLeft)
 
         main_layout.addLayout(grid_layout)
 
