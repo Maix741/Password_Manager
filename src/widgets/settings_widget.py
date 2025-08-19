@@ -2,7 +2,7 @@ import logging
 
 # Import GUI elements from PySide6
 from PySide6.QtWidgets import (
-    QPushButton, QVBoxLayout, QLabel, QWidget, QSpacerItem, QFrame,
+    QPushButton, QVBoxLayout, QLabel, QWidget, QSpacerItem, QFrame, QCheckBox,
     QComboBox, QHBoxLayout, QLineEdit, QGridLayout, QSizePolicy, QFileDialog
 )
 from PySide6.QtCore import Signal, Qt, QCoreApplication
@@ -62,6 +62,7 @@ class SettingsWidget(QWidget):
         grid_layout.setHorizontalSpacing(20)
         grid_layout.setVerticalSpacing(18)
 
+
         # row 0: data_path
         data_path_label = QLabel(self.tr("Data path"))
         data_path_label.setToolTip(self.tr("Location where your data is stored."))
@@ -82,31 +83,32 @@ class SettingsWidget(QWidget):
         data_path_layout.addWidget(browse_button)
         grid_layout.addLayout(data_path_layout, 0, 1)
 
+
         # row 1: locale
-        locale_label = QLabel(self.tr("Locale"))
+        locale_label = QLabel(self.tr("Language"))
         locale_label.setToolTip(self.tr("Language for the application interface."))
         grid_layout.addWidget(locale_label, 1, 0)
 
         self.locale_combo_box = QComboBox()
-        self.locale_combo_box.setPlaceholderText(self.tr("Locale"))
+        self.locale_combo_box.setPlaceholderText(self.tr("Language"))
         self.locale_combo_box.addItems(self.translations_handler.get_available_languages())
         self.locale_combo_box.setCurrentText(self.translations_handler.get_language_name(self.settings_handler.get("system_locale")))
         self.locale_combo_box.setToolTip(self.tr("Language for the application interface."))
         self.locale_combo_box.currentTextChanged.connect(self.locale_changed)
         grid_layout.addWidget(self.locale_combo_box, 1, 1)
 
+
         # row 2: use_website_as_name
         use_website_label = QLabel(self.tr("Use website\n as name"))
         use_website_label.setToolTip(self.tr("Use the website as the entry name by default."))
-        grid_layout.addWidget(use_website_label, 2, 0, alignment=Qt.AlignRight)
+        grid_layout.addWidget(use_website_label, 4, 0, alignment=Qt.AlignRight)
 
-        self.use_website_combo_box = QComboBox()
-        self.use_website_combo_box.addItems([self.tr("True"), self.tr("False")])
-        self.use_website_combo_box.setCurrentText(
-            self.tr("True") if self.settings_handler.get("use_website_as_name") else self.tr("False")
-        )
-        self.use_website_combo_box.setToolTip(self.tr("Use the website as the entry name by default."))
-        grid_layout.addWidget(self.use_website_combo_box, 2, 1)
+        self.use_website_check_box = QCheckBox()
+        self.use_website_check_box.setObjectName("useWebsiteCheckBox")
+        self.use_website_check_box.setChecked(self.settings_handler.get("use_website_as_name"))
+        self.use_website_check_box.setToolTip(self.tr("Use the website as the entry name by default."))
+        grid_layout.addWidget(self.use_website_check_box, 4, 1)
+
 
         # row 3: design
         design_label = QLabel(self.tr("Design"))
@@ -119,6 +121,7 @@ class SettingsWidget(QWidget):
         self.design_combo.setCurrentIndex(self.settings_handler.get("design"))
         self.design_combo.setToolTip(self.tr("Theme for the application."))
         grid_layout.addWidget(self.design_combo, 3, 1)
+
 
         # Horizontal layout for action buttons.
         button_layout = QHBoxLayout()
@@ -169,7 +172,7 @@ class SettingsWidget(QWidget):
         logging.info("Saving settings")
         self.settings_handler.set("data_path", self.data_edit.text())
         self.settings_handler.set("system_locale", self.translations_handler.get_locale_name(self.locale_combo_box.currentText()))
-        self.settings_handler.set("use_website_as_name", self.use_website_combo_box.currentIndex() == 0)
+        self.settings_handler.set("use_website_as_name", self.use_website_check_box.isChecked())
         self.settings_handler.set("design", self.design_combo.currentIndex())
         self.settings_handler.save()
 
