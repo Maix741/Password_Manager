@@ -60,47 +60,58 @@ class AddPasswordWidget(QWidget):
         grid_layout = QGridLayout()
         grid_layout.setObjectName("PasswordCardLayout")
 
-
-        # Row 0: password name and back button
-        back_button: QPushButton = QPushButton(self.tr("Name:"), self)
-        back_button.setObjectName("nameButton")
+        # header(Row 0): back button and password name 
+        header_layout: QHBoxLayout = QHBoxLayout()
+        back_button: QPushButton = QPushButton(self)
+        back_button.setObjectName("backButton")
         back_button.clicked.connect(self.return_to_list)
         back_button.setIcon(self.back_icon)
-        back_button.setIconSize(self.back_icon_size)
-        grid_layout.addWidget(back_button, 0, 0, alignment=Qt.AlignLeft)
+        back_button.setIconSize(QSize(50, 50))
+        header_layout.addWidget(back_button, alignment=Qt.AlignmentFlag.AlignLeft)
 
-        grid_layout.addItem(self.get_spacer(), 0, 1)
-
-        self.name_edit = QLineEdit(self)
-        grid_layout.addWidget(self.name_edit, 0, 2)
-
+        label_header = QLabel(self.tr("Add Password"))
+        label_header.setObjectName("headerLabel")
+        header_layout.addWidget(label_header, alignment=Qt.AlignmentFlag.AlignLeft)
+        header_layout.addStretch()
+        grid_layout.addLayout(header_layout, 0, 0, 1, 3)
 
         # Add vertical spacing after this row
         spacer = QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Fixed)
         grid_layout.addItem(spacer, 1, 0, 1, 3)
 
-
-        # Row 1: Username
-        label_username = QLabel(self.tr("Username:"))
-        grid_layout.addWidget(label_username, 2, 0, alignment=Qt.AlignRight)
+        # Row 2: password name
+        label_name: QLabel = QLabel(self.tr("Name:"), self)
+        label_name.setObjectName("AddnameLabel")
+        grid_layout.addWidget(label_name, 2, 0, alignment=Qt.AlignmentFlag.AlignRight)
 
         grid_layout.addItem(self.get_spacer(), 2, 1)
 
-        self.username_edit = QLineEdit()
-        self.username_edit.setPlaceholderText(self.tr("Username"))
-        grid_layout.addWidget(self.username_edit, 2, 2)
+        self.name_edit = QLineEdit(self)
+        self.name_edit.setPlaceholderText(self.tr("Name"))
+        grid_layout.addWidget(self.name_edit, 2, 2)
 
 
-        # Row 2: Password
-        label_password = QLabel(self.tr("Password:"))
-        grid_layout.addWidget(label_password, 3, 0, alignment=Qt.AlignRight)
+        # Row 3: Username
+        label_username = QLabel(self.tr("Username:"))
+        grid_layout.addWidget(label_username, 3, 0, alignment=Qt.AlignRight)
 
         grid_layout.addItem(self.get_spacer(), 3, 1)
+
+        self.username_edit = QLineEdit()
+        self.username_edit.setPlaceholderText(self.tr("Username"))
+        grid_layout.addWidget(self.username_edit, 3, 2)
+
+
+        # Row 4: Password
+        label_password = QLabel(self.tr("Password:"))
+        grid_layout.addWidget(label_password, 4, 0, alignment=Qt.AlignRight)
+
+        grid_layout.addItem(self.get_spacer(), 4, 1)
 
         self.password_edit = QLineEdit()
         self.password_edit.setPlaceholderText(self.tr("Password"))
         self.password_edit.setEchoMode(QLineEdit.Password)
-        grid_layout.addWidget(self.password_edit, 3, 2)
+        grid_layout.addWidget(self.password_edit, 4, 2)
 
         # Create an action with the show icon
         self.show_password_action = self.password_edit.addAction(
@@ -110,33 +121,33 @@ class AddPasswordWidget(QWidget):
         self.show_password_action.triggered.connect(self.hide_or_unhide_password)
 
 
-        # Row 3: Websites
+        # Row 5: Websites
         label_websites = QLabel(self.tr("Websites:"))
-        grid_layout.addWidget(label_websites, 4, 0, alignment=Qt.AlignRight)
+        grid_layout.addWidget(label_websites, 5, 0, alignment=Qt.AlignRight)
 
-        grid_layout.addItem(self.get_spacer(), 4, 1)
+        grid_layout.addItem(self.get_spacer(), 5, 1)
 
         self.website_edit = QLineEdit()
         self.website_edit.setPlaceholderText(self.tr("Website"))
 
-        grid_layout.addWidget(self.website_edit, 4, 2)
+        grid_layout.addWidget(self.website_edit, 5, 2)
 
 
-        # Row 4: Notes
+        # Row 6: Notes
         label_note = QLabel(self.tr("Notes:"))
-        grid_layout.addWidget(label_note, 5, 0, alignment=Qt.AlignRight)
+        grid_layout.addWidget(label_note, 6, 0, alignment=Qt.AlignRight)
 
-        grid_layout.addItem(self.get_spacer(), 5, 1)
+        grid_layout.addItem(self.get_spacer(), 6, 1)
 
         self.note_edit = QLineEdit()
         self.note_edit.setPlaceholderText(self.tr("Notes"))
 
-        grid_layout.addWidget(self.note_edit, 5, 2)
+        grid_layout.addWidget(self.note_edit, 6, 2)
 
 
         # Add vertical spacing after this row
         spacer = QSpacerItem(0, 15, QSizePolicy.Minimum, QSizePolicy.Fixed)
-        grid_layout.addItem(spacer, 6, 0)
+        grid_layout.addItem(spacer, 7, 0, 1, 3)
 
         card_layout.addLayout(grid_layout)
         self.card_frame.setLayout(card_layout)
