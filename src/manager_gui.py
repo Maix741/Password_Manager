@@ -21,17 +21,14 @@ from .utils import *
 # import widgets
 from .widgets import *
 
-# import constants
-from .constants import *
-
 
 class ManagerGUI(QMainWindow):
     def __init__(self, data_path: str | None = None, parent: QWidget | None = None) -> None:
         super(ManagerGUI, self).__init__(parent)
-        self.setGeometry(*MAINWINDOW_DEFAULT_GEOMETRY)
 
         self.settings_handler: SettingsHandler = SettingsHandler(data_path=data_path)
         self.translation_handler: TranslationHandler = TranslationHandler(self.settings_handler)
+        self.setGeometry(*self.settings_handler.get_constant("MAINWINDOW_DEFAULT_GEOMETRY"))
 
         if data_path:
             os.makedirs(data_path, exist_ok=True)
@@ -270,7 +267,7 @@ class ManagerGUI(QMainWindow):
             generate_password,
             copy_string,
             self,
-            *PASSWORD_CONSTANTS
+            *self.settings_handler.get_constant("PASSWORD_CONSTANTS")
             )
         dialog.setModal(True)
         dialog.exec()
@@ -390,7 +387,7 @@ class ManagerGUI(QMainWindow):
                 translations_handler=self.translation_handler,
                 string_copyer=copy_string,
                 parent=self,
-                timer_lenght=INACTIVITY_TIMER_LENGHT
+                timer_lenght=self.settings_handler.get_constant("INACTIVITY_TIMER_LENGHT")
                 )
 
             self.load_widget(password_card, modify_password)
@@ -491,7 +488,9 @@ class ManagerGUI(QMainWindow):
                 assets_path=self.assets_path,
                 passwords_path=self.passwords_path,
                 translations_handler=self.translation_handler,
-                constants=(PASSWORD_MIN_LENGHT, ENTROPY_THRESHOLD),
+                constants=(self.settings_handler.get_constant("PASSWORD_MIN_LENGHT"),
+                           self.settings_handler.get_constant("ENTROPY_THRESHOLD")
+                           ),
                 parent=self
                 )
 
@@ -593,7 +592,7 @@ class ManagerGUI(QMainWindow):
     def wrong_master_entered(self) -> None:
         logging.warning("Wrong master password entered")
         self.wrong_attempts += 1
-        if self.wrong_attempts >= MAX_WRONG_MASTER_ATTEMPTS:
+        if self.wrong_attempts >= self.settings_handler.get_constant("MAX_WRONG_MASTER_ATTEMPTS"):
             logging.error("Incorrect master entered ten times!")
             self.close()
         MasterWarningMessage(self.styles_path, self).exec()
