@@ -43,10 +43,8 @@ class ManagerGUI(QMainWindow):
 
         self.password_names: list[str] = []
         self.wrong_attempts: int = 0
-        self.generated_password: str = ""
 
         self.retry_count: int = 0
-        self.max_wrong_attempts: int = MAX_WRONG_MASTER_ATTEMPTS
 
         self.init_ui()
         if not os.path.isfile(os.path.join(self.data_path, "master", "master_pass.pem")):
@@ -595,7 +593,7 @@ class ManagerGUI(QMainWindow):
     def wrong_master_entered(self) -> None:
         logging.warning("Wrong master password entered")
         self.wrong_attempts += 1
-        if self.wrong_attempts >= self.max_wrong_attempts:
+        if self.wrong_attempts >= MAX_WRONG_MASTER_ATTEMPTS:
             logging.error("Incorrect master entered ten times!")
             self.close()
         MasterWarningMessage(self.styles_path, self).exec()
