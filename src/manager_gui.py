@@ -39,7 +39,7 @@ class ManagerGUI(QMainWindow):
             self.settings_handler.set("data_path", data_path)
         else:
             self.data_path: str = self.settings_handler.get("data_path")
-        self.update_data_path(self.data_path)
+        self.update_data_path(self.data_path, False)
 
         self.password_names: list[str] = []
         self.wrong_attempts: int = 0
@@ -129,12 +129,12 @@ class ManagerGUI(QMainWindow):
         self.update_data_path(self.data_path)
         self.change_to_normal_list()
 
-    def update_data_path(self, data_path: str) -> None:
+    def update_data_path(self, data_path: str, check: bool = True) -> None:
         self.passwords_path = os.path.join(data_path, "passwords")
         self.assets_path = get_assets_path(data_path)
         self.styles_path = get_styles_path(data_path)
         setup_logging(os.path.join(data_path, "log", "password_manager.log"), self.settings_handler.get("log_level"))
-        self.check_setup()
+        if check: self.check_setup()
 
     def init_icons(self) -> None:
         self.icon_size: QSize = QSize(25, 25)
