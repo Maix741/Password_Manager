@@ -324,7 +324,8 @@ class ManagerGUI(QMainWindow):
 
         Args:
             widget (CheckPasswordWidget | KeyManagementWidget | ReadPasswordWidget | AddPasswordWidget | SettingsWidget): The widget to be loaded.
-            on_return (_type_): Callback function to be called when the widget returns.
+            on_return (Callable[[None], None]): Callback function to be called when the widget returns.
+            on_shown (Callable[[None], None]): Optional Callback function to be called when the widget is shown. Defaults to None.
         """
         try:
             if hasattr(self, "widget_card_container") and self.widget_card_container:
