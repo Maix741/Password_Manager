@@ -13,18 +13,23 @@ from .utils import *
 
 
 class ManagerCMD:
-    def __init__(self, data_path: str = "") -> None:
+    def __init__(self, data_path: str = "", use_website_as_name: bool | None = None) -> None:
+        self.settings_handler: SettingsHandler = SettingsHandler(data_path=data_path, use_website_as_name=use_website_as_name)
         if data_path:
             os.makedirs(data_path, exist_ok=True)
             self.data_path = data_path
+            self.settings_handler.set("data_path", data_path)
         else:
-            self.data_path: str = get_data_path()
-        self.passwords_path: str = os.path.join(self.data_path, "passwords")
+            self.data_path: str = self.settings_handler.get("data_path")
+        self.update_data_path(self.data_path, False)
 
-        setup_logging(os.path.join(self.data_path, "log", "password_manager.log"))
-        self.reset_console()
         if not os.path.isfile(os.path.join(self.data_path, "master", "master_pass.pem")):
             self.renew_keys()
+
+    def update_data_path(self, data_path: str, check: bool = True) -> None:
+        self.passwords_path = os.path.join(data_path, "passwords")
+        setup_logging(os.path.join(data_path, "log", "password_manager.log"), self.settings_handler.get("log_level"))
+        if check: self.check_setup()
 
     def add_password(self) -> None:
         try:

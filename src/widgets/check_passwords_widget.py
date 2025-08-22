@@ -10,13 +10,13 @@ from PySide6.QtCore import Signal, Qt, QCoreApplication, QSize
 from PySide6.QtGui import QIcon
 
 from .load_stylesheets import load_stylesheets
+from ..utils import check_password_strength, check_password_duplication
 
 
 class CheckPasswordWidget(QWidget):
     returned = Signal()
     def __init__(self,
                  password_reader, fernet_key: str, AES_key: list[bytes],
-                 strength_check, duplication_check,
                  styles_path: str, assets_path: str, passwords_path: str,
                  translations_handler,
                  constants,
@@ -34,8 +34,6 @@ class CheckPasswordWidget(QWidget):
         self.assets_path: str = assets_path
 
         self.password_reader = password_reader
-        self.strength_check = strength_check
-        self.duplication_check = duplication_check
 
         self.check_constants = constants
 
@@ -284,10 +282,10 @@ class CheckPasswordWidget(QWidget):
             passwords (list[dict[str, str]]): A list of password entries, each as a dictionary with at least a "password" key.
         """
         # get reused passwords
-        self.duplicates: list[list[dict[str, str]]] = self.duplication_check(passwords)
+        self.duplicates: list[list[dict[str, str]]] = check_password_duplication(passwords)
 
         # get weak passwords
-        weak_results = [not self.strength_check(pwd.get("password"), *self.check_constants) for pwd in passwords]
+        weak_results = [not check_password_strength(pwd.get("password"), *self.check_constants) for pwd in passwords]
         self.weak_passwords: list[dict[str, str]] = [
             pwd for pwd, is_weak in zip(passwords, weak_results) if is_weak
         ]
