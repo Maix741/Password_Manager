@@ -13,8 +13,8 @@ from .utils import *
 
 
 class ManagerCMD:
-    def __init__(self, data_path: str = "") -> None:
-        self.settings_handler: SettingsHandler = SettingsHandler(data_path=data_path)
+    def __init__(self, data_path: str = "", use_website_as_name: bool | None = None) -> None:
+        self.settings_handler: SettingsHandler = SettingsHandler(data_path=data_path, use_website_as_name=use_website_as_name)
         if data_path:
             os.makedirs(data_path, exist_ok=True)
             self.data_path = data_path

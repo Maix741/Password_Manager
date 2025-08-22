@@ -23,10 +23,18 @@ from .widgets import *
 
 
 class ManagerGUI(QMainWindow):
-    def __init__(self, data_path: str | None = None, parent: QWidget | None = None) -> None:
+    def __init__(self, data_path: str | None = None,
+                 locale: str = "",
+                 use_website_as_name: bool | None = None,
+                 parent: QWidget | None = None
+                 ) -> None:
         super(ManagerGUI, self).__init__(parent)
 
-        self.settings_handler: SettingsHandler = SettingsHandler(data_path=data_path)
+        self.settings_handler: SettingsHandler = SettingsHandler(
+            data_path=data_path,
+            locale=locale,
+            use_website_as_name=use_website_as_name
+            )
         self.translation_handler: TranslationHandler = TranslationHandler(self.settings_handler)
         self.setGeometry(*self.settings_handler.get_constant("mainwindow_default_geometry"))
 

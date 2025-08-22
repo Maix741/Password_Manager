@@ -85,8 +85,12 @@ def cmd_main() -> None:
     """
     args = parse_args()
     data_path = args.data_path or None
+    use_website_as_name = args.use_website_as_name or None
 
-    manager: ManagerCMD = ManagerCMD(data_path=data_path)
+    manager: ManagerCMD = ManagerCMD(
+        data_path=data_path,
+        use_website_as_name=use_website_as_name
+        )
     running: bool = True
     while running:
         try:
