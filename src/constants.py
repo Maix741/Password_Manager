@@ -1,5 +1,5 @@
 # version and app constants
-__version__: str = "v1.7.3"
+__version__: str = "v1.7.4"
 __app_name__: str = "Password Manager"
 
 __license__: str = "MIT"
@@ -44,17 +44,17 @@ PASSWORD_CONSTANTS: tuple = (
 )
 
 ALL_CONSTANTS: dict = {
-    "PASSWORD_CONSTANTS": PASSWORD_CONSTANTS,
-    "PASSWORD_MIN_LENGHT": PASSWORD_MIN_LENGHT,
-    "PASSWORD_MAX_LENGHT_SLIDER": PASSWORD_MAX_LENGHT_SLIDER,
-    "PASSWORD_MAX_LENGHT_SPINBOX": PASSWORD_MAX_LENGHT_SPINBOX,
-    "PASSWORD_START_VALUE": PASSWORD_START_VALUE,
+    "password_constants": PASSWORD_CONSTANTS,
+    "password_min_lenght": PASSWORD_MIN_LENGHT,
+    "password_max_lenght_slider": PASSWORD_MAX_LENGHT_SLIDER,
+    "password_max_lenght_spinbox": PASSWORD_MAX_LENGHT_SPINBOX,
+    "password_start_value": PASSWORD_START_VALUE,
 
-    "ENTROPY_THRESHOLD": ENTROPY_THRESHOLD,
+    "entropy_threshold": ENTROPY_THRESHOLD,
 
-    "INACTIVITY_TIMER_LENGHT": INACTIVITY_TIMER_LENGHT,
+    "inactivity_timer_lenght": INACTIVITY_TIMER_LENGHT,
 
-    "MAINWINDOW_DEFAULT_GEOMETRY": MAINWINDOW_DEFAULT_GEOMETRY,
-    "MAX_WRONG_MASTER_ATTEMPTS": MAX_WRONG_MASTER_ATTEMPTS
+    "mainwindow_default_geometry": MAINWINDOW_DEFAULT_GEOMETRY,
+    "max_wrong_master_attempts": MAX_WRONG_MASTER_ATTEMPTS
 
 }

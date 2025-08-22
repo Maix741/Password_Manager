@@ -7,17 +7,15 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt, QCoreApplication
 
 from .load_stylesheets import load_stylesheets
+from ..utils import generate_password, copy_string
 
 
 class PasswordGenerateDialog(QDialog):
-    def __init__(self, styles_path: str, settings_handler, translator, generator, password_copyer, parent=None,
+    def __init__(self, styles_path: str, settings_handler, translator, parent=None,
                  lenght_minimum=4, lenght_maximum_spinbox=64, lenght_maximum_slider=200, lenght_start_value=12):
         super(PasswordGenerateDialog, self).__init__(parent)
 
         logging.debug(f"Initializing password generator (GUI): {self}")
-
-        self.generator = generator
-        self.copy_string = password_copyer
 
         self.settings_handler = settings_handler
         self.translator = translator
@@ -132,7 +130,7 @@ class PasswordGenerateDialog(QDialog):
         include_numbers: bool = self.numbers_checkbox.isChecked()
         include_special: bool = self.special_checkbox.isChecked()
 
-        password: str = self.generator(
+        password: str = generate_password(
             lenght,
             include_letters,
             include_numbers,
@@ -149,6 +147,6 @@ class PasswordGenerateDialog(QDialog):
     def closeEvent(self, event) -> None:
         if not self.cancelled and self.password:
             self.password_return = self.password
-            self.copy_string(self.password_return, True)
+            copy_string(self.password_return, True)
 
         event.accept()

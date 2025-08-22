@@ -84,55 +84,55 @@ Wenn sie weitermachen wird es verloren gehen</translation>
 <context>
     <name>CheckPasswordWidget</name>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="80"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="78"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="91"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="89"/>
         <source>Password Checks</source>
         <translation>Passwort-Checks</translation>
     </message>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="102"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="100"/>
         <source>Weak Passwords (0) ▼</source>
         <translation>Schwache Passwörter (0) ▼</translation>
     </message>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="121"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="119"/>
         <source>Reused Passwords (0) ▼</source>
         <translation>Wiederverwendete Passwörter (0) ▼</translation>
     </message>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="214"/>
-        <location filename="../src/widgets/check_passwords_widget.py" line="256"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="212"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="254"/>
         <source>show/hide password</source>
         <translation>Passwort zeigen/verstecken</translation>
     </message>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="233"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="231"/>
         <source>{count} Accounts with the same password</source>
         <translation>{count} Accounts mit dem selben Passwort</translation>
     </message>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="182"/>
-        <location filename="../src/widgets/check_passwords_widget.py" line="316"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="180"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="314"/>
         <source>⚠️ Weak Passwords ({count}) {arrow}</source>
         <translation>⚠️ Schwache Passwörter ({count}) {arrow}</translation>
     </message>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="180"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="178"/>
         <source>Weak Passwords ({count}) {arrow}</source>
         <translation>Schwache Passwörter ({count}) {arrow}</translation>
     </message>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="186"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="184"/>
         <source>Reused Passwords ({count}) {arrow}</source>
         <translation>Wiederverwendete Passwörter ({count}) {arrow}</translation>
     </message>
     <message>
-        <location filename="../src/widgets/check_passwords_widget.py" line="188"/>
-        <location filename="../src/widgets/check_passwords_widget.py" line="325"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="186"/>
+        <location filename="../src/widgets/check_passwords_widget.py" line="323"/>
         <source>⚠️ Reused Passwords ({count}) {arrow}</source>
         <translation>⚠️ Wiederverwendete Passwörter ({count}) {arrow}</translation>
     </message>
@@ -250,22 +250,22 @@ Bitte versuchen sie es später erneut.</translation>
         <translation>Umbenennen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="311"/>
+        <location filename="../src/manager_gui.py" line="309"/>
         <source>Rename Error</source>
         <translation>Umbenennen Error</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="313"/>
+        <location filename="../src/manager_gui.py" line="311"/>
         <source>An error occurred while renaming the password. Please check the log for details.</source>
         <translation>Beim Umbenennen des Passworts ist ein Fehler passiert. Schau dir das Protokoll für Details an.</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="649"/>
+        <location filename="../src/manager_gui.py" line="645"/>
         <source>Export Error</source>
         <translation>Export Error</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="651"/>
+        <location filename="../src/manager_gui.py" line="647"/>
         <source>An error occurred while exporting passwords. Please check the log for details.</source>
         <translation>Beim Exportieren der Passwörter ist ein Fehler passiert. Schau dir das Protokoll für Details an.</translation>
     </message>
@@ -280,52 +280,52 @@ Bitte versuchen sie es später erneut.</translation>
         <translation>Schlüssel erneuern</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="300"/>
+        <location filename="../src/manager_gui.py" line="298"/>
         <source>Rename Password</source>
         <translation>Passwort umbenennen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="301"/>
+        <location filename="../src/manager_gui.py" line="299"/>
         <source>Enter the new password name:</source>
         <translation>Geben sie den neuen Namen ein:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="564"/>
+        <location filename="../src/manager_gui.py" line="560"/>
         <source>Enter Master Password</source>
         <translation>Hauptpasswort eingeben</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="565"/>
+        <location filename="../src/manager_gui.py" line="561"/>
         <source>Enter the master password:</source>
         <translation>Geben sie das Hauptpasswort ein:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="582"/>
+        <location filename="../src/manager_gui.py" line="578"/>
         <source>Set New Master Password</source>
         <translation>Neues Hauptpasswort setzen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="583"/>
+        <location filename="../src/manager_gui.py" line="579"/>
         <source>Enter a new master password:</source>
         <translation>Neues Hauptpasswort eingeben:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="616"/>
+        <location filename="../src/manager_gui.py" line="612"/>
         <source>Select csv-file</source>
         <translation>csv-Datei auswählen</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="628"/>
+        <location filename="../src/manager_gui.py" line="624"/>
         <source>Import Error</source>
         <translation>Import Error</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="630"/>
+        <location filename="../src/manager_gui.py" line="626"/>
         <source>An error occurred while importing passwords. Please check the log for details.</source>
         <translation>Beim Importieren der Passwörter ist ein Fehler passiert. Schau dir das Protokoll für Details an.</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="638"/>
+        <location filename="../src/manager_gui.py" line="634"/>
         <source>Save csv-file</source>
         <translation>csv-Datei speichern</translation>
     </message>
@@ -380,57 +380,57 @@ Bitte versuchen sie es erneut </translation>
 <context>
     <name>PasswordGenerateDialog</name>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="43"/>
+        <location filename="../src/widgets/generate_dialog.py" line="41"/>
         <source>Password Generator</source>
         <translation>Passwort Generator</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="48"/>
+        <location filename="../src/widgets/generate_dialog.py" line="46"/>
         <source>Password Length</source>
         <translation>Passwort Länge</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="70"/>
+        <location filename="../src/widgets/generate_dialog.py" line="68"/>
         <source>Length:</source>
         <translation>Länge:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="77"/>
+        <location filename="../src/widgets/generate_dialog.py" line="75"/>
         <source>Options</source>
         <translation>Optionen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="81"/>
+        <location filename="../src/widgets/generate_dialog.py" line="79"/>
         <source>Include Letters</source>
         <translation>Buchstaben</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="83"/>
+        <location filename="../src/widgets/generate_dialog.py" line="81"/>
         <source>Include Numbers</source>
         <translation>Nummern</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="85"/>
+        <location filename="../src/widgets/generate_dialog.py" line="83"/>
         <source>Include Special Characters</source>
         <translation>Spezielle Charactere</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="97"/>
+        <location filename="../src/widgets/generate_dialog.py" line="95"/>
         <source>Generated Password:</source>
         <translation>Generiertes Passwort:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="102"/>
+        <location filename="../src/widgets/generate_dialog.py" line="100"/>
         <source>Generate</source>
         <translation>Generieren</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="105"/>
+        <location filename="../src/widgets/generate_dialog.py" line="103"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="108"/>
+        <location filename="../src/widgets/generate_dialog.py" line="106"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>

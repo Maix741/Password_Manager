@@ -28,7 +28,7 @@ class ManagerGUI(QMainWindow):
 
         self.settings_handler: SettingsHandler = SettingsHandler(data_path=data_path)
         self.translation_handler: TranslationHandler = TranslationHandler(self.settings_handler)
-        self.setGeometry(*self.settings_handler.get_constant("MAINWINDOW_DEFAULT_GEOMETRY"))
+        self.setGeometry(*self.settings_handler.get_constant("mainwindow_default_geometry"))
 
         if data_path:
             os.makedirs(data_path, exist_ok=True)
@@ -264,10 +264,8 @@ class ManagerGUI(QMainWindow):
         dialog: PasswordGenerateDialog = PasswordGenerateDialog(
             self.styles_path,
             self.settings_handler, self.translation_handler,
-            generate_password,
-            copy_string,
             self,
-            *self.settings_handler.get_constant("PASSWORD_CONSTANTS")
+            *self.settings_handler.get_constant("password_constants")
             )
         dialog.setModal(True)
         dialog.exec()
@@ -387,7 +385,7 @@ class ManagerGUI(QMainWindow):
                 translations_handler=self.translation_handler,
                 string_copyer=copy_string,
                 parent=self,
-                timer_lenght=self.settings_handler.get_constant("INACTIVITY_TIMER_LENGHT")
+                timer_lenght=self.settings_handler.get_constant("inactivity_timer_lenght")
                 )
 
             self.load_widget(password_card, modify_password)
@@ -482,14 +480,12 @@ class ManagerGUI(QMainWindow):
                 password_reader=reader,
                 fernet_key=fernet_key,
                 AES_key=AES_key,
-                strength_check=check_password_strength,
-                duplication_check=check_password_duplication,
                 styles_path=self.styles_path,
                 assets_path=self.assets_path,
                 passwords_path=self.passwords_path,
                 translations_handler=self.translation_handler,
-                constants=(self.settings_handler.get_constant("PASSWORD_MIN_LENGHT"),
-                           self.settings_handler.get_constant("ENTROPY_THRESHOLD")
+                constants=(self.settings_handler.get_constant("password_min_lenght"),
+                           self.settings_handler.get_constant("entropy_threshold")
                            ),
                 parent=self
                 )
@@ -592,7 +588,7 @@ class ManagerGUI(QMainWindow):
     def wrong_master_entered(self) -> None:
         logging.warning("Wrong master password entered")
         self.wrong_attempts += 1
-        if self.wrong_attempts >= self.settings_handler.get_constant("MAX_WRONG_MASTER_ATTEMPTS"):
+        if self.wrong_attempts >= self.settings_handler.get_constant("max_wrong_master_attempts"):
             logging.error("Incorrect master entered ten times!")
             self.close()
         MasterWarningMessage(self.styles_path, self).exec()

@@ -30,12 +30,12 @@ class SettingsHandler:
 
         self.settings_file: str = self._determine_settings_file()
         self.config = ConfigParser()
-        self.settings = {}
-        self.constants = self.default_constants.copy()
+        self.settings: dict[str, str | bool | int] = {}
+        self.constants: dict[str, int | tuple[int]] = {}
 
         self.system_locale: str = locale
         self.use_website_as_name: bool = use_website_as_name
-        self.design: int = 1 if is_dark_mode() else 0
+        self.design: int = 0
 
         self.load()
 
@@ -66,7 +66,7 @@ class SettingsHandler:
         return self.settings.get(key, None)
 
     def get_constant(self, key: str) -> str | int | tuple:
-        return self.constants.get(key, self.default_constants.get(key, None))
+        return self.constants.get(key.lower(), self.default_constants.get(key.lower(), None))
 
     def get_design(self) -> int:
         if self.settings.get("design") == 0:
@@ -81,12 +81,21 @@ class SettingsHandler:
         if "SETTINGS" not in self.config:
             self.config["SETTINGS"] = {}
         for k, v in self.settings.items():
-            self.config["SETTINGS"][k] = str(v)
+            self.config.set("SETTINGS", k, str(v))
+
         # Save constants
-        self.config["CONSTANTS"] = {k: repr(v) for k, v in self.constants.items()}
-        os.makedirs(os.path.dirname(self.settings_file), exist_ok=True)
-        with open(self.settings_file, "w") as file:
-            self.config.write(file)
+        if "CONSTANTS" not in self.config:
+            self.config["CONSTANTS"] = {}
+
+        for k, v in self.constants.items():
+            self.config.set("CONSTANTS", k, str(v))
+
+        try:
+            os.makedirs(os.path.dirname(self.settings_file), exist_ok=True)
+            with open(self.settings_file, "w") as file:
+                self.config.write(file)
+        except (PermissionError, FileNotFoundError) as e:
+            logging.exception(f"Error saving settings/constants to file: {e}")
 
     def load_constants(self) -> None:
         """Load constants from the config file, using literal_eval for safe parsing."""
@@ -133,15 +142,18 @@ class SettingsHandler:
             if new_settings != self.settings:
                 self.settings = new_settings
                 self.save()
-            return
-
+        else:
+            self.set_default_settings()
         # Validate constants
         if self.constants:
             new_constants = self.tester.test_all_constants(self.constants)
             if new_constants != self.constants:
                 self.constants = new_constants
                 self.save()
-            return
+        else:
+            self.set_default_settings()
+
+        self.save()
 
 
 class SettingsTester:
