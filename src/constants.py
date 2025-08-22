@@ -1,5 +1,5 @@
 # version and app constants
-__version__: str = "v1.7.5"
+__version__: str = "v1.7.5.1"
 __app_name__: str = "Password Manager"
 
 __license__: str = "MIT"
@@ -36,15 +36,8 @@ INACTIVITY_TIMER_LENGHT: int = 120000
 MAINWINDOW_DEFAULT_GEOMETRY: tuple[int] = (100, 100, 1000, 600)
 MAX_WRONG_MASTER_ATTEMPTS: int = 10
 
-PASSWORD_CONSTANTS: tuple = (
-    PASSWORD_MIN_LENGHT,
-    PASSWORD_MAX_LENGHT_SPINBOX,
-    PASSWORD_MAX_LENGHT_SLIDER,
-    PASSWORD_START_VALUE
-)
 
 ALL_CONSTANTS: dict = {
-    "password_constants": PASSWORD_CONSTANTS,
     "password_min_lenght": PASSWORD_MIN_LENGHT,
     "password_max_lenght_slider": PASSWORD_MAX_LENGHT_SLIDER,
     "password_max_lenght_spinbox": PASSWORD_MAX_LENGHT_SPINBOX,

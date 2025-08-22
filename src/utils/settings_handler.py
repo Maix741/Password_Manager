@@ -3,8 +3,8 @@ from ast import literal_eval
 from pathlib import Path
 import logging
 import locale
-import os
 import sys
+import os
 
 from .get_data_path import get_data_path
 from .setup_folders import setup_folders
@@ -16,7 +16,7 @@ class SettingsHandler:
     def __init__(
         self,
         data_path: str = "",
-        locale: str = locale.getlocale()[0],
+        custom_locale: str = locale.getlocale()[0],
         use_website_as_name: bool = False,
         ) -> None:
         self.tester: SettingsTester = SettingsTester()
@@ -33,7 +33,7 @@ class SettingsHandler:
         self.settings: dict[str, str | bool | int] = {}
         self.constants: dict[str, int | tuple[int]] = {}
 
-        self.system_locale: str = locale or locale.getlocale()[0]
+        self.system_locale: str = custom_locale or locale.getlocale()[0]
         self.use_website_as_name: bool = use_website_as_name or False
         self.design: int = 0
 
@@ -65,8 +65,15 @@ class SettingsHandler:
     def get(self, key: str):
         return self.settings.get(key, None)
 
-    def get_constant(self, key: str) -> str | int | tuple:
-        return self.constants.get(key.lower(), self.default_constants.get(key.lower(), None))
+    def get_constant(self, key: str) -> str | int | tuple | None:
+        if not key == "password_constants":
+            return self.constants.get(key.lower(), self.default_constants.get(key.lower(), None))
+        return (
+            self.constants.get("password_min_lenght", self.default_constants.get("password_min_lenght", None)),
+            self.constants.get("password_max_lenght_spinbox", self.default_constants.get("password_max_lenght_spinbox", None)),
+            self.constants.get("password_max_lenght_slider", self.default_constants.get("password_max_lenght_slider", None)),
+            self.constants.get("password_start_value", self.default_constants.get("password_start_value", None))
+        )
 
     def get_design(self) -> int:
         if self.settings.get("design") == 0:
