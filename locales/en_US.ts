@@ -259,12 +259,32 @@ If you continue it will be lost</translation>
         <translation>An error occurred while renaming the password. Please check the log for details.</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="645"/>
+        <location filename="../src/manager_gui.py" line="396"/>
+        <source>Read Error</source>
+        <translation>Read Error</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="398"/>
+        <source>An error occurred while reading the password. Please check the log for details.</source>
+        <translation>An error occurred while reading the password. Please check the log for details.</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="442"/>
+        <source>Add Error</source>
+        <translation>Add Error</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="444"/>
+        <source>An error occurred while adding the password. Please check the log for details.</source>
+        <translation>An error occurred while adding the password. Please check the log for details.</translation>
+    </message>
+    <message>
+        <location filename="../src/manager_gui.py" line="653"/>
         <source>Export Error</source>
         <translation>Export Error</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="647"/>
+        <location filename="../src/manager_gui.py" line="655"/>
         <source>An error occurred while exporting passwords. Please check the log for details.</source>
         <translation>An error occurred while exporting passwords. Please check the log for details.</translation>
     </message>
@@ -289,42 +309,42 @@ If you continue it will be lost</translation>
         <translation>Enter the new name:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="560"/>
+        <location filename="../src/manager_gui.py" line="568"/>
         <source>Enter Master Password</source>
         <translation>Enter Master Password</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="561"/>
+        <location filename="../src/manager_gui.py" line="569"/>
         <source>Enter the master password:</source>
         <translation>Enter the master password:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="578"/>
+        <location filename="../src/manager_gui.py" line="586"/>
         <source>Set New Master Password</source>
         <translation>Set new master passowrd</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="579"/>
+        <location filename="../src/manager_gui.py" line="587"/>
         <source>Enter a new master password:</source>
         <translation>Enter a new master password:</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="612"/>
+        <location filename="../src/manager_gui.py" line="620"/>
         <source>Select csv-file</source>
         <translation>Select csv-file</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="624"/>
+        <location filename="../src/manager_gui.py" line="632"/>
         <source>Import Error</source>
         <translation>Import Error</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="626"/>
+        <location filename="../src/manager_gui.py" line="634"/>
         <source>An error occurred while importing passwords. Please check the log for details.</source>
         <translation>An error occurred while importing passwords. Please check the log for details.</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="634"/>
+        <location filename="../src/manager_gui.py" line="642"/>
         <source>Save csv-file</source>
         <translation>Save csv-file</translation>
     </message>

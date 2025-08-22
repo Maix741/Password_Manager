@@ -391,7 +391,11 @@ class ManagerGUI(QMainWindow):
             self.load_widget(password_card, modify_password)
 
         except Exception as e:
-            logging.warning(f"Invalid key or name for reading: {e}")            
+            logging.warning(f"Invalid key or name for reading: {e}")
+            self.show_error(
+                self.tr("Read Error"),
+                self.tr("An error occurred while reading the password. Please check the log for details.")
+            )
 
     def change_to_add_card(self) -> None:
         def add_password(password: dict[str, str]) -> None:
@@ -434,6 +438,10 @@ class ManagerGUI(QMainWindow):
 
         except (IndexError, PermissionError, FileNotFoundError, ValueError, KeyError) as e:
             logging.exception(f"Error while adding password: {e}")
+            self.show_error(
+                self.tr("Add Error"),
+                self.tr("An error occurred while adding the password. Please check the log for details.")
+            )
 
     def clear_central_layout(self) -> None:
         # Remove all widgets from self.central_layout
