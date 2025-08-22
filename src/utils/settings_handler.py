@@ -33,8 +33,8 @@ class SettingsHandler:
         self.settings: dict[str, str | bool | int] = {}
         self.constants: dict[str, int | tuple[int]] = {}
 
-        self.system_locale: str = locale
-        self.use_website_as_name: bool = use_website_as_name
+        self.system_locale: str = locale or locale.getlocale()[0]
+        self.use_website_as_name: bool = use_website_as_name or False
         self.design: int = 0
 
         self.load()
