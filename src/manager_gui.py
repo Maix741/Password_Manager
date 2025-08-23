@@ -24,7 +24,7 @@ from .widgets import *
 
 class ManagerGUI(QMainWindow):
     def __init__(self, data_path: str | None = None,
-                 locale: str = "",
+                 custom_locale: str = "",
                  use_website_as_name: bool | None = None,
                  parent: QWidget | None = None
                  ) -> None:
@@ -32,7 +32,7 @@ class ManagerGUI(QMainWindow):
 
         self.settings_handler: SettingsHandler = SettingsHandler(
             data_path=data_path,
-            locale=locale,
+            custom_locale=custom_locale,
             use_website_as_name=use_website_as_name
             )
         self.translation_handler: TranslationHandler = TranslationHandler(self.settings_handler)

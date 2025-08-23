@@ -17,7 +17,7 @@ def main() -> None:
     app: QApplication = QApplication(sys.argv)
     player: ManagerGUI = ManagerGUI(
         data_path=data_path,
-        locale=locale,
+        custom_locale=locale,
         use_website_as_name=use_website_as_name
         )
     player.show()

@@ -26,6 +26,8 @@ class ManagerCMD:
         if not os.path.isfile(os.path.join(self.data_path, "master", "master_pass.pem")):
             self.renew_keys()
 
+        self.list_passwords()
+
     def update_data_path(self, data_path: str, check: bool = True) -> None:
         self.passwords_path = os.path.join(data_path, "passwords")
         setup_logging(os.path.join(data_path, "log", "password_manager.log"), self.settings_handler.get("log_level"))
