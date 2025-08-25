@@ -12,7 +12,7 @@ from ..utils import generate_password, copy_string
 
 class PasswordGenerateDialog(QDialog):
     def __init__(self, styles_path: str, settings_handler, translator, parent=None,
-                 length_minimum=4, length_maximum_spinbox=64, length_maximum_slider=200, length_start_value=12):
+                 length_minimum=4, length_maximum_spinbox=200, length_maximum_slider=64, length_start_value=12):
         super(PasswordGenerateDialog, self).__init__(parent)
 
         logging.debug(f"Initializing password generator (GUI): {self}")
