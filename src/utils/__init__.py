@@ -39,9 +39,9 @@ from .password_checks import (check_password_strength,
                               check_password_duplication
                               )
 
-from .renew_keys_utils import (renew_keys_and_delete_paswords,
+from .renew_keys_utils import (renew_keys_and_delete_passwords,
                                renew_keys_only,
-                               delete_paswords
+                               delete_passwords
                                )
 
 from .parse_args import parse_args

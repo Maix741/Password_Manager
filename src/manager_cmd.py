@@ -143,7 +143,7 @@ class ManagerCMD:
     def renew_keys(self) -> None:
         new_master: str = getpass("New master Password: ").strip().replace(" ", "_")
         if new_master:
-            renew_keys_and_delete_paswords(new_master, self.data_path)
+            renew_keys_and_delete_passwords(new_master, self.data_path)
             self.reset_console()
         else:
             print("Renewing cancelled!")

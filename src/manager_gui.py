@@ -282,7 +282,10 @@ class ManagerGUI(QMainWindow):
     def fill_passwords_list(self, passwords: list[str] | None = None) -> None:
         self.passwords_list.clear()
         if not isinstance(passwords, list):
-            password_names: list[str] = os.listdir(self.passwords_path)
+            password_names: list[str] = [
+                f for f in os.listdir(self.passwords_path)
+                if os.path.isfile(os.path.join(self.passwords_path, f)) and not f.startswith('.')
+            ]
             self.password_names: list[str] = [password for password in password_names]
         else:
             self.password_names: list[str] = passwords
@@ -407,7 +410,7 @@ class ManagerGUI(QMainWindow):
 
     def change_to_add_card(self) -> None:
         def add_password(password: dict[str, str]) -> None:
-            if not len(password.keys()) == 5:
+            if len(password.keys()) != 5:
                 return self.change_to_normal_list()
             logging.info(f"Adding Password: {password['name']}")
             AddPassword(
@@ -520,7 +523,7 @@ class ManagerGUI(QMainWindow):
             elif return_code == 2:
                 self.renew_keys() # renew keys and remove passwords
             elif return_code == 3:
-                delete_paswords(self.data_path) # delete passwords
+                delete_passwords(self.data_path) # delete passwords
 
             self.change_to_normal_list()
 
@@ -540,7 +543,7 @@ class ManagerGUI(QMainWindow):
         if not new_master:
             logging.info("Renewing cancelled")
             return
-        renew_keys_and_delete_paswords(new_master, self.data_path)
+        renew_keys_and_delete_passwords(new_master, self.data_path)
         self.change_to_normal_list()
 
     def renew_keys_only(self) -> None:

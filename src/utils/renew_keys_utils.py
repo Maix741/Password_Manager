@@ -11,10 +11,10 @@ from .export_passwords import ExportPasswords
 from .import_passwords import ImportPasswords
 
 
-def renew_keys_and_delete_paswords(new_master: str, data_path: str) -> None:
+def renew_keys_and_delete_passwords(new_master: str, data_path: str) -> None:
     logging.info("Renewing all keys and removing passwords")
     try:
-        delete_paswords(data_path)
+        delete_passwords(data_path)
         shutil.rmtree(os.path.join(data_path, "master"))
         shutil.rmtree(os.path.join(data_path, "keys"))
 
@@ -48,7 +48,7 @@ def renew_keys_only(old_keys: tuple[str, bytes, list[str, bytes]], new_master: s
         keys=(old_fernet, tuple(old_aes))
         ).return_as_list()
 
-    delete_paswords(data_path)
+    delete_passwords(data_path)
     setup_folders(data_path)
 
     if not passwords: return
@@ -61,7 +61,7 @@ def renew_keys_only(old_keys: tuple[str, bytes, list[str, bytes]], new_master: s
         )
 
 
-def delete_paswords(data_path) -> None:
+def delete_passwords(data_path) -> None:
     logging.info("Renewing all keys and removing passwords")
     try:
         shutil.rmtree(os.path.join(data_path, "passwords"))
