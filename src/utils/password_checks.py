@@ -27,12 +27,12 @@ def calculate_entropy(password: str) -> float:
     return len(password) * math.log2(charset_size) if charset_size else 0.0
 
 
-def check_password_strength(password: str, min_lenght: int, entropy_threshold: int) -> bool:
+def check_password_strength(password: str, min_length: int, entropy_threshold: int) -> bool:
     """""Evaluates password strength based on entropy and diversity.
 
     Args:
         password (str): The password to check.
-        min_lenght (int): Minimum length for the password to be considered strong.
+        min_length (int): Minimum length for the password to be considered strong.
         entropy_threshold (int): Minimum entropy required for the password to be considered strong.
 
     Returns:
@@ -41,7 +41,7 @@ def check_password_strength(password: str, min_lenght: int, entropy_threshold: i
     entropy: int = calculate_entropy(password)
 
     # Classifying password strength
-    if entropy >= entropy_threshold and len(password) >= min_lenght:
+    if entropy >= entropy_threshold and len(password) >= min_length:
         return True
     else:
         return False

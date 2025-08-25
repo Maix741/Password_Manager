@@ -12,7 +12,7 @@ from ..utils import generate_password, copy_string
 
 class PasswordGenerateDialog(QDialog):
     def __init__(self, styles_path: str, settings_handler, translator, parent=None,
-                 lenght_minimum=4, lenght_maximum_spinbox=64, lenght_maximum_slider=200, lenght_start_value=12):
+                 length_minimum=4, length_maximum_spinbox=64, length_maximum_slider=200, length_start_value=12):
         super(PasswordGenerateDialog, self).__init__(parent)
 
         logging.debug(f"Initializing password generator (GUI): {self}")
@@ -26,10 +26,10 @@ class PasswordGenerateDialog(QDialog):
         self.password_return: str = ""
         self.cancelled: bool = False
 
-        self.lenght_minimum: int = lenght_minimum
-        self.lenght_maximum_slider: int = lenght_maximum_slider
-        self.lenght_maximum_spinbox: int = lenght_maximum_spinbox
-        self.lenght_start_value: int = lenght_start_value
+        self.length_minimum: int = length_minimum
+        self.length_maximum_slider: int = length_maximum_slider
+        self.length_maximum_spinbox: int = length_maximum_spinbox
+        self.length_start_value: int = length_start_value
 
         QCoreApplication.installTranslator(self.translator.get_translator())
 
@@ -48,26 +48,26 @@ class PasswordGenerateDialog(QDialog):
         length_group.setLayout(length_layout)
 
         self.length_slider = QSlider(Qt.Horizontal)
-        self.length_slider.setMinimum(self.lenght_minimum)
-        self.length_slider.setMaximum(self.lenght_maximum_slider)
-        self.length_slider.setValue(self.lenght_start_value)
+        self.length_slider.setMinimum(self.length_minimum)
+        self.length_slider.setMaximum(self.length_maximum_slider)
+        self.length_slider.setValue(self.length_start_value)
         self.length_slider.setSingleStep(1)
         self.length_slider.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
-        self.lenght_spinbox = QSpinBox()
-        self.lenght_spinbox.setButtonSymbols(QAbstractSpinBox.NoButtons)
-        self.lenght_spinbox.setObjectName("lenghtSpinBox")
-        self.lenght_spinbox.setMinimum(self.lenght_minimum)
-        self.lenght_spinbox.setMaximum(self.lenght_maximum_spinbox)
-        self.lenght_spinbox.setValue(self.lenght_start_value)
+        self.length_spinbox = QSpinBox()
+        self.length_spinbox.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        self.length_spinbox.setObjectName("lengthSpinBox")
+        self.length_spinbox.setMinimum(self.length_minimum)
+        self.length_spinbox.setMaximum(self.length_maximum_spinbox)
+        self.length_spinbox.setValue(self.length_start_value)
 
         # Synchronize slider and spinbox
-        self.length_slider.valueChanged.connect(self.lenght_spinbox.setValue)
-        self.lenght_spinbox.valueChanged.connect(self.set_lenght_slider)
+        self.length_slider.valueChanged.connect(self.length_spinbox.setValue)
+        self.length_spinbox.valueChanged.connect(self.set_length_slider)
 
         length_layout.addWidget(QLabel(self.tr("Length:")))
         length_layout.addWidget(self.length_slider)
-        length_layout.addWidget(self.lenght_spinbox)
+        length_layout.addWidget(self.length_spinbox)
 
         main_layout.addWidget(length_group)
 
@@ -121,23 +121,23 @@ class PasswordGenerateDialog(QDialog):
     def set_style_sheet(self) -> None:
         self.setStyleSheet(load_stylesheets(self.styles_path, "generate_dialog", self.settings_handler.get_design()))
 
-    def set_lenght_slider(self, value: int) -> None:
-        if value <= self.lenght_maximum_slider:
+    def set_length_slider(self, value: int) -> None:
+        if value <= self.length_maximum_slider:
             self.length_slider.setValue(value)
-        elif value > self.lenght_maximum_slider:
+        elif value > self.length_maximum_slider:
             self.length_slider.blockSignals(True)
-            self.length_slider.setValue(self.lenght_maximum_slider)
+            self.length_slider.setValue(self.length_maximum_slider)
             self.length_slider.blockSignals(False)
 
     def generate_password(self) -> str:
-        lenght: int = self.lenght_spinbox.value()
+        length: int = self.length_spinbox.value()
         include_lower: bool = self.lowercase_checkbox.isChecked()
         include_upper: bool = self.uppercase_checkbox.isChecked()
         include_numbers: bool = self.numbers_checkbox.isChecked()
         include_special: bool = self.special_checkbox.isChecked()
 
         password: str = generate_password(
-            lenght,
+            length,
             include_lower,
             include_upper,
             include_numbers,

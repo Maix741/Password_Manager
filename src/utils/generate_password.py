@@ -6,15 +6,15 @@ from cryptography.fernet import Fernet
 
 
 class PasswordGenerator:
-    def new_password(self, lenght: int, include_lower: bool, include_upper: bool, include_numbers: bool, include_special: bool) -> str:
+    def new_password(self, length: int, include_lower: bool, include_upper: bool, include_numbers: bool, include_special: bool) -> str:
         possible_characters: list[str] = self.possible_characters(include_lower, include_upper, include_numbers, include_special)
 
-        if lenght < 3:
-            lenght = 3
+        if length < 3:
+            length = 3
 
         meets_criteria: bool = False
         while not meets_criteria:
-            password: list[str] = [random.choice(possible_characters) for _ in range(lenght)] # random.sample(possible_characters, lenght)
+            password: list[str] = [random.choice(possible_characters) for _ in range(length)] # random.sample(possible_characters, length)
             meets_criteria = self.meets_criteria(password, include_lower, include_upper, include_numbers, include_special)
             password: str = "".join(password)
 
@@ -60,14 +60,14 @@ def gen_fernet_key() -> bytes:
     return Fernet.generate_key()
 
 
-def generate_password(lenght: int, include_lower: bool, include_upper: bool, include_numbers: bool, include_special: bool) -> str:
+def generate_password(length: int, include_lower: bool, include_upper: bool, include_numbers: bool, include_special: bool) -> str:
     generator: PasswordGenerator = PasswordGenerator()
-    password: str = generator.new_password(lenght, include_lower, include_upper, include_numbers, include_special)
+    password: str = generator.new_password(length, include_lower, include_upper, include_numbers, include_special)
 
     return password
 
 
-def get_password_lenght(minimum: int = 0) -> int:
+def get_password_length(minimum: int = 0) -> int:
     number: str = input("Lenght of the password: ")
     while not number.isdigit() or int(number) < minimum:
         number: str = input(f"Please enter a number above {minimum}!: ")
@@ -77,10 +77,10 @@ def get_password_lenght(minimum: int = 0) -> int:
 
 def gen_password_cmd() -> str:
     logging.debug("Generating new password")
-    lenght: int = get_password_lenght()
+    length: int = get_password_length()
     include_lower: bool = input("Should the password include lowercase letters (y/n): ").lower().replace(" ", "") in ("y", "yes")
     include_upper: bool = input("Should the password include uppercase letters (y/n): ").lower().replace(" ", "") in ("y", "yes")
     include_numbers: bool = input("Should the password include numbers (y/n): ").lower().replace(" ", "") in ("y", "yes")
     include_special: bool = input("Should the password include special characters (y/n): ").lower().replace(" ", "") in ("y", "yes")
 
-    return generate_password(lenght, include_lower, include_upper, include_numbers, include_special)
+    return generate_password(length, include_lower, include_upper, include_numbers, include_special)

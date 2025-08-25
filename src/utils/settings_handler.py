@@ -69,9 +69,9 @@ class SettingsHandler:
         if not key == "password_constants":
             return self.constants.get(key.lower(), self.default_constants.get(key.lower(), None))
         return (
-            self.constants.get("password_min_lenght", self.default_constants.get("password_min_lenght", None)),
-            self.constants.get("password_max_lenght_spinbox", self.default_constants.get("password_max_lenght_spinbox", None)),
-            self.constants.get("password_max_lenght_slider", self.default_constants.get("password_max_lenght_slider", None)),
+            self.constants.get("password_min_length", self.default_constants.get("password_min_length", None)),
+            self.constants.get("password_max_length_spinbox", self.default_constants.get("password_max_length_spinbox", None)),
+            self.constants.get("password_max_length_slider", self.default_constants.get("password_max_length_slider", None)),
             self.constants.get("password_start_value", self.default_constants.get("password_start_value", None))
         )
 

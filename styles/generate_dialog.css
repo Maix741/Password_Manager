@@ -41,26 +41,26 @@ QPushButton #generateButton:hover #okButton:hover #cancelButton:hover {
     color: var(--text-white);
 }
 
-QSpinBox#lenghtSpinBox::up-arrow,
-QSpinBox#lenghtSpinBox::down-arrow {
+QSpinBox#lengthSpinBox::up-arrow,
+QSpinBox#lengthSpinBox::down-arrow {
     width: 0px;
     height: 0px;
 }
-QSpinBox#lenghtSpinBox::up-button {
+QSpinBox#lengthSpinBox::up-button {
     border: var(--border-radius) solid transparent;
     border-radius: var(--border-radius-small);
     background-color: var(--bg-input);
     width: 20px;
 
 }
-QSpinBox#lenghtSpinBox::down-button {
+QSpinBox#lengthSpinBox::down-button {
     border: var(--border-width) solid transparent;
     border-radius: var(--border-radius-small);
     background-color: var(--bg-input);
     width: 0px;
 }
 
-QSpinBox#lenghtSpinBox {
+QSpinBox#lengthSpinBox {
     background: var(--bg-input);
     color: var(--text-main);
     border: var(--border-width) solid var(--border-color-grey);
@@ -69,7 +69,7 @@ QSpinBox#lenghtSpinBox {
     font-size: var(--font-size-medium);
     width: auto;
 }
-QSpinBox#lenghtSpinBox:focus {
+QSpinBox#lengthSpinBox:focus {
     border-color: var(--bg-accent);
 }
 

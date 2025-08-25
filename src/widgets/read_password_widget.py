@@ -21,7 +21,7 @@ class ReadPasswordWidget(QWidget):
                  translations_handler,
                  string_copyer,
                  parent: QWidget | None = None,
-                 timer_lenght: int = 120000
+                 timer_length: int = 120000
                  ) -> None:
         super(ReadPasswordWidget, self).__init__(parent)
 
@@ -55,7 +55,7 @@ class ReadPasswordWidget(QWidget):
         # timeout in the reading window
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.return_to_list)
-        self.timer.start(timer_lenght)
+        self.timer.start(timer_length)
 
     def init_ui(self) -> None:
         # Main layout for the card with some margins.

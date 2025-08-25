@@ -393,7 +393,7 @@ class ManagerGUI(QMainWindow):
                 translations_handler=self.translation_handler,
                 string_copyer=copy_string,
                 parent=self,
-                timer_lenght=self.settings_handler.get_constant("inactivity_timer_lenght")
+                timer_length=self.settings_handler.get_constant("inactivity_timer_length")
                 )
 
             self.load_widget(password_card, modify_password)
@@ -500,7 +500,7 @@ class ManagerGUI(QMainWindow):
                 assets_path=self.assets_path,
                 passwords_path=self.passwords_path,
                 translations_handler=self.translation_handler,
-                constants=(self.settings_handler.get_constant("password_min_lenght"),
+                constants=(self.settings_handler.get_constant("password_min_length"),
                            self.settings_handler.get_constant("entropy_threshold")
                            ),
                 parent=self
