@@ -87,12 +87,12 @@ class ReadPasswordWidget(QWidget):
         header_layout.addStretch()
         grid_layout.addLayout(header_layout, 0, 0, 1, 2)
 
-        # Add vertical spacing after this row
+        # Row 1: vertical spacing
         spacer_1 = QSpacerItem(0, 30, QSizePolicy.Minimum, QSizePolicy.Fixed)
-        # grid_layout.addItem(spacer_1, 1, 0, 1, 3)
+        grid_layout.addItem(spacer_1, 1, 0, 1, 2)
 
 
-        # Row 1(column 0): Username
+        # Row 2(column 0): Username
         username_layout = QVBoxLayout()
         label_username = QLabel(self.tr("Username:"))
         username_layout.addWidget(label_username, alignment=Qt.AlignmentFlag.AlignLeft)
@@ -110,7 +110,7 @@ class ReadPasswordWidget(QWidget):
         self.copy_username_action.triggered.connect(self.copy_username)
 
         username_layout.addWidget(self.username_edit)
-        grid_layout.addLayout(username_layout, 1, 0)
+        grid_layout.addLayout(username_layout, 2, 0)
 
 
         # Row 3(column 0): Password
@@ -147,13 +147,13 @@ class ReadPasswordWidget(QWidget):
         grid_layout.addItem(QSpacerItem(15, 0, QSizePolicy.Minimum, QSizePolicy.Fixed), 1, 1)
 
 
-        # Row 1(column 2): Websites
+        # Row 2(column 2): Websites
         self.website_layout = QVBoxLayout()
         label_websites = QLabel(self.tr("Websites:"))
         self.website_layout.addWidget(label_websites, alignment=Qt.AlignmentFlag.AlignLeft)
 
         self.add_website_label(True, False)
-        grid_layout.addLayout(self.website_layout, 1, 2)
+        grid_layout.addLayout(self.website_layout, 2, 2)
 
         # Row 3(column 2): Notes
         notes_layout = QVBoxLayout()
