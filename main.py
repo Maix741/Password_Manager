@@ -97,6 +97,7 @@ def cmd_main() -> None:
             running: bool = not get_input(manager)
         except KeyboardInterrupt:
             manager.reset_console()
+            running = False
 
 
 if __name__ == "__main__":
