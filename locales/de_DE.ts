@@ -260,14 +260,12 @@ Bitte versuchen sie es später erneut.</translation>
         <translation>Beim Umbenennen des Passworts ist ein Fehler passiert. Schau dir das Protokoll für Details an.</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="404"/>
         <source>Read Error</source>
-        <translation>Lesen Error</translation>
+        <translation type="vanished">Lesen Error</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="406"/>
         <source>An error occurred while reading the password. Please check the log for details.</source>
-        <translation>Beim Lesen des Passworts ist ein Error entstanden.
+        <translation type="vanished">Beim Lesen des Passworts ist ein Error entstanden.
 Bitte versuchen sie es später erneut.</translation>
     </message>
     <message>

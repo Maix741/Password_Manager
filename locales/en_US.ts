@@ -259,14 +259,12 @@ If you continue it will be lost</translation>
         <translation>An error occurred while renaming the password. Please check the log for details.</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="404"/>
         <source>Read Error</source>
-        <translation>Read Error</translation>
+        <translation type="vanished">Read Error</translation>
     </message>
     <message>
-        <location filename="../src/manager_gui.py" line="406"/>
         <source>An error occurred while reading the password. Please check the log for details.</source>
-        <translation>An error occurred while reading the password. Please check the log for details.</translation>
+        <translation type="vanished">An error occurred while reading the password. Please check the log for details.</translation>
     </message>
     <message>
         <location filename="../src/manager_gui.py" line="450"/>

@@ -400,10 +400,10 @@ class ManagerGUI(QMainWindow):
 
         except Exception as e:
             logging.warning(f"Invalid key or name for reading: {e}")
-            self.show_error(
-                self.tr("Read Error"),
-                self.tr("An error occurred while reading the password. Please check the log for details.")
-            )
+            # self.show_error(
+            #     self.tr("Read Error"),
+            #     self.tr("An error occurred while reading the password. Please check the log for details.")
+            # )
 
     def change_to_add_card(self) -> None:
         def add_password(password: dict[str, str]) -> None:
