@@ -6,8 +6,8 @@ from cryptography.fernet import Fernet
 
 
 class PasswordGenerator:
-    def new_password(self, lenght: int, include_letters: bool = True, include_numbers: bool = True, include_special: bool = True) -> str:
-        possible_characters: list[str] = self.possible_characters(include_letters, include_numbers, include_special)
+    def new_password(self, lenght: int, include_lower: bool, include_upper: bool, include_numbers: bool, include_special: bool) -> str:
+        possible_characters: list[str] = self.possible_characters(include_lower, include_upper, include_numbers, include_special)
 
         if lenght < 3:
             lenght = 3
@@ -15,42 +15,54 @@ class PasswordGenerator:
         meets_criteria: bool = False
         while not meets_criteria:
             password: list[str] = [random.choice(possible_characters) for _ in range(lenght)] # random.sample(possible_characters, lenght)
-            meets_criteria = self.meets_criteria(password, include_letters, include_numbers, include_special)
+            meets_criteria = self.meets_criteria(password, include_lower, include_upper, include_numbers, include_special)
             password: str = "".join(password)
 
         return password
 
-    def possible_characters(self, include_Letters: bool, include_Numbers: bool, include_Special: bool) -> str:
+    def possible_characters(self, include_lower: bool, include_upper: bool, include_numbers: bool, include_special: bool) -> list[str]:
         possible_characters: list[str] = []
-        self.letters: list[str] = [s for s in string.ascii_letters * 3]
+
+        if include_lower and not include_upper: 
+            self.letters_lowercase: list[str] = [s for s in string.ascii_lowercase * 3]
+        elif include_upper and not include_lower:
+            self.letters_uppercase: list[str] = [s for s in string.ascii_uppercase * 3]
+        else:
+            self.letters_lowercase: list[str] = [s for s in string.ascii_lowercase]
+            self.letters_uppercase: list[str] = [s for s in string.ascii_uppercase]
+
         self.numbers: list[str] = [s for s in string.digits * 2]
         self.special: list[str] = [s for s in r"""!"#$%&()*+-/<=>?@[\]^_{|}~"""]
 
-        if include_Letters: possible_characters += self.letters
-        if include_Numbers: possible_characters += self.numbers
-        if include_Special: possible_characters += self.special
+        if include_lower: possible_characters += self.letters_lowercase
+        if include_upper: possible_characters += self.letters_uppercase
+        if include_numbers: possible_characters += self.numbers
+        if include_special: possible_characters += self.special
 
-        return possible_characters if possible_characters else self.letters
+        return possible_characters if possible_characters else (self.letters_lowercase + self.letters_uppercase)
 
-    def meets_criteria(self, password: list[str], include_letters: bool, include_numbers: bool, include_special: bool) -> bool:
-        has_letter: bool = (not include_letters) or (any(map(lambda x: x in self.letters, password)))
+    def meets_criteria(self, password: list[str],
+                       include_lower: bool, include_upper: bool,
+                       include_numbers: bool, include_special: bool) -> bool:
+        has_lower: bool = (not include_lower) or (any(map(lambda x: x in self.letters_lowercase, password)))
+        has_upper: bool = (not include_upper) or (any(map(lambda x: x in self.letters_uppercase, password)))
         has_number: bool = (not include_numbers) or (any(map(lambda x: x in self.numbers, password)))
         has_special: bool = (not include_special) or (any(map(lambda x: x in self.special, password)))
     
-        return all([has_letter, has_number, has_special])
+        return all([has_lower, has_upper, has_number, has_special])
 
 
 def gen_aes_key() -> str:
-    return generate_password(32, True, True, True)
+    return generate_password(32, True, True, True, True)
 
 
 def gen_fernet_key() -> bytes:
     return Fernet.generate_key()
 
 
-def generate_password(lenght: int, include_letters: bool, include_numbers: bool, include_special: bool) -> str:
+def generate_password(lenght: int, include_lower: bool, include_upper: bool, include_numbers: bool, include_special: bool) -> str:
     generator: PasswordGenerator = PasswordGenerator()
-    password: str = generator.new_password(lenght, include_letters, include_numbers, include_special)
+    password: str = generator.new_password(lenght, include_lower, include_upper, include_numbers, include_special)
 
     return password
 
@@ -66,8 +78,9 @@ def get_password_lenght(minimum: int = 0) -> int:
 def gen_password_cmd() -> str:
     logging.debug("Generating new password")
     lenght: int = get_password_lenght()
-    include_letters: bool = input("Should the password include letters (y/n): ").lower().replace(" ", "") in ("y", "yes")
+    include_lower: bool = input("Should the password include lowercase letters (y/n): ").lower().replace(" ", "") in ("y", "yes")
+    include_upper: bool = input("Should the password include uppercase letters (y/n): ").lower().replace(" ", "") in ("y", "yes")
     include_numbers: bool = input("Should the password include numbers (y/n): ").lower().replace(" ", "") in ("y", "yes")
     include_special: bool = input("Should the password include special characters (y/n): ").lower().replace(" ", "") in ("y", "yes")
 
-    return generate_password(lenght, include_letters, include_numbers, include_special)
+    return generate_password(lenght, include_lower, include_upper, include_numbers, include_special)

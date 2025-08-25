@@ -420,37 +420,46 @@ Bitte versuchen sie es erneut </translation>
         <translation>Optionen</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="79"/>
         <source>Include Letters</source>
-        <translation>Buchstaben</translation>
+        <translation type="vanished">Buchstaben</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="81"/>
+        <location filename="../src/widgets/generate_dialog.py" line="79"/>
+        <source>Include Lowercase</source>
+        <translation>Kleinbuchstaben einschließen</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/generate_dialog.py" line="83"/>
+        <source>Include Uppercase</source>
+        <translation>Großbuchstaben einschließen</translation>
+    </message>
+    <message>
+        <location filename="../src/widgets/generate_dialog.py" line="87"/>
         <source>Include Numbers</source>
         <translation>Nummern</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="83"/>
+        <location filename="../src/widgets/generate_dialog.py" line="91"/>
         <source>Include Special Characters</source>
         <translation>Spezielle Charactere</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="95"/>
+        <location filename="../src/widgets/generate_dialog.py" line="100"/>
         <source>Generated Password:</source>
         <translation>Generiertes Passwort:</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="100"/>
+        <location filename="../src/widgets/generate_dialog.py" line="105"/>
         <source>Generate</source>
         <translation>Generieren</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="103"/>
+        <location filename="../src/widgets/generate_dialog.py" line="108"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/widgets/generate_dialog.py" line="106"/>
+        <location filename="../src/widgets/generate_dialog.py" line="111"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>

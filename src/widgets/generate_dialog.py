@@ -76,15 +76,20 @@ class PasswordGenerateDialog(QDialog):
         options_layout = QVBoxLayout()
         options_group.setLayout(options_layout)
 
-        self.letters_checkbox = QCheckBox(self.tr("Include Letters"))
-        self.letters_checkbox.setChecked(True)
+        self.lowercase_checkbox = QCheckBox(self.tr("Include Lowercase"))
+        self.lowercase_checkbox.setChecked(True)
+        options_layout.addWidget(self.lowercase_checkbox)
+
+        self.uppercase_checkbox = QCheckBox(self.tr("Include Uppercase"))
+        self.uppercase_checkbox.setChecked(True)
+        options_layout.addWidget(self.uppercase_checkbox)
+
         self.numbers_checkbox = QCheckBox(self.tr("Include Numbers"))
         self.numbers_checkbox.setChecked(True)
+        options_layout.addWidget(self.numbers_checkbox)
+
         self.special_checkbox = QCheckBox(self.tr("Include Special Characters"))
         self.special_checkbox.setChecked(True)
-
-        options_layout.addWidget(self.letters_checkbox)
-        options_layout.addWidget(self.numbers_checkbox)
         options_layout.addWidget(self.special_checkbox)
 
         main_layout.addWidget(options_group)
@@ -126,13 +131,15 @@ class PasswordGenerateDialog(QDialog):
 
     def generate_password(self) -> str:
         lenght: int = self.lenght_spinbox.value()
-        include_letters: bool = self.letters_checkbox.isChecked()
+        include_lower: bool = self.lowercase_checkbox.isChecked()
+        include_upper: bool = self.uppercase_checkbox.isChecked()
         include_numbers: bool = self.numbers_checkbox.isChecked()
         include_special: bool = self.special_checkbox.isChecked()
 
         password: str = generate_password(
             lenght,
-            include_letters,
+            include_lower,
+            include_upper,
             include_numbers,
             include_special
         )
