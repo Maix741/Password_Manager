@@ -1,15 +1,25 @@
 import os
 
 from .get_website_for_password import get_website_for_password
+from .transform_website import transform_website
 
 
 def search_passwords(data_path: str, search_query: str) -> list[str]:
+    """Searches for passwords matching the search_query in both password names and associated websites.
+
+    Args:
+        data_path (str): The path to the directory containing password data.
+        search_query (str): The query string to search for.
+
+    Returns:
+        list[str]: A list of password names that match the search query in either their name or associated website.
+    """
     if not search_query: return []
     passwords_path: str = os.path.join(data_path, "passwords")
     passwords: list[str] = [password for password in os.listdir(passwords_path)]
     websites: list[str] = [get_website_for_password(passwords_path, password) for password in passwords]
 
-    websites = [website.split(".")[1] if "." in website else website for website in websites]
+    websites: list[str] = [transform_website(website) for website in websites]
 
     full_result: tuple[list[bool]] = search_in_multiple_lists(passwords, websites, search_query=search_query)
     combined_result: list[bool] = combine_lists(*full_result)
@@ -21,7 +31,7 @@ def search_passwords(data_path: str, search_query: str) -> list[str]:
     return result
 
 
-def combine_lists(list1, list2):
+def combine_lists(list1: list[str], list2: list[str]) -> list[bool]:
     """
     Combines two boolean lists into one, where a True in either list results in True in the combined list.
 
@@ -42,7 +52,7 @@ def combine_lists(list1, list2):
     return combined_list
 
 
-def search_in_multiple_lists(*lists_to_search, search_query: str) -> tuple[list[bool]]:
+def search_in_multiple_lists(*lists_to_search: tuple[list[str]], search_query: str) -> tuple[list[bool]]:
     result: list[list[bool]] = []
     for list_to_search in lists_to_search:
         result.append(search_in_list(list_to_search, search_query))
