@@ -26,6 +26,13 @@ def is_dark_mode() -> bool:
         ).decode().strip().strip("'").lower()
         if "dark" in theme:
             return True
+
+        theme = subprocess.check_output(
+            ["gsettings", "get", "org.gnome.desktop.interface", "color-sheme"],
+            stderr=subprocess.DEVNULL
+        ).decode().strip().strip("'").lower()
+        if "dark" in theme:
+            return True
     except Exception:
         pass
 
