@@ -42,6 +42,9 @@ def is_dark_mode() -> bool:
         if os.path.exists(kdeglobals):
             with open(kdeglobals, "r") as f:
                 for line in f:
+                    if line.strip().startswith("LookAndFeelPackage=") and "dark" in line.lower():
+                        return True
+
                     if line.strip().startswith("ColorScheme=") and "dark" in line.lower():
                         return True
     except Exception:
